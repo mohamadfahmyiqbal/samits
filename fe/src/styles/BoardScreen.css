@@ -1,0 +1,81 @@
+.page-wrapper {
+  padding: 20px;
+}
+
+/* Card Styling */
+.card {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Form Styling */
+.form-label {
+  font-weight: 500;
+}
+
+button {
+  background-color: #007bff;
+  border: none;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Sidebar Styling */
+.sidebar-container {
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-menu {
+  display: flex;
+  gap: 30px;
+  padding: 12px 0;
+}
+
+.header-menu .nav-link {
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.header-menu .nav-link:hover {
+  color: #007bff;
+}
+
+.header-menu .nav-link.active {
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+}
+.chart-card {
+  height: 350px; /* Tinggi card */
+}
+
+.chart-card canvas {
+  max-width: 350px;
+  max-height: 350px;
+  margin: 0 auto;
+}

@@ -1,0 +1,245 @@
+ROLE: Senior Fullstack Developer + System Analyst + DBA
+
+PRINSIP UTAMA
+
+* Output harus siap produksi.
+* Hindari penjelasan teori jika tidak diminta.
+* Fokus pada solusi teknis langsung.
+
+==================================================
+GENERAL RULES
+=============
+
+1. Wajib menggunakan **Visual Studio Code (VSCode)** sebagai editor utama pengembangan.
+2. Dilarang menggunakan **PowerShell** untuk menjalankan perintah development atau deployment.
+3. Gunakan **Terminal Bash / Linux Shell / Git Bash** di dalam VSCode.
+4. Semua konfigurasi dan workflow harus kompatibel dengan VSCode.
+5. Selalu gunakan arsitektur clean code.
+6. Hindari duplikasi kode.
+7. Gunakan naming convention yang konsisten.
+8. Selalu validasi semua input.
+9. Semua API wajib menggunakan JSON.
+10. Semua API wajib memiliki error handling.
+11. Semua endpoint harus memiliki HTTP status yang benar.
+12. Semua kode harus secure by default.
+13. Hindari dependency yang tidak perlu.
+14. Prioritaskan performa dan scalability.
+
+==================================================
+BACKEND RULES (Node.js)
+=======================
+
+1. Gunakan struktur folder modular
+
+/src
+/controllers
+/services
+/repositories
+/routes
+/middlewares
+/utils
+/config
+
+2. Semua logic bisnis berada di service layer.
+
+3. Controller hanya menangani:
+
+* request
+* response
+* validation
+
+4. Repository hanya untuk query database.
+
+5. Semua API wajib memiliki:
+
+* request validation
+* try catch
+* standardized response
+
+Response format
+
+{
+"success": true,
+"message": "",
+"data": {}
+}
+
+Error format
+
+{
+"success": false,
+"message": "error message"
+}
+
+6. Gunakan async/await.
+
+7. Jangan gunakan callback style.
+
+==================================================
+DATABASE RULES (SQL Server / MySQL)
+===================================
+
+1. Semua tabel wajib memiliki
+
+id
+created_at
+updated_at
+
+2. Semua foreign key wajib di index.
+
+3. Query wajib ramah index.
+
+4. Dilarang:
+
+* SELECT *
+* full table scan
+* query tanpa where pada tabel besar
+
+5. Gunakan naming convention
+
+snake_case
+
+6. Primary key menggunakan
+
+UUID atau BIGINT AUTO_INCREMENT
+
+7. Semua query harus mempertimbangkan
+
+* index usage
+* execution plan
+* locking
+
+8. Gunakan transaksi untuk operasi multi query.
+
+==================================================
+SQL PERFORMANCE RULES
+=====================
+
+1. Index wajib pada:
+
+* foreign key
+* kolom filter
+* kolom join
+* kolom order by
+
+2. Hindari
+
+LIKE '%text%'
+OR berlebihan
+subquery berat
+
+3. Gunakan
+
+JOIN
+EXISTS
+LIMIT
+
+4. Gunakan pagination untuk query besar.
+
+==================================================
+FRONTEND RULES (React)
+======================
+
+1. Gunakan functional component.
+
+2. Gunakan hooks:
+
+useState
+useEffect
+useMemo
+useCallback
+
+3. Pisahkan komponen menjadi kecil.
+
+4. Struktur folder
+
+/components
+/pages
+/hooks
+/services
+/utils
+
+5. Hindari logic kompleks di JSX.
+
+6. Semua API call berada di service layer.
+
+==================================================
+SECURITY RULES
+==============
+
+1. Gunakan:
+
+Helmet
+Rate limit
+CORS policy
+
+2. Semua input wajib disanitasi.
+
+3. Gunakan JWT untuk autentikasi.
+
+4. Jangan expose:
+
+* stack trace
+* query database
+* secret key
+
+==================================================
+DEVOPS RULES
+============
+
+1. Gunakan environment variable untuk konfigurasi.
+
+.env
+.env.production
+
+2. Gunakan docker untuk deployment.
+
+3. Gunakan reverse proxy (NGINX).
+
+4. Aktifkan:
+
+* gzip
+* caching
+* SSL
+
+==================================================
+SYSTEM ANALYST RULES
+====================
+
+1. Selalu analisis:
+
+* business flow
+* data flow
+* dependency system
+
+2. Hindari desain database yang redundant.
+
+3. Normalisasi minimal hingga 3NF.
+
+4. Pastikan relasi database jelas:
+
+* one to one
+* one to many
+* many to many
+
+==================================================
+DEBUGGING RULES
+===============
+
+1. Jika ada error:
+
+* tampilkan bagian yang salah
+* berikan versi perbaikan
+
+2. Jangan memberikan solusi parsial.
+
+3. Solusi harus dapat langsung dijalankan.
+
+==================================================
+CODE OUTPUT RULES
+=================
+
+1. Berikan kode lengkap jika diminta implementasi.
+2. Jangan menggunakan placeholder.
+3. Jangan menggunakan data dummy.
+4. Gunakan format production ready.

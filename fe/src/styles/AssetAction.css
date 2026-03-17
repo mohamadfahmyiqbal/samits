@@ -1,0 +1,30 @@
+/* src/styles/AssetAction.css */
+.asset-action {
+  display: flex;
+  gap: 0.5rem; /* jarak antar ikon */
+  justify-content: center;
+  align-items: center;
+}
+
+.asset-action svg {
+  cursor: pointer;
+  font-size: 1.2rem; /* ukuran ikon */
+  transition: transform 0.2s, color 0.2s;
+}
+
+.asset-action svg:hover {
+  transform: scale(1.2); /* efek zoom saat hover */
+  opacity: 0.8;
+}
+
+.asset-action .detail-icon {
+  color: #0d6efd; /* biru bootstrap */
+}
+
+.asset-action .update-icon {
+  color: orange;
+}
+
+.asset-action .delete-icon {
+  color: red;
+}

@@ -1,0 +1,8 @@
+POST https://pik1com012.local.ikoito.co.id:5002/api/users/login  HTTP/1.1
+Content-Type: application/json
+x-access-token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWsiOiIxODAzMDcwIiwiaWF0IjoxNjc4NjczOTU5LCJleHAiOjE2Nzg3NjAzNTl9.ZyNhXbbvzMHfxw9DrpIgU0TelFwBhb0mZZbFpJCLgiI
+
+{
+ "nik" : "2304024",
+ "password": "2304024"
+}

@@ -1,0 +1,100 @@
+samit-cmms-backend/
+├── node_modules/               
+|
+├── config/                     # Pengaturan Global & Database
+│   ├── config.js               # Konfigurasi Sequelize CLI (Development, Production)
+│   └── database.js             # Skrip Inisialisasi Koneksi Database
+|
+controllers/
+├── asset/
+│   └── asset.controller.js
+├── workorder/
+│   └── workorder.controller.js
+├── inventory/
+│   └── inventory.controller.js
+├── itam/
+│   └── itam.controller.js
+└── user/
+    └── user.controller.js
+|
+├── middleware/                 # Middleware (Fungsi Pra-Controller)
+│   ├── auth.middleware.js      # Verifikasi Token JWT
+│   └── validator.middleware.js # Validasi Skema Data Input
+|
+├──models/
+├── index.js                     # ⬅️ File PUSAT: Mengatur koneksi dan semua asosiasi (relasi)
+│
+├── 1_user_management/           # Grup 1: Pengguna & Organisasi
+│   ├── User.js
+│   ├── Role.js
+│   ├── UserRole.js              # Tabel Penghubung Many-to-Many
+│   └── Department.js
+│
+├── 2_eam_core/                  # Grup 2: Aset Fisik & Lokasi
+│   ├── Asset.js
+│   ├── Location.js
+│   ├── Category.js
+│   ├── Vendor.js
+│   └── AssetLifecycle.js
+│
+├── 3_maintenance_flow/          # Grup 3: Pemeliharaan & Work Order
+│   ├── MaintenancePlan.js
+│   ├── PlanTask.js
+│   ├── Breakdown.js
+│   ├── MeterReading.js
+│   ├── WorkOrder.js
+│   ├── WOAssignment.js
+│   ├── WOTimeline.js
+│   ├── WOTaskResult.js
+│   └── WOSignature.js
+│
+├── 4_inventory_tools/           # Grup 4: Inventaris, Suku Cadang, & Tools
+│   ├── Warehouse.js
+│   ├── SparePart.js
+│   ├── WarehouseStock.js        # Tabel Penghubung Stok
+│   ├── InventoryTransaction.js
+│   ├── AdjustmentReason.js
+│   ├── PartsUsage.js
+│   ├── Tool.js
+│   ├── ToolTransaction.js
+│   └── ToolAssignment.js
+│
+├── 5_itam_management/           # Grup 5: Aset IT & Lisensi
+│   ├── ITCategory.js
+│   ├── ITItem.js
+│   ├── ITItemAssignment.js
+│   ├── ITItemStatusHistory.js
+│   ├── ITItemAttribute.js
+│   ├── SoftwareLicense.js
+│   ├── LicenseAllocation.js
+│   └── SecurityEvent.js
+│
+└── 6_general_utility/           # Grup 6: Utilitas Umum
+    ├── Attachment.js
+    └── AuditLog.js
+|
+├── routes/                     # Lapisan Routing (Definisi URL Endpoint)
+│   ├── index.js                # Index Route Utama (/api)
+│   ├── asset.routes.js
+│   ├── workorder.routes.js
+│   ├── inventory.routes.js
+│   ├── itam.routes.js
+│   └── user.routes.js
+|
+├── services/                   # Lapisan Logika Bisnis (Service: Transaksi & Logika Kompleks)
+│   ├── asset.service.js
+│   ├── workorder.service.js
+│   ├── inventory.service.js
+│   └── user.service.js
+|
+├── utils/                      # Fungsi Helper dan Utilitas
+│   ├── errorHandler.js         
+│   └── jwtHelper.js            
+|
+├── migrations/                 # File Migrasi Database (Sequelize CLI)
+├── seeders/                    # Data Awal (Seeder) Database
+|
+├── app.js                      # Setup Express dan Middleware Dasar
+├── server.js                   # Entry Point (Menjalankan Server)
+├── .env                        # Variabel Lingkungan
+└── package.json
