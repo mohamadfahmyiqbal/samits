@@ -1,0 +1,26 @@
+### Test SAMIT Backend API
+### Server: https://localhost:5002
+
+### 1. Test Server Status
+GET https://localhost:5002/api/users/login
+Accept: application/json
+
+### 2. Import Excel File
+POST https://localhost:5002/api/assets/import-excel
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="UPDATE ASET FEB 2026 Rev01.xlsx"
+Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+
+< /path/to/UPDATE ASET FEB 2026 Rev01.xlsx >
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="debug"
+
+1
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### 3. List Assets (Requires Auth)
+GET https://localhost:5002/api/assets
+Authorization: Bearer YOUR_JWT_TOKEN
+Accept: application/json

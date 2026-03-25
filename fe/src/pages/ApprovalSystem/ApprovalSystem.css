@@ -1,0 +1,300 @@
+.approval-system {
+  padding: 24px;
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #1890ff;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin: 8px 0 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.tab-navigation {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+.tab-navigation .ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.ant-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.approval-detail h4 {
+  margin: 16px 0 8px 0;
+  color: #1890ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.approval-detail h4:first-child {
+  margin-top: 0;
+}
+
+.approval-detail p {
+  margin: 4px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.approval-detail strong {
+  color: #262626;
+  font-weight: 500;
+}
+
+.approval-steps {
+  margin-top: 12px;
+}
+
+.ant-steps {
+  margin-bottom: 0;
+}
+
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon {
+  background-color: #52c41a;
+  border-color: #52c41a;
+}
+
+.ant-steps-item-error .ant-steps-item-icon {
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.ant-steps-item-wait .ant-steps-item-icon {
+  background-color: #f0f0f0;
+  border-color: #d9d9d9;
+}
+
+.request-details {
+  margin-bottom: 24px;
+}
+
+.approval-history {
+  margin-top: 24px;
+}
+
+.approval-history h4 {
+  margin: 0 0 16px 0;
+  color: #1890ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.timeline-content {
+  padding: 8px 0;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.timeline-header strong {
+  color: #262626;
+  font-weight: 600;
+}
+
+.timeline-content p {
+  margin: 2px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.timeline-content strong {
+  color: #262626;
+  font-weight: 500;
+}
+
+.ant-timeline {
+  margin-top: 16px;
+}
+
+.ant-timeline-item-head {
+  border: 2px solid;
+}
+
+.ant-timeline-item-content {
+  margin-left: 20px;
+}
+
+.ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ant-modal-content {
+  border-radius: 8px;
+}
+
+.ant-modal-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.ant-modal-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-form-item-label > label {
+  font-weight: 500;
+  color: #262626;
+}
+
+.ant-input, .ant-select-selector, .ant-picker {
+  border-radius: 6px;
+}
+
+.ant-input:focus, .ant-select-focused .ant-select-selector, .ant-picker:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.ant-alert {
+  border-radius: 6px;
+}
+
+.ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ant-badge {
+  font-size: 12px;
+}
+
+.ant-badge-count {
+  background-color: #52c41a;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.ant-divider {
+  border-color: #f0f0f0;
+  margin: 24px 0;
+}
+
+.ant-tooltip {
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .tab-navigation {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
+  .tab-navigation .ant-btn {
+    flex: 1;
+    min-width: 80px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .approval-detail .ant-col {
+    margin-bottom: 16px;
+  }
+  
+  .timeline-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .ant-timeline-item-content {
+    margin-left: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .approval-system {
+    padding: 16px;
+  }
+  
+  .page-header h1 {
+    font-size: 24px;
+  }
+  
+  .tab-navigation {
+    padding: 12px;
+  }
+  
+  .ant-table-scroll-container {
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,286 @@
+.berita-acara {
+  padding: 24px;
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #1890ff;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin: 8px 0 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.table-header {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ant-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.berita-acara-detail h4 {
+  margin: 16px 0 8px 0;
+  color: #1890ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.berita-acara-detail h4:first-child {
+  margin-top: 0;
+}
+
+.berita-acara-detail p {
+  margin: 4px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.berita-acara-detail strong {
+  color: #262626;
+  font-weight: 500;
+}
+
+.asset-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.asset-table th,
+.asset-table td {
+  border: 1px solid #d9d9d9;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.asset-table th {
+  background-color: #fafafa;
+  font-weight: 600;
+  color: #262626;
+}
+
+.asset-table td {
+  font-size: 13px;
+}
+
+.berita-acara-preview {
+  padding: 20px;
+  background: #fff;
+  min-height: 600px;
+  font-family: 'Times New Roman', serif;
+}
+
+.document-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.company-info h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.company-info p {
+  margin: 4px 0;
+  font-size: 12px;
+}
+
+.document-title {
+  margin-top: 20px;
+}
+
+.document-title h3 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.document-title h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.document-info {
+  margin-bottom: 20px;
+}
+
+.document-info p {
+  margin: 4px 0;
+  font-size: 12px;
+}
+
+.document-content {
+  margin-bottom: 30px;
+}
+
+.document-content h5 {
+  margin: 16px 0 8px 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.document-witnesses {
+  margin-top: 40px;
+}
+
+.signature-box {
+  width: 100%;
+  height: 60px;
+  border: 1px dashed #d9d9d9;
+  border-radius: 4px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 12px;
+}
+
+.ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ant-modal-content {
+  border-radius: 8px;
+}
+
+.ant-modal-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.ant-modal-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-form-item-label > label {
+  font-weight: 500;
+  color: #262626;
+}
+
+.ant-input, .ant-select-selector, .ant-picker {
+  border-radius: 6px;
+}
+
+.ant-input:focus, .ant-select-focused .ant-select-selector, .ant-picker:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.ant-alert {
+  border-radius: 6px;
+}
+
+.ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ant-typography h3,
+.ant-typography h4,
+.ant-typography h5 {
+  color: #262626;
+}
+
+.ant-typography p {
+  color: #262626;
+  line-height: 1.6;
+}
+
+.ant-divider {
+  border-color: #f0f0f0;
+}
+
+@media print {
+  .berita-acara-preview {
+    padding: 0;
+    background: #fff;
+  }
+  
+  .ant-modal-footer {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .berita-acara-preview {
+    padding: 10px;
+  }
+  
+  .document-witnesses .ant-col {
+    margin-bottom: 20px;
+  }
+  
+  .asset-table {
+    font-size: 11px;
+  }
+  
+  .asset-table th,
+  .asset-table td {
+    padding: 4px 6px;
+  }
+}

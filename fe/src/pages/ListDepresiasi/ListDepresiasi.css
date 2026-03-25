@@ -1,0 +1,228 @@
+.list-depresiasi {
+  padding: 24px;
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #1890ff;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin: 8px 0 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.filter-section {
+  padding: 16px;
+  background: #fafafa;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.ant-form-inline .ant-form-item {
+  margin-right: 16px;
+  margin-bottom: 0;
+}
+
+.ant-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.depreciation-detail h4 {
+  margin: 16px 0 8px 0;
+  color: #1890ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.depreciation-detail h4:first-child {
+  margin-top: 0;
+}
+
+.depreciation-detail p {
+  margin: 4px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.depreciation-detail strong {
+  color: #262626;
+  font-weight: 500;
+}
+
+.depreciation-progress {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.depreciation-progress h4 {
+  margin: 0 0 16px 0;
+  color: #1890ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ant-card .ant-statistic {
+  text-align: center;
+}
+
+.ant-card .ant-statistic-title {
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ant-card .ant-statistic-content {
+  color: #262626;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.ant-modal-content {
+  border-radius: 8px;
+}
+
+.ant-modal-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.ant-modal-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-form-item-label > label {
+  font-weight: 500;
+  color: #262626;
+}
+
+.ant-input, .ant-select-selector, .ant-picker {
+  border-radius: 6px;
+}
+
+.ant-input:focus, .ant-select-focused .ant-select-selector, .ant-picker:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+.ant-btn-danger {
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.ant-btn-danger:hover, .ant-btn-danger:focus {
+  background-color: #ff7875;
+  border-color: #ff7875;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.ant-alert {
+  border-radius: 6px;
+}
+
+.ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ant-progress-bg {
+  border-radius: 4px;
+}
+
+.ant-tooltip {
+  font-size: 12px;
+}
+
+.ant-statistic-content-prefix {
+  margin-right: 4px;
+}
+
+.ant-statistic-content-suffix {
+  margin-left: 4px;
+}
+
+@media (max-width: 1200px) {
+  .ant-table-scroll-container {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-section .ant-form-inline .ant-form-item {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+  
+  .filter-section .ant-form-inline .ant-form-item-control {
+    width: 100%;
+  }
+  
+  .filter-section .ant-btn {
+    width: 100%;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .ant-col {
+    margin-bottom: 16px;
+  }
+}

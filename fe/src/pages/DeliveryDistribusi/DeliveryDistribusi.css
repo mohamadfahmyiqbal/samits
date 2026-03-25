@@ -1,0 +1,263 @@
+.delivery-distribusi {
+  padding: 24px;
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #1890ff;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin: 8px 0 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.delivery-stats {
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  font-size: 20px;
+  color: #fff;
+}
+
+.stat-icon.pending {
+  background: linear-gradient(135deg, #faad14, #fa8c16);
+}
+
+.stat-icon.transit {
+  background: linear-gradient(135deg, #1890ff, #096dd9);
+}
+
+.stat-icon.delivered {
+  background: linear-gradient(135deg, #52c41a, #389e0d);
+}
+
+.stat-icon.distributed {
+  background: linear-gradient(135deg, #722ed1, #531dab);
+}
+
+.stat-content h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.stat-content p {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.table-section {
+  margin-top: 24px;
+}
+
+.ant-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.delivery-detail h4 {
+  margin: 16px 0 8px 0;
+  color: #1890ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.delivery-detail h4:first-child {
+  margin-top: 0;
+}
+
+.delivery-detail p {
+  margin: 4px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.delivery-detail strong {
+  color: #262626;
+  font-weight: 500;
+}
+
+.delivery-progress-steps {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.delivery-progress-steps h4 {
+  margin: 0 0 16px 0;
+  color: #1890ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ant-steps {
+  margin-bottom: 0;
+}
+
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon {
+  background-color: #52c41a;
+  border-color: #52c41a;
+}
+
+.ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ant-modal-content {
+  border-radius: 8px;
+}
+
+.ant-modal-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.ant-modal-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-form-item-label > label {
+  font-weight: 500;
+  color: #262626;
+}
+
+.ant-input, .ant-select-selector, .ant-picker {
+  border-radius: 6px;
+}
+
+.ant-input:focus, .ant-select-focused .ant-select-selector, .ant-picker:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.ant-alert {
+  border-radius: 6px;
+}
+
+.ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ant-progress-bg {
+  border-radius: 4px;
+}
+
+.ant-upload-list {
+  margin-top: 8px;
+}
+
+.ant-upload-list-item {
+  margin-top: 8px;
+}
+
+.ant-upload-list-item-name {
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .delivery-stats .ant-col {
+    margin-bottom: 16px;
+  }
+  
+  .stat-card {
+    padding: 16px;
+  }
+  
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    margin-right: 12px;
+  }
+  
+  .stat-content h3 {
+    font-size: 20px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
