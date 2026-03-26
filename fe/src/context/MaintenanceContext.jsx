@@ -249,6 +249,7 @@ export const MaintenanceProvider = ({ children }) => {
         historyLogs,
         updateLog, // Fungsi update yang diperbaiki
         createLog, // Fungsi create log baru
+        deleteLog, // Fungsi hapus log
         isLoading,
         error,
         getFilteredLogs,

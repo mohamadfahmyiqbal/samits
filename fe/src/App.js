@@ -21,7 +21,12 @@ import PMTask from "./pages/MaintenanceScreen/pages/PMTask";
 import PMCalendar from "./pages/MaintenanceScreen/pages/PMCalendar";
 import PMHistory from "./pages/MaintenanceScreen/pages/PMHistory";
 import Schedule from "./pages/MaintenanceScreen/pages/Schedule";
-import TambahUser from "./pages/TambahUser";
+import UserManagement from "./pages/UserManagement";
+import BreakdownLog from "./pages/BreakdownLog";
+import InspectionReports from "./pages/InspectionReports";
+import PartsRequest from "./pages/PartsRequest";
+import VendorAssignments from "./pages/VendorAssignments";
+import SLADashboard from "./pages/SLADashboard";
 
 import ProtectedRoute from "./ProtectedRoute";
 import { encryptPath } from "./router/encryptPath";
@@ -73,7 +78,12 @@ function App() {
               <Route path={`/${encryptPath("pm-calendar")}`} element={<PMCalendar />} />
               <Route path={`/${encryptPath("pm-history")}`} element={<PMHistory />} />
               <Route path={`/${encryptPath("workorder")}`} element={<WorkOrderScreen />} />
-              <Route path={`/${encryptPath("tambah user")}`} element={<TambahUser />} />
+              <Route path={`/${encryptPath("user management")}`} element={<UserManagement />} />
+              <Route path={`/${encryptPath("breakdown log")}`} element={<BreakdownLog />} />
+              <Route path={`/${encryptPath("inspection reports")}`} element={<InspectionReports />} />
+              <Route path={`/${encryptPath("parts request")}`} element={<PartsRequest />} />
+              <Route path={`/${encryptPath("vendor assignments")}`} element={<VendorAssignments />} />
+              <Route path={`/${encryptPath("sla dashboard")}`} element={<SLADashboard />} />
             </Route>
 
             {/* Fallback */}

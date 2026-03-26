@@ -117,6 +117,7 @@ export default function ScheduleList({
         .hover-border:hover { border: 1px solid #dee2e6 !important; border-left: 3px solid #0d6efd !important; transform: translateX(2px); }
         .hover-bg-primary:hover { background-color: #e7f1ff !important; }
         .hover-bg-danger:hover { background-color: #f8d7da !important; }
+        .hover-bg-warning:hover { background-color: #fff3cd !important; }
         .transition-all { transition: all 0.2s ease; }
       `}} />
     </Card>

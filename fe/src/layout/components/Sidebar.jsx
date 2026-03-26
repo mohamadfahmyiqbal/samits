@@ -21,6 +21,8 @@ const menuGroups = [
     id: "maintenance-dropdown",
     items: [
       { label: "Work Order", path: "workorder" },
+      { label: "Breakdown Log", path: "breakdown log" },
+      { label: "Inspection Reports", path: "inspection reports" },
       {
         type: "nested",
         label: "Preventive",
@@ -32,10 +34,20 @@ const menuGroups = [
           { label: "PM History", path: "pm-history" },
         ],
       },
+      {
+        type: "nested",
+        label: "Parts & Vendors",
+        id: "parts-vendors-nested",
+        items: [
+          { label: "Parts Request", path: "parts request" },
+          { label: "Vendor Assignments", path: "vendor assignments" },
+        ],
+      },
+      { label: "SLA Dashboard", path: "sla dashboard" },
     ],
   },
   { type: "link", label: "Stok Kontrol", path: "stok kontrol" },
-  { type: "link", label: "Tambah User", path: "tambah user" },
+  { type: "link", label: "User Management", path: "user management" },
   { type: "link", label: "Summary", path: "summary" },
 ];
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
+import Select from "react-select";
 import userService from "../services/UserService";
 
 const initialFormState = {
@@ -12,25 +13,34 @@ const initialFormState = {
   confirmPassword: "",
 };
 
-export default function TambahUser() {
+export default function TambahUser({ show, onHide, onSuccess, user }) {
   const [formData, setFormData] = useState(initialFormState);
   const [loading, setLoading] = useState(false);
   const [karyawanOptions, setKaryawanOptions] = useState([]);
   const [loadingKaryawan, setLoadingKaryawan] = useState(false);
-  const [selectedNik, setSelectedNik] = useState("");
+  const [selectedKaryawanOption, setSelectedKaryawanOption] = useState(null);
   const [roleOptions, setRoleOptions] = useState([]);
   const [loadingRoles, setLoadingRoles] = useState(false);
-
-  const canSubmit =
-    selectedNik &&
-    formData.roleId &&
-    formData.password &&
-    formData.password === formData.confirmPassword;
+  const [selectedRoleOption, setSelectedRoleOption] = useState(null);
 
   const passwordMismatch =
     formData.password &&
     formData.confirmPassword &&
     formData.password !== formData.confirmPassword;
+
+  const isEditMode = Boolean(user?.nik);
+
+  const canSubmit =
+    formData.nik &&
+    formData.roleId &&
+    !passwordMismatch &&
+    (isEditMode ? true : Boolean(formData.password));
+
+  const resetForm = () => {
+    setFormData(initialFormState);
+    setSelectedKaryawanOption(null);
+    setSelectedRoleOption(null);
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -40,11 +50,9 @@ export default function TambahUser() {
     }));
   };
 
-  const handleKaryawanChange = (event) => {
-    const nik = event.target.value;
-    setSelectedNik(nik);
-
-    if (!nik) {
+  const handleKaryawanChange = (option) => {
+    setSelectedKaryawanOption(option || null);
+    if (!option) {
       setFormData((prev) => ({
         ...prev,
         nik: "",
@@ -54,12 +62,20 @@ export default function TambahUser() {
       return;
     }
 
-    const matched = karyawanOptions.find((k) => k.nik === nik);
+    const matched = option.data;
     setFormData((prev) => ({
       ...prev,
-      nik: matched?.nik || "",
-      nama: matched?.nama || "",
-      dept: matched?.dept || "",
+      nik: matched.nik,
+      nama: matched.nama,
+      dept: matched.dept,
+    }));
+  };
+
+  const handleRoleChange = (option) => {
+    setSelectedRoleOption(option || null);
+    setFormData((prev) => ({
+      ...prev,
+      roleId: option ? String(option.value) : "",
     }));
   };
 
@@ -113,25 +129,79 @@ export default function TambahUser() {
     };
   }, []);
 
-  const handleSubmit = async (event) => {
+  useEffect(() => {
+    if (!show) {
+      return;
+    }
+
+    if (!user) {
+      resetForm();
+      return;
+    }
+
+    const roleFromUser = user.roles?.[0];
+    const matchedRole = roleOptions.find((role) => role.role_id === roleFromUser?.role_id);
+    setSelectedRoleOption(
+      matchedRole
+        ? { value: matchedRole.role_id, label: matchedRole.role_name }
+        : null
+    );
+
+    const karyawanMatch = karyawanOptions.find((k) => k.nik === user.nik);
+    setSelectedKaryawanOption(
+      karyawanMatch
+        ? {
+            value: karyawanMatch.nik,
+            label: `${karyawanMatch.nik} - ${karyawanMatch.nama} (${karyawanMatch.dept})`,
+            data: karyawanMatch,
+          }
+        : {
+            value: user.nik,
+            label: `${user.nik} - ${user.nama} (${user.position || ""})`,
+            data: { nik: user.nik, nama: user.nama, dept: user.position || "" },
+          }
+    );
+
+    setFormData({
+      nik: user.nik,
+      nama: user.nama,
+      dept: user.position || "",
+      roleId: matchedRole ? String(matchedRole.role_id) : (roleFromUser ? String(roleFromUser.role_id) : ""),
+      password: "",
+      confirmPassword: "",
+    });
+  }, [show, user, roleOptions, karyawanOptions]);
+
+  const submitForm = async (event) => {
     event.preventDefault();
-    if (passwordMismatch) {
-      toast.error("Password dan konfirmasi harus sama.");
+    if (!canSubmit) {
       return;
     }
 
     try {
       setLoading(true);
-      await userService.registerUser({
-        nik: formData.nik.trim(),
-        nama: formData.nama.trim(),
-        position: formData.dept.trim() || null,
-        roleId: formData.roleId ? Number(formData.roleId) : null,
-        password: formData.password,
-      });
-      toast.success("User berhasil didaftarkan.");
-      setFormData(initialFormState);
-      setSelectedNik("");
+      if (isEditMode) {
+        const payload = {
+          position: formData.dept.trim() || null,
+          roleId: formData.roleId ? Number(formData.roleId) : null,
+        };
+        if (formData.password) {
+          payload.password = formData.password;
+        }
+        await userService.updateUser(user.nik, payload);
+        toast.success("User berhasil diperbarui.");
+      } else {
+        await userService.registerUser({
+          nik: formData.nik.trim(),
+          nama: formData.nama.trim(),
+          position: formData.dept.trim() || null,
+          roleId: formData.roleId ? Number(formData.roleId) : null,
+          password: formData.password,
+        });
+        toast.success("User berhasil didaftarkan.");
+      }
+      resetForm();
+      onSuccess?.();
     } catch (error) {
       const message =
         error?.response?.data?.message ||
@@ -143,175 +213,162 @@ export default function TambahUser() {
     }
   };
 
+  const handleClose = () => {
+    resetForm();
+    onHide?.();
+  };
+
   return (
-    <div className="page-shell px-3 px-md-5 py-4">
-      <Row>
-        <Col lg={8} xl={6}>
-          <Card className="shadow-sm border-0">
-            <Card.Body>
-              <Card.Title className="mb-3">Tambah User</Card.Title>
-              <Card.Text className="text-muted mb-4">
-                Gunakan form ini untuk mendaftarkan karyawan baru. Field yang
-                bertanda * wajib diisi.
-              </Card.Text>
+    <Modal show={show} onHide={handleClose} size="lg" centered>
+      <Form onSubmit={submitForm}>
+        <Modal.Header closeButton>
+          <Modal.Title>Tambah User</Modal.Title>
+        </Modal.Header>
 
-              <Form onSubmit={handleSubmit}>
-                <Row className="g-3">
-                  <Col md={12}>
-                    <Form.Group controlId="formKaryawan">
-                      <Form.Label className="fw-semibold">
-                        Pilih Karyawan <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Form.Select
-                        value={selectedNik}
-                        onChange={handleKaryawanChange}
-                        required
-                        disabled={loadingKaryawan}
-                      >
-                        <option value="">
-                          {loadingKaryawan
-                            ? "Memuat karyawan..."
-                            : "Pilih karyawan"}
-                        </option>
-                        {karyawanOptions.map((karyawan) => (
-                          <option key={karyawan.nik} value={karyawan.nik}>
-                            {karyawan.nik} - {karyawan.nama} ({karyawan.dept})
-                          </option>
-                        ))}
-                      </Form.Select>
-                    </Form.Group>
-                  </Col>
-                  <Col md={12}>
-                    <Form.Group controlId="formRole">
-                      <Form.Label className="fw-semibold">
-                        Role <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Form.Select
-                        name="roleId"
-                        value={formData.roleId}
-                        onChange={handleChange}
-                        required
-                        disabled={loadingRoles}
-                      >
-                        <option value="">
-                          {loadingRoles ? "Memuat role..." : "Pilih role"}
-                        </option>
-                        {roleOptions.map((role) => (
-                          <option key={role.role_id} value={role.role_id}>
-                            {role.role_name}
-                          </option>
-                        ))}
-                      </Form.Select>
-                    </Form.Group>
-                  </Col>
-                  <Col md={6}>
-                    <Form.Group controlId="formNik">
-                      <Form.Label className="fw-semibold">
-                        NIK <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Form.Control
-                        name="nik"
-                        value={formData.nik}
-                        onChange={handleChange}
-                        placeholder="Masukkan NIK"
-                        required
-                        readOnly
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col md={6}>
-                    <Form.Group controlId="formNama">
-                      <Form.Label className="fw-semibold">
-                        Nama <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Form.Control
-                        name="nama"
-                        value={formData.nama}
-                        onChange={handleChange}
-                        placeholder="Masukkan nama lengkap"
-                        required
-                        readOnly
-                      />
-                    </Form.Group>
-                  </Col>
+        <Modal.Body>
+          <Row className="g-3">
+            <Col md={12}>
+              <Form.Group controlId="formKaryawan">
+                <Form.Label className="fw-semibold">
+                  Pilih Karyawan <span className="text-danger">*</span>
+                </Form.Label>
+                <Select
+                  options={karyawanOptions.map((karyawan) => ({
+                    value: karyawan.nik,
+                    label: `${karyawan.nik} - ${karyawan.nama} (${karyawan.dept})`,
+                    data: karyawan,
+                  }))}
+                  value={selectedKaryawanOption}
+                  onChange={handleKaryawanChange}
+                  isClearable
+                  isLoading={loadingKaryawan}
+                  placeholder={
+                    loadingKaryawan ? "Memuat karyawan..." : "Pilih karyawan"
+                  }
+                  isDisabled={isEditMode}
+                />
+              </Form.Group>
+            </Col>
 
-                  <Col md={6}>
-                    <Form.Group controlId="formDept">
-                      <Form.Label>Dept</Form.Label>
-                      <Form.Control
-                        name="dept"
-                        value={formData.dept}
-                        onChange={handleChange}
-                        placeholder="Dept akan terisi otomatis"
-                        readOnly
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col md={6}>
-                    <Form.Group controlId="formPassword">
-                      <Form.Label className="fw-semibold">
-                        Password <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Form.Control
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        placeholder="Minimal 6 karakter"
-                        required
-                        minLength={6}
-                      />
-                    </Form.Group>
-                  </Col>
+            <Col md={12}>
+              <Form.Group controlId="formRole">
+                <Form.Label className="fw-semibold">
+                  Role <span className="text-danger">*</span>
+                </Form.Label>
+                <Select
+                  name="roleId"
+                  options={roleOptions.map((role) => ({
+                    value: role.role_id,
+                    label: role.role_name,
+                  }))}
+                  value={selectedRoleOption}
+                  onChange={handleRoleChange}
+                  isClearable
+                  isLoading={loadingRoles}
+                  placeholder={loadingRoles ? "Memuat role..." : "Pilih role"}
+                />
+              </Form.Group>
+            </Col>
 
-                  <Col md={6}>
-                    <Form.Group controlId="formConfirmPassword">
-                      <Form.Label className="fw-semibold">
-                        Konfirmasi Password <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Form.Control
-                        type="password"
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        placeholder="Ketik ulang password"
-                        required
-                        minLength={6}
-                        isInvalid={passwordMismatch}
-                      />
-                      {passwordMismatch && (
-                        <Form.Control.Feedback type="invalid">
-                          Password dan konfirmasi tidak sama.
-                        </Form.Control.Feedback>
-                      )}
-                    </Form.Group>
-                  </Col>
-                </Row>
+            <Col md={6}>
+              <Form.Group controlId="formNik">
+                <Form.Label className="fw-semibold">
+                  NIK <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  name="nik"
+                  value={formData.nik}
+                  onChange={handleChange}
+                  placeholder="Masukkan NIK"
+                  required
+                  readOnly
+                />
+              </Form.Group>
+            </Col>
 
-                <div className="mt-4 d-flex align-items-center">
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    disabled={!canSubmit || loading}
-                  >
-                    {loading && (
-                      <Spinner
-                        animation="border"
-                        size="sm"
-                        className="me-2"
-                      />
-                    )}
-                    Simpan User
-                  </Button>
-                  <small className="text-muted ms-3">
-                    Semua field wajib diisi jika ditandai *.
-                  </small>
-                </div>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </div>
+            <Col md={6}>
+              <Form.Group controlId="formNama">
+                <Form.Label className="fw-semibold">
+                  Nama <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  name="nama"
+                  value={formData.nama}
+                  onChange={handleChange}
+                  placeholder="Masukkan nama lengkap"
+                  required
+                  readOnly
+                />
+              </Form.Group>
+            </Col>
+
+            <Col md={6}>
+              <Form.Group controlId="formDept">
+                <Form.Label>Dept</Form.Label>
+                <Form.Control
+                  name="dept"
+                  value={formData.dept}
+                  onChange={handleChange}
+                  placeholder="Dept akan terisi otomatis"
+                  readOnly
+                />
+              </Form.Group>
+            </Col>
+
+            <Col md={6}>
+              <Form.Group controlId="formPassword">
+                <Form.Label className="fw-semibold">
+                  Password <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Minimal 6 karakter"
+                  required
+                  minLength={6}
+                />
+              </Form.Group>
+            </Col>
+
+            <Col md={6}>
+              <Form.Group controlId="formConfirmPassword">
+                <Form.Label className="fw-semibold">
+                  Konfirmasi Password <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Ketik ulang password"
+                  required
+                  minLength={6}
+                  isInvalid={passwordMismatch}
+                />
+                {passwordMismatch && (
+                  <Form.Control.Feedback type="invalid">
+                    Password dan konfirmasi tidak sama.
+                  </Form.Control.Feedback>
+                )}
+              </Form.Group>
+            </Col>
+          </Row>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Batal
+          </Button>
+          <Button variant="primary" type="submit" disabled={!canSubmit || loading}>
+            {loading && (
+              <Spinner animation="border" size="sm" className="me-2" />
+            )}
+            Simpan User
+          </Button>
+        </Modal.Footer>
+      </Form>
+    </Modal>
   );
 }

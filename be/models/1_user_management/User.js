@@ -66,9 +66,14 @@ export default (sequelize) => {
         }
     });
 
-    // KOREKSI: Hapus asosiasi yang mereferensi kolom yang sudah tidak ada
+    // KOREKSI: Tetap simpan asosiasi Many-to-Many dengan Role
     User.associate = (models) => {
-        // Asosiasi dikosongkan karena foreign key (department_id, dll) sudah dihapus dari skema baru.
+        User.belongsToMany(models.Role, {
+            through: models.UserRole,
+            foreignKey: 'nik',
+            otherKey: 'role_id',
+            as: 'roles'
+        });
     };
 
     return User;

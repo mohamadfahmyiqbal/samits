@@ -327,3 +327,46 @@ export const deleteLog = async (req, res) => {
         res.status(500).json({ message: "Gagal menghapus schedule maintenance" });
     }
 };
+
+// 6. POST: Kirim permintaan approval
+export const requestApproval = async (req, res) => {
+    try {
+        const planId = parseInt(req.params.id, 10);
+        const MaintenancePlan = db.MaintenancePlan;
+        const ApprovalHistory = db.ApprovalHistory;
+
+        if (!MaintenancePlan || !ApprovalHistory) {
+            throw new Error("Model maintenance atau approval tidak tersedia.");
+        }
+
+        if (isNaN(planId)) {
+            return res.status(400).json({ message: "ID schedule tidak valid" });
+        }
+
+        const schedule = await MaintenancePlan.findByPk(planId);
+        if (!schedule) {
+            return res.status(404).json({ message: "Schedule tidak ditemukan" });
+        }
+
+        if (!['pending', 'in-progress'].includes(schedule.status)) {
+            return res.status(403).json({ message: "Hanya schedule pending atau in-progress yang bisa diminta approval" });
+        }
+
+        await ApprovalHistory.create({
+            document_type: 'maintenance_plan',
+            document_id: String(schedule.plan_id),
+            level_id: 1,
+            approver_nik: req.user?.nik || null,
+            status: 'requested',
+            notes: req.body?.notes || 'Permintaan approval jadwal maintenance',
+            created_at: new Date(),
+            updated_at: new Date(),
+            step_sequence: 1
+        });
+
+        return res.status(201).json({ message: "Permintaan approval berhasil dikirim" });
+    } catch (error) {
+        console.error("Gagal mengirim permintaan approval:", error);
+        res.status(500).json({ message: "Gagal mengirim approval maintenance" });
+    }
+};

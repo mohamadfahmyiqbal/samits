@@ -18,7 +18,7 @@ export const ScheduleProvider = ({ children }) => {
   const { 
     createLog, 
     updateLog, 
-    deleteLog 
+    deleteLog
   } = useContext(MaintenanceContext) || {};
 
   const data = useScheduleData();

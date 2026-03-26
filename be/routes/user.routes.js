@@ -11,6 +11,8 @@ import { updateUser } from '../controllers/user/updateController.js';
 import { getAllKaryawan } from '../controllers/user/getAllKaryawanController.js';
 import { getKaryawanByNik } from '../controllers/user/getKaryawanByNikController.js';
 import { getAllRoles } from '../controllers/user/getAllRolesController.js';
+import { listLocalUsers } from '../controllers/user/listLocalUsersController.js';
+import { deleteUser } from '../controllers/user/deleteController.js';
 
 const router = express.Router();
 
@@ -27,5 +29,9 @@ router.get('/karyawan/:nik', authMiddleware, getKaryawanByNik);
 // Public route - untuk dropdown karyawan & role
 router.get('/getallkaryawan', getAllKaryawan);
 router.get('/roles', getAllRoles);
+
+// Protected route untuk melihat user lokal
+router.get('/local', authMiddleware, listLocalUsers);
+router.delete('/:nik', authMiddleware, deleteUser);
 
 export default router;

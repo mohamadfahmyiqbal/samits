@@ -27,6 +27,24 @@ const userService = {
       withCredentials: true
     });
     return response.data;
+  },
+  listLocalUsers: async () => {
+    const response = await axios.get(`${API_URL}/local`, {
+      withCredentials: true
+    });
+    return response.data;
+  },
+  updateUser: async (nik, payload) => {
+    const response = await axios.put(`${API_URL}/${nik}`, payload, {
+      withCredentials: true
+    });
+    return response.data;
+  },
+  deleteUser: async (nik) => {
+    const response = await axios.delete(`${API_URL}/${nik}`, {
+      withCredentials: true
+    });
+    return response.data;
   }
 };
 

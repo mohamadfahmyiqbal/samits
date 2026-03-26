@@ -94,3 +94,13 @@ export const deleteLog = async (planId) => {
     method: "DELETE"
   });
 };
+
+/**
+ * Kirim request approval untuk schedule.
+ */
+export const requestApproval = async (planId, payload = {}) => {
+  return await apiFetch(`${BASE_URL}/${planId}/request-approval`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+};

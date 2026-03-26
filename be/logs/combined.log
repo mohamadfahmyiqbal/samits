@@ -1467,3 +1467,17 @@
 {"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T08:09:33.425Z"}
 {"level":"info","message":"Socket disconnect [imh4F5BVWw9ZEahuAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T08:33:31.762Z"}
 {"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T08:55:13.646Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T08:56:12.927Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:02:53.797Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:02:57.349Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:03:07.750Z"}
+{"level":"info","message":"Socket disconnect [w4DgobduXtGLIALnAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:04:20.015Z"}
+{"level":"info","message":"Socket disconnect [cbYUaao_4K3ZpnkWAAAE] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-26T09:04:25.356Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:07:21.586Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:07:26.801Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:07:35.042Z"}
+{"level":"info","message":"Socket disconnect [pKA1jtzfi8VGrAxLAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:11:16.197Z"}
+{"level":"info","message":"Socket disconnect [meacbqphMG77aemmAAAE] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-26T09:11:54.024Z"}
+{"level":"info","message":"Socket disconnect [ULBtsBd7af32ILR0AAAG] nik=1205001 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:12:06.031Z"}
+{"level":"info","message":"Socket disconnect [2j_aQ04DiGdLK6fHAAAJ] nik=1205001 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:27:08.065Z"}
+{"level":"info","message":"Socket disconnect [fCzK5KN6aWX7vg5cAAAM] nik=1205001 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:29:23.640Z"}

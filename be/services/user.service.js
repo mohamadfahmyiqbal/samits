@@ -83,7 +83,60 @@ export const getUserProfile = async (userId) => {
  * Memperbarui data pengguna (placeholder untuk fungsi updateUser)
  */
 export const updateUser = async (nik, updates) => {
-    return { nik, ...updates };
+    const User = db.User;
+    if (!User) {
+        throw new Error('Model User tidak tersedia untuk update.');
+    }
+
+    const user = await User.findOne({ where: { nik } });
+    if (!user) {
+        const error = new Error('User tidak ditemukan.');
+        error.statusCode = 404;
+        throw error;
+    }
+
+    await user.update(updates);
+
+    if (updates.roleId) {
+        const UserRole = db.UserRole;
+        if (!UserRole) {
+            const roleError = new Error('Model UserRole tidak tersedia.');
+            roleError.statusCode = 500;
+            throw roleError;
+        }
+
+        await UserRole.destroy({ where: { nik } });
+        await UserRole.create({
+            nik,
+            role_id: updates.roleId
+        });
+    }
+
+    const userData = user.get({ plain: true });
+    delete userData.password;
+    return userData;
+};
+
+export const deleteUser = async (nik) => {
+    const User = db.User;
+    if (!User) {
+        throw new Error('Model User tidak tersedia untuk delete.');
+    }
+
+    const user = await User.findOne({ where: { nik } });
+    if (!user) {
+        const error = new Error('User tidak ditemukan.');
+        error.statusCode = 404;
+        throw error;
+    }
+
+    const UserRole = db.UserRole;
+    if (UserRole) {
+        await UserRole.destroy({ where: { nik } });
+    }
+
+    await user.destroy();
+    return true;
 };
 
 /**
