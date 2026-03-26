@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Table, Placeholder } from "react-bootstrap";
-import "../../../styles/Tabel.css";
+import "../../../../styles/Tabel.css";
 
 const TableSkeleton = ({ columns, rows = 10 }) => {
   return (

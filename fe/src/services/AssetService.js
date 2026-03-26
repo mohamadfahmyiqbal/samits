@@ -36,12 +36,16 @@ const handleResponse = async (response) => {
     const errorBody = await response.json();
     errorMessage = errorBody.message || errorMessage; 
   } catch {
+if (response.status === 401) {
+    errorMessage = "Silakan login terlebih dahulu";
+  } else {
     const contentType = response.headers.get("Content-Type");
     if (contentType?.includes("text/html")) {
       errorMessage = "Server mengembalikan HTML, kemungkinan URL salah atau server tidak berjalan.";
     } else {
       errorMessage = response.statusText || errorMessage;
     }
+  }
   }
 
   console.error("API Error:", response.status, errorMessage);

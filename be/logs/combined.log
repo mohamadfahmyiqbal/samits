@@ -1414,3 +1414,56 @@
 {"level":"info","message":"Socket disconnect [NRd3cW_ITNngDChSAAAq] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-17T07:18:16.475Z"}
 {"level":"info","message":"Socket disconnect [9t6302G4Lk5TDwNPAAAt] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-17T07:18:30.583Z"}
 {"level":"info","message":"Socket disconnect [AVkNK1HMDk5fp8nsAAAw] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-17T07:21:46.882Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T03:52:12.663Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T03:53:23.613Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T03:53:37.258Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T04:08:02.861Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T04:08:14.530Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T04:09:40.535Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T04:09:46.625Z"}
+{"level":"info","message":"Socket disconnect [QyZ8IOwHyD6oc5FAAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:10:13.644Z"}
+{"level":"info","message":"Socket disconnect [Hg8kcp3yKIt_d2oDAAAE] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:10:24.110Z"}
+{"level":"info","message":"Socket disconnect [GiEMcbInnqXnowOFAAAH] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-26T04:10:36.720Z"}
+{"level":"info","message":"Socket disconnect [anwc1oWrReJL3yefAAAJ] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:10:56.870Z"}
+{"level":"info","message":"Socket disconnect [88WCXgtPVgIbDK49AAAM] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:11:03.103Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T04:13:26.807Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T04:15:00.307Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T04:15:06.153Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T04:15:57.654Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T04:17:20.775Z"}
+{"level":"info","message":"Socket disconnect [nX_7gzJ2KDKH7I7YAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:18:36.181Z"}
+{"level":"info","message":"Socket disconnect [-lhC0xrqCmyTxUlQAAAE] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-26T04:19:08.772Z"}
+{"level":"info","message":"Socket disconnect [xfRtlKBJswiyua3EAAAG] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:26:10.522Z"}
+{"level":"info","message":"Socket disconnect [mHGnaYt5J_fHsv9rAAAJ] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:33:50.056Z"}
+{"level":"info","message":"Socket disconnect [4Ik9w5WmtJtyktMxAAAM] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:34:48.738Z"}
+{"level":"info","message":"Socket disconnect [hNY8aWVeiQ2HiSUiAAAP] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:42:26.481Z"}
+{"level":"info","message":"Socket disconnect [ieR6ES9wLS7DK2Z8AAAS] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:47:24.554Z"}
+{"level":"info","message":"Socket disconnect [6PdG8XVnq7OiA0jAAAAV] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:49:20.437Z"}
+{"level":"info","message":"Socket disconnect [M1Q7D5DpVsSXqIlmAAAY] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T05:28:51.020Z"}
+{"level":"info","message":"Socket disconnect [7bi9_sQDZEv_R6-BAAAd] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:15:30.214Z"}
+{"level":"info","message":"Socket disconnect [USuCJL9G3N8glf4UAAAg] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:23:08.379Z"}
+{"level":"info","message":"Socket disconnect [s2LDc78ruMaiM2ytAAAj] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:24:20.610Z"}
+{"level":"info","message":"Socket disconnect [W0fOMM-jZERluYlVAAAm] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:40:32.921Z"}
+{"level":"info","message":"Socket disconnect [A7kdlnLLCcO-3_BEAAAp] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:48:18.825Z"}
+{"level":"info","message":"Socket disconnect [7fLiNS1MFEmEb5ApAAAs] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:49:45.398Z"}
+{"level":"info","message":"Socket disconnect [Tq7A7PDXfsKHoRmvAAAv] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:50:44.626Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T06:51:41.192Z"}
+{"level":"info","message":"Socket disconnect [PUSgIbcrNIw9CuHtAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:53:31.515Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:00:16.631Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:00:38.920Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:01:13.292Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:03:12.141Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:03:17.101Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:03:49.550Z"}
+{"level":"info","message":"Socket disconnect [YlSrLwRC2kKDNU9pAAAB] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-26T07:20:30.530Z"}
+{"level":"info","message":"Socket disconnect [AgGCIu9JuF7V4pwxAAAD] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:21:06.364Z"}
+{"level":"info","message":"Socket disconnect [H7tTS36tVPgKt8VMAAAG] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:24:53.980Z"}
+{"level":"info","message":"Socket disconnect [dTE_MJoELL1xP-9tAAAJ] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:26:21.013Z"}
+{"level":"info","message":"Socket disconnect [2wupO8ZOdWnNMW-EAAAM] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:41:35.558Z"}
+{"level":"info","message":"Socket disconnect [yvR9vZwdZyt_jNx4AAAP] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:41:39.646Z"}
+{"level":"info","message":"Socket disconnect [vTFwlxhvKwWDjHAJAAAS] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:53:32.540Z"}
+{"level":"info","message":"Socket disconnect [sW0kvcUJ2N9UTpJIAAAV] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:57:27.509Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T08:09:24.283Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T08:09:33.425Z"}
+{"level":"info","message":"Socket disconnect [imh4F5BVWw9ZEahuAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T08:33:31.762Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T08:55:13.646Z"}

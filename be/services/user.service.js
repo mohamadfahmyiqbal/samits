@@ -134,6 +134,20 @@ export const registerUser = async (payload) => {
             nik: normalizedNik
         });
 
+        if (payload.roleId) {
+            const UserRole = db.UserRole;
+            if (!UserRole) {
+                const roleError = new Error('Model UserRole tidak tersedia.');
+                roleError.statusCode = 500;
+                throw roleError;
+            }
+
+            await UserRole.create({
+                nik: normalizedNik,
+                role_id: payload.roleId,
+            });
+        }
+
         const userData = newUser.get({ plain: true });
         delete userData.password;
 

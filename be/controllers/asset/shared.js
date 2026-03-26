@@ -621,6 +621,13 @@ export const loadAssetByNo = async (assetNo, transaction) => {
 
   // Get primary network
   const primaryNetwork = getPrimaryNetwork(item.networks || []);
+  const secondaryNetwork = (Array.isArray(item.networks) ? item.networks : [])
+    .filter(n => !Boolean(n?.is_primary))
+    .sort((a, b) => {
+      const aUpdated = a?.updated_at ? new Date(a.updated_at).getTime() : 0;
+      const bUpdated = b?.updated_at ? new Date(b.updated_at).getTime() : 0;
+      return bUpdated - aUpdated;
+    })[0] || null;
 
   // Build result matching the original SQL structure
   const subCategory = item.subCategory || null;
@@ -983,6 +990,8 @@ nama: namaFromAttr || '',
     hostname: primaryNetwork?.hostname || '',
     ip_address: ipAddresses,
     mac_address: macAddresses,
+    mainIpAdress: primaryNetwork?.ip_address || '',
+    backupIpAdress: secondaryNetwork?.ip_address || '',
     
     // Year & Dates
     tahunBeli: item.po_date_period ? String(item.po_date_period).slice(0, 4) : null,

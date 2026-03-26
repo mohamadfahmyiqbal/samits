@@ -10,6 +10,7 @@ import { getProfile } from '../controllers/user/profileController.js';
 import { updateUser } from '../controllers/user/updateController.js';
 import { getAllKaryawan } from '../controllers/user/getAllKaryawanController.js';
 import { getKaryawanByNik } from '../controllers/user/getKaryawanByNikController.js';
+import { getAllRoles } from '../controllers/user/getAllRolesController.js';
 
 const router = express.Router();
 
@@ -23,7 +24,8 @@ router.get('/profile', authMiddleware, getProfile);
 router.put('/:nik', authMiddleware, updateUser);
 router.get('/karyawan/:nik', authMiddleware, getKaryawanByNik);
 
-// Public route - untuk dropdown karyawan
+// Public route - untuk dropdown karyawan & role
 router.get('/getallkaryawan', getAllKaryawan);
+router.get('/roles', getAllRoles);
 
 export default router;

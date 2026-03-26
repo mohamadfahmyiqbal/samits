@@ -1,7 +1,8 @@
 import React from "react";
 import { Nav, Tab, Tabs } from "react-bootstrap";
-import AssetTable from "../asset/tables/AssetTable";
 import { useAssetManagement } from "../context/AssetManagementContext";
+
+const LazyAssetTable = React.lazy(() => import("../asset/tables/AssetTable.jsx"));
 
 export default function AssetManagementTabs() {
   const {
@@ -57,13 +58,18 @@ export default function AssetManagementTabs() {
     onAdd: onAdd,
   };
 
+  const TableWithSuspense = (props) => (
+    <React.Suspense fallback={<div className="table-suspense p-4 text-center text-muted">Loading asset table...</div>}>
+      <LazyAssetTable {...props} />
+    </React.Suspense>
+  );
+
   return (
     <div className="asset-management-tabs-container">
       <Tabs
         id="main-tab-asset-management"
         activeKey={activeMainTab}
         onSelect={(k) => {
-          // Log removed for production
           onMainTabChange(k, {
             category_id: k && k !== "All" ? tabMeta?.[k]?.category_id ?? null : null,
             sub_category_id: null,
@@ -72,7 +78,7 @@ export default function AssetManagementTabs() {
         className="mb-3"
       >
         <Tab eventKey="All" title="All">
-          <AssetTable {...assetTableProps} />
+          <TableWithSuspense {...assetTableProps} />
         </Tab>
 
         {mainCategories.map((main) => (
@@ -84,7 +90,6 @@ export default function AssetManagementTabs() {
                   className="mb-3 flex-nowrap"
                   activeKey={activeSubTab || ""}
                   onSelect={(k) => {
-                    // Log removed for production
                     onSubTabChange(k || "", {
                       category_id: tabMeta?.[main]?.category_id ?? null,
                       sub_category_id: k ? tabMeta?.[main]?.sub_category_ids?.[k] ?? null : null,
@@ -107,7 +112,6 @@ export default function AssetManagementTabs() {
                     className="mb-3 flex-nowrap asset-group-tabs"
                     activeKey={activeAssetGroup || "All"}
                     onSelect={(k) => {
-                      // Log removed for production
                       onAssetGroupChange(k || "all");
                     }}
                   >
@@ -122,11 +126,11 @@ export default function AssetManagementTabs() {
                 {!activeSubTab ? (
                   <p className="text-muted">Pilih sub kategori untuk menampilkan data.</p>
                 ) : (
-                  <AssetTable {...assetTableProps} />
+                  <TableWithSuspense {...assetTableProps} />
                 )}
               </>
             ) : (
-              <AssetTable {...assetTableProps} />
+              <TableWithSuspense {...assetTableProps} />
             )}
           </Tab>
         ))}

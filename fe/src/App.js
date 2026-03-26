@@ -10,7 +10,6 @@ import LoginScreen from "./pages/LoginScreen";
 import DashboardScreen from "./pages/DashboardScreen";
 import Hardware from "./pages/Hardware";
 import Software from "./pages/Software";
-import Schedule from "./pages/MaintenanceScreen/pages/Schedule";
 import Summary from "./pages/Summarry"; // typo fixed
 import AssetManagement from "./pages/AssetManagement/AssetManagementPage";
 import Cyber from "./pages/Cyber";
@@ -21,6 +20,8 @@ import PMSchedule from "./pages/MaintenanceScreen/pages/PMSchedule";
 import PMTask from "./pages/MaintenanceScreen/pages/PMTask";
 import PMCalendar from "./pages/MaintenanceScreen/pages/PMCalendar";
 import PMHistory from "./pages/MaintenanceScreen/pages/PMHistory";
+import Schedule from "./pages/MaintenanceScreen/pages/Schedule";
+import TambahUser from "./pages/TambahUser";
 
 import ProtectedRoute from "./ProtectedRoute";
 import { encryptPath } from "./router/encryptPath";
@@ -72,6 +73,7 @@ function App() {
               <Route path={`/${encryptPath("pm-calendar")}`} element={<PMCalendar />} />
               <Route path={`/${encryptPath("pm-history")}`} element={<PMHistory />} />
               <Route path={`/${encryptPath("workorder")}`} element={<WorkOrderScreen />} />
+              <Route path={`/${encryptPath("tambah user")}`} element={<TambahUser />} />
             </Route>
 
             {/* Fallback */}

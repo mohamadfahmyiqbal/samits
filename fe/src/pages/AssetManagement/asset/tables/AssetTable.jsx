@@ -3,7 +3,7 @@ import React, { useState, useMemo } from "react";
 import { Table, Badge } from "react-bootstrap";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import * as XLSX from "xlsx";
-import "../../../styles/Tabel.css";
+import "../../../../styles/Tabel.css";
 import AssetAction from "./AssetAction";
 import TableSkeleton from "./TableSkeleton";
 import TableToolbar from "./TableToolbar";

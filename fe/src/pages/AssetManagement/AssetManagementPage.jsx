@@ -1,4 +1,5 @@
-import React from "react";
+import React, { memo } from "react";
+import PropTypes from "prop-types";
 import AssetManagementTabs from "./components/AssetManagementTabs";
 import PrimaryTabs from "./components/PrimaryTabs";
 import AssetManagementModals from "./components/AssetManagementModals";
@@ -9,7 +10,7 @@ function AssetManagementPage() {
   return (
     <ErrorBoundary>
       <AssetManagementProvider>
-        <div className="AssetManagement asset-utama-page">
+        <div className="asset-management-page">
           <PrimaryTabs />
           <AssetManagementTabs />
           <AssetManagementModals />
@@ -19,4 +20,10 @@ function AssetManagementPage() {
   );
 }
 
-export default AssetManagementPage;
+AssetManagementPage.displayName = "AssetManagementPage";
+
+AssetManagementPage.propTypes = {
+  children: PropTypes.node
+};
+
+export default memo(AssetManagementPage);

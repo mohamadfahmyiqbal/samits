@@ -35,6 +35,7 @@ const menuGroups = [
     ],
   },
   { type: "link", label: "Stok Kontrol", path: "stok kontrol" },
+  { type: "link", label: "Tambah User", path: "tambah user" },
   { type: "link", label: "Summary", path: "summary" },
 ];
 

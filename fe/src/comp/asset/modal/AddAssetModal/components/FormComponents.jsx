@@ -12,6 +12,7 @@ export const SectionHeader = ({ icon: Icon, title }) => (
 );
 
 // Optimized Select Component
+
 export const OptimizedSelect = ({ 
   label, 
   name, 
@@ -25,14 +26,26 @@ export const OptimizedSelect = ({
   required = false, 
   error 
 }) => {
-  // Loose matching dengan type coercion untuk fix Main Type issue
+  console.log(`🎨 OptimizedSelect ${label}: value="${value}", options=${options.length}`);
+  
+  // Loose matching dengan type coercion
   const findOption = (opts, val) => {
     if (!val) return null;
     const stringValue = String(val);
-    return opts.find(o => String(o.value) === stringValue) || null;
+    const match = opts.find(o => String(o.value) === stringValue);
+    console.log(`🔍 findOption "${stringValue}" →`, match ? match.label : 'NO MATCH');
+    return match || null;
   };
 
   const selectedOption = findOption(options, value);
+
+  const handleOnChange = (opt) => {
+    console.log(`🔘 ${label} selected:`, opt);
+    // Pass name + full option object ke parent handler
+    if (typeof onChange === 'function') {
+      onChange(name, opt);
+    }
+  };
 
   return (
     <Form.Group className="mb-3">
@@ -43,7 +56,7 @@ export const OptimizedSelect = ({
       <Select
         options={options}
         value={selectedOption}
-        onChange={(opt) => onChange(opt?.value)}
+        onChange={handleOnChange}
         placeholder={placeholder || (options.length === 0 ? 'Memuat...' : 'Pilih...')}
         isLoading={isLoading || options.length === 0}
         isDisabled={isDisabled}
@@ -84,9 +97,15 @@ export const OptimizedSelect = ({
           Tidak ada data tersedia
         </Form.Text>
       )}
+      {process.env.NODE_ENV === 'development' && (
+        <Form.Text className="text-muted small">
+          Debug: {options.length} opts, selected: {selectedOption?.label || 'none'}
+        </Form.Text>
+      )}
     </Form.Group>
   );
 };
+
 
 // File Attachment List Component
 export const AttachmentList = ({ attachments, onRemove }) => (

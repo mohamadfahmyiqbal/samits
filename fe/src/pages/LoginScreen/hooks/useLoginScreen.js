@@ -37,13 +37,13 @@ export const useLoginScreen = () => {
 
     try {
       const res = await userService.login(fields);
-
       if (res && res.status === 200) {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userData', JSON.stringify(res.data.user));
         connectSocket(res.data.token);
         navigate(`/${encryptPath('dashboard')}`);
       } else {
+       
         const errorMessage =
           res?.data?.message || res?.message || 'Gagal login. Cek NIK dan Password.';
         setNotif({ status: res?.status || 400, message: errorMessage });

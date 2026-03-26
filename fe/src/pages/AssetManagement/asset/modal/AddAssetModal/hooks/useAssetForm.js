@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import userService from '../../../../../services/UserService';
-import { fetchClassifications, fetchStatuses, fetchAssetGroups, fetchMainTypes, fetchCategoryTypes } from '../../../../../services/AssetService';
-import { showError } from '../../../../Notification';
+import userService from '../../../services/UserService';
+import { fetchClassifications, fetchStatuses, fetchAssetGroups, fetchMainTypes, fetchCategoryTypes } from '../../../../services/AssetService';
+import { showError } from '../../../../../comp/Notification';
 import { initialAssetState, validateAssetForm } from '../constants/assetConstants';
 
 // Utility: debounce function

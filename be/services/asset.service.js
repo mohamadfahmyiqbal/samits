@@ -86,6 +86,41 @@ export class AssetService {
     }, { transaction });
   }
 
+  static getNowValue() {
+    return sequelize.getDialect() === 'mssql'
+      ? sequelize.literal('GETDATE()')
+      : new Date();
+  }
+
+  static async upsertNetworkEntry(itItemId, { hostname, ipAddress, macAddress, isPrimary }, transaction) {
+    if (!itItemId || !ipAddress) return;
+
+    const ITItemNetwork = db.ITItemNetwork;
+    const nowValue = this.getNowValue();
+    const data = {
+      hostname: hostname?.trim() || null,
+      ip_address: ipAddress.trim(),
+      mac_address: macAddress?.trim() || null,
+      updated_at: nowValue,
+    };
+
+    const [updated] = await ITItemNetwork.update(
+      data,
+      {
+        where: { it_item_id: itItemId, is_primary: isPrimary ? 1 : 0 },
+        transaction,
+      }
+    );
+
+    if (!updated) {
+      await ITItemNetwork.create({
+        it_item_id: itItemId,
+        ...data,
+        is_primary: isPrimary ? 1 : 0,
+      }, { transaction });
+    }
+  }
+
   /**
    * Buat/update network record
    */
@@ -93,13 +128,11 @@ export class AssetService {
     if (!hostname?.trim()) return;
 
     const ITItemNetwork = db.ITItemNetwork;
-    const getNowValue = () => sequelize.getDialect() === 'mssql' 
-      ? sequelize.literal('GETDATE()') 
-      : new Date();
+    const getNowValue = () => this.getNowValue();
 
     // Update atau create primary network
     const [updated] = await ITItemNetwork.update(
-      { hostname: hostname.trim(), updated_at: getNowValue() },
+        { hostname: hostname.trim(), updated_at: getNowValue() },
       { 
         where: { it_item_id: itItemId, is_primary: true },
         transaction 
@@ -107,7 +140,7 @@ export class AssetService {
     );
 
     if (!updated) {
-      await ITItemNetwork.create({
+        await ITItemNetwork.create({
         it_item_id: itItemId,
         hostname: hostname.trim(),
         is_primary: true,
@@ -255,6 +288,9 @@ export class AssetService {
       acquisition_status: 'Acquired',
       is_disposed: false,
       po_number: payload.po_number || null,
+      invoice_number: payload.invoice_number || null,
+      request_id: payload.request_id || null,
+      depreciation_end_date: payload.depreciation_end_date || null,
       purchase_price_actual: Number(payload.purchase_price_actual) || null,
       useful_life_year: parseInt(payload.tahunDepreciation) || null,
       asset_main_type_id: payload.asset_main_type_id ? Number(payload.asset_main_type_id) : null,
@@ -269,43 +305,21 @@ export class AssetService {
     // Network - hostname + IP fields
     if (payload.hostname) {
       await this.handleAssetNetwork(itItemId, payload.hostname, transaction);
-      
-      // Save IP addresses if provided
-      const ITItemNetwork = db.ITItemNetwork;
-      const getNowValue = () => sequelize.getDialect() === 'mssql' 
-        ? sequelize.literal('GETDATE()') 
-        : new Date();
-
-      // Main IP
-      if (payload.mainIpAdress) {
-        const mainNetworkId = crypto.randomUUID();
-        await ITItemNetwork.create({
-          id: mainNetworkId,
-          it_item_id: itItemId,
-          hostname: payload.hostname,
-          ip_address: payload.mainIpAdress.trim(),
-          mac_address: payload.mac_address?.trim() || null,
-          is_primary: 1,
-          updated_at: getNowValue()
-        }, { transaction });
-
-      }
-
-      // Backup IP
-      if (payload.backupIpAdress) {
-        const backupNetworkId = crypto.randomUUID();
-        await ITItemNetwork.create({
-          id: backupNetworkId,
-          it_item_id: itItemId,
-          hostname: payload.hostname,
-          ip_address: payload.backupIpAdress.trim(),
-          mac_address: payload.mac_address?.trim() || null,
-          is_primary: 0,
-          updated_at: getNowValue()
-        }, { transaction });
-
-      }
     }
+
+    await this.upsertNetworkEntry(itItemId, {
+      hostname: payload.hostname,
+      ipAddress: payload.mainIpAdress,
+      macAddress: payload.mac_address,
+      isPrimary: true,
+    }, transaction);
+
+    await this.upsertNetworkEntry(itItemId, {
+      hostname: payload.hostname,
+      ipAddress: payload.backupIpAdress,
+      macAddress: payload.mac_address,
+      isPrimary: false,
+    }, transaction);
     
     // Nama attribute
     if (payload.nama) {
@@ -348,6 +362,18 @@ export class AssetService {
       category_id: categoryId || foundAsset.category_id,
       current_status: payload.status || foundAsset.current_status,
       po_number: payload.po_number !== undefined ? (payload.po_number || null) : foundAsset.po_number,
+      invoice_number:
+        payload.invoice_number !== undefined
+          ? (payload.invoice_number || null)
+          : foundAsset.invoice_number,
+      request_id:
+        payload.request_id !== undefined
+          ? (payload.request_id || null)
+          : foundAsset.request_id,
+      depreciation_end_date:
+        payload.depreciation_end_date !== undefined
+          ? (payload.depreciation_end_date || null)
+          : foundAsset.depreciation_end_date,
       purchase_price_actual: payload.purchase_price_actual !== undefined ? Number(payload.purchase_price_actual) || null : foundAsset.purchase_price_actual,
       asset_tag: payload.noAsset || foundAsset.asset_tag,
       asset_main_type_id: payload.asset_main_type_id ? Number(payload.asset_main_type_id) : foundAsset.asset_main_type_id,
@@ -403,4 +429,3 @@ export class AssetService {
 }
 
 export default AssetService;
-

@@ -107,9 +107,18 @@ export const MaintenanceProvider = ({ children }) => {
     }
   }, [utama, client, syncLogs]); // Dipanggil ulang jika data asset berubah
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   useEffect(() => {
-    fetchAndGenerateLogs();
-  }, [fetchAndGenerateLogs]);
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchAndGenerateLogs();
+    }
+  }, [fetchAndGenerateLogs, isAuthenticated]);
 
   // =======================================================================
   // 2. FUNGSI UPDATE LOG (PERBAIKAN KRITIS)

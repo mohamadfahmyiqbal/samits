@@ -12,7 +12,7 @@ const normalizeString = (value) => {
  */
 export const registerKaryawan = async (req, res) => {
     try {
-        const { nik, nama, password, email, phone, position } = req.body;
+        const { nik, nama, password, email, phone, position, roleId } = req.body;
 
         const trimmedNik = normalizeString(nik);
         const trimmedNama = normalizeString(nama);
@@ -32,6 +32,10 @@ export const registerKaryawan = async (req, res) => {
             phone: normalizeString(phone) || null,
             position: normalizeString(position) || null
         };
+
+        if (roleId) {
+            payload.roleId = Number(roleId);
+        }
 
         const createdUser = await userService.registerUser(payload);
 

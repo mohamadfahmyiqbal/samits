@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import userService from '../../../../../../../services/UserService';
-import { fetchClassifications, fetchStatuses, fetchAssetGroups, fetchMainTypes, fetchCategoryTypes } from '../../../../../../../services/AssetService';
-import { showError } from '../../../../../../../Notification';
+import userService from '../../../../../services/UserService';
+import { fetchClassifications, fetchStatuses, fetchAssetGroups, fetchMainTypes, fetchCategoryTypes } from '../../../../../services/AssetService';
+import { showError } from '../../../../../comp/Notification';
 import { initialAssetState, validateAssetForm } from '../constants/assetConstants';
 
 // Utility: debounce function
@@ -79,10 +79,22 @@ export const useAssetForm = (show, asset = null) => {
           category_id: asset.category_id || "",
           sub_category_id: asset.sub_category_id || "",
           asset_group_id: asset.asset_group_id || "",
+          assetGroup: asset.assetGroup || asset.asset_group_name || "",
+          classification_id: asset.classification_id || asset.classification || "",
+          sub_category: asset.sub_category || asset.sub_category_name || asset.type || "",
+          sub_category_name: asset.sub_category_name || asset.sub_category || asset.type || "",
+          type: asset.type || '',
           nik: asset.nik || "",
           dept: asset.dept || asset.department || "",
           hostname: asset.hostname || "",
           status: asset.status || asset.current_status || "Active",
+          depreciation_end_date: asset.depreciation_end_date || "",
+          mainIpAdress: asset.mainIpAdress || asset.ip_address || asset.main_ip_address || "",
+          backupIpAdress: asset.backupIpAdress || "",
+          accounting_asset_no: asset.accounting_asset_no || asset.asset_tag || "",
+          acquisition_status: asset.acquisition_status || initialAssetState.acquisition_status,
+          request_id: asset.request_id || "",
+          invoice_number: asset.invoice_number || "",
         };
         
         // ✅ AUTO-SYNC Edit mode: accounting_asset_no = noAsset
@@ -100,6 +112,7 @@ export const useAssetForm = (show, asset = null) => {
     }
   }, [show, asset]);
 
+
   // Fetch Main Types from API + VALIDASI SYNC
   useEffect(() => {
     if (!show) return;
@@ -115,23 +128,39 @@ export const useAssetForm = (show, asset = null) => {
       try {
         console.log('📡 Calling fetchMainTypes API...');
         const res = await fetchMainTypes();
-        console.log('📥 MainTypes response:', res?.data);
+        console.log('📥 MainTypes response:', res);
+        console.log('📥 MainTypes data:', res?.data);
         const data = Array.isArray(res?.data) ? res.data : [];
-        const options = data.map(mt => ({ 
-          value: String(mt.asset_main_type_id),  // ✅ FORCE STRING
-          label: mt.main_type_name 
-        }));
+        console.log('📊 Raw data:', data);
+        
+        const options = data.map((mt, i) => { 
+          const opt = {
+            value: String(mt.asset_main_type_id),  
+            label: mt.main_type_name,
+            fieldName: 'asset_main_type_id'  // Tambahan untuk auto-infer
+          };
+          console.log(`🔧 Option ${i}:`, opt);
+          return opt;
+        });
+        
         mainTypeCache.current = options;
-        console.log('✅ MainType options ready:', options.length, options[0]);
+        console.log('✅ MainType options ready:', options.length, options);
         setMainTypeOptions(options);
       } catch (err) {
         console.error('❌ Failed to load main types:', err);
-        setMainTypeOptions([]);
+        // Fallback dummy untuk testing
+        const fallback = [
+          {value: '1', label: 'UTAMA', fieldName: 'asset_main_type_id'},
+          {value: '2', label: 'CLIENT', fieldName: 'asset_main_type_id'}
+        ];
+        console.log('🔄 Using FALLBACK options');
+        setMainTypeOptions(fallback);
       }
     };
 
     fetchMainTypesData();
   }, [show]);
+
 
   // ✅ NEW: Sync validation - jika value ada tapi tidak match options, log & refetch
   useEffect(() => {
@@ -311,14 +340,13 @@ export const useAssetForm = (show, asset = null) => {
     fetchStatusesData();
   }, [show]);
 
-  // Cache classifications - hanya muncul jika sub_category = PC
+  // Cache classifications - hanya muncul jika sub_category mengandung PC
   useEffect(() => {
     if (!show) return;
-    
-    // Cek apakah sub category adalah PC (bisa dari API atau dari props)
-    const isPC = (newAsset.sub_category?.toLowerCase() === 'pc') || 
-                 (newAsset.sub_category_name?.toLowerCase() === 'pc');
-    
+
+    const subLabel = (newAsset.sub_category_name || newAsset.sub_category || newAsset.type || "").toLowerCase();
+    const isPC = subLabel === 'pc' || subLabel.includes('pc');
+
     if (!isPC) {
       setClassificationOptions([]);
       return;
@@ -343,7 +371,7 @@ export const useAssetForm = (show, asset = null) => {
         setClassificationOptions([]);
       })
       .finally(() => setLoadingClassification(false));
-  }, [show, newAsset.sub_category, newAsset.sub_category_name]);
+  }, [show, newAsset.sub_category, newAsset.sub_category_name, newAsset.type]);
 
   // Handle form input changes
   const handleChange = useCallback((e) => {
@@ -404,85 +432,86 @@ export const useAssetForm = (show, asset = null) => {
   }, [errors, newAsset]);
 
   // Handle Select changes
-  const handleSelectChange = useCallback((name, selectedOption) => {
-    const value = selectedOption?.value ?? '';
-    const assetGroupId = selectedOption?.asset_group_id || '';
-    const label = selectedOption?.label || '';
+
+const handleSelectChange = useCallback((name, selectedOption) => {
+    const option = typeof selectedOption === 'string' || typeof selectedOption === 'number'
+      ? { value: selectedOption, label: String(selectedOption) }
+      : selectedOption;
+    console.log('🎯 SELECT CHANGE:', {name, selectedOption: option, value: option?.value});
     
+    // Auto-infer name jika tidak diberikan (untuk OptimizedSelect)
+    const fieldName = name || selectedOption?.fieldName || 'unknown';
+    const value = option?.value ?? '';
+    const label = option?.label ?? '';
+    const assetGroupId = option?.asset_group_id || '';
+    
+    console.log('📝 Setting state:', fieldName, value, label);
+    
+    // Basic update
     setNewAsset(prev => ({ 
       ...prev, 
-      [name]: value,
-      // Also set asset_group_id when assetGroup is selected
-      ...(name === 'assetGroup' ? { asset_group_id: assetGroupId } : {})
+      [fieldName]: value,
+      ...(fieldName === 'assetGroup' ? { asset_group_id: assetGroupId } : {}),
+      ...(fieldName === 'asset_main_type_id' ? { asset_main_type_name: label } : {}),
+      ...(fieldName === 'sub_category_id' ? { sub_category: label, sub_category_name: label } : {})
     }));
 
     // Clear error
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: null }));
+    if (errors[fieldName]) {
+      setErrors(prev => ({ ...prev, [fieldName]: null }));
     }
 
-    // Handle Main Type change - reset semua yang di bawahnya
-    if (name === 'asset_main_type_id') {
+    // Cascade reset logic
+    if (fieldName === 'asset_main_type_id') {
+      console.log('🔄 Main Type changed → Reset cascade');
       setNewAsset(prev => ({ 
         ...prev, 
         asset_main_type_id: value,
         asset_main_type_name: label,
-        category: '',
-        category_id: '',
-        sub_category: '',
-        sub_category_id: '',
+        category: '', category_id: '',
+        sub_category: '', sub_category_id: '',
         classification_id: '',
-        assetGroup: '',
-        asset_group_id: ''
+        assetGroup: '', asset_group_id: ''
       }));
       setCategoryOptionsApi([]);
       setSubCategoryOptionsApi([]);
       setAssetGroupOptions([]);
       setClassificationOptions([]);
-    } 
-    // Handle Category change
-    else if (name === 'category' || name === 'category_id') {
-      const catId = name === 'category_id' ? value : selectedOption?.category_id;
-      const catName = name === 'category' ? value : label;
+    } else if (fieldName === 'category_id') {
+      console.log('🔄 Category changed → Reset sub levels');
       setNewAsset(prev => ({ 
         ...prev, 
-        category: catName,
-        category_id: catId,
-        sub_category: '',
-        sub_category_id: '',
+        category_id: value,
+        sub_category: '', sub_category_id: '',
         classification_id: '',
-        assetGroup: '',
-        asset_group_id: ''
+        assetGroup: '', asset_group_id: ''
       }));
       setSubCategoryOptionsApi([]);
       setAssetGroupOptions([]);
       setClassificationOptions([]);
-    } 
-    // Handle Sub Category change
-    else if (name === 'sub_category' || name === 'sub_category_id') {
-      const subCatId = name === 'sub_category_id' ? value : selectedOption?.sub_category_id;
-      const subCatName = name === 'sub_category' ? value : label;
+    } else if (fieldName === 'sub_category_id') {
+      console.log('🔄 Sub Category changed → Reset final levels');
       setNewAsset(prev => ({ 
         ...prev, 
-        sub_category: subCatName,
-        sub_category_id: subCatId,
+        sub_category_id: value,
         classification_id: '',
-        assetGroup: '',
-        asset_group_id: ''
+        assetGroup: '', asset_group_id: ''
       }));
       setClassificationOptions([]);
       setAssetGroupOptions([]);
-    } 
-    // Handle NIK change - fill dept
-    else if (name === 'nik') {
-      const selectedKaryawan = karyawanList.find(k => k.nik === value);
+    } else if (fieldName === 'nik') {
+        const selectedKaryawan = karyawanList.find(k => k.nik === value);
+      console.log('👤 NIK selected:', selectedKaryawan);
       setNewAsset(prev => ({ 
         ...prev,
         nik: value,
         dept: selectedKaryawan?.dept || ''
       }));
     }
+    
+    console.log('✅ State updated. newAsset.asset_main_type_id =', value);
   }, [karyawanList, errors]);
+
 
   // Handle file selection
   const handleFileChange = useCallback((e, alertWarning) => {
@@ -526,7 +555,7 @@ export const useAssetForm = (show, asset = null) => {
     const matchedOption = options.find(o => String(o.value) === stringValue);
     
     if (matchedOption) {
-      console.log(`✅ getSelectValue MATCH: value="${stringValue}" → "${matchedOption.label}"`);
+      // console.log(`✅ getSelectValue MATCH: value="${stringValue}" → "${matchedOption.label}"`);
       return matchedOption;
     }
     
@@ -595,4 +624,3 @@ export const useAssetForm = (show, asset = null) => {
   };
 
 };
-

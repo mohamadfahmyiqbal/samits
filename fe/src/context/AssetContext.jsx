@@ -95,9 +95,19 @@ const saveUpdate = useCallback(async (assetNo, updateData) => {
     }
   }, [setUtama, setClient]); 
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check auth status from localStorage
   useEffect(() => {
-    fetchAllAssets();
-  }, [fetchAllAssets]);
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchAllAssets();
+    }
+  }, [fetchAllAssets, isAuthenticated]);
 
   return (
     <AssetContext.Provider

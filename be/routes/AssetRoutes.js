@@ -46,16 +46,22 @@ router.post('/import', importAssets);
 router.post('/import-excel', excelUpload.single('file'), importAssetsFromExcel);
 
 // Route aset lainnya tetap memerlukan token JWT
+// router.use(authMiddleware); // DIPINDAH ke bawah setelah public routes
+
+
+// ========== PUBLIC ROUTES (NO AUTH REQUIRED) ==========
+router.get('/groups', listAssetGroups);
+router.get('/statuses', listStatuses);  
+router.get('/main-types', listMainTypes);
+router.get('/categories', listCategories);
+router.get('/category-types', listCategoryTypes);
+router.get('/sub-categories', listSubCategories);
+router.get('/classifications', listClassifications);
+
+// ========== PROTECTED ROUTES (AUTH REQUIRED) ==========
 router.use(authMiddleware);
 
-// 0. GET: /api/assets/groups - Ambil daftar asset group dari database
-router.get('/groups', listAssetGroups);
-
-// 0b. GET: /api/assets/statuses - Ambil daftar status dari database
-router.get('/statuses', listStatuses);
-
-// 0a. GET: /api/assets/main-types - Ambil daftar main types dari database
-router.get('/main-types', listMainTypes);
+router.get('/', listItItems);
 
 // 1. GET: /api/assets?group=utama/client (List semua aset dengan filtering)
 router.get('/', listItItems);

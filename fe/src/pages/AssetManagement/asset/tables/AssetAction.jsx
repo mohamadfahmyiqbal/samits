@@ -1,6 +1,6 @@
 import React from "react";
 import { FaEye, FaEdit, FaTrash, FaHistory } from "react-icons/fa";
-import "../../../styles/AssetAction.css";
+import "../../../../styles/AssetAction.css";
 
 export default function AssetAction({ item, onUpdate, onDelete, onDetail, onHistory }) {
   return (

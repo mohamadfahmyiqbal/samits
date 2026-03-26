@@ -552,33 +552,23 @@ export default function useAssetPage({
   // To enable debug logging:
   // const [debugMode, setDebugMode] = useState(false);
   // useEffect(() => { if (!debugMode) return; /* debug code */ }, [...]);
-
 const saveAdd = useCallback(
     async (newAsset, attachments = []) => {
       try {
-        // DEBUG MODE: Tampilkan payload lengkap
-        console.log('🔄 DEBUG SAVE ADD - Payload:', newAsset);
-        console.log('📎 DEBUG SAVE ADD - Attachments:', attachments);
-        
-        // Tampilkan alert debug dengan payload JSON
-        const payloadDebug = {
-          newAsset,
-          attachmentsCount: attachments.length,
-          attachmentsNames: attachments.map(a => a.name)
-        };
-        alert(`DEBUG SIMPAN BARU:\n\nPayload:\n${JSON.stringify(payloadDebug, null, 2)}\n\nConsole punya detail lengkap!`);
-        
-        // Simulasi sukses: buat fake asset response
-        const fakeResponse = {
-          ...newAsset,
-          id: Date.now(),
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        };
-        
-        setAssets((prev) => [...prev, fakeResponse]);
-        showSuccess(`${successLabel} berhasil ditambahkan (DEBUG MODE - no backend)`);
+        const response = await createAsset(newAsset, attachments);
+        const createdAsset = response?.data;
+
+        if (!createdAsset) {
+          throw new Error("Respons server tidak berisi data asset baru.");
+        }
+
+        if (typeof setAssets === "function") {
+          setAssets((prev) => [...prev, createdAsset]);
+        }
+
+        showSuccess(`${successLabel} berhasil ditambahkan.`);
         setModalAdd(false);
+        return createdAsset;
       } catch (err) {
         showError(`Gagal menambah asset: ${err.message}`);
         throw err;
@@ -590,48 +580,39 @@ const saveAdd = useCallback(
 const saveUpdate = useCallback(
     async (updatedAsset, attachments = []) => {
       try {
-        // DEBUG MODE: Tampilkan payload lengkap
-        console.log('🔄 DEBUG SAVE UPDATE - Payload:', updatedAsset);
-        console.log('📎 DEBUG SAVE UPDATE - Attachments:', attachments);
-        
-        // Tampilkan alert debug dengan payload JSON
-        const payloadDebug = {
-          updatedAsset,
-          originalNoAsset: updatedAsset.originalNoAsset,
-          attachmentsCount: attachments.length,
-          attachmentsNames: attachments.map(a => a.name)
-        };
-        alert(`DEBUG UPDATE:\n\nPayload:\n${JSON.stringify(payloadDebug, null, 2)}\n\nConsole punya detail lengkap!`);
-        
-        // Simulasi sukses: fake updated response
-        const fakeResponse = {
-          ...updatedAsset,
-          id: Date.now(),
-          updated_at: new Date().toISOString()
-        };
-        
         const assetNoForUrl = updatedAsset.originalNoAsset || updatedAsset.noAsset;
-        const nextNoAsset = normalize(fakeResponse?.noAsset || fakeResponse?.asset_tag);
-        const prevNoAsset = normalize(updatedAsset?.originalNoAsset || updatedAsset?.noAsset);
-        
-        setAssets((prev) => {
-          let found = false;
-          const mapped = prev.map((a) => {
-            const currentNoAsset = normalize(a?.noAsset || a?.asset_tag);
-            if (
-              currentNoAsset &&
-              (currentNoAsset === nextNoAsset || (prevNoAsset && currentNoAsset === prevNoAsset))
-            ) {
-              found = true;
-              return fakeResponse;
-            }
-            return a;
+        const response = await updateAsset(assetNoForUrl, updatedAsset, attachments);
+        const savedAsset = response?.data;
+
+        if (!savedAsset) {
+          throw new Error("Respons server tidak berisi data asset hasil update.");
+        }
+
+        if (typeof setAssets === "function") {
+          const nextNoAsset = normalize(savedAsset?.noAsset || savedAsset?.asset_tag);
+          const prevNoAsset = normalize(updatedAsset?.originalNoAsset || updatedAsset?.noAsset);
+
+          setAssets((prev) => {
+            let found = false;
+            const mapped = prev.map((a) => {
+              const currentNoAsset = normalize(a?.noAsset || a?.asset_tag);
+              if (
+                currentNoAsset &&
+                (currentNoAsset === nextNoAsset ||
+                  (prevNoAsset && currentNoAsset === prevNoAsset))
+              ) {
+                found = true;
+                return savedAsset;
+              }
+              return a;
+            });
+            return found ? mapped : [savedAsset, ...mapped];
           });
-          return found ? mapped : [fakeResponse, ...mapped];
-        });
-        
-        showSuccess(`${successLabel} berhasil diupdate (DEBUG MODE - no backend)`);
+        }
+
+        showSuccess(`${successLabel} berhasil diupdate.`);
         setModalUpdate(false);
+        return savedAsset;
       } catch (err) {
         showError(`Gagal mengupdate asset: ${err.message}`);
         throw err;
@@ -676,10 +657,21 @@ const saveUpdate = useCallback(
     }
   }, []);
 
-  const handleUpdate = useCallback((asset) => {
-    setSelectedAsset(asset);
-    setModalUpdate(true);
-  }, []);
+  const handleUpdate = useCallback(
+    async (asset) => {
+      try {
+        const response = await getAssetDetails(asset.noAsset);
+        const detailedAsset = response?.data || asset;
+        setSelectedAsset(detailedAsset);
+      } catch (err) {
+        console.error("Gagal memuat detail asset untuk edit:", err);
+        setSelectedAsset(asset);
+      } finally {
+        setModalUpdate(true);
+      }
+    },
+    []
+  );
 
   const handleAddNewAsset = useCallback(() => {
     setModalAdd(true);
