@@ -512,7 +512,6 @@ export const loadAssetByNo = async (assetNo, transaction) => {
   const ITItemAttribute = db.ITItemAttribute;
   const ITItemSoftware = db.ITItemSoftware;
   const ITItemStatusHistory = db.ITItemStatusHistory;
-  const Asset = db.Asset;
   const HRGAUser = HRGAUserExternal || db.HRGAUser;
   const ciOp = getCaseInsensitiveOperator();
   
@@ -755,35 +754,12 @@ assetDebugLog('Final DEPT resolution', {
 });
 
 
-  // Get vendor info from Asset table if linked
-  let vendorName = '';
-  let locationName = '';
-  let serialNumber = '';
-  let purchaseDate = null;
-  let warrantyExpiry = null;
+  const vendorName = '';
+  const locationName = '';
+  const serialNumber = '';
+  const purchaseDate = null;
+  const warrantyExpiry = null;
   let purchasePrice = null;
-  
-  if (item.asset_id) {
-    try {
-      const assetInfo = await Asset.findOne({
-        where: { asset_id: item.asset_id },
-        include: [
-          { model: db.Vendor, as: "vendor", attributes: ["vendor_name"], required: false },
-          { model: db.Location, as: "location", attributes: ["location_name"], required: false }
-        ],
-        transaction
-      });
-      if (assetInfo) {
-        vendorName = assetInfo.vendor?.vendor_name || '';
-        locationName = assetInfo.location?.location_name || '';
-        serialNumber = assetInfo.serial_number || '';
-        purchaseDate = assetInfo.purchase_date || null;
-        warrantyExpiry = assetInfo.depreciation_date || null;
-      }
-    } catch (err) {
-      console.error("Error fetching asset info:", err);
-    }
-  }
 
   // Process attributes (moved UP - now consistent with early usage)
   const attrList = attributes.map(a => ({

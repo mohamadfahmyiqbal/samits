@@ -68,5 +68,13 @@ export default (sequelize) => {
         underscored: true
     });
 
+    MaintenancePlan.associate = (models) => {
+        MaintenancePlan.hasMany(models.WorkOrder, {
+            foreignKey: 'plan_id',
+            as: 'workOrders'
+        });
+    };
+
     return MaintenancePlan;
 };
+

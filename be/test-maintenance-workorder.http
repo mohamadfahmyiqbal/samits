@@ -1,0 +1,38 @@
+### 1. Start Server Dulu
+```
+npx nodemon be/samit.js
+```
+
+### 2. Test Create Maintenance Schedule → Auto WorkOrder
+**POST** http://localhost:3000/api/maintenance/schedule
+**Content-Type: application/json**
+
+```json
+{
+  "itItemId": "ASSET-001",
+  "hostname": "Server-Prod-01",
+  "category": "Server",
+  "type": "PM",
+  "scheduledDate": "2024-03-28",
+  "scheduledTime": "09:00",
+  "scheduledEndTime": "17:00",
+  "pic": "John Doe; Jane Smith; Vendor ABC"
+}
+```
+
+### 3. Verify WorkOrders dibuat
+**Query DB (sqlcmd atau tool lain):**
+```sql
+SELECT * FROM maintenance_plans WHERE hostname = 'Server-Prod-01';
+SELECT * FROM work_orders WHERE it_item_id = 'ASSET-001';
+SELECT * FROM wo_assignments WHERE assignee_name IN ('John Doe', 'Jane Smith', 'Vendor ABC');
+```
+
+**Expected:** 1 MaintenancePlan + 3 WorkOrders (1 per PIC) + 3 WOAssignments
+
+### 4. Check Logs
+Lihat console nodemon untuk "Created X WorkOrder(s) for PICs"
+
+### 5. List Results
+**GET** http://localhost:3000/api/workorder
+

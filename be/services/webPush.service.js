@@ -23,28 +23,25 @@ const configureWebPush = () => {
   return true;
 };
 
+// ✅ NAMED EXPORTS (existing)
 export const isWebPushConfigured = () => configureWebPush();
-
 export const getPublicVapidKey = () => VAPID_PUBLIC_KEY;
 
 const getSubscriptionModel = () => {
   const model = db.WebPushSubscription;
   if (!model) {
-    throw new Error('Model WebPushSubscription belum siap. Pastikan initializeDB() sudah dijalankan.');
+    throw new Error('Model WebPushSubscription belum siap.');
   }
   return model;
 };
 
 const ensureStorage = async () => {
-  if (storageReady) {
-    return;
-  }
-
+  if (storageReady) return;
   const model = getSubscriptionModel();
   try {
     await model.sync();
   } catch (error) {
-    console.warn('Warning: Could not sync WebPushSubscription table. Assuming it exists:', error.message);
+    console.warn('WebPushSubscription sync warning:', error.message);
   }
   storageReady = true;
 };
@@ -64,28 +61,20 @@ const normalizeSubscription = (subscription = {}) => {
 const toSubscriptionPayload = (record) => {
   try {
     const parsed = JSON.parse(record.rawSubscription || '{}');
-    if (parsed?.endpoint) {
-      return parsed;
-    }
-  } catch (_error) {
-    // Fall back ke struktur minimum jika JSON lama rusak.
-  }
-
+    if (parsed?.endpoint) return parsed;
+  } catch {}
   return {
     endpoint: record.endpoint,
     expirationTime: null,
-    keys: {
-      p256dh: record.p256dh,
-      auth: record.auth
-    }
+    keys: { p256dh: record.p256dh, auth: record.auth }
   };
 };
 
+// NAMED EXPORTS
 export const upsertSubscription = async (subscription, metadata = {}) => {
   if (!subscription?.endpoint) {
     throw new Error('Subscription endpoint tidak valid.');
   }
-
   await ensureStorage();
   const model = getSubscriptionModel();
   const normalized = normalizeSubscription(subscription);
@@ -96,23 +85,17 @@ export const upsertSubscription = async (subscription, metadata = {}) => {
     userPosition: metadata.position || null
   };
 
-  const existing = await model.findOne({
-    where: { endpointHash: normalized.endpointHash }
-  });
-
+  const existing = await model.findOne({ where: { endpointHash: normalized.endpointHash } });
   if (existing) {
     await existing.update(values);
     return existing;
   }
-
   const created = await model.create(values);
   return created;
 };
 
 export const removeSubscription = async (endpoint) => {
-  if (!endpoint) {
-    return false;
-  }
+  if (!endpoint) return false;
   await ensureStorage();
   const model = getSubscriptionModel();
   const endpointHash = crypto.createHash('sha256').update(endpoint).digest('hex');
@@ -129,12 +112,11 @@ export const getSubscriptionStats = async () => {
 
 export const sendPushToAll = async (payload) => {
   if (!configureWebPush()) {
-    throw new Error('Web Push belum dikonfigurasi. Isi VAPID_PUBLIC_KEY dan VAPID_PRIVATE_KEY.');
+    throw new Error('Web Push belum dikonfigurasi. VAPID keys required.');
   }
 
   const message = JSON.stringify(payload || {});
-  let successCount = 0;
-  let failedCount = 0;
+  let successCount = 0, failedCount = 0;
 
   await ensureStorage();
   const model = getSubscriptionModel();
@@ -146,19 +128,25 @@ export const sendPushToAll = async (payload) => {
 
     try {
       await webpush.sendNotification(subscription, message);
-      successCount += 1;
+      successCount++;
     } catch (error) {
-      failedCount += 1;
-
+      failedCount++;
       if (error?.statusCode === 404 || error?.statusCode === 410) {
         await removeSubscription(endpoint);
       }
     }
   }
 
-  return {
-    successCount,
-    failedCount,
-    totalAttempted: successCount + failedCount
-  };
+  return { successCount, failedCount, totalAttempted: successCount + failedCount };
 };
+
+// ✅ DEFAULT EXPORT WRAPPER (FIX ESM ERROR untuk workorder.service.js)
+export default {
+  sendNotification: sendPushToAll,  // Alias untuk backward compat
+  upsertSubscription,
+  removeSubscription,
+  getSubscriptionStats,
+  isConfigured: isWebPushConfigured,
+  getPublicKey: getPublicVapidKey
+};
+

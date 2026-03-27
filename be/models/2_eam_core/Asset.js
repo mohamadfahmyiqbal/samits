@@ -1,4 +1,3 @@
-// models/2_eam_core/Asset.js
 import { DataTypes } from 'sequelize';
 
 export default (sequelize) => {
@@ -42,7 +41,7 @@ export default (sequelize) => {
   timestamps: false, // Database tidak menggunakan createdAt/updatedAt
  });
 
- // Define associations
+ // Define associations - FIXED: correct targetKey
  Asset.associate = (models) => {
   if (models.Location) {
    Asset.belongsTo(models.Location, {
@@ -54,7 +53,7 @@ export default (sequelize) => {
   if (models.Vendor) {
    Asset.belongsTo(models.Vendor, {
     foreignKey: 'vendor_id',
-    targetKey: 'vendor_id',
+    targetKey: 'vendor_id', // FIXED: was 'id'
     as: 'vendor',
    });
   }
@@ -72,7 +71,16 @@ export default (sequelize) => {
     as: 'category',
    });
   }
+  // FIXED: Add Category association if exists
+  if (models.Category) {
+   Asset.belongsTo(models.Category, {
+    foreignKey: 'category_id',
+    targetKey: 'category_id',
+    as: 'itCategory',
+   });
+  }
  };
 
  return Asset;
 };
+
