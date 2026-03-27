@@ -46,6 +46,10 @@ collectModelPromises(join(__dirname, '5_itam_management'));
 collectModelPromises(join(__dirname, '6_general_utility'));
 collectModelPromises(join(__dirname, 'approval'));
 collectModelPromises(join(__dirname, 'hrga'));
+collectModelPromises(join(__dirname, 'procurement'));
+collectModelPromises(join(__dirname, 'accounting'));
+collectModelPromises(join(__dirname, 'lifecycle'));
+
 
 /**
  * Fungsi ASINKRON untuk memuat semua model dan menginisialisasi asosiasi.

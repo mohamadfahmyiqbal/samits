@@ -167,7 +167,6 @@ export class AssetService {
    * Buat status history
    */
   static async createStatusHistory(itItemId, status, transaction) {
-    const ITItemStatusHistory = db.ITItemStatusHistory;
     const getNowValue = () => sequelize.getDialect() === 'mssql' 
       ? sequelize.literal('GETDATE()') 
       : new Date();

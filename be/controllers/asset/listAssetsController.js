@@ -23,9 +23,8 @@ export const listItItems = async (req, res) => {
     const ITItemAssignment = db.ITItemAssignment;
     const ITItemAttribute = db.ITItemAttribute;
     const ITItemNetwork = db.ITItemNetwork;
-    const ITItemStatusHistory = db.ITItemStatusHistory;
 
-    if (!ITItem || !ITSubCategory || !ITCategory || !ITItemAssignment || !ITItemAttribute || !ITItemNetwork || !ITItemStatusHistory) {
+    if (!ITItem || !ITSubCategory || !ITCategory || !ITItemAssignment || !ITItemAttribute || !ITItemNetwork ) {
       throw new Error("Model ITAM belum lengkap. Pastikan semua model ITItem tersedia.");
     }
 
@@ -104,7 +103,6 @@ export const listItItems = async (req, res) => {
         { model: db.ITItemAssignment, as: 'assignments' },
         { model: db.ITItemAttribute, as: 'attributes' },
         { model: db.ITItemNetwork, as: 'networks' },
-        { model: db.ITItemStatusHistory, as: 'statusHistory' },
       ],
       where: itemWhere,
       order: [["asset_tag", "ASC"]],

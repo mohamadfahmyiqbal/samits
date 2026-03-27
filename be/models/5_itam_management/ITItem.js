@@ -163,12 +163,6 @@ export default (sequelize) => {
                 as: 'networks',
             });
         }
-        if (models.ITItemStatusHistory) {
-            ITItem.hasMany(models.ITItemStatusHistory, {
-                foreignKey: 'it_item_id',
-                as: 'statusHistory',
-            });
-        }
         if (models.ITItemSoftware) {
             ITItem.hasMany(models.ITItemSoftware, {
                 foreignKey: 'it_item_id',

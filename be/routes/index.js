@@ -10,6 +10,7 @@ import assetRoutes from './AssetRoutes.js';
 import maintenanceRoutes from './maintenance.routes.js'; 
 import pushRoutes from './push.routes.js';
 import workorderRoutes from './workorder.routes.js';
+import approvalRoutes from './approval.routes.js';
 
 const router = express.Router();
 
@@ -25,5 +26,6 @@ router.use('/assets', assetRoutes);
 router.use('/maintenance', maintenanceRoutes); 
 router.use('/push', pushRoutes);
 router.use('/workorder', workorderRoutes);
+router.use('/approval', approvalRoutes);
 
 export default router;

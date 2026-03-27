@@ -511,7 +511,6 @@ export const loadAssetByNo = async (assetNo, transaction) => {
   const ITItemNetwork = db.ITItemNetwork;
   const ITItemAttribute = db.ITItemAttribute;
   const ITItemSoftware = db.ITItemSoftware;
-  const ITItemStatusHistory = db.ITItemStatusHistory;
   const HRGAUser = HRGAUserExternal || db.HRGAUser;
   const ciOp = getCaseInsensitiveOperator();
   
