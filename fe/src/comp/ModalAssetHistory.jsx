@@ -1,5 +1,6 @@
+
 import React from "react";
-import { Modal, Button, Tabs, Tab, Table, Badge } from "react-bootstrap";
+import { Modal, Button, Tabs, Tab, Table } from "react-bootstrap";
 
 const formatDateTime = (value) => {
   if (!value) return "-";
@@ -13,8 +14,7 @@ export default function ModalAssetHistory({
   onHide,
   asset,
   auditLogs = [],
-  statusHistory = [],
-}) {
+  statusHistory = [] }) {
   if (!asset) return null;
 
   return (

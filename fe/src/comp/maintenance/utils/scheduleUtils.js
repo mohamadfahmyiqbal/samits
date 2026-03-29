@@ -1,12 +1,13 @@
-import * as XLSX from "xlsx";
+// Excel export disabled due to security concerns
+// import * as XLSX from "xlsx";
 
 // Format tanggal
 export const formatDate = (date) => {
-  if (!date) return "-";
-  return new Date(date).toLocaleDateString("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
+  if (!date) return '-';
+  return new Date(date).toLocaleDateString('id-ID', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
   });
 };
 
@@ -20,17 +21,22 @@ export const isDue = (log) => {
 export const handleExportExcel = (logs, sortedLogs) => {
   const exportData = sortedLogs.map((log, idx) => ({
     No: idx + 1,
-    "No.Asset": log.assetId,
-    Category: log.category || "-",
+    'No.Asset': log.assetId,
+    Category: log.category || '-',
     Type: log.type,
-    PIC: log.pic || "-",
-    "Schedule Maintenance": formatDate(log.nextMaintenance),
+    PIC: log.pic || '-',
+    'Schedule Maintenance': formatDate(log.nextMaintenance),
     Status: log.status,
-    SOP: log.sop || "-",
+    SOP: log.sop || '-',
   }));
 
+  // Excel export disabled due to security concerns
+  alert('Excel export temporarily disabled for security reasons');
+  // TODO: Implement safer export alternative
+  /*
   const ws = XLSX.utils.json_to_sheet(exportData);
   const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Schedule");
-  XLSX.writeFile(wb, "MaintenanceSchedule.xlsx");
+  XLSX.utils.book_append_sheet(wb, ws, 'Schedule');
+  XLSX.writeFile(wb, 'MaintenanceSchedule.xlsx');
+  */
 };

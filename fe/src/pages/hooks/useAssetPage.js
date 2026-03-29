@@ -1,5 +1,5 @@
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { AssetContext } from "../../context/AssetContext";
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { AssetContext } from '../../context/AssetContext';
 import {
   createAsset,
   deleteAsset,
@@ -12,28 +12,30 @@ import {
   fetchMainTypes,
   updateAsset,
   getAssetDetails,
-} from "../../services/AssetService";
-import { showError, showSuccess, alertConfirm } from "../../comp/Notification";
-import useDebounce from "../AssetManagement/hooks/useDebounce";
-import socketService from "../../services/SocketService";
+} from '../../services/AssetService';
+import { showError, showSuccess, alertConfirm } from '../../comp/Notification';
+import { useDebounce } from '../../hooks/useDebounce';
+import socketService from '../../services/SocketService';
 
 function normalize(value) {
-  return String(value || "").trim().toLowerCase();
+  return String(value || '')
+    .trim()
+    .toLowerCase();
 }
 
 function normalizeMainTypeKey(value) {
   const normalized = normalize(value);
-  if (!normalized) return "";
-  if (["asset utama", "aset utama", "main", "primary"].includes(normalized)) return "utama";
-  if (["klien"].includes(normalized)) return "client";
+  if (!normalized) return '';
+  if (['asset utama', 'aset utama', 'main', 'primary'].includes(normalized)) return 'utama';
+  if (['klien'].includes(normalized)) return 'client';
   return normalized;
 }
 
 function toCategoryGroupName(value) {
   const normalized = normalize(value);
-  if (!normalized || normalized === "all") return undefined;
-  if (normalized === "utama") return "ASSET UTAMA";
-  if (normalized === "client") return "CLIENT";
+  if (!normalized || normalized === 'all') return undefined;
+  if (normalized === 'utama') return 'ASSET UTAMA';
+  if (normalized === 'client') return 'CLIENT';
   return normalized.charAt(0).toUpperCase() + normalized.slice(1);
 }
 
@@ -41,22 +43,24 @@ function buildSubTabConfig(categoryTypes, mode) {
   if (!Array.isArray(categoryTypes)) return {};
 
   return categoryTypes.reduce((acc, row) => {
-    const category = String(row?.category || "").trim();
+    const category = String(row?.category || '').trim();
     if (!category) return acc;
 
-    const subCategories = Array.isArray(row?.sub_categories) ? row.sub_categories.filter(Boolean) : [];
+    const subCategories = Array.isArray(row?.sub_categories)
+      ? row.sub_categories.filter(Boolean)
+      : [];
     const types = Array.isArray(row?.types) ? row.types.filter(Boolean) : [];
     const source = subCategories.length > 0 ? subCategories : types;
 
     const mappedTypes = source
       .map((typeRow) =>
-        typeof typeRow === "string"
+        typeof typeRow === 'string'
           ? typeRow.trim()
-          : String(typeRow?.sub_category_name || typeRow?.type || typeRow?.name || "").trim()
+          : String(typeRow?.sub_category_name || typeRow?.type || typeRow?.name || '').trim()
       )
       .filter(Boolean);
 
-    acc[category] = mode === "type-group" ? ["All", ...mappedTypes] : mappedTypes;
+    acc[category] = mode === 'type-group' ? ['All', ...mappedTypes] : mappedTypes;
     return acc;
   }, {});
 }
@@ -65,25 +69,31 @@ function buildTabMeta(categoryTypes) {
   if (!Array.isArray(categoryTypes)) return {};
 
   return categoryTypes.reduce((acc, row) => {
-    const category = String(row?.category || "").trim();
+    const category = String(row?.category || '').trim();
     if (!category) return acc;
 
     const categoryId = row?.category_id ?? row?.it_category_id ?? row?.categoryId ?? null;
     const subCategoryIds = {};
     const types = Array.isArray(row?.types) ? row.types.filter(Boolean) : [];
-    const subCategories = Array.isArray(row?.sub_categories) ? row.sub_categories.filter(Boolean) : [];
+    const subCategories = Array.isArray(row?.sub_categories)
+      ? row.sub_categories.filter(Boolean)
+      : [];
 
     types.forEach((typeRow) => {
-      if (!typeRow || typeof typeRow === "string") return;
-      const subCategoryName = String(typeRow?.sub_category_name || typeRow?.type || typeRow?.name || "").trim();
+      if (!typeRow || typeof typeRow === 'string') return;
+      const subCategoryName = String(
+        typeRow?.sub_category_name || typeRow?.type || typeRow?.name || ''
+      ).trim();
       if (!subCategoryName) return;
-      subCategoryIds[subCategoryName] = typeRow?.sub_category_id ?? typeRow?.subCategoryId ?? typeRow?.id ?? null;
+      subCategoryIds[subCategoryName] =
+        typeRow?.sub_category_id ?? typeRow?.subCategoryId ?? typeRow?.id ?? null;
     });
 
     subCategories.forEach((subRow) => {
-      const subCategoryName = String(subRow?.sub_category_name || subRow?.name || "").trim();
+      const subCategoryName = String(subRow?.sub_category_name || subRow?.name || '').trim();
       if (!subCategoryName) return;
-      subCategoryIds[subCategoryName] = subRow?.sub_category_id ?? subRow?.subCategoryId ?? subRow?.id ?? null;
+      subCategoryIds[subCategoryName] =
+        subRow?.sub_category_id ?? subRow?.subCategoryId ?? subRow?.id ?? null;
     });
 
     acc[category] = {
@@ -98,18 +108,18 @@ export default function useAssetPage({
   contextKey,
   categoryTypeGroup,
   successLabel,
-  mainFilterMode = "category",
+  mainFilterMode = 'category',
   requireSubCategorySelection = false,
   useQueryFetch = false,
   useLocalAssets = false,
   fetchGroup,
   enableAssetGroupTabs = false,
-  defaultAssetGroupTab = "all",
+  defaultAssetGroupTab = 'all',
 }) {
   const assetContext = useContext(AssetContext);
   const contextAssets = Array.isArray(assetContext?.[contextKey]) ? assetContext[contextKey] : [];
   const setContextAssets =
-    typeof contextKey === "string" && contextKey.length > 0
+    typeof contextKey === 'string' && contextKey.length > 0
       ? assetContext?.[`set${contextKey.charAt(0).toUpperCase()}${contextKey.slice(1)}`]
       : null;
   const refreshAssets = assetContext?.refreshAssets;
@@ -120,26 +130,30 @@ export default function useAssetPage({
   const setAssets = useLocalAssets ? setLocalAssets : setContextAssets;
   const effectiveFetchGroup = fetchGroup !== undefined ? fetchGroup : contextKey;
 
-  const [assetGroups, setAssetGroups] = useState(["all", "utama", "client"]);
+  const [assetGroups, setAssetGroups] = useState(['all', 'utama', 'client']);
   const [mainTypes, setMainTypes] = useState([]);
   const [subTabConfig, setSubTabConfig] = useState({});
   const [tabMeta, setTabMeta] = useState({});
 
-  const [activeMainType, setActiveMainType] = useState("All");
+  const [activeMainType, setActiveMainType] = useState('All');
   const [activeMainTypeId, setActiveMainTypeId] = useState(null);
-  const [activeMainTab, setActiveMainTab] = useState("All");
-  const [activeSubTab, setActiveSubTab] = useState(requireSubCategorySelection ? "" : "All");
+  const [activeMainTab, setActiveMainTab] = useState('All');
+  const [activeSubTab, setActiveSubTab] = useState(requireSubCategorySelection ? '' : 'All');
   const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(null);
   const [activeAssetGroup, setActiveAssetGroup] = useState(defaultAssetGroupTab);
-  const resolvedCategoryTypeGroup = enableAssetGroupTabs ? toCategoryGroupName(activeAssetGroup) : categoryTypeGroup;
+  const resolvedCategoryTypeGroup = enableAssetGroupTabs
+    ? toCategoryGroupName(activeAssetGroup)
+    : categoryTypeGroup;
   const resolvedFetchGroup = enableAssetGroupTabs ? null : effectiveFetchGroup;
   const resolvedMainTypeId = enableAssetGroupTabs
-    ? (activeMainTypeId !== undefined && activeMainTypeId !== null ? Number(activeMainTypeId) : null)
+    ? activeMainTypeId !== undefined && activeMainTypeId !== null
+      ? Number(activeMainTypeId)
+      : null
     : null;
-  const [search, setSearch] = useState("");
-  const [searchYear, setSearchYear] = useState("");
-  const [sortField, setSortField] = useState("noAsset");
+  const [search, setSearch] = useState('');
+  const [searchYear, setSearchYear] = useState('');
+  const [sortField, setSortField] = useState('noAsset');
   const [sortAsc, setSortAsc] = useState(true);
 
   const [modalDetail, setModalDetail] = useState(false);
@@ -165,8 +179,12 @@ export default function useAssetPage({
         const response = await fetchAssetGroups(activeMainTypeId);
         const groups = Array.isArray(response?.data)
           ? response.data
-              .map((row) => (typeof row === "string" ? row : row?.asset_group_name || row?.group || row?.name || ""))
-              .map((value) => String(value || "").trim())
+              .map((row) =>
+                typeof row === 'string'
+                  ? row
+                  : row?.asset_group_name || row?.group || row?.name || ''
+              )
+              .map((value) => String(value || '').trim())
               .filter(Boolean)
           : [];
 
@@ -175,21 +193,20 @@ export default function useAssetPage({
           setActiveAssetGroup((prev) => {
             const exists = groups.some((group) => normalize(group) === normalize(prev));
             if (exists) return prev;
-            if (normalize(defaultAssetGroupTab) === "all") return "all";
+            if (normalize(defaultAssetGroupTab) === 'all') return 'all';
             return groups[0];
           });
         } else {
           setAssetGroups([]);
         }
       } catch (err) {
-        console.error("Gagal memuat asset groups:", err);
+        console.error('Gagal memuat asset groups:', err);
         // Keep current asset groups on error
       }
     };
 
     fetchGroups();
   }, [enableAssetGroupTabs, activeMainTypeId, defaultAssetGroupTab]);
-
 
   // Fetch main types from database
   useEffect(() => {
@@ -199,17 +216,15 @@ export default function useAssetPage({
         if (Array.isArray(response?.data) && response.data.length > 0) {
           setMainTypes(response.data);
           setAssetGroups(
-            response.data
-              .map((row) => String(row?.main_type_name || "").trim())
-              .filter(Boolean)
+            response.data.map((row) => String(row?.main_type_name || '').trim()).filter(Boolean)
           );
           // Auto-select first main type if available
           setActiveMainType(response.data[0].main_type_name);
           setActiveMainTypeId(response.data[0].asset_main_type_id);
-          setActiveAssetGroup(response.data[0].main_type_name || "all");
+          setActiveAssetGroup(response.data[0].main_type_name || 'all');
         }
       } catch (err) {
-        console.error("Gagal memuat main types:", err);
+        console.error('Gagal memuat main types:', err);
       }
     };
 
@@ -221,13 +236,13 @@ export default function useAssetPage({
     if (mainTypes.length > 0 && !activeMainTypeId) {
       setActiveMainType(mainTypes[0].main_type_name);
       setActiveMainTypeId(mainTypes[0].asset_main_type_id);
-      setActiveAssetGroup(mainTypes[0].main_type_name || "all");
+      setActiveAssetGroup(mainTypes[0].main_type_name || 'all');
     }
   }, [mainTypes]);
 
   // New: Fetch assets only after mainTypes is loaded
   useEffect(() => {
-    if (!useLocalAssets && typeof setAssets !== "function") {
+    if (!useLocalAssets && typeof setAssets !== 'function') {
       setError(`Setter untuk asset group "${contextKey}" tidak ditemukan.`);
       setIsLoading(false);
       return;
@@ -244,12 +259,12 @@ export default function useAssetPage({
         setIsLoading(false);
         return;
       }
-      
+
       const requestId = Date.now() + Math.random();
       loadInitialRequestRef.current = requestId;
       try {
         setIsLoading(true);
-        
+
         const [categoryTypesResult, assetsResult] = await Promise.allSettled([
           fetchCategoryTypes(resolvedCategoryTypeGroup, activeMainTypeId),
           useQueryFetch
@@ -260,10 +275,9 @@ export default function useAssetPage({
               }),
         ]);
 
-        
-
         const categoryTypes =
-          categoryTypesResult.status === "fulfilled" && Array.isArray(categoryTypesResult.value?.data)
+          categoryTypesResult.status === 'fulfilled' &&
+          Array.isArray(categoryTypesResult.value?.data)
             ? categoryTypesResult.value.data
             : [];
 
@@ -272,7 +286,7 @@ export default function useAssetPage({
 
         if (!useQueryFetch) {
           const assetData =
-            assetsResult.status === "fulfilled" && Array.isArray(assetsResult.value?.data)
+            assetsResult.status === 'fulfilled' && Array.isArray(assetsResult.value?.data)
               ? assetsResult.value.data
               : [];
           if (loadInitialRequestRef.current === requestId) {
@@ -285,11 +299,11 @@ export default function useAssetPage({
           return;
         }
 
-        if (categoryTypesResult.status !== "fulfilled") {
-          const msg = categoryTypesResult.reason?.message || "Gagal memuat kategori.";
+        if (categoryTypesResult.status !== 'fulfilled') {
+          const msg = categoryTypesResult.reason?.message || 'Gagal memuat kategori.';
           setError(`${msg} Coba refresh.`);
-        } else if (!useQueryFetch && assetsResult.status !== "fulfilled") {
-          const msg = assetsResult.reason?.message || "Gagal memuat data aset.";
+        } else if (!useQueryFetch && assetsResult.status !== 'fulfilled') {
+          const msg = assetsResult.reason?.message || 'Gagal memuat data aset.';
           setError(`${msg} Coba refresh.`);
         } else {
           setError(null);
@@ -314,7 +328,7 @@ export default function useAssetPage({
     setAssets,
     useLocalAssets,
     useQueryFetch,
-    mainTypes,  // Add mainTypes as dependency
+    mainTypes, // Add mainTypes as dependency
     activeMainTypeId,
     assets.length,
   ]);
@@ -323,41 +337,48 @@ export default function useAssetPage({
   // Only run if enableAssetGroupTabs is FALSE (to avoid resetting state during subCategory selection)
   useEffect(() => {
     if (enableAssetGroupTabs) return;
-    
+
     const reloadCategories = async () => {
       try {
         const response = await fetchCategoryTypes(resolvedCategoryTypeGroup, activeMainTypeId);
         const categoryTypes = Array.isArray(response?.data) ? response.data : [];
-        
+
         setSubTabConfig(buildSubTabConfig(categoryTypes, mainFilterMode));
         setTabMeta(buildTabMeta(categoryTypes));
-        
+
         // Reset main tab selection when main type changes
-        setActiveMainTab("All");
+        setActiveMainTab('All');
         setActiveCategoryId(null);
         setActiveSubCategoryId(null);
-        setActiveSubTab(requireSubCategorySelection ? "__ALL__" : "All");
+        setActiveSubTab(requireSubCategorySelection ? '__ALL__' : 'All');
       } catch (err) {
-        console.error("Gagal memuat kategori berdasarkan main type:", err);
+        console.error('Gagal memuat kategori berdasarkan main type:', err);
       }
     };
 
     if (mainTypes.length > 0) {
       reloadCategories();
     }
-  }, [activeMainTypeId, resolvedCategoryTypeGroup, mainFilterMode, requireSubCategorySelection, mainTypes, enableAssetGroupTabs]);
+  }, [
+    activeMainTypeId,
+    resolvedCategoryTypeGroup,
+    mainFilterMode,
+    requireSubCategorySelection,
+    mainTypes,
+    enableAssetGroupTabs,
+  ]);
 
   useEffect(() => {
-    if (useQueryFetch && typeof refreshAssets === "function") {
+    if (useQueryFetch && typeof refreshAssets === 'function') {
       refreshAssets();
     }
   }, [refreshAssets, useQueryFetch]);
 
   useEffect(() => {
-    if (typeof setAssets !== "function") return;
+    if (typeof setAssets !== 'function') return;
 
     const handleRealtimeAssetUpdated = (payload = {}) => {
-      const incomingAsset = payload?.data && typeof payload.data === "object" ? payload.data : null;
+      const incomingAsset = payload?.data && typeof payload.data === 'object' ? payload.data : null;
       if (!incomingAsset) return;
 
       const incomingNoAsset = normalize(incomingAsset?.noAsset || incomingAsset?.asset_tag);
@@ -383,24 +404,40 @@ export default function useAssetPage({
       });
     };
 
-    socketService.on("asset:updated", handleRealtimeAssetUpdated);
+    socketService.on('asset:updated', handleRealtimeAssetUpdated);
     return () => {
-      socketService.off("asset:updated", handleRealtimeAssetUpdated);
+      socketService.off('asset:updated', handleRealtimeAssetUpdated);
     };
   }, [setAssets]);
 
   useEffect(() => {
-    if (!useQueryFetch || !activeMainTab || typeof setAssets !== "function") return;
+    if (!useQueryFetch || !activeMainTab || typeof setAssets !== 'function') return;
 
-    const currentSubTabs = Array.isArray(subTabConfig?.[activeMainTab]) ? subTabConfig[activeMainTab] : [];
+    const currentSubTabs = Array.isArray(subTabConfig?.[activeMainTab])
+      ? subTabConfig[activeMainTab]
+      : [];
     const selectedType =
-      currentSubTabs.length > 0 && activeSubTab && activeSubTab !== "__ALL__" && activeSubTab !== "All"
+      currentSubTabs.length > 0 &&
+      activeSubTab &&
+      activeSubTab !== '__ALL__' &&
+      activeSubTab !== 'All'
         ? activeSubTab
         : null;
 
     const fetchByTab = async () => {
       const requestId = Date.now() + Math.random();
       tabQueryRequestRef.current = requestId;
+
+      // DEBUG: Log query parameters
+      console.log('[DEBUG] fetchAssetsByQuery params:', {
+        group: resolvedFetchGroup,
+        main_type_id: resolvedMainTypeId,
+        category_id: activeCategoryId,
+        sub_category_id: selectedType ? activeSubCategoryId : null,
+        selectedType,
+        activeSubTab,
+      });
+
       try {
         setIsLoading(true);
         const response = await fetchAssetsByQuery({
@@ -440,26 +477,28 @@ export default function useAssetPage({
   const visibleTabMeta = tabMeta;
 
   useEffect(() => {
-    const isAllMainTab = normalize(activeMainTab) === "all";
+    const isAllMainTab = normalize(activeMainTab) === 'all';
     if (isAllMainTab) return;
 
     if (!visibleSubTabConfig?.[activeMainTab]) {
-      setActiveMainTab("All");
+      setActiveMainTab('All');
       setActiveCategoryId(null);
       setActiveSubCategoryId(null);
-      setActiveSubTab(requireSubCategorySelection ? "__ALL__" : "All");
+      setActiveSubTab(requireSubCategorySelection ? '__ALL__' : 'All');
       return;
     }
 
-    const allowedSubTabs = Array.isArray(visibleSubTabConfig[activeMainTab]) ? visibleSubTabConfig[activeMainTab] : [];
+    const allowedSubTabs = Array.isArray(visibleSubTabConfig[activeMainTab])
+      ? visibleSubTabConfig[activeMainTab]
+      : [];
     if (
       allowedSubTabs.length > 0 &&
       activeSubTab &&
-      activeSubTab !== "__ALL__" &&
-      activeSubTab !== "All" &&
+      activeSubTab !== '__ALL__' &&
+      activeSubTab !== 'All' &&
       !allowedSubTabs.includes(activeSubTab)
     ) {
-      setActiveSubTab(requireSubCategorySelection ? "" : "All");
+      setActiveSubTab(requireSubCategorySelection ? '' : 'All');
       setActiveSubCategoryId(null);
     }
   }, [activeMainTab, activeSubTab, requireSubCategorySelection, visibleSubTabConfig]);
@@ -467,26 +506,27 @@ export default function useAssetPage({
   const filtered = useMemo(() => {
     if (!activeMainTab) return [];
 
-    const searchText = debouncedSearch ? debouncedSearch.toLowerCase() : "";
-    const isAllMainTab = normalize(activeMainTab) === "all";
-    const isAllMainType = normalize(activeMainType) === "all";
+    const searchText = debouncedSearch ? debouncedSearch.toLowerCase() : '';
+    const isAllMainTab = normalize(activeMainTab) === 'all';
+    const isAllMainType = normalize(activeMainType) === 'all';
     const selectedMainTypeKey = normalizeMainTypeKey(activeMainType);
-    const currentSubTabs = Array.isArray(subTabConfig?.[activeMainTab]) ? subTabConfig[activeMainTab] : [];
+    const currentSubTabs = Array.isArray(subTabConfig?.[activeMainTab])
+      ? subTabConfig[activeMainTab]
+      : [];
 
     const requireSub = !isAllMainTab && currentSubTabs.length > 0 && requireSubCategorySelection;
     if (requireSub && !activeSubTab) return [];
 
     const data = assets.filter((item) => {
-      const itemType = String(item?.type || "");
+      const itemType = String(item?.type || '');
       const itemAssetGroup = normalize(item?.assetGroup);
       const selectedAssetGroup = normalize(activeAssetGroup);
       const shouldApplyAssetGroupFilter =
         enableAssetGroupTabs &&
         selectedAssetGroup &&
-        selectedAssetGroup !== "all" &&
+        selectedAssetGroup !== 'all' &&
         selectedAssetGroup !== normalize(activeMainType);
-      const matchAssetGroup =
-        !shouldApplyAssetGroupFilter || itemAssetGroup === selectedAssetGroup;
+      const matchAssetGroup = !shouldApplyAssetGroupFilter || itemAssetGroup === selectedAssetGroup;
       const itemMainTypeKey = normalizeMainTypeKey(item?.assetGroup);
       const itemMainTypeId = Number(item?.asset_main_type_id || 0) || null;
       const matchMainType =
@@ -496,20 +536,20 @@ export default function useAssetPage({
         itemMainTypeKey === selectedMainTypeKey;
 
       let matchMainTab = true;
-      if (mainFilterMode === "type-group") {
+      if (mainFilterMode === 'type-group') {
         matchMainTab =
           isAllMainTab ||
-          currentSubTabs
-            .filter((value) => normalize(value) !== "all")
-            .includes(itemType);
+          currentSubTabs.filter((value) => normalize(value) !== 'all').includes(itemType);
       } else {
         matchMainTab = isAllMainTab || normalize(item?.category) === normalize(activeMainTab);
       }
 
       let matchSubTab = true;
       if (!isAllMainTab && currentSubTabs.length > 0) {
-        const isSubAll = normalize(activeSubTab) === "all" || activeSubTab === "__ALL__";
-        matchSubTab = !activeSubTab ? !requireSubCategorySelection : isSubAll || normalize(itemType) === normalize(activeSubTab);
+        const isSubAll = normalize(activeSubTab) === 'all' || activeSubTab === '__ALL__';
+        matchSubTab = !activeSubTab
+          ? !requireSubCategorySelection
+          : isSubAll || normalize(itemType) === normalize(activeSubTab);
       }
 
       const matchSearch =
@@ -518,15 +558,19 @@ export default function useAssetPage({
         (itemType && itemType.toLowerCase().includes(searchText)) ||
         (item.nama && item.nama.toLowerCase().includes(searchText)) ||
         (item.hostname && item.hostname.toLowerCase().includes(searchText));
-      const matchYear = !debouncedSearchYear || String(item.tahunBeli || "") === String(debouncedSearchYear);
+      const matchYear =
+        !debouncedSearchYear || String(item.tahunBeli || '') === String(debouncedSearchYear);
 
-      return matchMainType && matchAssetGroup && matchMainTab && matchSubTab && matchSearch && matchYear;
+      return (
+        matchMainType && matchAssetGroup && matchMainTab && matchSubTab && matchSearch && matchYear
+      );
     });
 
     data.sort((a, b) => {
-      const aValue = a[sortField] || "";
-      const bValue = b[sortField] || "";
-      if (typeof aValue === "string") return sortAsc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+      const aValue = a[sortField] || '';
+      const bValue = b[sortField] || '';
+      if (typeof aValue === 'string')
+        return sortAsc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
       return sortAsc ? aValue - bValue : bValue - aValue;
     });
 
@@ -552,33 +596,23 @@ export default function useAssetPage({
   // To enable debug logging:
   // const [debugMode, setDebugMode] = useState(false);
   // useEffect(() => { if (!debugMode) return; /* debug code */ }, [...]);
-
-const saveAdd = useCallback(
+  const saveAdd = useCallback(
     async (newAsset, attachments = []) => {
       try {
-        // DEBUG MODE: Tampilkan payload lengkap
-        console.log('🔄 DEBUG SAVE ADD - Payload:', newAsset);
-        console.log('📎 DEBUG SAVE ADD - Attachments:', attachments);
-        
-        // Tampilkan alert debug dengan payload JSON
-        const payloadDebug = {
-          newAsset,
-          attachmentsCount: attachments.length,
-          attachmentsNames: attachments.map(a => a.name)
-        };
-        alert(`DEBUG SIMPAN BARU:\n\nPayload:\n${JSON.stringify(payloadDebug, null, 2)}\n\nConsole punya detail lengkap!`);
-        
-        // Simulasi sukses: buat fake asset response
-        const fakeResponse = {
-          ...newAsset,
-          id: Date.now(),
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        };
-        
-        setAssets((prev) => [...prev, fakeResponse]);
-        showSuccess(`${successLabel} berhasil ditambahkan (DEBUG MODE - no backend)`);
+        const response = await createAsset(newAsset, attachments);
+        const createdAsset = response?.data;
+
+        if (!createdAsset) {
+          throw new Error('Respons server tidak berisi data asset baru.');
+        }
+
+        if (typeof setAssets === 'function') {
+          setAssets((prev) => [...prev, createdAsset]);
+        }
+
+        showSuccess(`${successLabel} berhasil ditambahkan.`);
         setModalAdd(false);
+        return createdAsset;
       } catch (err) {
         showError(`Gagal menambah asset: ${err.message}`);
         throw err;
@@ -587,51 +621,41 @@ const saveAdd = useCallback(
     [setAssets, successLabel]
   );
 
-const saveUpdate = useCallback(
+  const saveUpdate = useCallback(
     async (updatedAsset, attachments = []) => {
       try {
-        // DEBUG MODE: Tampilkan payload lengkap
-        console.log('🔄 DEBUG SAVE UPDATE - Payload:', updatedAsset);
-        console.log('📎 DEBUG SAVE UPDATE - Attachments:', attachments);
-        
-        // Tampilkan alert debug dengan payload JSON
-        const payloadDebug = {
-          updatedAsset,
-          originalNoAsset: updatedAsset.originalNoAsset,
-          attachmentsCount: attachments.length,
-          attachmentsNames: attachments.map(a => a.name)
-        };
-        alert(`DEBUG UPDATE:\n\nPayload:\n${JSON.stringify(payloadDebug, null, 2)}\n\nConsole punya detail lengkap!`);
-        
-        // Simulasi sukses: fake updated response
-        const fakeResponse = {
-          ...updatedAsset,
-          id: Date.now(),
-          updated_at: new Date().toISOString()
-        };
-        
         const assetNoForUrl = updatedAsset.originalNoAsset || updatedAsset.noAsset;
-        const nextNoAsset = normalize(fakeResponse?.noAsset || fakeResponse?.asset_tag);
-        const prevNoAsset = normalize(updatedAsset?.originalNoAsset || updatedAsset?.noAsset);
-        
-        setAssets((prev) => {
-          let found = false;
-          const mapped = prev.map((a) => {
-            const currentNoAsset = normalize(a?.noAsset || a?.asset_tag);
-            if (
-              currentNoAsset &&
-              (currentNoAsset === nextNoAsset || (prevNoAsset && currentNoAsset === prevNoAsset))
-            ) {
-              found = true;
-              return fakeResponse;
-            }
-            return a;
+        const response = await updateAsset(assetNoForUrl, updatedAsset, attachments);
+        const savedAsset = response?.data;
+
+        if (!savedAsset) {
+          throw new Error('Respons server tidak berisi data asset hasil update.');
+        }
+
+        if (typeof setAssets === 'function') {
+          const nextNoAsset = normalize(savedAsset?.noAsset || savedAsset?.asset_tag);
+          const prevNoAsset = normalize(updatedAsset?.originalNoAsset || updatedAsset?.noAsset);
+
+          setAssets((prev) => {
+            let found = false;
+            const mapped = prev.map((a) => {
+              const currentNoAsset = normalize(a?.noAsset || a?.asset_tag);
+              if (
+                currentNoAsset &&
+                (currentNoAsset === nextNoAsset || (prevNoAsset && currentNoAsset === prevNoAsset))
+              ) {
+                found = true;
+                return savedAsset;
+              }
+              return a;
+            });
+            return found ? mapped : [savedAsset, ...mapped];
           });
-          return found ? mapped : [fakeResponse, ...mapped];
-        });
-        
-        showSuccess(`${successLabel} berhasil diupdate (DEBUG MODE - no backend)`);
+        }
+
+        showSuccess(`${successLabel} berhasil diupdate.`);
         setModalUpdate(false);
+        return savedAsset;
       } catch (err) {
         showError(`Gagal mengupdate asset: ${err.message}`);
         throw err;
@@ -643,10 +667,10 @@ const saveUpdate = useCallback(
   const handleDelete = useCallback(
     async (assetToDelete) => {
       alertConfirm({
-        title: "Hapus Asset",
+        title: 'Hapus Asset',
         text: `Yakin ingin menghapus asset ${assetToDelete.noAsset}?`,
-        confirmText: "Hapus",
-        cancelText: "Batal",
+        confirmText: 'Hapus',
+        cancelText: 'Batal',
         onConfirm: async () => {
           try {
             await deleteAsset(assetToDelete.noAsset);
@@ -655,7 +679,7 @@ const saveUpdate = useCallback(
           } catch (err) {
             showError(`Gagal menghapus asset: ${err.message}`);
           }
-        }
+        },
       });
     },
     [setAssets, successLabel]
@@ -669,16 +693,24 @@ const saveUpdate = useCallback(
       setSelectedAsset(detailedAsset);
       setModalDetail(true);
     } catch (err) {
-      console.error("Gagal mengambil detail asset:", err);
+      console.error('Gagal mengambil detail asset:', err);
       // Fallback to using the asset from table if API fails
       setSelectedAsset(asset);
       setModalDetail(true);
     }
   }, []);
 
-  const handleUpdate = useCallback((asset) => {
-    setSelectedAsset(asset);
-    setModalUpdate(true);
+  const handleUpdate = useCallback(async (asset) => {
+    try {
+      const response = await getAssetDetails(asset.noAsset);
+      const detailedAsset = response?.data || asset;
+      setSelectedAsset(detailedAsset);
+    } catch (err) {
+      console.error('Gagal memuat detail asset untuk edit:', err);
+      setSelectedAsset(asset);
+    } finally {
+      setModalUpdate(true);
+    }
   }, []);
 
   const handleAddNewAsset = useCallback(() => {
@@ -699,10 +731,12 @@ const saveUpdate = useCallback(
 
   const handleMainTabChange = useCallback(
     async (category, meta = {}) => {
-      const nextCategory = category || "";
-      const isAll = normalize(nextCategory) === "all";
-      const nextCategoryId = isAll ? null : meta?.category_id ?? tabMeta?.[nextCategory]?.category_id ?? null;
-      
+      const nextCategory = category || '';
+      const isAll = normalize(nextCategory) === 'all';
+      const nextCategoryId = isAll
+        ? null
+        : (meta?.category_id ?? tabMeta?.[nextCategory]?.category_id ?? null);
+
       setActiveMainTab(nextCategory);
       setActiveCategoryId(nextCategoryId);
 
@@ -712,10 +746,10 @@ const saveUpdate = useCallback(
           const subRows = Array.isArray(response?.rows)
             ? response.rows
             : Array.isArray(response?.data)
-            ? response.data
-            : [];
+              ? response.data
+              : [];
           const mapped = subRows
-            .map((row) => String(row?.sub_category_name || "").trim())
+            .map((row) => String(row?.sub_category_name || '').trim())
             .filter(Boolean);
 
           setSubTabConfig((prev) => ({
@@ -728,7 +762,7 @@ const saveUpdate = useCallback(
             [nextCategory]: {
               category_id: nextCategoryId,
               sub_category_ids: subRows.reduce((acc, row) => {
-                const name = String(row?.sub_category_name || "").trim();
+                const name = String(row?.sub_category_name || '').trim();
                 if (!name) return acc;
                 acc[name] = row?.sub_category_id ?? null;
                 return acc;
@@ -738,17 +772,17 @@ const saveUpdate = useCallback(
 
           const hasLoadedSubCategory = mapped.length > 0;
           if (!hasLoadedSubCategory) {
-            setActiveSubTab(requireSubCategorySelection ? "__ALL__" : "All");
+            setActiveSubTab(requireSubCategorySelection ? '__ALL__' : 'All');
           } else {
-            setActiveSubTab("");
+            setActiveSubTab('');
           }
         } catch (err) {
-          console.error("Gagal memuat sub-categories:", err);
+          console.error('Gagal memuat sub-categories:', err);
         }
       }
 
       if (isAll) {
-        setActiveSubTab(requireSubCategorySelection ? "__ALL__" : "All");
+        setActiveSubTab(requireSubCategorySelection ? '__ALL__' : 'All');
       }
       setActiveSubCategoryId(null);
     },
@@ -757,11 +791,22 @@ const saveUpdate = useCallback(
 
   const handleSubTabChange = useCallback(
     async (subCategory, meta = {}) => {
-      const nextSubCategory = subCategory || "";
+      const nextSubCategory = subCategory || '';
       const nextCategoryId = meta?.category_id ?? tabMeta?.[activeMainTab]?.category_id ?? null;
       const nextSubCategoryId =
-        meta?.sub_category_id ?? tabMeta?.[activeMainTab]?.sub_category_ids?.[nextSubCategory] ?? null;
-      
+        meta?.sub_category_id ??
+        tabMeta?.[activeMainTab]?.sub_category_ids?.[nextSubCategory] ??
+        null;
+
+      // DEBUG: Log untuk trace ID
+      console.log('[DEBUG] handleSubTabChange:', {
+        activeMainTab,
+        nextSubCategory,
+        tabMeta: tabMeta?.[activeMainTab],
+        sub_category_ids: tabMeta?.[activeMainTab]?.sub_category_ids,
+        nextSubCategoryId,
+        meta,
+      });
 
       setActiveSubTab(nextSubCategory);
       setActiveCategoryId(nextCategoryId);
@@ -772,54 +817,61 @@ const saveUpdate = useCallback(
           const groupsResponse = await fetchAssetGroups(null, null, nextSubCategoryId);
           const groups = Array.isArray(groupsResponse?.data)
             ? groupsResponse.data
-                .map((row) => (typeof row === "string" ? row : row?.asset_group_name || row?.group || row?.name || ""))
-                .map((value) => String(value || "").trim())
+                .map((row) =>
+                  typeof row === 'string'
+                    ? row
+                    : row?.asset_group_name || row?.group || row?.name || ''
+                )
+                .map((value) => String(value || '').trim())
                 .filter(Boolean)
             : [];
-          
+
           // Only set asset groups if there are valid groups from backend
           if (groups.length > 0) {
             setAssetGroups(groups);
-            setActiveAssetGroup("All"); // Default to "All" when there are valid groups
+            setActiveAssetGroup('All'); // Default to "All" when there are valid groups
           } else {
             // Clear asset groups if no valid groups found - tabs will not be shown
             setAssetGroups([]);
-            setActiveAssetGroup("");
+            setActiveAssetGroup('');
           }
         } catch (err) {
-          console.error("Gagal memuat asset groups berdasarkan sub_category_id:", err);
+          console.error('Gagal memuat asset groups berdasarkan sub_category_id:', err);
           // Clear on error - tabs will not be shown
           setAssetGroups([]);
-          setActiveAssetGroup("");
+          setActiveAssetGroup('');
         }
       } else {
         // No sub category selected, reset asset groups to default
-        setAssetGroups(["all"]);
-        setActiveAssetGroup("all");
+        setAssetGroups(['all']);
+        setActiveAssetGroup('all');
       }
     },
     [activeMainTab, tabMeta, activeMainType, activeMainTypeId]
   );
 
-  const handleMainTypeChange = useCallback((mainType, mainTypeId) => {
-    const nextMainType = mainType || "";
-    const isAll = normalize(nextMainType) === "all";
-    
-    setActiveMainType(nextMainType);
-    setActiveMainTypeId(isAll ? null : mainTypeId ?? null);
-    setActiveAssetGroup(isAll ? "all" : nextMainType);
-    setActiveMainTab("All");
-    setActiveCategoryId(null);
-    setActiveSubCategoryId(null);
-    setActiveSubTab(requireSubCategorySelection ? "__ALL__" : "All");
-    // subTabConfig & tabMeta akan di-refresh otomatis via useEffect(activeMainTypeId)
-  }, [requireSubCategorySelection]);
+  const handleMainTypeChange = useCallback(
+    (mainType, mainTypeId) => {
+      const nextMainType = mainType || '';
+      const isAll = normalize(nextMainType) === 'all';
+
+      setActiveMainType(nextMainType);
+      setActiveMainTypeId(isAll ? null : (mainTypeId ?? null));
+      setActiveAssetGroup(isAll ? 'all' : nextMainType);
+      setActiveMainTab('All');
+      setActiveCategoryId(null);
+      setActiveSubCategoryId(null);
+      setActiveSubTab(requireSubCategorySelection ? '__ALL__' : 'All');
+      // subTabConfig & tabMeta akan di-refresh otomatis via useEffect(activeMainTypeId)
+    },
+    [requireSubCategorySelection]
+  );
 
   const handleAssetGroupChange = useCallback(
     async (groupName) => {
-      const nextGroup = String(groupName || "").trim();
-      
-      setActiveAssetGroup(nextGroup || "all");
+      const nextGroup = String(groupName || '').trim();
+
+      setActiveAssetGroup(nextGroup || 'all');
 
       const selectedMainType = mainTypes.find(
         (row) => normalize(row?.main_type_name) === normalize(nextGroup)
@@ -832,13 +884,13 @@ const saveUpdate = useCallback(
         const response = await fetchCategories(undefined, selectedMainTypeId);
         const rows = Array.isArray(response?.data) ? response.data : [];
         const mappedSubTabs = rows.reduce((acc, row) => {
-          const categoryName = String(row?.category || "").trim();
+          const categoryName = String(row?.category || '').trim();
           if (!categoryName) return acc;
           acc[categoryName] = [];
           return acc;
         }, {});
         const mappedMeta = rows.reduce((acc, row) => {
-          const categoryName = String(row?.category || "").trim();
+          const categoryName = String(row?.category || '').trim();
           if (!categoryName) return acc;
           acc[categoryName] = {
             category_id: row?.category_id ?? null,
@@ -849,15 +901,22 @@ const saveUpdate = useCallback(
 
         setSubTabConfig(mappedSubTabs);
         setTabMeta(mappedMeta);
-        setActiveMainTab("All");
+        setActiveMainTab('All');
         setActiveCategoryId(null);
-        setActiveSubTab(requireSubCategorySelection ? "__ALL__" : "All");
+        setActiveSubTab(requireSubCategorySelection ? '__ALL__' : 'All');
         setActiveSubCategoryId(null);
       } catch (err) {
-        console.error("Gagal memuat categories berdasarkan asset_main_type_id:", err);
+        console.error('Gagal memuat categories berdasarkan asset_main_type_id:', err);
       }
     },
-    [mainTypes, requireSubCategorySelection, activeMainType, activeMainTypeId, activeMainTab, activeSubTab]
+    [
+      mainTypes,
+      requireSubCategorySelection,
+      activeMainType,
+      activeMainTypeId,
+      activeMainTab,
+      activeSubTab,
+    ]
   );
 
   const handleSearchChange = useCallback((value) => {

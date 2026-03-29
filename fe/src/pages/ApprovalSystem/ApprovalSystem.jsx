@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Table, Button, Form, Input, Select, Row, Col, message, Modal, Alert, Tag, Steps, Timeline, Badge, Tooltip } from 'antd';
-import { 
-  CheckCircleOutlined, 
-  CloseCircleOutlined, 
-  ClockCircleOutlined,
+import { Badge, Form, Card, Table, Button, Input, Select, Row, Col, message, Modal, Alert, Tag, Steps, Tooltip } from 'antd';
+import { UserOutlined, 
   EyeOutlined,
-  UserOutlined,
   FileTextOutlined,
-  HistoryOutlined,
-  ExclamationCircleOutlined
+  HistoryOutlined
 } from '@ant-design/icons';
 import './ApprovalSystem.css';
 
@@ -228,8 +223,7 @@ export default function ApprovalSystem() {
       };
 
       // API call to submit approval
-      console.log('Submitting approval:', approvalData);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
@@ -464,7 +458,7 @@ export default function ApprovalSystem() {
         width={600}
       >
         {selectedApproval && (
-          <Form
+          <Form as="form"
             form={form}
             layout="vertical"
             onFinish={handleSubmitApproval}
@@ -476,8 +470,8 @@ export default function ApprovalSystem() {
               style={{ marginBottom: 16 }}
             />
 
-            <Form.Item
-              name="action"
+            <Form as="form".Item
+              controlId="action"
               label="Aksi"
               rules={[{ required: true, message: 'Pilih aksi!' }]}
             >
@@ -485,17 +479,17 @@ export default function ApprovalSystem() {
                 <Option value="approve">Setujui</Option>
                 <Option value="reject">Tolak</Option>
               </Select>
-            </Form.Item>
+            </Form.Group>
 
-            <Form.Item
-              name="comments"
+            <Form as="form".Item
+              controlId="comments"
               label="Catatan"
               rules={[{ required: true, message: 'Masukkan catatan!' }]}
             >
               <TextArea rows={4} placeholder="Masukkan catatan approval..." />
-            </Form.Item>
+            </Form.Group>
 
-            <Form.Item>
+            <Form as="form".Item>
               <div className="form-actions">
                 <Button onClick={() => setShowApprovalModal(false)}>
                   Batal
@@ -508,7 +502,7 @@ export default function ApprovalSystem() {
                   Proses
                 </Button>
               </div>
-            </Form.Item>
+            </Form.Group>
           </Form>
         )}
       </Modal>

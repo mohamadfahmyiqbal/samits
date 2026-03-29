@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { Table, Badge, Button, Pagination } from "react-bootstrap";
+import React, { useMemo, useState } from 'react';
+import { Table, Button, Pagination, Badge } from 'react-bootstrap';
 
 export default function StokTable({
   stokData,
@@ -7,7 +7,7 @@ export default function StokTable({
   filterCategory,
   openEditModal,
   deleteItem,
-  itemsPerPage = 5 // default 5 item per halaman
+  itemsPerPage = 5, // default 5 item per halaman
 }) {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -17,7 +17,7 @@ export default function StokTable({
   const filteredData = useMemo(() => {
     return (stokData || []).filter((item) => {
       const matchSearch = item.name?.toLowerCase().includes(search.toLowerCase());
-      const matchCat = filterCategory === "All" || item.category === filterCategory;
+      const matchCat = filterCategory === 'All' || item.category === filterCategory;
       return matchSearch && matchCat;
     });
   }, [stokData, search, filterCategory]);
@@ -35,14 +35,14 @@ export default function StokTable({
 
   const getBadgeVariant = (category) => {
     switch (category) {
-      case "Part":
-        return "primary";
-      case "Consumable":
-        return "warning";
-      case "Tools":
-        return "success";
+      case 'Part':
+        return 'primary';
+      case 'Consumable':
+        return 'warning';
+      case 'Tools':
+        return 'success';
       default:
-        return "secondary";
+        return 'secondary';
     }
   };
 
@@ -62,46 +62,38 @@ export default function StokTable({
         </Pagination.Item>
       );
     }
-    return <Pagination className="justify-content-center">{items}</Pagination>;
+    return <Pagination className='justify-content-center'>{items}</Pagination>;
   };
 
   return (
     <>
       <Table bordered hover responsive>
-        <thead className="table-primary">
+        <thead className='table-primary'>
           <tr>
-            <th style={{ width: "50px", textAlign: "center" }}>No</th>
+            <th style={{ width: '50px', textAlign: 'center' }}>No</th>
             <th>Nama</th>
-            <th style={{ width: "120px" }}>Kategori</th>
-            <th style={{ width: "80px", textAlign: "center" }}>Qty</th>
+            <th style={{ width: '120px' }}>Kategori</th>
+            <th style={{ width: '80px', textAlign: 'center' }}>Qty</th>
             <th>Lokasi</th>
-            <th style={{ width: "150px", textAlign: "center" }}>Aksi</th>
+            <th style={{ width: '150px', textAlign: 'center' }}>Aksi</th>
           </tr>
         </thead>
         <tbody>
           {currentData.length > 0 ? (
             currentData.map((item, idx) => (
               <tr key={item.id || idx}>
-                <td style={{ textAlign: "center" }}>{startIndex + idx + 1}</td>
+                <td style={{ textAlign: 'center' }}>{startIndex + idx + 1}</td>
                 <td>{item.name}</td>
                 <td>
                   <Badge bg={getBadgeVariant(item.category)}>{item.category}</Badge>
                 </td>
-                <td style={{ textAlign: "center" }}>{item.qty}</td>
+                <td style={{ textAlign: 'center' }}>{item.qty}</td>
                 <td>{item.location}</td>
-                <td style={{ display: "flex", justifyContent: "center", gap: "5px" }}>
-                  <Button
-                    size="sm"
-                    variant="info"
-                    onClick={() => openEditModal(item)}
-                  >
+                <td style={{ display: 'flex', justifyContent: 'center', gap: '5px' }}>
+                  <Button size='sm' variant='info' onClick={() => openEditModal(item)}>
                     Edit
                   </Button>
-                  <Button
-                    size="sm"
-                    variant="danger"
-                    onClick={() => deleteItem(item.id)}
-                  >
+                  <Button size='sm' variant='danger' onClick={() => deleteItem(item.id)}>
                     Hapus
                   </Button>
                 </td>
@@ -109,7 +101,7 @@ export default function StokTable({
             ))
           ) : (
             <tr>
-              <td colSpan={6} className="text-center">
+              <td colSpan={6} className='text-center'>
                 Tidak ada data
               </td>
             </tr>

@@ -1,17 +1,16 @@
 import React, { useContext, useState, useMemo } from 'react';
-import { Row, Col, Card, Button, Badge, Alert, Spinner, Modal } from 'react-bootstrap';
+import { Row, Col, Card, Button, Alert, Spinner, Modal, Badge } from 'react-bootstrap';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
-import id from 'date-fns/locale/id';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { MaintenanceContext } from '../../../context/MaintenanceContext';
 
 // Date Localizer untuk react-big-calendar
 const locales = {
-  'id-ID': id,
+  'id-ID': require('date-fns/locale/id'),
 };
 
 const localizer = dateFnsLocalizer({

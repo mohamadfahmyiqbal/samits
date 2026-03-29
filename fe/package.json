@@ -10,7 +10,7 @@
     "bootstrap": "^5.3.8",
     "chart.js": "^4.5.1",
     "classnames": "^2.5.1",
-    "date-fns": "^2.30.0",
+    "date-fns": "^4.1.0",
     "framer-motion": "^12.34.2",
     "fuse.js": "^7.1.0",
     "lucide-react": "^0.575.0",
@@ -23,25 +23,34 @@
     "react-hook-form": "^7.71.1",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.5",
+    "react-scripts": "^5.0.1",
     "react-select": "^5.10.2",
     "react-toastify": "^11.0.5",
     "socket.io-client": "^4.8.3",
     "sweetalert2": "^11.26.22",
     "web-vitals": "^2.1.4",
-    "xlsx": "^0.18.5",
     "yup": "^1.7.1"
   },
   "scripts": {
-    "dev": "vite",
-    "start": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint . --ext js,jsx --fix",
-    "format": "prettier --write \"src/**/*.{js,jsx,css,md}\"",
-    "format:check": "prettier --check \"src/**/*.{js,jsx,css,md}\""
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:analyze": "npm run build && npx webpack-bundle-analyzer build/static/js/*.js",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js,.jsx",
+    "lint:fix": "eslint src --ext .js,.jsx --fix",
+    "format": "prettier --write src/**/*.{js,jsx,css,md}"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "jsx-a11y/click-events-have-key-events": "warn",
+      "jsx-a11y/no-noninteractive-element-interactions": "warn",
+      "jsx-a11y/no-static-element-interactions": "warn"
+    }
   },
   "browserslist": {
     "production": [
@@ -54,16 +63,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.7.0",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.26",
-    "prettier": "^3.8.1",
-    "vite": "^6.4.1"
   }
 }

@@ -1,7 +1,19 @@
-import React from "react";
-import { Nav, Tab, Tabs } from "react-bootstrap";
-import AssetTable from "../asset/tables/AssetTable";
-import { useAssetManagement } from "../context/AssetManagementContext";
+import React from 'react';
+import { Nav, Tab, Tabs } from 'react-bootstrap';
+import { useAssetManagement } from '../context/AssetManagementContext';
+
+const LazyAssetTable = React.lazy(() => import('../asset/tables/AssetTable'));
+
+// Memoized table wrapper to prevent unnecessary re-renders
+const TableWithSuspense = React.memo((props) => (
+  <React.Suspense
+    fallback={
+      <div className='table-suspense p-4 text-center text-muted'>Loading asset table...</div>
+    }
+  >
+    <LazyAssetTable {...props} />
+  </React.Suspense>
+));
 
 export default function AssetManagementTabs() {
   const {
@@ -26,53 +38,53 @@ export default function AssetManagementTabs() {
   } = useAssetManagement();
 
   const mainCategories = Object.keys(subTabConfig);
-  
+
   // Filter valid asset groups (exclude 'all' and empty strings)
-  const validAssetGroups = Array.isArray(assetGroups) 
-    ? assetGroups.filter(group => group && String(group).trim().toLowerCase() !== "all")
+  const validAssetGroups = Array.isArray(assetGroups)
+    ? assetGroups.filter((group) => group && String(group).trim().toLowerCase() !== 'all')
     : [];
-  
+
   // Add "All" as first option if there are valid asset groups
-  const assetGroupTabs = validAssetGroups.length > 0 
-    ? ["All", ...validAssetGroups]
-    : [];
-  
+  const assetGroupTabs = validAssetGroups.length > 0 ? ['All', ...validAssetGroups] : [];
+
   const showGroupTabs =
     assetGroupTabs.length > 1 &&
     activeMainTab &&
-    activeMainTab !== "All" &&
+    activeMainTab !== 'All' &&
     activeSubTab &&
-    activeSubTab !== "All";
-  const formatGroupLabel = (value) => String(value || "").toUpperCase();
+    activeSubTab !== 'All';
+  const formatGroupLabel = (value) => String(value || '').toUpperCase();
 
-  const assetTableProps = {
-    data: filtered,
-    onSort: onSort,
-    sortField: sortField,
-    sortAsc: sortAsc,
-    onDetail: onDetail,
-    onUpdate: onUpdate,
-    onDelete: onDelete,
-    isLoading: isLoading,
-    onAdd: onAdd,
-  };
+  const assetTableProps = React.useMemo(
+    () => ({
+      data: filtered,
+      onSort: onSort,
+      sortField: sortField,
+      sortAsc: sortAsc,
+      onDetail: onDetail,
+      onUpdate: onUpdate,
+      onDelete: onDelete,
+      isLoading: isLoading,
+      onAdd: onAdd,
+    }),
+    [filtered, onSort, sortField, sortAsc, onDetail, onUpdate, onDelete, isLoading, onAdd]
+  );
 
   return (
-    <div className="asset-management-tabs-container">
+    <div className='asset-management-tabs-container'>
       <Tabs
-        id="main-tab-asset-management"
+        id='main-tab-asset-management'
         activeKey={activeMainTab}
         onSelect={(k) => {
-          // Log removed for production
           onMainTabChange(k, {
-            category_id: k && k !== "All" ? tabMeta?.[k]?.category_id ?? null : null,
+            category_id: k && k !== 'All' ? (tabMeta?.[k]?.category_id ?? null) : null,
             sub_category_id: null,
           });
         }}
-        className="mb-3"
+        className='mb-3'
       >
-        <Tab eventKey="All" title="All">
-          <AssetTable {...assetTableProps} />
+        <Tab eventKey='All' title='All'>
+          <TableWithSuspense {...assetTableProps} />
         </Tab>
 
         {mainCategories.map((main) => (
@@ -80,19 +92,18 @@ export default function AssetManagementTabs() {
             {subTabConfig[main].length > 0 ? (
               <>
                 <Nav
-                  variant="tabs"
-                  className="mb-3 flex-nowrap"
-                  activeKey={activeSubTab || ""}
+                  variant='tabs'
+                  className='mb-3 flex-nowrap'
+                  activeKey={activeSubTab || ''}
                   onSelect={(k) => {
-                    // Log removed for production
-                    onSubTabChange(k || "", {
+                    onSubTabChange(k || '', {
                       category_id: tabMeta?.[main]?.category_id ?? null,
-                      sub_category_id: k ? tabMeta?.[main]?.sub_category_ids?.[k] ?? null : null,
+                      sub_category_id: k ? (tabMeta?.[main]?.sub_category_ids?.[k] ?? null) : null,
                     });
                   }}
                 >
                   <Nav.Item>
-                    <Nav.Link eventKey="All">All</Nav.Link>
+                    <Nav.Link eventKey='All'>All</Nav.Link>
                   </Nav.Item>
                   {subTabConfig[main].map((sub) => (
                     <Nav.Item key={sub}>
@@ -103,12 +114,11 @@ export default function AssetManagementTabs() {
 
                 {showGroupTabs && (
                   <Nav
-                    variant="tabs"
-                    className="mb-3 flex-nowrap asset-group-tabs"
-                    activeKey={activeAssetGroup || "All"}
+                    variant='tabs'
+                    className='mb-3 flex-nowrap asset-group-tabs'
+                    activeKey={activeAssetGroup || 'All'}
                     onSelect={(k) => {
-                      // Log removed for production
-                      onAssetGroupChange(k || "all");
+                      onAssetGroupChange(k || 'all');
                     }}
                   >
                     {assetGroupTabs.map((group) => (
@@ -120,13 +130,13 @@ export default function AssetManagementTabs() {
                 )}
 
                 {!activeSubTab ? (
-                  <p className="text-muted">Pilih sub kategori untuk menampilkan data.</p>
+                  <p className='text-muted'>Pilih sub kategori untuk menampilkan data.</p>
                 ) : (
-                  <AssetTable {...assetTableProps} />
+                  <TableWithSuspense {...assetTableProps} />
                 )}
               </>
             ) : (
-              <AssetTable {...assetTableProps} />
+              <TableWithSuspense {...assetTableProps} />
             )}
           </Tab>
         ))}

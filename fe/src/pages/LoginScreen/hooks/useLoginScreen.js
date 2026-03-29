@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import userService from '../../../utils/UserService';
+import userService from '../../../services/UserService';
 import { encryptPath } from '../../../router/encryptPath';
 import { useSocket } from '../../../context/SocketContext';
 
@@ -37,7 +37,6 @@ export const useLoginScreen = () => {
 
     try {
       const res = await userService.login(fields);
-
       if (res && res.status === 200) {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userData', JSON.stringify(res.data.user));
@@ -62,6 +61,6 @@ export const useLoginScreen = () => {
     loading,
     notif,
     handleChange,
-    handleSubmit
+    handleSubmit,
   };
 };

@@ -3,50 +3,55 @@ import { menuGroups as defaultMenus } from '../layout/config/menu.js';
 
 // Mock data untuk development (ganti dengan real API)
 const MOCK_USER_MENUS = [
-  { 
-    type: "link", 
-    label: "Dashboard", 
-    path: "dashboard",
-    icon: "activity",
-    requiredPermission: null
+  {
+    type: 'link',
+    label: 'Dashboard',
+    path: 'dashboard',
+    icon: 'activity',
+    requiredPermission: null,
   },
   {
-    type: "dropdown",
-    label: "Asset Management", 
-    id: "asset-dropdown",
-    icon: "package",
+    type: 'dropdown',
+    label: 'Asset Management',
+    id: 'asset-dropdown',
+    icon: 'package',
     items: [
-      { 
-        label: "Asset List", 
-        path: "asset management",
-        icon: "list"
+      {
+        label: 'Asset List',
+        path: 'asset management',
+        icon: 'list',
       },
       {
-        label: "Asset Audit", 
-        path: "asset-audit",
-        icon: "clipboard-list",
-        requiredPermission: "asset.audit"
-      }
-    ]
+        label: 'Asset Audit',
+        path: 'asset-audit',
+        icon: 'clipboard-list',
+        requiredPermission: 'asset.audit',
+      },
+    ],
   },
   {
-    type: "dropdown",
-    label: "Maintenance", 
-    id: "maintenance-dropdown",
-    icon: "wrench",
-    badgeKey: "unreadWorkorders",
+    type: 'dropdown',
+    label: 'Maintenance',
+    id: 'maintenance-dropdown',
+    icon: 'wrench',
+    badgeKey: 'unreadWorkorders',
     items: [
       {
-        type: "dropdown",
-        label: "Preventive", 
-        id: "preventive-dropdown",
+        type: 'dropdown',
+        label: 'Preventive',
+        id: 'preventive-dropdown',
         items: [
-          { label: "Schedule", path: "schedule", icon: "calendar" },
-          { label: "Work Order", path: "workorder", icon: "clipboard-check", badgeKey: "pendingWO" }
-        ]
-      }
-    ]
-  }
+          { label: 'Schedule', path: 'schedule', icon: 'calendar' },
+          {
+            label: 'Work Order',
+            path: 'workorder',
+            icon: 'clipboard-check',
+            badgeKey: 'pendingWO',
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 class MenuService {
@@ -57,7 +62,7 @@ class MenuService {
 
   async getUserMenus(userId = null) {
     const cacheKey = `menus_${userId || 'guest'}`;
-    
+
     // Check cache first
     const cached = this.cache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < this.cacheExpiry) {
@@ -67,8 +72,8 @@ class MenuService {
     try {
       // Real API call
       // API call disabled - using mock data
-      const response = { data: { menus: MOCK_USER_MENUS } };
-      
+      // const response = { data: { menus: MOCK_USER_MENUS } };
+
       const menus = MOCK_USER_MENUS || defaultMenus;
       this.cache.set(cacheKey, { data: menus, timestamp: Date.now() });
       return menus;
@@ -92,10 +97,8 @@ class MenuService {
   subscribeUpdates(callback) {
     // WebSocket subscription untuk real-time menu updates
     // Implementasi sesuai WebSocket service existing
-    console.log('MenuService: Subscribed to real-time updates');
   }
 }
 
 export const menuService = new MenuService();
 export default menuService;
-

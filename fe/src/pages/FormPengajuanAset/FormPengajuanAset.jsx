@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Form, Button, Steps, Row, Col, Select, Input, DatePicker, Upload, message, Modal, Alert } from 'antd';
-import { UploadOutlined, SaveOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { Form, Card, Button, Steps, Row, Col, Select, Input, Upload, message, Modal, Alert } from 'antd';
+import { UploadOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import './FormPengajuanAset.css';
 
 const { Step } = Steps;
@@ -79,8 +79,7 @@ export default function FormPengajuanAset() {
       const allValues = { ...formData, ...(await form.validateFields()) };
       
       // API call to submit asset request
-      console.log('Submitting asset request:', allValues);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
@@ -112,8 +111,7 @@ export default function FormPengajuanAset() {
       setFileList([...fileList, file]);
       return false;
     },
-    fileList,
-  };
+    fileList };
 
   const renderStepContent = () => {
     switch (currentStep) {
@@ -122,8 +120,8 @@ export default function FormPengajuanAset() {
           <div className="step-content">
             <Row gutter={[16, 16]}>
               <Col span={12}>
-                <Form.Item
-                  name="request_type"
+                <Form as="form".Item
+                  controlId="request_type"
                   label="Tipe Pengajuan"
                   rules={[{ required: true, message: 'Pilih tipe pengajuan!' }]}
                 >
@@ -132,11 +130,11 @@ export default function FormPengajuanAset() {
                     <Option value="replacement">Penggantian</Option>
                     <Option value="upgrade">Upgrade</Option>
                   </Select>
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="priority"
+                <Form as="form".Item
+                  controlId="priority"
                   label="Prioritas"
                   rules={[{ required: true, message: 'Pilih prioritas!' }]}
                 >
@@ -146,11 +144,11 @@ export default function FormPengajuanAset() {
                     <Option value="high">Tinggi</Option>
                     <Option value="urgent">Segera</Option>
                   </Select>
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="category_id"
+                <Form as="form".Item
+                  controlId="category_id"
                   label="Kategori Aset"
                   rules={[{ required: true, message: 'Pilih kategori aset!' }]}
                 >
@@ -159,20 +157,20 @@ export default function FormPengajuanAset() {
                       <Option key={cat.id} value={cat.id}>{cat.name}</Option>
                     ))}
                   </Select>
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="quantity"
+                <Form as="form".Item
+                  controlId="quantity"
                   label="Jumlah"
                   rules={[{ required: true, message: 'Masukkan jumlah!' }]}
                 >
                   <Input type="number" min="1" placeholder="Jumlah aset" />
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={24}>
-                <Form.Item
-                  name="location_id"
+                <Form as="form".Item
+                  controlId="location_id"
                   label="Lokasi Penggunaan"
                   rules={[{ required: true, message: 'Pilih lokasi!' }]}
                 >
@@ -181,7 +179,7 @@ export default function FormPengajuanAset() {
                       <Option key={loc.id} value={loc.id}>{loc.name}</Option>
                     ))}
                   </Select>
-                </Form.Item>
+                </Form.Group>
               </Col>
             </Row>
           </div>
@@ -192,8 +190,8 @@ export default function FormPengajuanAset() {
           <div className="step-content">
             <Row gutter={[16, 16]}>
               <Col span={12}>
-                <Form.Item
-                  name="preferred_vendor_id"
+                <Form as="form".Item
+                  controlId="preferred_vendor_id"
                   label="Vendor Pilihan (Opsional)"
                 >
                   <Select placeholder="Pilih vendor" allowClear>
@@ -201,41 +199,41 @@ export default function FormPengajuanAset() {
                       <Option key={vendor.id} value={vendor.id}>{vendor.name}</Option>
                     ))}
                   </Select>
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="budget_estimate"
+                <Form as="form".Item
+                  controlId="budget_estimate"
                   label="Estimasi Anggaran"
                 >
                   <Input placeholder="Contoh: 15000000" />
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={24}>
-                <Form.Item
-                  name="specifications"
+                <Form as="form".Item
+                  controlId="specifications"
                   label="Spesifikasi yang Dibutuhkan"
                   rules={[{ required: true, message: 'Deskripsikan spesifikasi yang dibutuhkan!' }]}
                 >
                   <TextArea rows={4} placeholder="Contoh: Processor Intel i7, RAM 16GB, SSD 512GB, etc..." />
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={24}>
-                <Form.Item
-                  name="preferred_brand"
+                <Form as="form".Item
+                  controlId="preferred_brand"
                   label="Merek Pilihan (Opsional)"
                 >
                   <Input placeholder="Contoh: Dell, HP, Lenovo" />
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={24}>
-                <Form.Item
-                  name="delivery_date"
+                <Form as="form".Item
+                  controlId="delivery_date"
                   label="Tanggal Dibutuhkan"
                   rules={[{ required: true, message: 'Pilih tanggal dibutuhkan!' }]}
                 >
                   <DatePicker style={{ width: '100%' }} placeholder="Pilih tanggal" />
-                </Form.Item>
+                </Form.Group>
               </Col>
             </Row>
           </div>
@@ -246,41 +244,41 @@ export default function FormPengajuanAset() {
           <div className="step-content">
             <Row gutter={[16, 16]}>
               <Col span={24}>
-                <Form.Item
-                  name="justification"
+                <Form as="form".Item
+                  controlId="justification"
                   label="Justifikasi Pengajuan"
                   rules={[{ required: true, message: 'Jelaskan alasan pengajuan!' }]}
                 >
                   <TextArea rows={4} placeholder="Jelaskan mengapa aset ini dibutuhkan..." />
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={24}>
-                <Form.Item
-                  name="business_impact"
+                <Form as="form".Item
+                  controlId="business_impact"
                   label="Dampak terhadap Bisnis"
                   rules={[{ required: true, message: 'Jelaskan dampak bisnis!' }]}
                 >
                   <TextArea rows={3} placeholder="Jelaskan dampak jika aset tidak disetujui..." />
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={24}>
-                <Form.Item
-                  name="alternative_solution"
+                <Form as="form".Item
+                  controlId="alternative_solution"
                   label="Solusi Alternatif (Opsional)"
                 >
                   <TextArea rows={3} placeholder="Apakah ada solusi alternatif lainnya?" />
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={24}>
-                <Form.Item
-                  name="attachments"
+                <Form as="form".Item
+                  controlId="attachments"
                   label="Lampiran (Opsional)"
                 >
                   <Upload {...uploadProps}>
                     <Button icon={<UploadOutlined />}>Upload Lampiran</Button>
                   </Upload>
                   <small>Format: PDF, DOC, DOCX (Max: 5MB)</small>
-                </Form.Item>
+                </Form.Group>
               </Col>
             </Row>
           </div>
@@ -340,7 +338,7 @@ export default function FormPengajuanAset() {
       <Card>
         <Steps current={currentStep} items={steps} />
         
-        <Form form={form} layout="vertical" className="form-steps">
+        <Form as="form" form={form} layout="vertical" className="form-steps">
           {renderStepContent()}
           
           <div className="form-actions">

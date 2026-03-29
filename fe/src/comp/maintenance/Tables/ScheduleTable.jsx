@@ -1,18 +1,24 @@
-import React, { useMemo, useState, useEffect } from "react";
-import { Table, Button, Badge, Form } from "react-bootstrap";
-import "../../../styles/ScheduleTable.css";
+import React, { useMemo, useState, useEffect } from 'react';
+import { Table, Button, Form, Badge } from 'react-bootstrap';
+import '../../../styles/ScheduleTable.css';
 
-import ModalSop from "../../../comp/ModalSop";
-import ModalMulaiMTC from "../../../comp/ModalMulaiMTC";
-import FormMaintenance from "../../../comp/FormMaintenance";
-import ScheduleActions from "./ScheduleAction";
+import ModalSop from '../../../comp/ModalSop';
+import ModalMulaiMTC from '../../../comp/ModalMulaiMTC';
+import ScheduleActions from './ScheduleAction';
 
-import { statusOrder, badgeColors } from "../constants/scheduleConstants";
-import { formatDate, isDue, handleExportExcel } from "../utils/scheduleUtils";
+import { statusOrder, badgeColors } from '../constants/scheduleConstants';
+import { formatDate, isDue, handleExportExcel } from '../utils/scheduleUtils';
 
-export default function ScheduleTable({ logs, onUpdate, onDelete, search, filterType, filterCategory }) {
+export default function ScheduleTable({
+  logs,
+  onUpdate,
+  onDelete,
+  search,
+  filterType,
+  filterCategory,
+}) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [filterStatus, setFilterStatus] = useState("All");
+  const [filterStatus, setFilterStatus] = useState('All');
 
   // Modal SOP
   const [showSOPModal, setShowSOPModal] = useState(false);
@@ -23,14 +29,14 @@ export default function ScheduleTable({ logs, onUpdate, onDelete, search, filter
   const [showMulaiModal, setShowMulaiModal] = useState(false);
   const [selectedLogMulai, setSelectedLogMulai] = useState(null);
   const [formData, setFormData] = useState({
-    type: "",
-    checklist: "",
-    part: "",
-    tools: "",
-    notes: "",
-    result: "Normal",
-    startDate: "",
-    endDate: "",
+    type: '',
+    checklist: '',
+    part: '',
+    tools: '',
+    notes: '',
+    result: 'Normal',
+    startDate: '',
+    endDate: '',
   });
 
   const itemsPerPage = 20;
@@ -38,9 +44,9 @@ export default function ScheduleTable({ logs, onUpdate, onDelete, search, filter
   // Filter logs
   const filtered = useMemo(() => {
     return logs.filter((log) => {
-      if (filterType !== "All" && log.type !== filterType) return false;
-      
-      if (filterCategory !== "All" && log.category !== filterCategory) return false;
+      if (filterType !== 'All' && log.type !== filterType) return false;
+
+      if (filterCategory !== 'All' && log.category !== filterCategory) return false;
 
       if (search) {
         const s = search.toLowerCase();
@@ -52,8 +58,8 @@ export default function ScheduleTable({ logs, onUpdate, onDelete, search, filter
           return false;
       }
 
-      if (filterStatus === "Normal" && log.status !== "done") return false;
-      if (filterStatus === "Abnormal" && log.status !== "abnormal") return false;
+      if (filterStatus === 'Normal' && log.status !== 'done') return false;
+      if (filterStatus === 'Abnormal' && log.status !== 'abnormal') return false;
 
       return true;
     });
@@ -62,8 +68,12 @@ export default function ScheduleTable({ logs, onUpdate, onDelete, search, filter
   // Auto update status jika jadwal lewat
   useEffect(() => {
     filtered.forEach((log) => {
-      if (log.status === "done" && log.nextMaintenance && new Date(log.nextMaintenance) <= new Date()) {
-        onUpdate(log.itItemId, { status: "pending" });
+      if (
+        log.status === 'done' &&
+        log.nextMaintenance &&
+        new Date(log.nextMaintenance) <= new Date()
+      ) {
+        onUpdate(log.itItemId, { status: 'pending' });
       }
     });
   }, [filtered, onUpdate]);
@@ -74,24 +84,27 @@ export default function ScheduleTable({ logs, onUpdate, onDelete, search, filter
   }, [filtered]);
 
   const totalPages = Math.ceil(sortedLogs.length / itemsPerPage);
-  const paginatedLogs = sortedLogs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const paginatedLogs = sortedLogs.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   // Mulai/Update Maintenance
   const openMulaiModal = (log) => {
     setSelectedLogMulai(log);
     setFormData({
       type: log.type,
-      checklist: log.checklist || "",
-      part: log.part || "",
-      tools: log.tools || "",
-      notes: log.notes || "",
-      result: "Normal",
-      startDate: "",
-      endDate: "",
+      checklist: log.checklist || '',
+      part: log.part || '',
+      tools: log.tools || '',
+      notes: log.notes || '',
+      result: 'Normal',
+      startDate: '',
+      endDate: '',
     });
 
-    if ((log.status === "pending" || log.status === "done") && isDue(log)) {
-      onUpdate(log.itItemId, { status: "in_progress" });
+    if ((log.status === 'pending' || log.status === 'done') && isDue(log)) {
+      onUpdate(log.itItemId, { status: 'in_progress' });
     }
 
     setShowMulaiModal(true);
@@ -100,39 +113,39 @@ export default function ScheduleTable({ logs, onUpdate, onDelete, search, filter
   return (
     <div>
       {/* Header */}
-      <div className="mb-3 d-flex align-items-center flex-wrap">
-        <Button variant="primary" onClick={() => handleExportExcel(logs, sortedLogs)}>
+      <div className='mb-3 d-flex align-items-center flex-wrap'>
+        <Button variant='primary' onClick={() => handleExportExcel(logs, sortedLogs)}>
           Export Excel
         </Button>
 
         <Form.Select
-          size="sm"
+          size='sm'
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="ms-2"
-          style={{ width: "120px" }}
+          className='ms-2'
+          style={{ width: '120px' }}
         >
-          <option value="All">All</option>
-          <option value="Normal">Normal</option>
-          <option value="Abnormal">Abnormal</option>
+          <option value='All'>All</option>
+          <option value='Normal'>Normal</option>
+          <option value='Abnormal'>Abnormal</option>
         </Form.Select>
 
         {totalPages > 1 && (
-          <div className="mt-2 ms-auto">
+          <div className='mt-2 ms-auto'>
             Halaman {currentPage} dari {totalPages}
             <Button
-              size="sm"
-              variant="secondary"
-              className="ms-2"
+              size='sm'
+              variant='secondary'
+              className='ms-2'
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((p) => p - 1)}
             >
               Prev
             </Button>
             <Button
-              size="sm"
-              variant="secondary"
-              className="ms-1"
+              size='sm'
+              variant='secondary'
+              className='ms-1'
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((p) => p + 1)}
             >
@@ -143,8 +156,8 @@ export default function ScheduleTable({ logs, onUpdate, onDelete, search, filter
       </div>
 
       {/* Table */}
-      <Table striped bordered hover responsive className="schedule-table">
-        <thead className="table-primary">
+      <Table striped bordered hover responsive className='schedule-table'>
+        <thead className='table-primary'>
           <tr>
             <th>No</th>
             <th>No.Asset</th>
@@ -161,37 +174,37 @@ export default function ScheduleTable({ logs, onUpdate, onDelete, search, filter
         <tbody>
           {paginatedLogs.length === 0 ? (
             <tr>
-              <td colSpan={9} className="text-center text-muted">
+              <td colSpan={9} className='text-center text-muted'>
                 Tidak ada jadwal maintenance yang sesuai filter.
               </td>
             </tr>
           ) : (
             paginatedLogs.map((log, index) => (
-              <tr key={log.itItemId} className={log.overdue ? "table-danger" : ""}>
+              <tr key={log.itItemId} className={log.overdue ? 'table-danger' : ''}>
                 <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                 <td>{log.itItemId}</td>
-                <td>{log.category || "-"}</td>
+                <td>{log.category || '-'}</td>
                 <td>{log.type}</td>
-                <td>{log.pic || "-"}</td>
+                <td>{log.pic || '-'}</td>
                 <td>{formatDate(log.nextMaintenance)}</td>
                 <td>
-                  <Badge bg={badgeColors[log.status] || "secondary"}>
-                    {log.status === "pending"
-                      ? "Open"
-                      : log.status === "in_progress"
-                      ? "In Progress"
-                      : log.status === "done"
-                      ? "Done"
-                      : log.status === "abnormal"
-                      ? "Abnormal"
-                      : log.status}
+                  <Badge bg={badgeColors[log.status] || 'secondary'}>
+                    {log.status === 'pending'
+                      ? 'Open'
+                      : log.status === 'in_progress'
+                        ? 'In Progress'
+                        : log.status === 'done'
+                          ? 'Done'
+                          : log.status === 'abnormal'
+                            ? 'Abnormal'
+                            : log.status}
                   </Badge>
                 </td>
                 <td>
                   {log.sop ? (
                     <Button
-                      variant="link"
-                      size="sm"
+                      variant='link'
+                      size='sm'
                       onClick={() => {
                         setSelectedLog(log);
                         setModalEditMode(false);
@@ -201,7 +214,7 @@ export default function ScheduleTable({ logs, onUpdate, onDelete, search, filter
                       📄 View
                     </Button>
                   ) : (
-                    "-"
+                    '-'
                   )}
                 </td>
                 <td>
@@ -231,21 +244,27 @@ export default function ScheduleTable({ logs, onUpdate, onDelete, search, filter
         editMode={modalEditMode}
       />
 
-      <ModalMulaiMTC show={showMulaiModal} log={selectedLogMulai} onClose={() => setShowMulaiModal(false)}>
-        <FormMaintenance
+      <ModalMulaiMTC
+        show={showMulaiModal}
+        log={selectedLogMulai}
+        onClose={() => setShowMulaiModal(false)}
+      >
+        <Form
+          as='form'
+          Maintenance
           currentItem={selectedLogMulai}
           formData={formData}
           setFormData={setFormData}
           handleSubmit={() => {
             if (!selectedLogMulai) return;
 
-            const newStatus = formData.result === "Normal" ? "done" : "abnormal";
-            const startDate = formData.startDate || new Date().toISOString().split("T")[0];
+            const newStatus = formData.result === 'Normal' ? 'done' : 'abnormal';
+            const startDate = formData.startDate || new Date().toISOString().split('T')[0];
 
             onUpdate(selectedLogMulai.itItemId, {
               status: newStatus,
               nextMaintenance:
-                newStatus === "done"
+                newStatus === 'done'
                   ? new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString()
                   : selectedLogMulai.nextMaintenance,
               checklist: formData.checklist,

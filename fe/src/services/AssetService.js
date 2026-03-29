@@ -1,9 +1,17 @@
 // src/services/AssetService.js
 // Layanan API Aset modern dengan error handling & timeout
 
-import { API_BASE, API_BASE_URL } from '../config/api';
+const API_BASE = process.env.REACT_APP_API_BASE_URL
+  ? process.env.REACT_APP_API_BASE_URL.replace(/\/+$/, '')
+  : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'https://localhost:5002'
+      : '') + '/api';
+const API_BASE_URL = `${API_BASE.replace(/\/+$/, '')}/assets`;
 
-const ASSET_API_URL = `${API_BASE}/assets`;
+// ---------------------------------------------------
+// Helper: Ambil Token (DIHAPUS & TIDAK DIBUTUHKAN)
+// ---------------------------------------------------
+// ❌ DIHAPUS: Token kini di HTTP-only cookie dan otomatis dikirim browser.
 // const getAuthToken = () => {
 //   return localStorage.getItem('authToken');
 // };
@@ -27,11 +35,16 @@ const handleResponse = async (response) => {
     const errorBody = await response.json();
     errorMessage = errorBody.message || errorMessage;
   } catch {
-    const contentType = response.headers.get('Content-Type');
-    if (contentType?.includes('text/html')) {
-      errorMessage = 'Server mengembalikan HTML, kemungkinan URL salah atau server tidak berjalan.';
+    if (response.status === 401) {
+      errorMessage = 'Silakan login terlebih dahulu';
     } else {
-      errorMessage = response.statusText || errorMessage;
+      const contentType = response.headers.get('Content-Type');
+      if (contentType?.includes('text/html')) {
+        errorMessage =
+          'Server mengembalikan HTML, kemungkinan URL salah atau server tidak berjalan.';
+      } else {
+        errorMessage = response.statusText || errorMessage;
+      }
     }
   }
 
@@ -87,7 +100,7 @@ export const fetchAssets = async (groupOrOptions) => {
 
   const queryString = params.toString();
   const query = queryString ? `?${queryString}` : '';
-  return apiFetch(`${ASSET_API_URL}${query}`, { method: 'GET' });
+  return apiFetch(`${API_BASE_URL}${query}`, { method: 'GET' });
 };
 
 export const fetchAssetsByQuery = async ({
@@ -117,9 +130,7 @@ export const fetchAssetsByQuery = async ({
   if (sub_category_id !== undefined && sub_category_id !== null && sub_category_id !== '') {
     params.set('sub_category_id', sub_category_id);
   }
-  const queryString = params.toString();
-  const query = queryString ? `?${queryString}` : '';
-  return apiFetch(`${ASSET_API_URL}${query}`, { method: 'GET' });
+  // return apiFetch(`${API_BASE_URL}${queryString ? `?${queryString}` : ""}`, { method: "GET" });
 };
 
 // 2. POST: Create Asset
@@ -221,7 +232,7 @@ export const fetchSubCategories = async (categoryId = null, mainTypeId = null) =
   }
   const queryString = params.toString();
   const query = queryString ? `?${queryString}` : '';
-  return apiFetch(`${API_BASE_URL}/sub-categories${query}`, { method: 'GET' });
+  return apiFetch(`${API_BASE_URL}/subcategories${query}`, { method: 'GET' });
 };
 
 export const fetchCategoryTypes = async (group, mainTypeId = null, categoryId = null) => {
@@ -265,7 +276,7 @@ export const fetchAssetGroups = async (
   }
   const queryString = params.toString();
   const query = queryString ? `?${queryString}` : '';
-  return apiFetch(`${API_BASE_URL}/groups${query}`, { method: 'GET' });
+  return apiFetch(`${API_BASE_URL}/asset-groups${query}`, { method: 'GET' });
 };
 
 // ===================================================

@@ -1,12 +1,12 @@
-import React, { memo } from "react";
-import { useAssetManagement } from "../context/AssetManagementContext";
-import AssetFormModal from "../../../comp/asset/modal/AddAssetModal/page/AssetFormModal";
-import ModalDetail from "../../../comp/ModalDetail";
+import React, { memo } from 'react';
+import { useAssetManagement } from '../context/AssetManagementContext';
+import AssetFormModal from '../../../comp/asset/modal/AddAssetModal/page/AssetFormModal';
+import ModalDetail from '../../../comp/ModalDetail';
 
 const AssetManagementModals = () => {
-  const { 
-    modalAdd, 
-    setModalAdd, 
+  const {
+    modalAdd,
+    setModalAdd,
     modalDetail,
     setModalDetail,
     modalUpdate,
@@ -16,19 +16,14 @@ const AssetManagementModals = () => {
     saveUpdate,
     handleUpdate,
     handleDelete,
-    visibleSubTabConfig: categories 
   } = useAssetManagement();
-  
+
   return (
     <>
-      <AssetFormModal
-        show={modalAdd}
-        onHide={() => setModalAdd(false)}
-        onSave={saveAdd}
-      />
-      <ModalDetail 
-        show={modalDetail} 
-        onHide={() => setModalDetail(false)} 
+      <AssetFormModal show={modalAdd} onHide={() => setModalAdd(false)} onSave={saveAdd} />
+      <ModalDetail
+        show={modalDetail}
+        onHide={() => setModalDetail(false)}
         asset={selectedAsset}
         onEdit={handleUpdate}
         onDelete={handleDelete}
@@ -44,4 +39,3 @@ const AssetManagementModals = () => {
 };
 
 export default memo(AssetManagementModals);
-

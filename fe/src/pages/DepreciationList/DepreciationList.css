@@ -1,0 +1,105 @@
+.depreciation-list {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px 0;
+  color: #262626;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.table-controls {
+  margin-bottom: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.asset-detail {
+  padding: 16px 0;
+}
+
+.detail-section {
+  margin-bottom: 24px;
+}
+
+.detail-section h4 {
+  margin: 0 0 12px 0;
+  color: #262626;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+.detail-section p {
+  margin: 0 0 8px 0;
+  color: #595959;
+}
+
+.detail-section strong {
+  color: #262626;
+}
+
+.row-disposed {
+  background: #fff1f0 !important;
+  border-left: 3px solid #ff4d4f;
+  opacity: 0.7;
+}
+
+.row-disposed:hover {
+  background: #ffccc7 !important;
+}
+
+.row-warning {
+  background: #fff7e6 !important;
+  border-left: 3px solid #faad14;
+}
+
+.row-warning:hover {
+  background: #ffe7ba !important;
+}
+
+.ant-card-head-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-form-item-label > label {
+  font-weight: 500;
+  color: #262626;
+}
+
+.ant-btn-primary {
+  border-radius: 6px;
+}
+
+.ant-btn {
+  border-radius: 6px;
+}
+
+.ant-progress-line {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .depreciation-list {
+    padding: 16px;
+  }
+  
+  .ant-col {
+    margin-bottom: 16px;
+  }
+}

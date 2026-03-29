@@ -1,0 +1,263 @@
+.finance-approval {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px 0;
+  color: #262626;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.statistic-card {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.statistic-card.pending {
+  background: #fff7e6;
+  border-left: 4px solid #faad14;
+}
+
+.statistic-card.in-progress {
+  background: #e6f7ff;
+  border-left: 4px solid #1890ff;
+}
+
+.statistic-card.completed {
+  background: #f6ffed;
+  border-left: 4px solid #52c41a;
+}
+
+.statistic-card.impact {
+  background: #fff2f0;
+  border-left: 4px solid #ff4d4f;
+}
+
+.statistic-icon {
+  font-size: 32px;
+  margin-right: 16px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statistic-content {
+  flex: 1;
+}
+
+.statistic-title {
+  color: #8c8c8c;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.statistic-value {
+  color: #262626;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.table-controls {
+  margin-bottom: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ant-table-thead>tr>th {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+.ant-table-tbody>tr:hover>td {
+  background: #f5f5f5;
+}
+
+.row-pending {
+  background: #fff7e6 !important;
+  border-left: 3px solid #faad14;
+}
+
+.row-pending:hover {
+  background: #ffe7ba !important;
+}
+
+.row-in-progress {
+  background: #e6f7ff !important;
+  border-left: 3px solid #1890ff;
+}
+
+.row-in-progress:hover {
+  background: #bae7ff !important;
+}
+
+.row-completed {
+  background: #f6ffed !important;
+  border-left: 3px solid #52c41a;
+}
+
+.row-completed:hover {
+  background: #d9f7be !important;
+}
+
+.row-rejected {
+  background: #fff1f0 !important;
+  border-left: 3px solid #ff4d4f;
+}
+
+.row-rejected:hover {
+  background: #ffccc7 !important;
+}
+
+.request-detail {
+  padding: 16px 0;
+}
+
+.detail-section {
+  margin-bottom: 24px;
+}
+
+.detail-section h4 {
+  margin: 0 0 12px 0;
+  color: #262626;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+.detail-section p {
+  margin: 0 0 8px 0;
+  color: #595959;
+}
+
+.detail-section strong {
+  color: #262626;
+}
+
+.attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ant-tag {
+  margin: 0;
+}
+
+.ant-steps {
+  margin-bottom: 24px;
+}
+
+.ant-steps-item-title {
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+}
+
+.ant-steps-item-description {
+  font-size: 11px !important;
+}
+
+.ant-modal-header {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ant-card-head {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ant-card-head-title {
+  font-weight: 600;
+  color: #262626;
+}
+
+.ant-card-small>.ant-card-head {
+  min-height: 0;
+  padding: 0 12px;
+}
+
+.ant-card-small>.ant-card-head>.ant-card-head-wrapper>.ant-card-head-title {
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.ant-card-small>.ant-card-body {
+  padding: 12px;
+}
+
+.ant-table-pagination {
+  margin: 16px 0;
+}
+
+.ant-pagination-item {
+  border-radius: 6px;
+}
+
+.ant-pagination-item-active {
+  background: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-pagination-item-active a {
+  color: white;
+}
+
+.financial-impact-cards {
+  margin-bottom: 24px;
+}
+
+.financial-impact-cards .ant-card {
+  text-align: center;
+}
+
+.financial-impact-cards .ant-card-body {
+  padding: 16px;
+}
+
+.loss-amount {
+  color: #ff4d4f;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.net-impact {
+  color: #1890ff;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.ant-input-number {
+  width: 100%;
+}
+
+.ant-input-number-input {
+  text-align: right;
+}
+
+.ant-form-item-label>label {
+  font-weight: 500;
+  color: #262626;
+}

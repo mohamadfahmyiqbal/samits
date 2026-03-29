@@ -19,4 +19,7 @@ router.put('/:id', authMiddleware, maintenanceController.updateLog);
 // Route DELETE schedule (hanya pending, auth required)
 router.delete('/:id', authMiddleware, maintenanceController.deleteLog);
 
+// Route permintaan approval
+router.post('/:id/request-approval', authMiddleware, maintenanceController.requestApproval);
+
 export default router;

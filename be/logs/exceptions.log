@@ -1,0 +1,160 @@
+2026-03-28 18:03:08 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:03:08 GMT+0700 (Indochina Time)","process":{"pid":4876,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":95555584,"heapTotal":65810432,"heapUsed":34591784,"external":2519040,"arrayBuffers":28576}},"os":{"loadavg":[0,0,0],"uptime":2373.75},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:03:16 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:03:16 GMT+0700 (Indochina Time)","process":{"pid":18104,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":95174656,"heapTotal":65077248,"heapUsed":34954984,"external":2519040,"arrayBuffers":28576}},"os":{"loadavg":[0,0,0],"uptime":2380.875},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:03:21 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:03:21 GMT+0700 (Indochina Time)","process":{"pid":8212,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":95305728,"heapTotal":64552960,"heapUsed":35004264,"external":2493534,"arrayBuffers":28400}},"os":{"loadavg":[0,0,0],"uptime":2386.046},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:03:26 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:03:26 GMT+0700 (Indochina Time)","process":{"pid":6788,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":95907840,"heapTotal":65548288,"heapUsed":35186384,"external":2493534,"arrayBuffers":28400}},"os":{"loadavg":[0,0,0],"uptime":2391.593},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:05:49 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:05:49 GMT+0700 (Indochina Time)","process":{"pid":11944,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":95698944,"heapTotal":65286144,"heapUsed":35256240,"external":2519040,"arrayBuffers":28576}},"os":{"loadavg":[0,0,0],"uptime":2534.609},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:06:41 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:06:41 GMT+0700 (Indochina Time)","process":{"pid":17460,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":96604160,"heapTotal":65966080,"heapUsed":37599072,"external":2494821,"arrayBuffers":28400}},"os":{"loadavg":[0,0,0],"uptime":2586.312},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:11:56 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5002
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002},"exception":true,"date":"Sat Mar 28 2026 18:11:56 GMT+0700 (Indochina Time)","process":{"pid":6636,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":121090048,"heapTotal":81715200,"heapUsed":48882400,"external":5591364,"arrayBuffers":3108928}},"os":{"loadavg":[0,0,0],"uptime":2901.64},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1908,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1965,"method":null,"native":false},{"column":7,"file":"node:net","function":"doListen","line":2139,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":83,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-03-28 20:06:40 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:13:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 20:06:40 GMT+0700 (Indochina Time)","process":{"pid":2412,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":96358400,"heapTotal":64815104,"heapUsed":35219560,"external":2519040,"arrayBuffers":28576}},"os":{"loadavg":[0,0,0],"uptime":9785.437},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":13,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:13:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 20:17:34 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5002
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002},"exception":true,"date":"Sat Mar 28 2026 20:17:34 GMT+0700 (Indochina Time)","process":{"pid":5068,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":121606144,"heapTotal":81453056,"heapUsed":48773816,"external":5591364,"arrayBuffers":3097728}},"os":{"loadavg":[0,0,0],"uptime":10439.093},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1908,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1965,"method":null,"native":false},{"column":7,"file":"node:net","function":"doListen","line":2139,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":83,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-03-28 20:17:58 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5002
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002},"exception":true,"date":"Sat Mar 28 2026 20:17:58 GMT+0700 (Indochina Time)","process":{"pid":19320,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":120193024,"heapTotal":81453056,"heapUsed":48835856,"external":5591364,"arrayBuffers":3108928}},"os":{"loadavg":[0,0,0],"uptime":10463.453},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1908,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1965,"method":null,"native":false},{"column":7,"file":"node:net","function":"doListen","line":2139,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":83,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-03-28 20:18:13 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5002
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002},"exception":true,"date":"Sat Mar 28 2026 20:18:13 GMT+0700 (Indochina Time)","process":{"pid":20112,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":121479168,"heapTotal":81190912,"heapUsed":48891016,"external":5591364,"arrayBuffers":3108928}},"os":{"loadavg":[0,0,0],"uptime":10478.39},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1908,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1965,"method":null,"native":false},{"column":7,"file":"node:net","function":"doListen","line":2139,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":83,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-03-28 20:18:21 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5002
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002},"exception":true,"date":"Sat Mar 28 2026 20:18:21 GMT+0700 (Indochina Time)","process":{"pid":5084,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":121487360,"heapTotal":81190912,"heapUsed":48748480,"external":5591364,"arrayBuffers":3097728}},"os":{"loadavg":[0,0,0],"uptime":10485.859},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1908,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1965,"method":null,"native":false},{"column":7,"file":"node:net","function":"doListen","line":2139,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":83,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)

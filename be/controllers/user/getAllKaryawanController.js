@@ -1,26 +1,30 @@
-import { QueryTypes } from 'sequelize';
-import HRGA from '../../config/HRGA.js';
+// controllers/user/getAllKaryawanController.js
+import HRGA from "../../config/HRGA.js";
+import HRGAUserModel from "../../models/hrga/HRGAUser.js";
 
 export const getAllKaryawan = async (req, res) => {
   try {
-    const users = await HRGA.query(
-      `SELECT NIK, NAMA, DEPT FROM "USER" ORDER BY NAMA ASC`,
-      {
-        type: QueryTypes.SELECT,
-      }
-    );
-  
+    const HRGAUser = HRGAUserModel(HRGA);
 
-    const formattedUsers = users.map(user => ({
-      nik: String(user.NIK || '').trim(),
-      nama: String(user.NAMA || '').trim(),
-      dept: String(user.DEPT || '').trim(),
+    const users = await HRGAUser.findAll({
+      attributes: ["NIK", "NAMA", "DEPT"],
+      order: [["NAMA", "ASC"]],
+      raw: true,
+    });
+
+    const formattedUsers = users.map((user) => ({
+      nik: String(user.NIK || "").trim(),
+      nama: String(user.NAMA || "").trim(),
+      dept: String(user.DEPT || "").trim(),
     }));
 
     res.status(200).json({ data: formattedUsers });
   } catch (error) {
     console.error("Error fetching all karyawan from HRGA DB:", error);
-    res.status(500).json({ message: "Gagal mengambil data karyawan." });
+    console.error("Error details:", error.message);
+    res.status(500).json({
+      message: "Gagal mengambil data karyawan.",
+      error: error.message,
+    });
   }
 };
-

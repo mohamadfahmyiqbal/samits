@@ -1,5 +1,6 @@
+
 import React, { useContext, useState } from "react";
-import { Table, Badge, ButtonGroup, Button } from "react-bootstrap";
+import { Table, ButtonGroup, Button } from "react-bootstrap";
 import { MaintenanceContext } from "../context/MaintenanceContext";
 import { format } from "date-fns";
 
@@ -12,8 +13,7 @@ export default function Summary() {
 
   const statusColor = {
     done: "success",
-    abnormal: "danger",
-  };
+    abnormal: "danger" };
 
   return (
     <div className="summary-page p-3">

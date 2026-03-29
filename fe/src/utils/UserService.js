@@ -1,5 +1,6 @@
 // src/utils/UserService.js
-import { API_BASE_URL } from '../config/api';
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || 'https://pik1com074.local.ikoito.co.id:5002/api';
 
 const normalizeUser = (user = {}) => {
   const nama = user.nama || user.name || '';
@@ -92,7 +93,7 @@ const userService = {
 
     return {
       status: response.status,
-      data: normalizeUser(data),
+      data: normalizeUser(data?.data?.user || data?.data || data),
       message: data?.message || 'Profil ditemukan.',
     };
   },

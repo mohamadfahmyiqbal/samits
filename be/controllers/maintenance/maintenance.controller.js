@@ -1,8 +1,42 @@
 // controllers/maintenance/maintenance.controller.js
 
 import { db } from "../../models/index.js";
+import maintenanceService from '../../services/maintenance.service.js';
 
-// 1. GET: Ambil Log Aktif (scheduled maintenance)
+const statusLabels = {
+  pending: "Open",
+  in_progress: "In Progress",
+  done: "Done",
+  abnormal: "Abnormal",
+  overdue: "Terlambat",
+  cancelled: "Cancelled"
+};
+
+const formatStatusLabel = (status) => statusLabels[status] || status;
+
+const formatTimeValue = (value) => {
+  if (!value) return null;
+  if (value instanceof Date) return value.toISOString().slice(11, 16);
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (trimmed.length >= 2) {
+      return trimmed.length > 5 ? trimmed.slice(0, 5) : trimmed;
+    }
+    return trimmed;
+  }
+  return null;
+};
+
+const buildTimeRangeLabel = (start, end) => {
+  const startLabel = formatTimeValue(start);
+  const endLabel = formatTimeValue(end);
+  if (startLabel && endLabel && startLabel !== endLabel) {
+    return `${startLabel} - ${endLabel}`;
+  }
+  return startLabel || endLabel || null;
+};
+
+// 1. GET Active Logs (pending & in-progress)
 export const getActiveLogs = async (req, res) => {
   try {
     const MaintenancePlan = db.MaintenancePlan;
@@ -10,37 +44,54 @@ export const getActiveLogs = async (req, res) => {
       throw new Error("Model MaintenancePlan belum tersedia.");
     }
 
-    // Ambil schedule yang aktif (is_active = true)
     const logs = await MaintenancePlan.findAll({
-      where: {
-        is_active: true,
-      },
-      order: [["next_due_date", "ASC"]],
+      where: { status: ['pending', 'in-progress'] },
+      order: [['scheduled_date', 'ASC']]
     });
 
-    console.log("Found logs:", logs.length);
+    // Transform untuk frontend (timezone fix)
+    const transformedLogs = logs.map(log => {
+      const assetLabel = log.hostname || log.plan_name || log.it_item_id;
+      const timeRange = buildTimeRangeLabel(log.scheduled_start_time, log.scheduled_end_time);
 
-    // Transform data untuk frontend
-    const transformedLogs = logs.map((log) => ({
-      id: log.plan_id,
-      assetId: log.asset_id,
-      planName: log.plan_name,
-      planType: log.plan_type,
-      frequency: log.frequency,
-      nextDueDate: log.next_due_date,
-      isActive: log.is_active,
-    }));
+      return {
+        id: log.plan_id,
+        itItemId: log.it_item_id,
+        hostname: log.hostname,
+        assetName: assetLabel,
+        planName: log.plan_name,
+        category: log.category,
+        type: log.maintenance_type,
+        scheduledDate: log.scheduled_date,
+        scheduledEndDate: log.scheduled_end_date,
+        scheduledStartTime: formatTimeValue(log.scheduled_start_time),
+        scheduledEndTime: formatTimeValue(log.scheduled_end_time),
+        timeRange,
+        pic: log.pic,
+        status: log.status,
+        statusLabel: formatStatusLabel(log.status),
+        description: log.description || log.notes || null,
+        notes: log.notes || null,
+        createdBy: log.created_by,
+        createdAt: log.created_at,
+        updatedAt: log.updated_at
+      };
+    });
 
-    return res.status(200).json({ data: transformedLogs });
+    return res.status(200).json({ 
+      success: true,
+      data: transformedLogs 
+    });
   } catch (error) {
     console.error("Gagal mengambil active logs:", error);
-    return res
-      .status(500)
-      .json({ message: "Gagal mengambil schedule maintenance." });
+    return res.status(500).json({ 
+      success: false,
+      message: "Gagal mengambil schedule maintenance." 
+    });
   }
 };
 
-// 2. GET: Ambil Log Riwayat (schedule yang sudah selesai)
+// 2. GET History Logs (done & abnormal)
 export const getHistoryLogs = async (req, res) => {
   try {
     const MaintenancePlan = db.MaintenancePlan;
@@ -48,248 +99,208 @@ export const getHistoryLogs = async (req, res) => {
       throw new Error("Model MaintenancePlan belum tersedia.");
     }
 
-    // Ambil schedule yang aktif sebagai history (karena tidak ada kolom status)
     const logs = await MaintenancePlan.findAll({
-      where: {
-        is_active: false, // Anggap yang tidak aktif sebagai history
-      },
-      order: [["plan_id", "DESC"]], // Gunakan plan_id sebagai pengganti updated_at
+      where: { status: ['done', 'abnormal'] },
+      order: [['updated_at', 'DESC']]
     });
 
-    // Transform data untuk frontend - hanya gunakan kolom yang ada
-    const transformedLogs = logs.map((log) => ({
-      id: log.plan_id,
-      assetId: log.asset_id,
-      planName: log.plan_name,
-      planType: log.plan_type,
-      frequency: log.frequency,
-      nextDueDate: log.next_due_date,
-      isActive: log.is_active,
-      // Default values untuk kolom yang tidak ada di tabel
-      itItemId: null,
-      hostname: null,
-      category: log.plan_type, // Gunakan plan_type sebagai category
-      type: log.plan_type,
-      scheduledDate: log.next_due_date,
-      scheduledEndDate: log.next_due_date,
-      scheduledStartTime: null,
-      scheduledEndTime: null,
-      pic: null,
-      status: log.is_active ? "active" : "completed", // Berdasarkan is_active
-      description: null,
-      notes: null,
-      endDate: log.next_due_date,
-      result: log.is_active ? "Pending" : "Normal",
-      executedBy: null,
-      archivedAt: null,
-      createdBy: null,
-      createdAt: null,
-      updatedAt: null,
-    }));
+    const transformedLogs = logs.map(log => {
+      const assetLabel = log.hostname || log.plan_name || log.it_item_id;
+      const timeRange = buildTimeRangeLabel(log.scheduled_start_time, log.scheduled_end_time);
 
-    return res.status(200).json({ data: transformedLogs });
+      return {
+        id: log.plan_id,
+        itItemId: log.it_item_id,
+        hostname: log.hostname,
+        assetName: assetLabel,
+        planName: log.plan_name,
+        category: log.category,
+        type: log.maintenance_type,
+        scheduledDate: log.scheduled_date,
+        scheduledEndDate: log.scheduled_end_date,
+        scheduledStartTime: formatTimeValue(log.scheduled_start_time),
+        scheduledEndTime: formatTimeValue(log.scheduled_end_time),
+        timeRange,
+        pic: log.pic,
+        status: log.status,
+        statusLabel: formatStatusLabel(log.status),
+        description: log.description || log.notes || null,
+        notes: log.notes || null,
+        endDate: log.scheduled_end_date,
+        result: log.status === 'done' ? 'Normal' : 'Abnormal',
+        executedBy: log.pic,
+        archivedAt: log.updated_at,
+        createdBy: log.created_by,
+        createdAt: log.created_at,
+        updatedAt: log.updated_at
+      };
+    });  
+
+    return res.status(200).json({ 
+      success: true,
+      data: transformedLogs 
+    });
   } catch (error) {
     console.error("Gagal mengambil history logs:", error);
-    return res
-      .status(500)
-      .json({ message: "Gagal mengambil riwayat maintenance." });
+    return res.status(500).json({ 
+      success: false,
+      message: "Gagal mengambil riwayat maintenance." 
+    });
   }
 };
 
-// 3. PUT: Update Log (status, detail, dll.)
+// 3. PUT Update Schedule
 export const updateLog = async (req, res) => {
   try {
     const planId = parseInt(req.params.id);
-    const updatePayload = req.body;
-
-    const MaintenancePlan = db.MaintenancePlan;
-    if (!MaintenancePlan) {
-      throw new Error("Model MaintenancePlan belum tersedia.");
-    }
-
     if (isNaN(planId)) {
       return res.status(400).json({
         success: false,
-        message: "ID jadwal tidak valid",
+        message: "ID jadwal tidak valid"
       });
     }
 
-    const existingLog = await MaintenancePlan.findByPk(planId);
-
-    if (!existingLog) {
-      return res.status(404).json({
-        success: false,
-        message: "Schedule tidak ditemukan",
-      });
+    const result = await maintenanceService.updateSchedule(planId, req.body, req.user);
+    
+    if (!result.success) {
+      const status = result.message.includes('not found') ? 404 : 400;
+      return res.status(status).json(result);
     }
 
-    // Hanya izinkan edit jika masih aktif
-    if (existingLog.is_active === false) {
-      return res.status(403).json({
-        success: false,
-        message: "Schedule tidak dapat diedit (status: completed)",
-      });
-    }
-
-    // Filter updatePayload untuk hanya menyertakan kolom yang ada
-    const allowedUpdates = {};
-    if (updatePayload.plan_name !== undefined)
-      allowedUpdates.plan_name = updatePayload.plan_name;
-    if (updatePayload.asset_id !== undefined)
-      allowedUpdates.asset_id = updatePayload.asset_id;
-    if (updatePayload.plan_type !== undefined)
-      allowedUpdates.plan_type = updatePayload.plan_type;
-    if (updatePayload.frequency !== undefined)
-      allowedUpdates.frequency = updatePayload.frequency;
-    if (updatePayload.next_due_date !== undefined)
-      allowedUpdates.next_due_date = updatePayload.next_due_date;
-    if (updatePayload.is_active !== undefined)
-      allowedUpdates.is_active = updatePayload.is_active;
-
-    await existingLog.update(allowedUpdates);
-
-    const updatedLog = await MaintenancePlan.findByPk(planId); // Refresh data
-    const updatedLogJSON = updatedLog.toJSON();
-
-    // Format response standar per rules - hanya gunakan kolom yang ada
-    const transformedLog = {
-      id: updatedLogJSON.plan_id,
-      assetId: updatedLogJSON.asset_id,
-      planName: updatedLogJSON.plan_name,
-      planType: updatedLogJSON.plan_type,
-      frequency: updatedLogJSON.frequency,
-      nextDueDate: updatedLogJSON.next_due_date,
-      isActive: updatedLogJSON.is_active,
-      // Default values untuk kolom yang tidak ada
-      itItemId: null,
-      hostname: null,
-      category: updatedLogJSON.plan_type,
-      type: updatedLogJSON.plan_type,
-      scheduledDate: updatedLogJSON.next_due_date,
-      scheduledEndDate: updatedLogJSON.next_due_date,
-      scheduledStartTime: null,
-      scheduledEndTime: null,
-      pic: null,
-      status: updatedLogJSON.is_active ? "active" : "completed",
-      detail: null,
-      notes: null,
-      createdBy: null,
-      createdAt: null,
-      updatedAt: null,
-    };
-
-    return res.status(200).json({
-      success: true,
-      message: "Schedule berhasil diperbarui",
-      data: transformedLog,
-    });
+    return res.status(200).json(result);
   } catch (error) {
-    console.error("Gagal memperbarui log:", error);
-    res.status(500).json({
+    console.error("Controller updateLog failed:", error);
+    return res.status(500).json({
       success: false,
-      message: "Gagal memperbarui schedule maintenance",
+      message: "Internal server error"
     });
   }
 };
 
-// 4. POST: Buat Log Baru
+// 4. POST Create Schedule **(FIX: Ditambahkan lengkap)**
 export const createLog = async (req, res) => {
   try {
-    const newLogData = req.body;
-
-    if (!newLogData.assetId || !newLogData.nextDueDate) {
-      return res
-        .status(400)
-        .json({ message: "Asset ID dan Next Due Date wajib diisi" });
+    if (!req.body) {
+      return res.status(400).json({
+        success: false,
+        message: "Payload jadwal tidak boleh kosong"
+      });
     }
 
-    const MaintenancePlan = db.MaintenancePlan;
-    if (!MaintenancePlan) {
-      throw new Error("Model MaintenancePlan belum tersedia.");
-    }
-
-    const startDate = new Date(newLogData.nextDueDate);
-    const endDate = newLogData.nextDueDate
-      ? new Date(newLogData.nextDueDate)
-      : startDate;
-
-    // Single day creation
-    const newPlan = await MaintenancePlan.create({
-      asset_id: newLogData.assetId,
-      plan_name:
-        newLogData.planName ||
-        `Maintenance Plan ${newLogData.planType || "Schedule"}`,
-      plan_type: newLogData.planType || "preventive",
-      frequency: newLogData.frequency || "monthly",
-      next_due_date: newLogData.nextDueDate,
-      is_active: true,
-    });
-    const savedPlan = newPlan.toJSON();
-    const transformedPlan = {
-      id: savedPlan.plan_id,
-      assetId: savedPlan.asset_id,
-      planName: savedPlan.plan_name,
-      planType: savedPlan.plan_type,
-      frequency: savedPlan.frequency,
-      nextDueDate: savedPlan.next_due_date,
-      isActive: savedPlan.is_active,
-      // Default values for missing fields
-      itItemId: null,
-      hostname: null,
-      category: savedPlan.plan_type,
-      type: savedPlan.plan_type,
-      scheduledDate: savedPlan.next_due_date,
-      scheduledEndDate: savedPlan.next_due_date,
-      scheduledStartTime: null,
-      scheduledEndTime: null,
-      pic: null,
-      status: savedPlan.is_active ? "active" : "completed",
-      detail: null,
-      notes: null,
-      createdBy: null,
-      createdAt: null,
-      updatedAt: null,
+    const camelPayload = {
+      ...req.body,
+      itItemId: req.body.itItemId || req.body.it_item_id,
+      scheduledDate: req.body.scheduledDate || req.body.scheduled_date,
+      scheduledEndDate: req.body.scheduledEndDate || req.body.scheduled_end_date
     };
 
+    if (!camelPayload.itItemId || !camelPayload.scheduledDate) {
+      return res.status(400).json({
+        success: false,
+        message: "Required: it_item_id dan scheduled_date"
+      });
+    }
+
+    const result = await maintenanceService.createSchedule(camelPayload, req.user);
+    
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.message
+      });
+    }
+
     return res.status(201).json({
-      message: "Schedule berhasil ditambahkan",
-      data: transformedPlan,
+      success: true,
+      message: "Schedule berhasil dibuat",
+      data: result.data
     });
   } catch (error) {
-    console.error("Gagal membuat log:", error);
-    res.status(500).json({ message: "Gagal membuat schedule maintenance" });
+    console.error("Controller createLog failed:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
   }
 };
 
-// 5. DELETE: Hapus Schedule (hanya pending)
+// 5. DELETE Schedule CASCADE (Plan + WorkOrders)
 export const deleteLog = async (req, res) => {
   try {
     const planId = req.params.id;
-    const MaintenancePlan = db.MaintenancePlan;
+    
+    const result = await maintenanceService.deleteSchedule(planId, req.user);
+    
+    if (!result.success) {
+      const status = result.message.includes('tidak ditemukan') ? 404 : 
+                    result.message.includes('PENDING') ? 403 : 400;
+      return res.status(status).json(result);
+    }
 
-    if (!MaintenancePlan) {
-      throw new Error("Model MaintenancePlan belum tersedia.");
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Controller deleteLog failed:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
+  }
+};
+
+// 6. POST Request Approval
+export const requestApproval = async (req, res) => {
+  try {
+    const planId = parseInt(req.params.id, 10);
+    const MaintenancePlan = db.MaintenancePlan;
+    const ApprovalHistory = db.ApprovalHistory;
+
+    if (!MaintenancePlan || !ApprovalHistory) {
+      throw new Error("Model maintenance atau approval tidak tersedia.");
+    }
+
+    if (isNaN(planId)) {
+      return res.status(400).json({ 
+        success: false,
+        message: "ID schedule tidak valid" 
+      });
     }
 
     const schedule = await MaintenancePlan.findByPk(planId);
     if (!schedule) {
-      return res.status(404).json({ message: "Schedule tidak ditemukan" });
+      return res.status(404).json({ 
+        success: false,
+        message: "Schedule tidak ditemukan" 
+      });
     }
 
-    if (schedule.is_active === false) {
-      return res
-        .status(403)
-        .json({ message: "Hanya schedule yang aktif yang boleh dihapus" });
+    if (!['pending', 'in-progress'].includes(schedule.status)) {
+      return res.status(403).json({ 
+        success: false,
+        message: "Hanya schedule pending atau in-progress yang bisa diminta approval" 
+      });
     }
 
-    await schedule.destroy();
+    await ApprovalHistory.create({
+      document_type: 'maintenance_plan',
+      document_id: String(schedule.plan_id),
+      level_id: 1,
+      approver_nik: req.user?.nik || null,
+      status: 'requested',
+      notes: req.body?.notes || 'Permintaan approval jadwal maintenance',
+      created_at: new Date(),
+      updated_at: new Date(),
+      step_sequence: 1
+    });
 
-    return res.status(200).json({
-      message: "Schedule berhasil dihapus",
-      deletedId: planId,
+    return res.status(201).json({ 
+      success: true,
+      message: "Permintaan approval berhasil dikirim" 
     });
   } catch (error) {
-    console.error("Gagal menghapus schedule:", error);
-    res.status(500).json({ message: "Gagal menghapus schedule maintenance" });
+    console.error("Gagal mengirim permintaan approval:", error);
+    return res.status(500).json({ 
+      success: false,
+      message: "Gagal mengirim approval maintenance" 
+    });
   }
 };

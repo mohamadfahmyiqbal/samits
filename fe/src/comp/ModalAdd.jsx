@@ -1,13 +1,13 @@
+
 import React, { useState, useContext, useMemo, useEffect } from "react";
-import { Modal, Button, Form, Row, Col, Alert } from "react-bootstrap";
+import { Modal, Button, Row, Col, Alert } from "react-bootstrap";
 import { AssetContext } from "../context/AssetContext";
 import Select from "react-select";
 import { fetchCategoryTypes, fetchClassifications } from "../services/AssetService";
 
 const GROUP_NAME_MAP = {
   client: "Client",
-  utama: "Utama",
-};
+  utama: "Utama" };
 
 const createInitialFormData = (defaultAssetGroup = "client") => ({
   assetGroup: defaultAssetGroup,
@@ -35,8 +35,7 @@ const createInitialFormData = (defaultAssetGroup = "client") => ({
   accounting_asset_no: "",
   depreciation_end_date: "",
   disposal_plan_date: "",
-  extend_warranty_date: "",
-});
+  extend_warranty_date: "" });
 
 export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "client" }) {
   // ✅ PERBAIKAN: fetchCategories dihapus dari destructuring
@@ -152,8 +151,7 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
         setClassificationOptions(
           data.map((c) => ({
             value: c.classification_id,
-            label: c.classification_name,
-          }))
+            label: c.classification_name }))
         );
       } catch (err) {
         console.error("Failed to load classifications:", err);
@@ -247,13 +245,13 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
         {!isDataLoaded ? (
           <div className="text-center">Loading...</div>
         ) : (
-          <Form onSubmit={handleSubmit}>
+          <Form as="form" onSubmit={handleSubmit}>
             {/* Baris 1: Asset Group & Nomor Asset */}
             <Row className="mb-2">
               <Col md={4}>
-                <Form.Label>Asset Group <span className="text-danger">*</span></Form.Label>
-                <Form.Select
-                  name="assetGroup"
+                <Form as="form".Label>Asset Group <span className="text-danger">*</span></Form.Label>
+                <Form as="form".Select
+                  controlId="assetGroup"
                   value={formData.assetGroup}
                   onChange={handleChange}
                   disabled={isLoading}
@@ -263,22 +261,22 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
                 </Form.Select>
               </Col>
               <Col md={8}>
-                <Form.Label>Nomor Asset <span className="text-danger">*</span></Form.Label>
-                <Form.Control
-                  name="noAsset"
+                <Form as="form".Label>Nomor Asset <span className="text-danger">*</span></Form.Label>
+                <Form as="form".Control
+                  controlId="noAsset"
                   value={formData.noAsset}
                   onChange={handleChange}
                   isInvalid={!!errors.noAsset}
                   disabled={isLoading}
                 />
-                <Form.Control.Feedback type="invalid">{errors.noAsset}</Form.Control.Feedback>
+                <Form as="form".Control.Feedback type="invalid">{errors.noAsset}</Form.Control.Feedback>
               </Col>
             </Row>
 
             {/* Baris 2: Category & Type */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>Category <span className="text-danger">*</span></Form.Label>
+                <Form as="form".Label>Category <span className="text-danger">*</span></Form.Label>
                 <Select
                   isClearable
                   isDisabled={isLoading}
@@ -291,10 +289,10 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
                   onChange={(selectedOption) => handleSelectChange("category", selectedOption)}
                   isInvalid={!!errors.category}
                 />
-                <Form.Control.Feedback type="invalid" className="d-block">{errors.category}</Form.Control.Feedback>
+                <Form as="form".Control.Feedback type="invalid" className="d-block">{errors.category}</Form.Control.Feedback>
               </Col>
               <Col>
-                <Form.Label>Type <span className="text-danger">*</span></Form.Label>
+                <Form as="form".Label>Type <span className="text-danger">*</span></Form.Label>
                 <Select
                   isClearable
                   isDisabled={isLoading || !formData.category || typeOptions.length === 0}
@@ -307,7 +305,7 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
                   onChange={(selectedOption) => handleSelectChange("type", selectedOption)}
                   isInvalid={!!errors.type}
                 />
-                <Form.Control.Feedback type="invalid" className="d-block">{errors.type}</Form.Control.Feedback>
+                <Form as="form".Control.Feedback type="invalid" className="d-block">{errors.type}</Form.Control.Feedback>
               </Col>
             </Row>
 
@@ -315,7 +313,7 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
             {formData.category === "PC" && (
               <Row className="mb-2">
                 <Col>
-                  <Form.Label>Classification <span className="text-danger">*</span></Form.Label>
+                  <Form as="form".Label>Classification <span className="text-danger">*</span></Form.Label>
                   <Select
                     isClearable
                     isDisabled={isLoading || classificationOptions.length === 0}
@@ -329,7 +327,7 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
                     isInvalid={!!errors.classification}
                     placeholder={classificationOptions.length === 0 ? "Loading..." : "Pilih Classification"}
                   />
-                  <Form.Control.Feedback type="invalid" className="d-block">{errors.classification}</Form.Control.Feedback>
+                  <Form as="form".Control.Feedback type="invalid" className="d-block">{errors.classification}</Form.Control.Feedback>
                 </Col>
               </Row>
             )}
@@ -337,38 +335,38 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
             {/* Baris 3: Divisi & Dept */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>Divisi</Form.Label>
-                <Form.Control name="divisi" value={formData.divisi} onChange={handleChange} disabled={isLoading} />
+                <Form as="form".Label>Divisi</Form.Label>
+                <Form as="form".Control controlId="divisi" value={formData.divisi} onChange={handleChange} disabled={isLoading} />
               </Col>
               <Col>
-                <Form.Label>Dept</Form.Label>
-                <Form.Control name="dept" value={formData.dept} onChange={handleChange} disabled={isLoading} />
+                <Form as="form".Label>Dept</Form.Label>
+                <Form as="form".Control controlId="dept" value={formData.dept} onChange={handleChange} disabled={isLoading} />
               </Col>
             </Row>
 
             {/* Baris 4: Nama & NIK */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>Nama Pengguna</Form.Label>
-                <Form.Control name="nama" value={formData.nama} onChange={handleChange} disabled={isLoading} />
+                <Form as="form".Label>Nama Pengguna</Form.Label>
+                <Form as="form".Control controlId="nama" value={formData.nama} onChange={handleChange} disabled={isLoading} />
               </Col>
               <Col>
-                <Form.Label>NIK</Form.Label>
-                <Form.Control name="nik" value={formData.nik} onChange={handleChange} disabled={isLoading} />
+                <Form as="form".Label>NIK</Form.Label>
+                <Form as="form".Control controlId="nik" value={formData.nik} onChange={handleChange} disabled={isLoading} />
               </Col>
             </Row>
 
             {/* Baris 5: Hostname & Tahun Beli */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>Hostname</Form.Label>
-                <Form.Control name="hostname" value={formData.hostname} onChange={handleChange} disabled={isLoading} />
+                <Form as="form".Label>Hostname</Form.Label>
+                <Form as="form".Control controlId="hostname" value={formData.hostname} onChange={handleChange} disabled={isLoading} />
               </Col>
 
               <Col>
-                <Form.Label>Tahun Beli</Form.Label>
-                <Form.Control
-                  name="tahunBeli"
+                <Form as="form".Label>Tahun Beli</Form.Label>
+                <Form as="form".Control
+                  controlId="tahunBeli"
                   maxLength={4}
                   value={formData.tahunBeli}
                   placeholder="2024"
@@ -376,15 +374,15 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
                   isInvalid={!!errors.tahunBeli}
                   disabled={isLoading}
                 />
-                <Form.Control.Feedback type="invalid">{errors.tahunBeli}</Form.Control.Feedback>
+                <Form as="form".Control.Feedback type="invalid">{errors.tahunBeli}</Form.Control.Feedback>
               </Col>
             </Row>
 
             {/* Baris 6: Status */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>Status</Form.Label>
-                <Form.Select name="status" value={formData.status} onChange={handleChange} disabled={isLoading}>
+                <Form as="form".Label>Status</Form.Label>
+                <Form as="form".Select controlId="status" value={formData.status} onChange={handleChange} disabled={isLoading}>
                   <option value="Active">Active</option>
                   <option value="Disposal">Disposal</option>
                 </Form.Select>
@@ -394,33 +392,33 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
             {/* Baris 7: PO Number & Invoice Number */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>PO Number</Form.Label>
-                <Form.Control name="po_number" value={formData.po_number} onChange={handleChange} disabled={isLoading} />
+                <Form as="form".Label>PO Number</Form.Label>
+                <Form as="form".Control controlId="po_number" value={formData.po_number} onChange={handleChange} disabled={isLoading} />
               </Col>
               <Col>
-                <Form.Label>Invoice Number</Form.Label>
-                <Form.Control name="invoice_number" value={formData.invoice_number} onChange={handleChange} disabled={isLoading} />
+                <Form as="form".Label>Invoice Number</Form.Label>
+                <Form as="form".Control controlId="invoice_number" value={formData.invoice_number} onChange={handleChange} disabled={isLoading} />
               </Col>
             </Row>
 
             {/* Baris 8: No CIP & Line Code */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>No. CIP</Form.Label>
-                <Form.Control name="no_cip" value={formData.no_cip} onChange={handleChange} disabled={isLoading} />
+                <Form as="form".Label>No. CIP</Form.Label>
+                <Form as="form".Control controlId="no_cip" value={formData.no_cip} onChange={handleChange} disabled={isLoading} />
               </Col>
               <Col>
-                <Form.Label>Line Code</Form.Label>
-                <Form.Control name="line_code" value={formData.line_code} onChange={handleChange} disabled={isLoading} />
+                <Form as="form".Label>Line Code</Form.Label>
+                <Form as="form".Control controlId="line_code" value={formData.line_code} onChange={handleChange} disabled={isLoading} />
               </Col>
             </Row>
 
             {/* Baris 9: Purchase Price Plan & Purchase Price Actual */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>Purchase Price Plan</Form.Label>
-                <Form.Control 
-                  name="purchase_price_plan" 
+                <Form as="form".Label>Purchase Price Plan</Form.Label>
+                <Form as="form".Control 
+                  controlId="purchase_price_plan" 
                   type="number"
                   value={formData.purchase_price_plan} 
                   onChange={handleChange} 
@@ -429,9 +427,9 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
                 />
               </Col>
               <Col>
-                <Form.Label>Purchase Price Actual</Form.Label>
-                <Form.Control 
-                  name="purchase_price_actual" 
+                <Form as="form".Label>Purchase Price Actual</Form.Label>
+                <Form as="form".Control 
+                  controlId="purchase_price_actual" 
                   type="number"
                   value={formData.purchase_price_actual} 
                   onChange={handleChange} 
@@ -444,9 +442,9 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
             {/* Baris 10: At Cost Value & Useful Life Year */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>At Cost Value</Form.Label>
-                <Form.Control 
-                  name="at_cost_value" 
+                <Form as="form".Label>At Cost Value</Form.Label>
+                <Form as="form".Control 
+                  controlId="at_cost_value" 
                   type="number"
                   value={formData.at_cost_value} 
                   onChange={handleChange} 
@@ -455,9 +453,9 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
                 />
               </Col>
               <Col>
-                <Form.Label>Useful Life Year</Form.Label>
-                <Form.Control 
-                  name="useful_life_year" 
+                <Form as="form".Label>Useful Life Year</Form.Label>
+                <Form as="form".Control 
+                  controlId="useful_life_year" 
                   type="number"
                   value={formData.useful_life_year} 
                   onChange={handleChange} 
@@ -470,9 +468,9 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
             {/* Baris 11: Initial Depreciation & Accounting Asset No */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>Initial Depreciation</Form.Label>
-                <Form.Control 
-                  name="initial_depreciation" 
+                <Form as="form".Label>Initial Depreciation</Form.Label>
+                <Form as="form".Control 
+                  controlId="initial_depreciation" 
                   type="number"
                   value={formData.initial_depreciation} 
                   onChange={handleChange} 
@@ -481,17 +479,17 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
                 />
               </Col>
               <Col>
-                <Form.Label>Accounting Asset No</Form.Label>
-                <Form.Control name="accounting_asset_no" value={formData.accounting_asset_no} onChange={handleChange} disabled={isLoading} />
+                <Form as="form".Label>Accounting Asset No</Form.Label>
+                <Form as="form".Control controlId="accounting_asset_no" value={formData.accounting_asset_no} onChange={handleChange} disabled={isLoading} />
               </Col>
             </Row>
 
             {/* Baris 12: Depreciation End Date & Disposal Plan Date */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>Depreciation End Date</Form.Label>
-                <Form.Control 
-                  name="depreciation_end_date" 
+                <Form as="form".Label>Depreciation End Date</Form.Label>
+                <Form as="form".Control 
+                  controlId="depreciation_end_date" 
                   type="date"
                   value={formData.depreciation_end_date} 
                   onChange={handleChange} 
@@ -499,9 +497,9 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
                 />
               </Col>
               <Col>
-                <Form.Label>Disposal Plan Date</Form.Label>
-                <Form.Control 
-                  name="disposal_plan_date" 
+                <Form as="form".Label>Disposal Plan Date</Form.Label>
+                <Form as="form".Control 
+                  controlId="disposal_plan_date" 
                   type="date"
                   value={formData.disposal_plan_date} 
                   onChange={handleChange} 
@@ -513,9 +511,9 @@ export default function ModalAdd({ show, onHide, onSave, defaultAssetGroup = "cl
             {/* Baris 13: Extend Warranty Date */}
             <Row className="mb-2">
               <Col>
-                <Form.Label>Extend Warranty Date</Form.Label>
-                <Form.Control 
-                  name="extend_warranty_date" 
+                <Form as="form".Label>Extend Warranty Date</Form.Label>
+                <Form as="form".Control 
+                  controlId="extend_warranty_date" 
                   type="date"
                   value={formData.extend_warranty_date} 
                   onChange={handleChange} 

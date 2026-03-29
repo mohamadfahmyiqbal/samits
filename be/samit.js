@@ -1,6 +1,5 @@
 // samit.js (FINAL)
 import https from "https";
-import http from "http";
 import fs from "fs";
 import express from "express";
 import path from "path";
@@ -11,86 +10,46 @@ import session from "express-session";
 import helmet from "helmet";
 import { rateLimit } from "express-rate-limit";
 import { Server as SocketIOServer } from "socket.io";
-import winston from "winston";
+import logger from "./utils/logger.js"; // Import centralized logger
+import { sslManager } from "./utils/sslManager.js"; // Import centralized SSL manager
 import { initializeDB } from "./models/index.js"; // Import initializeDB
 import mainRoutes from "./routes/index.js";
 import { verifyToken } from "./utils/jwtHelper.js";
 import { setSocketServer } from "./services/realtime.service.js";
 import { fileURLToPath } from "url";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Setup Winston Logger
-const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.errors({ stack: true }),
-    winston.format.json(),
-  ),
-  defaultMeta: { service: "samit-backend" },
-  transports: [
-    new winston.transports.File({ filename: "logs/error.log", level: "error" }),
-    new winston.transports.File({ filename: "logs/combined.log" }),
-  ],
-});
-
-if (process.env.NODE_ENV !== "production") {
-  logger.add(
-    new winston.transports.Console({
-      format: winston.format.simple(),
-    }),
-  );
-}
+// Logger is now centralized in utils/logger.js
 
 const app = express();
 const port = process.env.PORT || 5002;
 let ioServer = null;
 let httpServer = null;
 
-// --- SSL/HTTP Config ---
-const useSSL = process.env.USE_SSL === "true";
-const sslKeyPath = "./cert/localhost.key";
-const sslCertPath = "./cert/localhost.crt";
-const sslCaPath = process.env.SSL_CA_PATH || "./cert/ca.cer";
-
-let sslOptions = null;
-
-if (useSSL) {
-  if (!fs.existsSync(sslKeyPath) || !fs.existsSync(sslCertPath)) {
-    logger.error("Sertifikat SSL tidak ditemukan.");
-    process.exit(1);
-  }
-
-  sslOptions = {
-    key: fs.readFileSync(sslKeyPath),
-    cert: fs.readFileSync(sslCertPath),
-    rejectUnauthorized: process.env.NODE_ENV === "production", // Secure in production
-    minVersion: "TLSv1.2", // Enforce minimum TLS version
-    honorCipherOrder: true,
-  };
-
-  if (fs.existsSync(sslCaPath)) {
-    sslOptions.ca = fs.readFileSync(sslCaPath);
-  }
+// --- SSL Config (Centralized) ---
+let sslOptions;
+try {
+  sslOptions = sslManager.getSSLOptions();
+  logger.info("SSL certificates loaded successfully");
+} catch (error) {
+  logger.error("Failed to load SSL certificates:", error.message);
+  process.exit(1);
 }
 
 // --- Middleware ---
 const fallbackOrigins = [
-  "http://localhost:3000", // For development
-  "https://localhost:3000", // For development with HTTPS
-  "http://localhost:5002", // Backend development
-  "https://localhost:5002", // Backend development with HTTPS
-  "http://pik1com074.local.ikoito.co.id:3000",
-  "https://pik1com074.local.ikoito.co.id:3000",
-  "http://pik1com074.local.ikoito.co.id:3001",
-  "https://pik1com074.local.ikoito.co.id:3001",
-  "https://pik1com074.local.ikoito.co.id:5008",
-  "https://pik1com074.local.ikoito.co.id:5005",
-  "https://pik1svr008.local.ikoito.co.id:449",
-  "https://pik1com012:3000",
+  "http://localhost:3000",
+  "https://localhost:3000",
+  "http://localhost:3001",
+  "https://localhost:3001",
+  "https://localhost:5008",
+  "https://localhost:5005",
+  "http://127.0.0.1:3000",
+  "https://127.0.0.1:3000",
 ];
 
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || "")
@@ -129,48 +88,32 @@ app.use((err, _req, res, next) => {
   return next(err);
 });
 
+// Validate required environment variables
+const SESSION_SECRET = process.env.SESSION_SECRET;
+if (!SESSION_SECRET) {
+  logger.error("SESSION_SECRET tidak terdefinisi di environment variables.");
+  process.exit(1);
+}
+
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "andan",
+    secret: SESSION_SECRET,
     resave: false,
-    saveUninitialized: false, // Fix: Don't save uninitialized sessions
+    saveUninitialized: true,
     cookie: {
-      secure: useSSL, // Only secure if SSL is enabled
+      secure: true,
       httpOnly: true,
-      sameSite: useSSL ? "none" : "lax", // Dynamic based on SSL
+      sameSite: "none",
       maxAge: 60 * 60 * 1000, // 1 jam
     },
-    name: "samit.sid", // Custom session name
   }),
 );
 
 app.use(cookieParser());
 
-app.use(express.json({ limit: "10mb" })); // Add limit to prevent DoS
-app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// Global Error Handler
-app.use((err, req, res, next) => {
-  logger.error("Unhandled error:", {
-    error: err.message,
-    stack: err.stack,
-    url: req.url,
-    method: req.method,
-  });
-
-  if (res.headersSent) {
-    return next(err);
-  }
-
-  res.status(err.status || 500).json({
-    message:
-      process.env.NODE_ENV === "production"
-        ? "Internal Server Error"
-        : err.message,
-    ...(process.env.NODE_ENV !== "production" && { stack: err.stack }),
-  });
-});
 
 const loginRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -218,6 +161,18 @@ const gracefulShutdown = () => {
 process.on("SIGINT", gracefulShutdown);
 process.on("SIGTERM", gracefulShutdown);
 
+// Handle unhandled promise rejections
+process.on("unhandledRejection", (reason, promise) => {
+  logger.error("Unhandled Rejection at:", promise, "reason:", reason);
+  process.exit(1);
+});
+
+// Handle uncaught exceptions
+process.on("uncaughtException", (error) => {
+  logger.error("Uncaught Exception:", error);
+  process.exit(1);
+});
+
 // --- Fungsi Asinkron untuk memulai Server ---
 async function startServer() {
   try {
@@ -225,19 +180,15 @@ async function startServer() {
     await initializeDB();
 
     // Routing (ditempatkan di sini setelah DB siap)
+    console.log("Setting up routes...");
     app.use("/api/users/login", loginRateLimiter);
     app.use("/api/push/subscribe", pushRateLimiter);
     app.use("/api/push/send", pushRateLimiter);
     app.use("/api", mainRoutes);
+    console.log("Routes set up complete");
 
-    // Jalankan server HTTP atau HTTPS
-    if (useSSL && sslOptions) {
-      httpServer = https.createServer(sslOptions, app);
-      logger.info(`HTTPS Server running at https://localhost:${port}`);
-    } else {
-      httpServer = http.createServer(app);
-      logger.info(`HTTP Server running at http://localhost:${port}`);
-    }
+    // Jalankan server HTTPS
+    httpServer = https.createServer(sslOptions, app);
 
     const io = new SocketIOServer(httpServer, {
       cors: {
@@ -289,34 +240,22 @@ async function startServer() {
         logger.info(
           `Socket disconnect [${socket.id}] nik=${nik || "-"} reason=${reason}`,
         );
-
-        // Clean up room membership
-        if (nik) {
-          socket.leave(`user:${nik}`);
-        }
       });
     });
 
     setSocketServer(io);
 
-    // Health check endpoint
-    app.get("/health", (req, res) => {
-      res.status(200).json({
-        status: "OK",
-        timestamp: new Date().toISOString(),
-        uptime: process.uptime(),
-        environment: process.env.NODE_ENV,
-        ssl: useSSL,
-        database: "connected",
-      });
-    });
+    // Global Error Handler (must be last)
+    app.use(errorHandler);
 
-    httpServer.listen(port, "0.0.0.0", () => {
-      const protocol = useSSL ? "https" : "http";
-      logger.info(
-        `${protocol.toUpperCase()} Server running at ${protocol}://localhost:${port}`,
-      );
-    });
+    httpServer
+      .listen(port, "0.0.0.0", () => {
+        logger.info(`HTTPS Server running at https://localhost:${port}`);
+      })
+      .on("error", (err) => {
+        logger.error("Server error:", err);
+        process.exit(1);
+      });
   } catch (error) {
     logger.error("Gagal menjalankan server atau inisialisasi DB:", error);
     process.exit(1);

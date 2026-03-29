@@ -1,0 +1,60 @@
+.finance {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px 0;
+  color: #262626;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.table-header {
+  margin-bottom: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.invoice-detail {
+  padding: 16px 0;
+}
+
+.invoice-detail p {
+  margin-bottom: 8px;
+  color: #595959;
+}
+
+.invoice-detail strong {
+  color: #262626;
+}
+
+.ant-statistic-title {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.ant-statistic-content {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #f5f5f5;
+}

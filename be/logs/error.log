@@ -1,4 +1,52 @@
 {"level":"error","message":"Gagal menjalankan server atau inisialisasi DB: Unknown attribute \"id\" passed as targetKey, define this attribute on model \"Category\" first","service":"samit-backend","stack":"Error: Unknown attribute \"id\" passed as targetKey, define this attribute on model \"Category\" first\n    at new BelongsTo (D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\associations\\belongs-to.js:55:13)\n    at Asset.<anonymous> (D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\associations\\mixin.js:70:25)\n    at Asset.associate (file:///D:/DEV/REACT/samit/be/models/2_eam_core/Asset.js:62:19)\n    at file:///D:/DEV/REACT/samit/be/models/index.js:57:27\n    at Array.forEach (<anonymous>)\n    at initializeDB (file:///D:/DEV/REACT/samit/be/models/index.js:55:21)\n    at async startServer (file:///D:/DEV/REACT/samit/be/samit.js:175:9)","timestamp":"2026-02-25T07:07:42.220Z"}
 {"level":"error","message":"Gagal menjalankan server atau inisialisasi DB: Unknown attribute \"id\" passed as targetKey, define this attribute on model \"Vendor\" first","service":"samit-backend","stack":"Error: Unknown attribute \"id\" passed as targetKey, define this attribute on model \"Vendor\" first\n    at new BelongsTo (D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\associations\\belongs-to.js:55:13)\n    at Asset.<anonymous> (D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\associations\\mixin.js:70:25)\n    at Asset.associate (file:///D:/DEV/REACT/samit/be/models/2_eam_core/Asset.js:55:19)\n    at file:///D:/DEV/REACT/samit/be/models/index.js:57:27\n    at Array.forEach (<anonymous>)\n    at initializeDB (file:///D:/DEV/REACT/samit/be/models/index.js:55:21)\n    at async startServer (file:///D:/DEV/REACT/samit/be/samit.js:175:9)","timestamp":"2026-02-25T07:07:50.761Z"}
-{"level":"error","message":"Gagal menjalankan server atau inisialisasi DB: require is not defined","service":"samit-backend","stack":"ReferenceError: require is not defined\n    at startServer (file:///D:/coding/react/samit/be/samit.js:269:7)","timestamp":"2026-03-25T06:21:12.084Z"}
-{"level":"error","message":"Gagal menjalankan server atau inisialisasi DB: require is not defined","service":"samit-backend","stack":"ReferenceError: require is not defined\n    at startServer (file:///D:/coding/react/samit/be/samit.js:269:7)","timestamp":"2026-03-25T06:21:31.922Z"}
+2026-03-28 18:54:13 [ERROR]: unhandledRejection: Vapid public key should be 65 bytes long when decoded.
+Error: Vapid public key should be 65 bytes long when decoded.
+    at Object.validatePublicKey (D:\coding\react\samit\be\node_modules\web-push\src\vapid-helper.js:111:11)
+    at WebPushLib.setVapidDetails (D:\coding\react\samit\be\node_modules\web-push\src\web-push-lib.js:60:17)
+    at configureWebPush (file:///D:/coding/react/samit/be/services/webPush.service.js:21:11)
+    at isWebPushConfigured (file:///D:/coding/react/samit/be/services/webPush.service.js:27:42)
+    at getPushPublicKey (file:///D:/coding/react/samit/be/controllers/push/push.controller.js:88:17)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at D:\coding\react\samit\be\node_modules\express\lib\router\index.js:284:15 {"error":{},"rejection":true,"date":"Sat Mar 28 2026 18:54:13 GMT+0700 (Indochina Time)","process":{"pid":11140,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":122482688,"heapTotal":82132992,"heapUsed":54176528,"external":5720497,"arrayBuffers":3212731}},"os":{"loadavg":[0,0,0],"uptime":5438.546},"trace":[{"column":11,"file":"D:\\coding\\react\\samit\\be\\node_modules\\web-push\\src\\vapid-helper.js","function":"Object.validatePublicKey","line":111,"method":"validatePublicKey","native":false},{"column":17,"file":"D:\\coding\\react\\samit\\be\\node_modules\\web-push\\src\\web-push-lib.js","function":"WebPushLib.setVapidDetails","line":60,"method":"setVapidDetails","native":false},{"column":11,"file":"file:///D:/coding/react/samit/be/services/webPush.service.js","function":"configureWebPush","line":21,"method":null,"native":false},{"column":42,"file":"file:///D:/coding/react/samit/be/services/webPush.service.js","function":"isWebPushConfigured","line":27,"method":null,"native":false},{"column":17,"file":"file:///D:/coding/react/samit/be/controllers/push/push.controller.js","function":"getPushPublicKey","line":88,"method":null,"native":false},{"column":5,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\layer.js","function":"Layer.handle [as handle_request]","line":95,"method":"handle [as handle_request]","native":false},{"column":13,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"next","line":149,"method":null,"native":false},{"column":3,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.dispatch","line":119,"method":"dispatch","native":false},{"column":5,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\layer.js","function":"Layer.handle [as handle_request]","line":95,"method":"handle [as handle_request]","native":false},{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":null,"line":284,"method":null,"native":false}],"service":"samit-backend"}
+Error: Vapid public key should be 65 bytes long when decoded.
+    at Object.validatePublicKey (D:\coding\react\samit\be\node_modules\web-push\src\vapid-helper.js:111:11)
+    at WebPushLib.setVapidDetails (D:\coding\react\samit\be\node_modules\web-push\src\web-push-lib.js:60:17)
+    at configureWebPush (file:///D:/coding/react/samit/be/services/webPush.service.js:21:11)
+    at isWebPushConfigured (file:///D:/coding/react/samit/be/services/webPush.service.js:27:42)
+    at getPushPublicKey (file:///D:/coding/react/samit/be/controllers/push/push.controller.js:88:17)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at D:\coding\react\samit\be\node_modules\express\lib\router\index.js:284:15
+2026-03-28 20:18:37 [ERROR]: Server error: listen EADDRINUSE: address already in use 0.0.0.0:5002 {"service":"samit-backend","code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-03-28 23:43:59 [ERROR]: Gagal menjalankan server atau inisialisasi DB: Unknown attribute "nik" passed as targetKey, define this attribute on model "HRGAUser" first {"service":"samit-backend"}
+Error: Unknown attribute "nik" passed as targetKey, define this attribute on model "HRGAUser" first
+    at new BelongsTo (D:\coding\react\samit\be\node_modules\sequelize\lib\associations\belongs-to.js:55:13)
+    at ITItemAssignment.<anonymous> (D:\coding\react\samit\be\node_modules\sequelize\lib\associations\mixin.js:70:25)
+    at ITItemAssignment.associate (file:///D:/coding/react/samit/be/models/5_itam_management/ITItemAssignment.js:45:24)
+    at file:///D:/coding/react/samit/be/models/index.js:70:18
+    at Array.forEach (<anonymous>)
+    at initializeDB (file:///D:/coding/react/samit/be/models/index.js:68:18)
+    at async startServer (file:///D:/coding/react/samit/be/samit.js:180:5)
+2026-03-29 00:47:34 [ERROR]: Unexpected field {"name":"MulterError","code":"LIMIT_UNEXPECTED_FILE","field":"attachments","storageErrors":[],"service":"samit-backend"}
+MulterError: Unexpected field
+    at wrappedFileFilter (D:\coding\react\samit\be\node_modules\multer\index.js:40:19)
+    at Multipart.<anonymous> (D:\coding\react\samit\be\node_modules\multer\lib\make-middleware.js:109:7)
+    at Multipart.emit (node:events:524:28)
+    at HeaderParser.cb (D:\coding\react\samit\be\node_modules\busboy\lib\types\multipart.js:358:14)
+    at HeaderParser.push (D:\coding\react\samit\be\node_modules\busboy\lib\types\multipart.js:162:20)
+    at SBMH.ssCb [as _cb] (D:\coding\react\samit\be\node_modules\busboy\lib\types\multipart.js:394:37)
+    at feed (D:\coding\react\samit\be\node_modules\streamsearch\lib\sbmh.js:248:10)
+    at SBMH.push (D:\coding\react\samit\be\node_modules\streamsearch\lib\sbmh.js:104:16)
+    at Multipart._write (D:\coding\react\samit\be\node_modules\busboy\lib\types\multipart.js:567:19)
+    at writeOrBuffer (node:internal/streams/writable:572:12)

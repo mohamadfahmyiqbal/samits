@@ -1414,177 +1414,875 @@
 {"level":"info","message":"Socket disconnect [NRd3cW_ITNngDChSAAAq] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-17T07:18:16.475Z"}
 {"level":"info","message":"Socket disconnect [9t6302G4Lk5TDwNPAAAt] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-17T07:18:30.583Z"}
 {"level":"info","message":"Socket disconnect [AVkNK1HMDk5fp8nsAAAw] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-17T07:21:46.882Z"}
-{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:3000","service":"samit-backend","timestamp":"2026-03-25T06:09:22.946Z"}
-{"level":"error","message":"Gagal menjalankan server atau inisialisasi DB: require is not defined","service":"samit-backend","stack":"ReferenceError: require is not defined\n    at startServer (file:///D:/coding/react/samit/be/samit.js:269:7)","timestamp":"2026-03-25T06:21:12.084Z"}
-{"level":"error","message":"Gagal menjalankan server atau inisialisasi DB: require is not defined","service":"samit-backend","stack":"ReferenceError: require is not defined\n    at startServer (file:///D:/coding/react/samit/be/samit.js:269:7)","timestamp":"2026-03-25T06:21:31.922Z"}
-{"level":"info","message":"HTTP Server running at http://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T06:22:04.447Z"}
-{"level":"info","message":"HTTP Server running at http://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T06:22:04.459Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T06:22:15.591Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T06:22:15.604Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T06:22:22.074Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T06:22:22.085Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T09:50:04.151Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T09:50:09.888Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T09:50:09.897Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T09:51:49.524Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T09:53:30.756Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T09:53:30.766Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T09:57:37.944Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T09:58:37.258Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T09:58:37.268Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T09:58:45.410Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T09:58:56.418Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T09:58:56.427Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T10:00:02.296Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:00:52.339Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:00:52.350Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:16:05.060Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:16:05.071Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:18:37.250Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:18:37.262Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:18:48.580Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:18:48.592Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:18:57.461Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:18:57.477Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:19:03.610Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:19:03.633Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T10:19:09.908Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:19:15.957Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:19:15.974Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T10:21:12.523Z"}
-{"level":"info","message":"HTTP Server running at http://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:21:49.276Z"}
-{"level":"info","message":"HTTP Server running at http://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:21:49.291Z"}
-{"level":"info","message":"HTTP Server running at http://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:22:19.283Z"}
-{"level":"info","message":"HTTP Server running at http://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:22:19.298Z"}
-{"level":"info","message":"HTTP Server running at http://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:22:32.666Z"}
-{"level":"info","message":"HTTP Server running at http://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:22:32.687Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T10:23:25.160Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:23:31.038Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:23:31.048Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:24:09.025Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:24:09.040Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:29:16.354Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:29:16.373Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:31:54.605Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:31:54.629Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:32:08.645Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:32:08.661Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:32:30.886Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:32:30.902Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:32:54.084Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:32:54.103Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:32:58.581Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:32:58.600Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T10:49:23.594Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:49:29.856Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:49:29.864Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T10:51:40.898Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:51:47.146Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:51:47.155Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T10:54:55.267Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:55:01.308Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:55:01.317Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T10:55:22.987Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:55:28.911Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T10:55:28.926Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T10:58:52.202Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:14:38.242Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:14:38.258Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:17:06.555Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:17:06.570Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:17:12.015Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:17:12.032Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:17:42.100Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:17:42.118Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:17:50.050Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:17:50.067Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:18:36.339Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:18:36.356Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:18:49.625Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:18:49.640Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:18:57.270Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:18:57.284Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:19:34.157Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:19:34.176Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:20:44.951Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:20:44.969Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:20:49.785Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:20:49.800Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:20:58.081Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:20:58.099Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:21:07.455Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:21:07.738Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:21:07.748Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:21:41.127Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:21:41.363Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:21:41.395Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:21:41.578Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:21:41.599Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:21:54.718Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:21:55.065Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:21:55.092Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:22:22.109Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:22:22.437Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:22:22.450Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:22:37.851Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:22:38.145Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:22:38.156Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:23:02.524Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:23:02.893Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:23:02.904Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:23:21.734Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:23:22.115Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:23:22.126Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:24:02.918Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:24:03.284Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:24:03.298Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:24:21.891Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:24:22.294Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:24:22.307Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:24:41.790Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:24:42.190Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:24:42.201Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:25:23.628Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:25:23.938Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:25:23.947Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:25:39.833Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:25:40.271Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:25:40.284Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:25:47.094Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:25:47.402Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:25:47.419Z"}
-{"level":"info","message":"✅ SSL certificates loaded successfully","service":"samit-backend","timestamp":"2026-03-25T11:26:20.182Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:26:20.570Z"}
-{"level":"info","message":"🚀 Server is running on port 5002","service":"samit-backend","timestamp":"2026-03-25T11:26:20.584Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T11:27:00.820Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:27:09.676Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:27:09.691Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:28:28.339Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:28:28.361Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:28:45.170Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:28:45.192Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:28:53.635Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:28:53.650Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:29:07.136Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:29:07.152Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:29:35.061Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:29:35.078Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:29:43.809Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:29:43.835Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:29:53.470Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:29:53.498Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:29:58.611Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:29:58.630Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:30:34.661Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:30:34.680Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:30:47.617Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:30:47.633Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:31:24.834Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:31:24.862Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:31:29.679Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:31:29.722Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:31:47.298Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:31:47.318Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:32:09.399Z"}
-{"level":"info","message":"HTTPS Server running at https://localhost:5002","service":"samit-backend","timestamp":"2026-03-25T11:32:09.445Z"}
-{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-25T22:43:43.505Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T03:52:12.663Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T03:53:23.613Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T03:53:37.258Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T04:08:02.861Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T04:08:14.530Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T04:09:40.535Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T04:09:46.625Z"}
+{"level":"info","message":"Socket disconnect [QyZ8IOwHyD6oc5FAAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:10:13.644Z"}
+{"level":"info","message":"Socket disconnect [Hg8kcp3yKIt_d2oDAAAE] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:10:24.110Z"}
+{"level":"info","message":"Socket disconnect [GiEMcbInnqXnowOFAAAH] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-26T04:10:36.720Z"}
+{"level":"info","message":"Socket disconnect [anwc1oWrReJL3yefAAAJ] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:10:56.870Z"}
+{"level":"info","message":"Socket disconnect [88WCXgtPVgIbDK49AAAM] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:11:03.103Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T04:13:26.807Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T04:15:00.307Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T04:15:06.153Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T04:15:57.654Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T04:17:20.775Z"}
+{"level":"info","message":"Socket disconnect [nX_7gzJ2KDKH7I7YAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:18:36.181Z"}
+{"level":"info","message":"Socket disconnect [-lhC0xrqCmyTxUlQAAAE] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-26T04:19:08.772Z"}
+{"level":"info","message":"Socket disconnect [xfRtlKBJswiyua3EAAAG] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:26:10.522Z"}
+{"level":"info","message":"Socket disconnect [mHGnaYt5J_fHsv9rAAAJ] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:33:50.056Z"}
+{"level":"info","message":"Socket disconnect [4Ik9w5WmtJtyktMxAAAM] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:34:48.738Z"}
+{"level":"info","message":"Socket disconnect [hNY8aWVeiQ2HiSUiAAAP] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:42:26.481Z"}
+{"level":"info","message":"Socket disconnect [ieR6ES9wLS7DK2Z8AAAS] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:47:24.554Z"}
+{"level":"info","message":"Socket disconnect [6PdG8XVnq7OiA0jAAAAV] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T04:49:20.437Z"}
+{"level":"info","message":"Socket disconnect [M1Q7D5DpVsSXqIlmAAAY] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T05:28:51.020Z"}
+{"level":"info","message":"Socket disconnect [7bi9_sQDZEv_R6-BAAAd] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:15:30.214Z"}
+{"level":"info","message":"Socket disconnect [USuCJL9G3N8glf4UAAAg] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:23:08.379Z"}
+{"level":"info","message":"Socket disconnect [s2LDc78ruMaiM2ytAAAj] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:24:20.610Z"}
+{"level":"info","message":"Socket disconnect [W0fOMM-jZERluYlVAAAm] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:40:32.921Z"}
+{"level":"info","message":"Socket disconnect [A7kdlnLLCcO-3_BEAAAp] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:48:18.825Z"}
+{"level":"info","message":"Socket disconnect [7fLiNS1MFEmEb5ApAAAs] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:49:45.398Z"}
+{"level":"info","message":"Socket disconnect [Tq7A7PDXfsKHoRmvAAAv] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:50:44.626Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T06:51:41.192Z"}
+{"level":"info","message":"Socket disconnect [PUSgIbcrNIw9CuHtAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T06:53:31.515Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:00:16.631Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:00:38.920Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:01:13.292Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:03:12.141Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:03:17.101Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T07:03:49.550Z"}
+{"level":"info","message":"Socket disconnect [YlSrLwRC2kKDNU9pAAAB] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-26T07:20:30.530Z"}
+{"level":"info","message":"Socket disconnect [AgGCIu9JuF7V4pwxAAAD] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:21:06.364Z"}
+{"level":"info","message":"Socket disconnect [H7tTS36tVPgKt8VMAAAG] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:24:53.980Z"}
+{"level":"info","message":"Socket disconnect [dTE_MJoELL1xP-9tAAAJ] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:26:21.013Z"}
+{"level":"info","message":"Socket disconnect [2wupO8ZOdWnNMW-EAAAM] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:41:35.558Z"}
+{"level":"info","message":"Socket disconnect [yvR9vZwdZyt_jNx4AAAP] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:41:39.646Z"}
+{"level":"info","message":"Socket disconnect [vTFwlxhvKwWDjHAJAAAS] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:53:32.540Z"}
+{"level":"info","message":"Socket disconnect [sW0kvcUJ2N9UTpJIAAAV] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T07:57:27.509Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T08:09:24.283Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T08:09:33.425Z"}
+{"level":"info","message":"Socket disconnect [imh4F5BVWw9ZEahuAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T08:33:31.762Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-26T08:55:13.646Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T08:56:12.927Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:02:53.797Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:02:57.349Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:03:07.750Z"}
+{"level":"info","message":"Socket disconnect [w4DgobduXtGLIALnAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:04:20.015Z"}
+{"level":"info","message":"Socket disconnect [cbYUaao_4K3ZpnkWAAAE] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-26T09:04:25.356Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:07:21.586Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:07:26.801Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:07:35.042Z"}
+{"level":"info","message":"Socket disconnect [pKA1jtzfi8VGrAxLAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:11:16.197Z"}
+{"level":"info","message":"Socket disconnect [meacbqphMG77aemmAAAE] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-26T09:11:54.024Z"}
+{"level":"info","message":"Socket disconnect [ULBtsBd7af32ILR0AAAG] nik=1205001 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:12:06.031Z"}
+{"level":"info","message":"Socket disconnect [2j_aQ04DiGdLK6fHAAAJ] nik=1205001 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:27:08.065Z"}
+{"level":"info","message":"Socket disconnect [fCzK5KN6aWX7vg5cAAAM] nik=1205001 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:29:23.640Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T09:41:16.440Z"}
+{"level":"info","message":"Socket disconnect [1StBzPIuruzbJsUoAAAB] nik=1205001 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:46:01.063Z"}
+{"level":"info","message":"Socket disconnect [TdMHL-5orbQ4NJZvAAAE] nik=1205001 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:48:55.501Z"}
+{"level":"info","message":"Socket disconnect [u_B4-7p4a0va6Y57AAAH] nik=1205001 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T09:53:28.539Z"}
+{"level":"info","message":"Socket disconnect [J8EbP45ikhAv2R-tAAAK] nik=1205001 reason=transport error","service":"samit-backend","timestamp":"2026-03-26T10:01:16.884Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-26T10:01:23.374Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T00:55:37.750Z"}
+{"level":"info","message":"Socket disconnect [qrm6dmbTrC51_WrVAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T01:21:09.042Z"}
+{"level":"info","message":"Socket disconnect [HEXSKCdHDUP49XZpAAAE] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T01:46:25.675Z"}
+{"level":"info","message":"Socket disconnect [d0oo87MiZ2Psqv-tAAAH] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T01:47:43.359Z"}
+{"level":"info","message":"Socket disconnect [AeCDE-7Auf-ReV3RAAAK] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T01:47:48.266Z"}
+{"level":"info","message":"Socket disconnect [CYpDX4zKnBSDpy11AAAN] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T01:50:06.098Z"}
+{"level":"info","message":"Socket disconnect [qeXDIJLFTS_HpNCUAAAQ] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T01:50:23.732Z"}
+{"level":"info","message":"Socket disconnect [n2MJjRh6Vxv-uhoKAAAT] nik=1803070 reason=client namespace disconnect","service":"samit-backend","timestamp":"2026-03-27T02:00:13.239Z"}
+{"level":"info","message":"Socket disconnect [3MVwclwrc7XGRQUgAAAV] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T02:01:41.915Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T02:02:27.611Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T02:29:31.946Z"}
+{"level":"info","message":"Socket disconnect [I2TZmVr1qP74O_AvAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T02:59:16.919Z"}
+{"level":"info","message":"Socket disconnect [1rLciSx1LVzUwKtfAAAE] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T03:27:16.353Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T03:29:14.491Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:29:19.559Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T03:29:28.684Z"}
+{"level":"info","message":"Socket disconnect [xv39-bLspoEdhHCgAAAB] nik=1803070 reason=server shutting down","service":"samit-backend","timestamp":"2026-03-27T03:29:28.685Z"}
+{"level":"info","message":"Socket disconnect [gTSWshgoL1YGVJidAAAD] nik=1803070 reason=forced close","service":"samit-backend","timestamp":"2026-03-27T03:29:36.953Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:29:53.123Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T03:31:59.546Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:34:40.003Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T03:34:57.263Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:36:08.857Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:36:21.411Z"}
+{"level":"info","message":"Socket disconnect [4nb6clqr-LT92C1-AAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T03:40:52.705Z"}
+{"level":"info","message":"Socket disconnect [lB-8i_9z78uHqZAMAAAE] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T03:44:38.972Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:46:04.677Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:46:17.502Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:46:57.927Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:47:12.422Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:47:57.057Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:54:55.664Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:55:19.128Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:55:27.866Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:56:13.115Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:56:20.120Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:56:23.770Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:56:28.381Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:56:31.558Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:57:14.494Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:59:30.820Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:59:36.529Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:59:40.564Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:59:55.744Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T03:59:58.613Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:01:18.418Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T04:01:30.739Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:01:37.569Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:01:53.597Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:04:11.941Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:04:18.350Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:05:22.732Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:08:21.053Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:09:41.314Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:11:40.537Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:12:53.788Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:12:57.330Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:13:05.678Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:13:14.553Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:13:21.495Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:13:29.270Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:14:20.687Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:16:38.310Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:18:14.591Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T04:20:27.812Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:20:36.230Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:22:15.185Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:23:20.521Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:24:14.412Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:24:35.479Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:25:36.383Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:28:21.176Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:29:42.674Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:30:37.813Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:30:41.636Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:32:32.954Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:32:36.986Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:32:52.422Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:33:05.113Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T04:36:44.226Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:36:50.511Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T04:37:01.653Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:37:07.696Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:38:49.586Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:38:59.136Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:39:03.037Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:39:21.844Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:40:26.862Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T04:40:35.723Z"}
+{"level":"info","message":"Socket disconnect [GzMM34srPGY3D3uGAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T05:07:12.662Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T06:08:43.714Z"}
+{"level":"info","message":"Socket disconnect [P9TnRJSi0EOz00LdAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:11:22.498Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T06:11:54.096Z"}
+{"level":"info","message":"Socket disconnect [WxC-OqTz3LxBCwgZAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:12:25.405Z"}
+{"level":"info","message":"Socket disconnect [YiazenyhM0c2PdpsAAAE] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:12:28.801Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T06:12:52.715Z"}
+{"level":"info","message":"Socket disconnect [Dg7qNVd5DocTVtXGAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:12:55.588Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T06:13:16.924Z"}
+{"level":"info","message":"Socket disconnect [UiuR2EtoKQbxAlrGAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:13:18.659Z"}
+{"level":"info","message":"Socket disconnect [SEmkWWMIDiPhUAegAAAE] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:13:21.298Z"}
+{"level":"info","message":"Socket disconnect [ri4TysgCS-ae7LfkAAAH] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:14:22.973Z"}
+{"level":"info","message":"Socket disconnect [-jcLiRV6dyQHdBpqAAAK] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:14:26.518Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T06:14:36.701Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T06:14:45.790Z"}
+{"level":"info","message":"Socket disconnect [eR2DEmpRibwX0p9zAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:15:03.898Z"}
+{"level":"info","message":"Socket disconnect [VGQxj51zrrVqxiNVAAAE] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:16:01.203Z"}
+{"level":"info","message":"Socket disconnect [uGGvO-WzAZ72S2smAAAH] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:21:04.017Z"}
+{"level":"info","message":"Socket disconnect [pL2Mde2xLp1NtxUuAAAK] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:21:42.186Z"}
+{"level":"info","message":"Socket disconnect [o5I2GYNJO6zG3dZeAAAN] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:21:56.133Z"}
+{"level":"info","message":"Socket disconnect [iB2Jhq0tOB06JtyyAAAQ] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:22:16.415Z"}
+{"level":"info","message":"Socket disconnect [WmTqCAsePIyFHuKrAAAT] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:32:57.123Z"}
+{"level":"info","message":"Socket disconnect [Z0aSeIrVZfZOS6VgAAAW] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T06:38:30.511Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T06:45:10.739Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T06:45:19.737Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T06:45:31.693Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T06:45:34.634Z"}
+{"level":"info","message":"Socket disconnect [ZJ-D1TffISyjmABdAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:15:22.381Z"}
+{"level":"info","message":"Socket disconnect [FeW39GMQX-n3xFG1AAAD] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:15:37.905Z"}
+{"level":"info","message":"Socket disconnect [ndF-F06rp9yqCv7YAAAG] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:17:57.368Z"}
+{"level":"info","message":"Socket disconnect [vN-urXO_ppSdWPgaAAAJ] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:19:47.740Z"}
+{"level":"info","message":"Socket disconnect [KCVRB_Zempim6lNVAAAM] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:19:59.145Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T07:22:54.028Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T07:23:33.982Z"}
+{"level":"info","message":"Socket disconnect [FJ3DiiVFfVUJL4HlAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:24:57.165Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T07:27:00.351Z"}
+{"level":"info","message":"Socket disconnect [gw0SOHiVfoOjasPnAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:27:09.212Z"}
+{"level":"info","message":"Socket disconnect [HptnwMO3WNw5Q9G6AAAE] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:39:37.345Z"}
+{"level":"info","message":"Socket disconnect [TlczEuHT57NLESZCAAAH] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:40:24.592Z"}
+{"level":"info","message":"Socket disconnect [Fddi---8hYFXvYKzAAAK] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:41:24.736Z"}
+{"level":"info","message":"Socket disconnect [zv5l2XUKrNa3m1yGAAAN] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:42:29.575Z"}
+{"level":"info","message":"Socket disconnect [Lf9lGA4qdntGeG58AAAQ] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:47:51.384Z"}
+{"level":"info","message":"Socket disconnect [4O3UkhHk9aNiSV2eAAAT] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:51:59.568Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T07:56:11.299Z"}
+{"level":"info","message":"Socket disconnect [fKrcKA9NkSBT4zZPAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:57:16.059Z"}
+{"level":"info","message":"Socket disconnect [THfdYz5izJjI_FVgAAAE] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T07:57:46.008Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T08:00:24.729Z"}
+{"level":"info","message":"Socket disconnect [4vaBBlhKBXlvFX07AAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T08:26:08.416Z"}
+{"level":"info","message":"Socket disconnect [0MzEwRWqVDN_Wv9gAAAG] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T09:01:05.481Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T09:01:27.096Z"}
+{"level":"info","message":"Socket disconnect [dEqFDUz6KeS2u3l6AAAJ] nik=1803070 reason=server shutting down","service":"samit-backend","timestamp":"2026-03-27T09:01:27.097Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T09:01:40.888Z"}
+{"level":"info","message":"Socket disconnect [c-gpmzkqh8dKtOvFAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T09:02:05.064Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T09:05:22.659Z"}
+{"level":"info","message":"Socket disconnect [CO6yBcXKdDYWmOPzAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T09:05:34.031Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T09:06:26.840Z"}
+{"level":"info","message":"Socket disconnect [-DG5h1pRrSdXVS-VAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T09:07:07.392Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T09:07:31.744Z"}
+{"level":"info","message":"Socket disconnect [q-nmJJl6MfsCEGt7AAAE] nik=1803070 reason=server shutting down","service":"samit-backend","timestamp":"2026-03-27T09:07:31.745Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T09:07:46.124Z"}
+{"level":"info","message":"HTTP/Socket server berhenti.","service":"samit-backend","timestamp":"2026-03-27T09:08:14.073Z"}
+{"level":"info","message":"Socket disconnect [ZJP6nZT5PipH51g2AAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T09:11:42.361Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T09:25:28.890Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T09:26:10.992Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T09:26:13.950Z"}
+{"level":"info","message":"Socket disconnect [N22xhpc_ii5aUM-mAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T09:27:04.090Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:01:09.433Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:02:08.518Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:02:41.436Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:02:49.854Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:03:09.950Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:06:16.780Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:06:21.775Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:06:35.842Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:08:42.251Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T10:09:33.409Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:10:12.707Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:10:45.548Z"}
+{"level":"info","message":"Socket disconnect [YR_D59Ca1WjqamQmAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T10:10:48.032Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T10:10:56.022Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:11:01.846Z"}
+{"level":"info","message":"Socket disconnect [7D4pD-MENjO6-iNTAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T10:11:04.729Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-27T10:11:26.643Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:11:34.758Z"}
+{"level":"info","message":"Socket disconnect [zA5GfdRI-pPNEeIXAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T10:11:58.346Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:14:38.243Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:14:49.475Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:15:29.620Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:16:11.256Z"}
+{"level":"info","message":"Socket disconnect [LsIsOEMOGxbXsODLAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T10:16:17.761Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:17:10.879Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:17:17.253Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:17:23.942Z"}
+{"level":"info","message":"Socket disconnect [WQ59RAkamSx5bM6aAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T10:18:38.094Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:19:31.829Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-27T10:19:38.807Z"}
+{"level":"info","message":"Socket disconnect [5YgWQnIB02CqV1JXAAAB] nik=1803070 reason=transport error","service":"samit-backend","timestamp":"2026-03-27T10:20:36.131Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T01:34:45.435Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T01:39:09.832Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-28T01:48:50.553Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T01:48:56.508Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T02:14:32.418Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T09:22:21.908Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T09:22:46.284Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T09:24:30.169Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T09:24:43.024Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T09:25:16.854Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T09:27:17.964Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T09:30:16.549Z"}
+{"level":"info","message":"Menutup server dengan aman...","service":"samit-backend","timestamp":"2026-03-28T09:39:11.128Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T10:46:07.319Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T10:52:34.330Z"}
+{"level":"info","message":"HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002","service":"samit-backend","timestamp":"2026-03-28T10:52:48.426Z"}
+2026-03-28 17:53:17 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:53:24 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:53:38 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 17:53:38 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 17:53:38 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 17:53:38 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:53:46 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 17:53:46 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 17:53:46 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 17:53:46 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:53:51 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 17:53:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 17:53:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 17:53:51 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:54:10 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 17:54:10 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:10 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:10 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:54:15 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 17:54:15 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:15 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:16 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:54:22 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 17:54:22 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:22 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:22 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:54:27 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 17:54:27 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:27 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:28 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:54:33 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 17:54:33 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:33 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:34 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:54:41 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 17:54:41 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:41 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 17:54:42 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 17:57:30 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 17:57:30 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 17:57:30 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 17:57:31 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 18:10:36 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:10:36 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:10:36 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:10:36 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 18:11:36 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:11:36 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:11:36 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:11:36 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 18:11:43 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:11:43 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:11:43 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:11:44 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 18:11:52 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:11:52 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:11:52 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:11:52 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 18:11:56 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:11:56 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:11:56 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:16:49 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:16:49 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:16:49 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:16:49 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 18:17:04 [INFO]: Menutup server dengan aman... {"service":"samit-backend"}
+2026-03-28 18:17:18 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:17:18 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:17:18 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:17:18 [INFO]: HTTPS Server running at https://pik1com074.local.ikoito.co.id:5002 {"service":"samit-backend"}
+2026-03-28 18:17:45 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:17:45 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:17:45 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:17:46 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:18:27 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:18:27 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:18:27 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:18:28 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:18:56 [INFO]: Menutup server dengan aman... {"service":"samit-backend"}
+2026-03-28 18:19:03 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:19:03 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:19:03 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:19:03 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:26:07 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:26:07 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:26:07 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:26:07 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:27:55 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:27:55 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:27:55 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:27:56 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:32:53 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:32:53 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:32:53 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:32:53 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:33:13 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:33:13 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:33:13 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:33:14 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:33:33 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:33:33 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:33:33 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:33:33 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:33:44 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:33:44 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:33:44 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:33:45 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:34:52 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:34:52 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:34:52 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:34:53 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:35:10 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:35:10 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:35:10 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:35:10 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:35:30 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:35:30 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:35:30 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:35:30 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:35:46 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:35:46 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:35:46 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:35:47 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:35:58 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:35:58 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:35:58 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:35:58 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:36:07 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:36:07 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:36:07 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:36:07 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:36:28 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:36:28 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:36:28 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:36:29 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:36:40 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:36:40 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:36:40 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:36:40 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:37:11 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:37:11 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:37:11 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:37:11 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:37:19 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:37:19 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:37:19 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:37:19 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:38:23 [INFO]: Menutup server dengan aman... {"service":"samit-backend"}
+2026-03-28 18:38:29 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:38:29 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:38:29 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:38:29 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:39:44 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:39:44 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:39:44 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:39:45 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:40:10 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:40:10 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:40:10 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:40:10 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:40:28 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:40:28 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:40:28 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:40:28 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:41:13 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:41:13 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:41:13 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:41:13 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:42:21 [INFO]: Menutup server dengan aman... {"service":"samit-backend"}
+2026-03-28 18:42:22 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:42:22 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:42:22 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:42:23 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:43:33 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:43:33 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:43:33 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:43:34 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:43:51 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:43:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:43:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:43:51 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:44:05 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:44:05 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:05 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:05 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:44:15 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:44:15 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:15 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:15 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:44:23 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:44:23 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:23 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:23 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:44:30 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:44:30 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:30 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:31 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:44:41 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:44:41 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:41 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:42 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:44:55 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:44:55 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:55 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:44:55 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:45:18 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:45:18 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:45:18 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:45:19 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:45:57 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:45:57 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:45:57 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:45:58 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:46:02 [INFO]: Menutup server dengan aman... {"service":"samit-backend"}
+2026-03-28 18:46:08 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:46:08 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:46:08 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:46:08 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:46:58 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:46:58 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:46:58 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:46:59 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:51:07 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:51:07 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:51:07 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:51:08 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:52:20 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:52:20 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:52:20 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:52:20 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:53:52 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:53:52 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:53:52 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:53:52 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:53:56 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:53:56 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:53:56 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:54:00 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:54:00 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:54:00 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:54:00 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:54:05 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:54:05 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:54:05 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:54:06 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:54:13 [ERROR]: unhandledRejection: Vapid public key should be 65 bytes long when decoded.
+Error: Vapid public key should be 65 bytes long when decoded.
+    at Object.validatePublicKey (D:\coding\react\samit\be\node_modules\web-push\src\vapid-helper.js:111:11)
+    at WebPushLib.setVapidDetails (D:\coding\react\samit\be\node_modules\web-push\src\web-push-lib.js:60:17)
+    at configureWebPush (file:///D:/coding/react/samit/be/services/webPush.service.js:21:11)
+    at isWebPushConfigured (file:///D:/coding/react/samit/be/services/webPush.service.js:27:42)
+    at getPushPublicKey (file:///D:/coding/react/samit/be/controllers/push/push.controller.js:88:17)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at D:\coding\react\samit\be\node_modules\express\lib\router\index.js:284:15 {"error":{},"rejection":true,"date":"Sat Mar 28 2026 18:54:13 GMT+0700 (Indochina Time)","process":{"pid":11140,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":122482688,"heapTotal":82132992,"heapUsed":54176528,"external":5720497,"arrayBuffers":3212731}},"os":{"loadavg":[0,0,0],"uptime":5438.546},"trace":[{"column":11,"file":"D:\\coding\\react\\samit\\be\\node_modules\\web-push\\src\\vapid-helper.js","function":"Object.validatePublicKey","line":111,"method":"validatePublicKey","native":false},{"column":17,"file":"D:\\coding\\react\\samit\\be\\node_modules\\web-push\\src\\web-push-lib.js","function":"WebPushLib.setVapidDetails","line":60,"method":"setVapidDetails","native":false},{"column":11,"file":"file:///D:/coding/react/samit/be/services/webPush.service.js","function":"configureWebPush","line":21,"method":null,"native":false},{"column":42,"file":"file:///D:/coding/react/samit/be/services/webPush.service.js","function":"isWebPushConfigured","line":27,"method":null,"native":false},{"column":17,"file":"file:///D:/coding/react/samit/be/controllers/push/push.controller.js","function":"getPushPublicKey","line":88,"method":null,"native":false},{"column":5,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\layer.js","function":"Layer.handle [as handle_request]","line":95,"method":"handle [as handle_request]","native":false},{"column":13,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"next","line":149,"method":null,"native":false},{"column":3,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.dispatch","line":119,"method":"dispatch","native":false},{"column":5,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\layer.js","function":"Layer.handle [as handle_request]","line":95,"method":"handle [as handle_request]","native":false},{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":null,"line":284,"method":null,"native":false}],"service":"samit-backend"}
+Error: Vapid public key should be 65 bytes long when decoded.
+    at Object.validatePublicKey (D:\coding\react\samit\be\node_modules\web-push\src\vapid-helper.js:111:11)
+    at WebPushLib.setVapidDetails (D:\coding\react\samit\be\node_modules\web-push\src\web-push-lib.js:60:17)
+    at configureWebPush (file:///D:/coding/react/samit/be/services/webPush.service.js:21:11)
+    at isWebPushConfigured (file:///D:/coding/react/samit/be/services/webPush.service.js:27:42)
+    at getPushPublicKey (file:///D:/coding/react/samit/be/controllers/push/push.controller.js:88:17)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at D:\coding\react\samit\be\node_modules\express\lib\router\index.js:284:15
+2026-03-28 18:54:52 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:54:52 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:54:52 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:54:52 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 18:54:58 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 18:54:58 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 18:54:58 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 18:54:58 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:05:36 [INFO]: Socket disconnect [YhsUvY46sf5oNGgZAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 20:05:59 [INFO]: Socket disconnect [iqlpzXgb8otQzBWjAAAD] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-03-28 20:06:02 [INFO]: Socket disconnect [O7AqMGMAVB3ZNz4CAAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 20:07:02 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:07:02 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:07:02 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:07:03 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:13:15 [INFO]: Socket disconnect [5LUseRE26iunv4B_AAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 20:14:04 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:14:04 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:14:04 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:14:04 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:14:09 [INFO]: Socket disconnect [kPpRzkXJy9eALCirAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 20:14:33 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:14:33 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:14:33 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:14:33 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:15:06 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:15:06 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:15:06 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:15:07 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:17:13 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:17:13 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:17:13 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:17:14 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:17:26 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:17:26 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:17:26 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:17:27 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:17:33 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:17:33 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:17:33 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:17:58 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:17:58 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:17:58 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:13 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:18:13 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:13 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:20 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:18:20 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:20 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:30 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:18:30 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:30 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:34 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:18:34 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:34 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:34 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:18:37 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:18:37 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:37 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:18:37 [ERROR]: Server error: listen EADDRINUSE: address already in use 0.0.0.0:5002 {"service":"samit-backend","code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-03-28 20:19:05 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:19:05 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:19:05 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:19:06 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:20:07 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:20:07 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:20:07 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:20:07 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:20:37 [INFO]: Menutup server dengan aman... {"service":"samit-backend"}
+2026-03-28 20:20:43 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 20:20:43 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 20:20:43 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 20:20:44 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 20:24:02 [INFO]: Socket disconnect [LSdB_39ZSBXfgLsOAAAC] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 20:31:17 [INFO]: Socket disconnect [VUl1mCaFwgNdsnFLAAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 20:32:02 [INFO]: Socket disconnect [isfYcioEBvKuYmQ7AAAI] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 20:35:51 [INFO]: Socket disconnect [WyTuIxJ0Q_nzxj7aAAAL] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 20:53:44 [INFO]: Socket disconnect [xsCq-VLupyjIi8Q6AAAO] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 20:56:03 [INFO]: Socket disconnect [mJvfwKJ1o6yegIN4AAAR] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 21:14:28 [INFO]: Socket disconnect [0aveRHAWvGQZwbFPAAAU] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 21:25:19 [INFO]: Socket disconnect [nVMAAXq-fjTYiWbnAAAW] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-03-28 21:26:11 [INFO]: Socket disconnect [09QBVmp1WhSMzhj3AAAZ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 21:27:17 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:27:17 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:27:17 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:27:17 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:27:22 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:27:22 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:27:22 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:27:23 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:27:27 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:27:27 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:27:27 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:27:27 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:29:26 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:29:26 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:29:26 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:29:27 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:30:02 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:30:02 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:30:02 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:30:02 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:30:20 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:30:20 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:30:20 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:30:20 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:31:51 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:31:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:31:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:31:52 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:32:05 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:32:05 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:32:05 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:32:06 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:41:32 [INFO]: Socket disconnect [3gTGrBdhNqI5yYWvAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 21:47:20 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:47:20 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:47:20 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:47:20 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:47:27 [INFO]: Socket disconnect [UnyK-bokP78_CrzWAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 21:48:02 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:48:02 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:48:02 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:48:02 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:56:12 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:56:12 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:56:12 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:56:13 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:56:34 [INFO]: Menutup server dengan aman... {"service":"samit-backend"}
+2026-03-28 21:56:34 [INFO]: Socket disconnect [SPob02jAE1VUMpOpAAAB] nik=1803070 reason=server shutting down {"service":"samit-backend"}
+2026-03-28 21:56:51 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:56:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:56:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:56:51 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:57:08 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:57:08 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:57:08 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:57:09 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:57:20 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:57:20 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:57:20 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:57:20 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:57:47 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:57:47 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:57:47 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:57:48 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 21:58:18 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 21:58:18 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 21:58:18 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 21:58:19 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 22:01:03 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 22:01:03 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 22:01:03 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 22:01:03 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 22:01:15 [INFO]: Socket disconnect [C7Xa7F1Ylx6Zo6sNAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:08:58 [INFO]: Socket disconnect [4ndyb2NNG702A-EfAAAE] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:09:50 [INFO]: Socket disconnect [2RuoeJgADZY3zOMwAAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:14:32 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 22:14:32 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 22:14:32 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 22:14:33 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 22:15:24 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 22:15:24 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 22:15:24 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 22:15:25 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 22:15:45 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 22:15:45 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 22:15:45 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 22:15:46 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 22:16:22 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 22:16:22 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 22:16:22 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 22:16:22 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 22:16:37 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 22:16:37 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 22:16:37 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 22:16:37 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 22:17:11 [INFO]: Socket disconnect [AElR_A5Vnn7rzTwjAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:19:47 [INFO]: Socket disconnect [nHqnZZJK_peDiW9_AAAE] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-03-28 22:22:08 [INFO]: Socket disconnect [-ZZcOIiQB7GPn6-zAAAG] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-03-28 22:23:10 [INFO]: Socket disconnect [CfvopFf5t53ygSVyAAAI] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:23:18 [INFO]: Socket disconnect [tW4gkbvqJtywzE2tAAAL] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:24:08 [INFO]: Socket disconnect [MWPuqee48j2un0BDAAAO] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:25:03 [INFO]: Socket disconnect [zKrdJngc3_PkJGsnAAAR] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:25:46 [INFO]: Socket disconnect [UvikwsiMw8U63KT2AAAU] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:26:32 [INFO]: Socket disconnect [jlXTIowNtS3xsqu5AAAX] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:29:48 [INFO]: Socket disconnect [KjqUg_gFQjbfODS3AAAa] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:33:43 [INFO]: Socket disconnect [wBcIloLiPMat18EPAAAd] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:36:43 [INFO]: Socket disconnect [h5wUwWkCtzCEd084AAAg] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 22:42:28 [INFO]: Socket disconnect [3NY3n0yLb3Nb-PL-AAAj] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-03-28 22:59:18 [INFO]: Socket disconnect [FraCWuAEPTsTOeejAAAl] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-03-28 22:59:25 [INFO]: Socket disconnect [Clq_x5fhS9RyKHDYAAAn] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-03-28 23:07:43 [INFO]: Socket disconnect [YYndyJTMm7P76nWXAAAp] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:08:06 [INFO]: Socket disconnect [NR8pGwdwV_TWfVB4AAAs] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:08:17 [INFO]: Socket disconnect [uG7qWm8Q6wICfydRAAAv] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:09:51 [INFO]: Socket disconnect [MqQb54GO_4eDfYk9AAAy] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:10:57 [INFO]: Socket disconnect [15Y3oulM6x4mrOK2AAA1] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:15:47 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:15:47 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:15:47 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:15:48 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 23:16:02 [INFO]: Socket disconnect [403obpnLeaQJVvOlAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:16:53 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:16:53 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:16:53 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:16:53 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 23:17:03 [INFO]: Socket disconnect [oXcfwGdIVZsZ9toQAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:17:16 [INFO]: Socket disconnect [m5dmXUmIRIDbnW3oAAAE] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:18:07 [INFO]: Socket disconnect [ZULoxj4DYl57aciwAAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:20:56 [INFO]: Socket disconnect [zXwGHTKa2QBnYv09AAAK] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:30:18 [INFO]: Socket disconnect [CiJiQqdhHoG7ILXFAAAN] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:31:16 [INFO]: Socket disconnect [WgNrFxPCSaETodcFAAAQ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:33:36 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:33:36 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:33:36 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:33:36 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 23:33:42 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:33:42 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:33:42 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:33:43 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 23:35:52 [INFO]: Socket disconnect [ms4I9VCV8X1nB-_TAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:42:04 [INFO]: Socket disconnect [5jSMvziG1TXBgp80AAAE] nik=1803070 reason=ping timeout {"service":"samit-backend"}
+2026-03-28 23:42:34 [INFO]: Socket disconnect [cKrGVJbOP2xjrMf0AAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:43:59 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:43:59 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:43:59 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:43:59 [ERROR]: Gagal menjalankan server atau inisialisasi DB: Unknown attribute "nik" passed as targetKey, define this attribute on model "HRGAUser" first {"service":"samit-backend"}
+Error: Unknown attribute "nik" passed as targetKey, define this attribute on model "HRGAUser" first
+    at new BelongsTo (D:\coding\react\samit\be\node_modules\sequelize\lib\associations\belongs-to.js:55:13)
+    at ITItemAssignment.<anonymous> (D:\coding\react\samit\be\node_modules\sequelize\lib\associations\mixin.js:70:25)
+    at ITItemAssignment.associate (file:///D:/coding/react/samit/be/models/5_itam_management/ITItemAssignment.js:45:24)
+    at file:///D:/coding/react/samit/be/models/index.js:70:18
+    at Array.forEach (<anonymous>)
+    at initializeDB (file:///D:/coding/react/samit/be/models/index.js:68:18)
+    at async startServer (file:///D:/coding/react/samit/be/samit.js:180:5)
+2026-03-28 23:44:34 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:44:34 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:44:34 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:44:34 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 23:44:49 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:44:49 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:44:49 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:44:49 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 23:44:59 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:44:59 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:44:59 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:45:00 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 23:45:09 [INFO]: Socket disconnect [-elGdj13pKy4rcLvAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:45:59 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:45:59 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:45:59 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:46:00 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 23:46:06 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:46:06 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:46:06 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:46:06 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 23:46:19 [INFO]: Socket disconnect [l6_24UqNVamzr4OMAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:48:38 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-28 23:48:38 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-28 23:48:38 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-28 23:48:38 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-28 23:48:57 [INFO]: Socket disconnect [npH7CeLTUq_1tpPMAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:52:21 [INFO]: Socket disconnect [TPa4OOW2mIzWawlAAAAE] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:53:06 [INFO]: Socket disconnect [nZ4_gF89OMPAFT5jAAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:53:24 [INFO]: Socket disconnect [-KpZbjrgYIPm8CyOAAAK] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:54:09 [INFO]: Socket disconnect [3rqRGLkmynUWEMo9AAAN] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-28 23:55:51 [INFO]: Socket disconnect [t86Q8i1jsBOdUSCyAAAQ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-29 00:03:51 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-29 00:03:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-29 00:03:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-29 00:03:51 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-29 00:04:06 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-29 00:04:06 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-29 00:04:06 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-29 00:04:07 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-29 00:45:15 [INFO]: Socket disconnect [7jKC0xRFV6uQ92PiAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-29 00:47:34 [ERROR]: Unexpected field {"name":"MulterError","code":"LIMIT_UNEXPECTED_FILE","field":"attachments","storageErrors":[],"service":"samit-backend"}
+MulterError: Unexpected field
+    at wrappedFileFilter (D:\coding\react\samit\be\node_modules\multer\index.js:40:19)
+    at Multipart.<anonymous> (D:\coding\react\samit\be\node_modules\multer\lib\make-middleware.js:109:7)
+    at Multipart.emit (node:events:524:28)
+    at HeaderParser.cb (D:\coding\react\samit\be\node_modules\busboy\lib\types\multipart.js:358:14)
+    at HeaderParser.push (D:\coding\react\samit\be\node_modules\busboy\lib\types\multipart.js:162:20)
+    at SBMH.ssCb [as _cb] (D:\coding\react\samit\be\node_modules\busboy\lib\types\multipart.js:394:37)
+    at feed (D:\coding\react\samit\be\node_modules\streamsearch\lib\sbmh.js:248:10)
+    at SBMH.push (D:\coding\react\samit\be\node_modules\streamsearch\lib\sbmh.js:104:16)
+    at Multipart._write (D:\coding\react\samit\be\node_modules\busboy\lib\types\multipart.js:567:19)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+2026-03-29 00:48:23 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-29 00:48:23 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-29 00:48:23 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-29 00:48:23 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-29 00:50:45 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-29 00:50:45 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-29 00:50:45 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-29 00:50:46 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-29 00:52:21 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-29 00:52:21 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-29 00:52:21 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-29 00:52:22 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-29 00:52:57 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-29 00:52:57 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-29 00:52:57 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-29 00:52:57 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-29 00:53:51 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-29 00:53:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-29 00:53:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-29 00:53:52 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-29 00:54:52 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-29 00:54:52 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-29 00:54:52 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-29 00:54:53 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-29 00:55:23 [INFO]: Socket disconnect [25LHwbtr1duyYlsxAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-29 00:57:56 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-29 00:57:56 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-29 00:57:56 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-29 00:57:57 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-29 00:58:10 [INFO]: Socket disconnect [F5c_V91juojvv-AUAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-29 01:00:01 [WARN]: CA certificate not found, proceeding without it {"service":"samit-backend"}
+2026-03-29 01:00:01 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-03-29 01:00:01 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-03-29 01:00:01 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-03-29 01:00:16 [INFO]: Socket disconnect [15LmvEBwS6nqwT8nAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-03-29 01:01:21 [INFO]: Socket disconnect [dprPJ_oAuMfUfIbJAAAE] nik=1803070 reason=transport error {"service":"samit-backend"}

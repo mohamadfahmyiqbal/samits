@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Table, Button, Form, Input, Select, Row, Col, message, Modal, Alert, Tag, Progress, Statistic, DatePicker, Upload } from 'antd';
-import { 
-  ExclamationCircleOutlined, 
-  ToolOutlined, 
+import { Form, Card, Table, Button, Input, Select, Row, Col, message, Modal, Alert, Tag, Progress, Statistic, Upload } from 'antd';
+import { SearchOutlined, 
   PlusOutlined, 
-  EyeOutlined, 
-  SearchOutlined,
+  EyeOutlined,
   FilterOutlined,
-  ClockCircleOutlined,
-  CheckCircleOutlined,
   WarningOutlined,
   UploadOutlined
 } from '@ant-design/icons';
@@ -253,8 +248,7 @@ export default function AbnormalityManagement() {
       };
 
       // API call to save abnormality
-      console.log('Saving abnormality:', abnormalityData);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
@@ -284,8 +278,7 @@ export default function AbnormalityManagement() {
       };
 
       // API call to create job request
-      console.log('Creating job request:', jobRequestData);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
@@ -319,8 +312,7 @@ export default function AbnormalityManagement() {
       setFileList([...fileList, file]);
       return false;
     },
-    fileList,
-  };
+    fileList };
 
   const getAbnormalityStats = () => {
     const total = abnormalityData.length;
@@ -397,20 +389,20 @@ export default function AbnormalityManagement() {
 
         {/* Filters */}
         <div className="filter-section">
-          <Form
+          <Form as="form"
             layout="inline"
             onFinish={(values) => setFilters(values)}
             style={{ marginBottom: 16 }}
           >
-            <Form.Item name="severity">
+            <Form as="form".Item controlId="severity">
               <Select placeholder="Severity" allowClear style={{ width: 120 }}>
                 <Option value="low">Low</Option>
                 <Option value="medium">Medium</Option>
                 <Option value="high">High</Option>
                 <Option value="critical">Critical</Option>
               </Select>
-            </Form.Item>
-            <Form.Item name="status">
+            </Form.Group>
+            <Form as="form".Item controlId="status">
               <Select placeholder="Status" allowClear style={{ width: 120 }}>
                 <Option value="open">Open</Option>
                 <Option value="investigating">Investigating</Option>
@@ -418,15 +410,15 @@ export default function AbnormalityManagement() {
                 <Option value="resolved">Resolved</Option>
                 <Option value="closed">Closed</Option>
               </Select>
-            </Form.Item>
-            <Form.Item name="dateRange">
+            </Form.Group>
+            <Form as="form".Item controlId="dateRange">
               <RangePicker placeholder={['Dari', 'Sampai']} />
-            </Form.Item>
-            <Form.Item>
+            </Form.Group>
+            <Form as="form".Item>
               <Button type="primary" htmlType="submit" icon={<FilterOutlined />}>
                 Filter
               </Button>
-            </Form.Item>
+            </Form.Group>
           </Form>
         </div>
 
@@ -452,35 +444,35 @@ export default function AbnormalityManagement() {
         footer={null}
         width={700}
       >
-        <Form
+        <Form as="form"
           form={form}
           layout="vertical"
           onFinish={handleSubmitAbnormality}
         >
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item
-                name="asset_name"
+              <Form as="form".Item
+                controlId="asset_name"
                 label="Nama Aset"
                 rules={[{ required: true, message: 'Masukkan nama aset!' }]}
               >
                 <Input placeholder="Masukkan nama aset" />
-              </Form.Item>
+              </Form.Group>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="asset_tag"
+              <Form as="form".Item
+                controlId="asset_tag"
                 label="Asset Tag"
               >
                 <Input placeholder="Masukkan asset tag" />
-              </Form.Item>
+              </Form.Group>
             </Col>
           </Row>
 
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item
-                name="severity"
+              <Form as="form".Item
+                controlId="severity"
                 label="Severity"
                 rules={[{ required: true, message: 'Pilih severity!' }]}
               >
@@ -490,11 +482,11 @@ export default function AbnormalityManagement() {
                   <Option value="high">High</Option>
                   <Option value="critical">Critical</Option>
                 </Select>
-              </Form.Item>
+              </Form.Group>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="category"
+              <Form as="form".Item
+                controlId="category"
                 label="Kategori"
                 rules={[{ required: true, message: 'Pilih kategori!' }]}
               >
@@ -505,45 +497,45 @@ export default function AbnormalityManagement() {
                   <Option value="Display">Display</Option>
                   <Option value="Printer">Printer</Option>
                 </Select>
-              </Form.Item>
+              </Form.Group>
             </Col>
           </Row>
 
-          <Form.Item
-            name="description"
+          <Form as="form".Item
+            controlId="description"
             label="Deskripsi Abnormality"
             rules={[{ required: true, message: 'Masukkan deskripsi!' }]}
           >
             <TextArea rows={4} placeholder="Jelaskan abnormality yang terjadi..." />
-          </Form.Item>
+          </Form.Group>
 
-          <Form.Item
-            name="impact_assessment"
+          <Form as="form".Item
+            controlId="impact_assessment"
             label="Dampak terhadap Operasional"
             rules={[{ required: true, message: 'Jelaskan dampaknya!' }]}
           >
             <TextArea rows={3} placeholder="Jelaskan dampak terhadap operasional..." />
-          </Form.Item>
+          </Form.Group>
 
-          <Form.Item
-            name="location"
+          <Form as="form".Item
+            controlId="location"
             label="Lokasi"
             rules={[{ required: true, message: 'Masukkan lokasi!' }]}
           >
             <Input placeholder="Masukkan lokasi aset" />
-          </Form.Item>
+          </Form.Group>
 
-          <Form.Item
-            name="attachments"
+          <Form as="form".Item
+            controlId="attachments"
             label="Lampiran (Opsional)"
           >
             <Upload {...uploadProps}>
               <Button icon={<UploadOutlined />}>Upload Lampiran</Button>
             </Upload>
             <small>Format: PDF, JPG, PNG (Max: 5MB)</small>
-          </Form.Item>
+          </Form.Group>
 
-          <Form.Item>
+          <Form as="form".Item>
             <div className="form-actions">
               <Button onClick={() => setShowCreateModal(false)}>
                 Batal
@@ -556,7 +548,7 @@ export default function AbnormalityManagement() {
                 Laporkan
               </Button>
             </div>
-          </Form.Item>
+          </Form.Group>
         </Form>
       </Modal>
 
@@ -621,7 +613,7 @@ export default function AbnormalityManagement() {
         width={600}
       >
         {selectedAbnormality && (
-          <Form
+          <Form as="form"
             form={form}
             layout="vertical"
             onFinish={handleSubmitJobRequest}
@@ -633,16 +625,16 @@ export default function AbnormalityManagement() {
               style={{ marginBottom: 16 }}
             />
 
-            <Form.Item
-              name="title"
+            <Form as="form".Item
+              controlId="title"
               label="Judul Job Request"
               rules={[{ required: true, message: 'Masukkan judul!' }]}
             >
               <Input placeholder="Masukkan judul job request" />
-            </Form.Item>
+            </Form.Group>
 
-            <Form.Item
-              name="priority"
+            <Form as="form".Item
+              controlId="priority"
               label="Prioritas"
               rules={[{ required: true, message: 'Pilih prioritas!' }]}
             >
@@ -652,18 +644,18 @@ export default function AbnormalityManagement() {
                 <Option value="high">High</Option>
                 <Option value="urgent">Urgent</Option>
               </Select>
-            </Form.Item>
+            </Form.Group>
 
-            <Form.Item
-              name="description"
+            <Form as="form".Item
+              controlId="description"
               label="Deskripsi Pekerjaan"
               rules={[{ required: true, message: 'Masukkan deskripsi!' }]}
             >
               <TextArea rows={4} placeholder="Deskripsikan pekerjaan yang diperlukan..." />
-            </Form.Item>
+            </Form.Group>
 
-            <Form.Item
-              name="assigned_to"
+            <Form as="form".Item
+              controlId="assigned_to"
               label="Assign To (Opsional)"
             >
               <Select placeholder="Pilih teknisi">
@@ -671,9 +663,9 @@ export default function AbnormalityManagement() {
                 <Option value="tech2">Technician 2</Option>
                 <Option value="tech3">Technician 3</Option>
               </Select>
-            </Form.Item>
+            </Form.Group>
 
-            <Form.Item>
+            <Form as="form".Item>
               <div className="form-actions">
                 <Button onClick={() => setShowJobRequestModal(false)}>
                   Batal
@@ -686,7 +678,7 @@ export default function AbnormalityManagement() {
                   Buat Job Request
                 </Button>
               </div>
-            </Form.Item>
+            </Form.Group>
           </Form>
         )}
       </Modal>

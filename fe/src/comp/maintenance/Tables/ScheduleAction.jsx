@@ -23,8 +23,7 @@ export default function ScheduleActions({
         scheduledDate: log.nextMaintenance,
         sop: log.sop || ''
       };
-      
-      console.log('WO created for:', log.itItemId);
+
       onUpdate(log.itItemId, { ...log, workOrderId: 'TEMP-' + Date.now() });
       alert('✅ Work Order berhasil dibuat (TEMP): WO-TEMP-' + log.itItemId.slice(-6));
     } catch (error) {

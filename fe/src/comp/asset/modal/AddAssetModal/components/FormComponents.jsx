@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import Select from 'react-select';
@@ -12,6 +13,7 @@ export const SectionHeader = ({ icon: Icon, title }) => (
 );
 
 // Optimized Select Component
+
 export const OptimizedSelect = ({ 
   label, 
   name, 
@@ -25,25 +27,36 @@ export const OptimizedSelect = ({
   required = false, 
   error 
 }) => {
-  // Loose matching dengan type coercion untuk fix Main Type issue
+
+  // Loose matching dengan type coercion
   const findOption = (opts, val) => {
     if (!val) return null;
     const stringValue = String(val);
-    return opts.find(o => String(o.value) === stringValue) || null;
+    const match = opts.find(o => String(o.value) === stringValue);
+
+    return match || null;
   };
 
   const selectedOption = findOption(options, value);
 
+  const handleOnChange = (opt) => {
+
+    // Pass name + full option object ke parent handler
+    if (typeof onChange === 'function') {
+      onChange(name, opt);
+    }
+  };
+
   return (
-    <Form.Group className="mb-3">
-      <Form.Label>
+    <Form as="form".Group className="mb-3">
+      <Form as="form".Label>
         {label}
         {required && <span className="text-danger ms-1">*</span>}
       </Form.Label>
       <Select
         options={options}
         value={selectedOption}
-        onChange={(opt) => onChange(opt?.value)}
+        onChange={handleOnChange}
         placeholder={placeholder || (options.length === 0 ? 'Memuat...' : 'Pilih...')}
         isLoading={isLoading || options.length === 0}
         isDisabled={isDisabled}
@@ -75,13 +88,18 @@ export const OptimizedSelect = ({
         aria-label={`${label} - ${selectedOption?.label || value || placeholder}`}
       />
       {error && (
-        <Form.Control.Feedback type="invalid" className="d-block">
+        <Form as="form".Control.Feedback type="invalid" className="d-block">
           {error}
         </Form.Control.Feedback>
       )}
       {options.length === 0 && !isLoading && (
-        <Form.Text className="text-muted small">
+        <Form as="form".Text className="text-muted small">
           Tidak ada data tersedia
+        </Form.Text>
+      )}
+      {process.env.NODE_ENV === 'development' && (
+        <Form as="form".Text className="text-muted small">
+          Debug: {options.length} opts, selected: {selectedOption?.label || 'none'}
         </Form.Text>
       )}
     </Form.Group>

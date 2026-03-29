@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import StokKontrol from "./StokKontrol";
 import FormMaintenance from "./FormMaintenance";
@@ -61,7 +62,7 @@ export default function Parent() {
       </div>
 
       <div className="mb-5">
-        <FormMaintenance
+        <Form as="form"Maintenance
           currentItem={{ id: 0 }}
           formData={formData}
           setFormData={setFormData}

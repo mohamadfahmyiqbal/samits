@@ -1,8 +1,8 @@
-import React, { useCallback, useMemo, useEffect, useRef } from "react";
-import { Modal, Form, Button, Row, Col, Spinner, Table } from "react-bootstrap";
-import Select from "react-select";
-import { format } from "date-fns";
-import { alertWarning, alertConfirm } from "../../../comp/Notification";
+import React, { useCallback, useMemo, useEffect, useRef } from 'react';
+import { Modal, Button, Row, Col, Spinner, Table, Form } from 'react-bootstrap';
+import Select from 'react-select';
+import { format } from 'date-fns';
+import { alertWarning, alertConfirm } from '../../../comp/Notification';
 
 const hasFormData = (data) => {
   return (
@@ -38,7 +38,7 @@ function ScheduleForm({
 }) {
   const formRef = useRef(null);
   const firstInputRef = useRef(null);
-  const today = useMemo(() => format(new Date(), "yyyy-MM-dd"), []);
+  const today = useMemo(() => format(new Date(), 'yyyy-MM-dd'), []);
 
   const sortedMainTypes = useMemo(() => {
     if (!mainTypeOptions || !Array.isArray(mainTypeOptions)) return [];
@@ -56,40 +56,40 @@ function ScheduleForm({
   }, [subCategoryOptions]);
 
   const sortedAssets = useMemo(() => {
-    return [...filteredAssets].sort((a, b) =>
-      (a.noAsset || "").localeCompare(b.noAsset || "")
-    );
+    return [...filteredAssets].sort((a, b) => (a.noAsset || '').localeCompare(b.noAsset || ''));
   }, [filteredAssets]);
 
   const sortedKaryawan = useMemo(() => {
     if (!karyawanData || !Array.isArray(karyawanData)) return [];
-    return [...karyawanData].sort((a, b) => 
-      (a.nama || "").localeCompare(b.nama || "")
-    );
+    return [...karyawanData].sort((a, b) => (a.nama || '').localeCompare(b.nama || ''));
   }, [karyawanData]);
 
   const picOptions = useMemo(() => {
     return sortedKaryawan.map((karyawan) => ({
       value: karyawan.nama,
-      label: `${karyawan.nik} - ${karyawan.nama} ${karyawan.dept ? `(${karyawan.dept})` : ""}`.trim()
+      label:
+        `${karyawan.nik} - ${karyawan.nama} ${karyawan.dept ? `(${karyawan.dept})` : ''}`.trim(),
     }));
   }, [sortedKaryawan]);
 
   const handleClose = useCallback(() => {
     if (!isEditing && hasFormData(formData)) {
       alertConfirm({
-        title: "Tutup Form",
-        text: "Apakah Anda yakin ingin menutup form? Data yang sudah diisi akan hilang.",
-        onConfirm: () => onHide()
+        title: 'Tutup Form',
+        text: 'Apakah Anda yakin ingin menutup form? Data yang sudah diisi akan hilang.',
+        onConfirm: () => onHide(),
       });
     } else {
       onHide();
     }
   }, [formData, onHide, isEditing]);
 
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === "Escape") handleClose();
-  }, [handleClose]);
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === 'Escape') handleClose();
+    },
+    [handleClose]
+  );
 
   const isFormIncomplete = useMemo(() => {
     if (isEditing) {
@@ -104,15 +104,18 @@ function ScheduleForm({
     );
   }, [formData, isEditing]);
 
-  const handleSubmitForm = useCallback((e) => {
-    e.preventDefault();
-    if (isFormIncomplete) {
-      alertWarning('Mohon lengkapi semua field yang wajib diisi (*)');
-      return;
-    }
+  const handleSubmitForm = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (isFormIncomplete) {
+        alertWarning('Mohon lengkapi semua field yang wajib diisi (*)');
+        return;
+      }
 
-    onSubmit(e);
-  }, [isFormIncomplete, onSubmit]);
+      onSubmit(e);
+    },
+    [isFormIncomplete, onSubmit]
+  );
 
   useEffect(() => {
     if (show && firstInputRef.current && !isEditing) {
@@ -127,14 +130,14 @@ function ScheduleForm({
     <Modal
       show={show}
       onHide={handleClose}
-      size="lg"
-      backdrop="static"
+      size='lg'
+      backdrop='static'
       keyboard={true}
       centered
       onKeyDown={handleKeyDown}
     >
-      <Modal.Header closeButton className="bg-light">
-        <Modal.Title className="fw-bold text-primary">
+      <Modal.Header closeButton className='bg-light'>
+        <Modal.Title className='fw-bold text-primary'>
           {isEditing ? 'Edit Schedule Maintenance' : 'Tambah Schedule Maintenance'}
         </Modal.Title>
       </Modal.Header>
@@ -142,11 +145,11 @@ function ScheduleForm({
       <Form ref={formRef} onSubmit={handleSubmitForm}>
         <Modal.Body>
           {/* Section 1: Asset Information (Disamakan layoutnya) */}
-          <Row className="g-3">
+          <Row className='g-3'>
             <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label className="fw-medium">
-                  Main Type <span className="text-danger">*</span>
+              <Form.Group className='mb-3'>
+                <Form.Label className='fw-medium'>
+                  Main Type <span className='text-danger'>*</span>
                 </Form.Label>
                 <Form.Select
                   ref={firstInputRef}
@@ -159,7 +162,7 @@ function ScheduleForm({
                     <option>{formData.assetMainTypeName}</option>
                   ) : (
                     <>
-                      <option value="">-- Pilih Main Type --</option>
+                      <option value=''>-- Pilih Main Type --</option>
                       {sortedMainTypes.map((type) => (
                         <option key={type.value} value={type.value}>
                           {type.label}
@@ -171,9 +174,9 @@ function ScheduleForm({
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label className="fw-medium">
-                  Kategori <span className="text-danger">*</span>
+              <Form.Group className='mb-3'>
+                <Form.Label className='fw-medium'>
+                  Kategori <span className='text-danger'>*</span>
                 </Form.Label>
                 <Form.Select
                   value={formData.categoryId}
@@ -185,7 +188,7 @@ function ScheduleForm({
                     <option>{formData.categoryName || formData.assetMainTypeName}</option>
                   ) : (
                     <>
-                      <option value="">-- Pilih Kategori --</option>
+                      <option value=''>-- Pilih Kategori --</option>
                       {sortedCategories.map((category) => (
                         <option key={category.value} value={category.value}>
                           {category.label}
@@ -198,11 +201,11 @@ function ScheduleForm({
             </Col>
           </Row>
 
-          <Row className="g-3">
+          <Row className='g-3'>
             <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label className="fw-medium">
-                  Sub Kategori <span className="text-danger">*</span>
+              <Form.Group className='mb-3'>
+                <Form.Label className='fw-medium'>
+                  Sub Kategori <span className='text-danger'>*</span>
                 </Form.Label>
                 <Form.Select
                   value={formData.subCategoryId}
@@ -214,7 +217,7 @@ function ScheduleForm({
                     <option>{formData.subCategoryName}</option>
                   ) : (
                     <>
-                      <option value="">-- Pilih Sub Kategori --</option>
+                      <option value=''>-- Pilih Sub Kategori --</option>
                       {sortedSubCategories.map((sub) => (
                         <option key={sub.value} value={sub.value}>
                           {sub.label}
@@ -226,41 +229,45 @@ function ScheduleForm({
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label className="fw-medium">No. Asset / Hostname</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label className='fw-medium'>No. Asset / Hostname</Form.Label>
                 <Form.Control
-                  type="text"
+                  type='text'
                   value={`${formData.assetId} ${formData.hostname ? `(${formData.hostname})` : ''}`}
                   disabled
                   readOnly
-                  className="bg-light"
+                  className='bg-light'
                 />
               </Form.Group>
             </Col>
           </Row>
 
           {!isEditing && (
-            <Row className="g-3">
+            <Row className='g-3'>
               <Col md={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label className="fw-medium">
-                    Daftar Asset Tersedia <span className="text-danger">*</span>
+                <Form.Group className='mb-3'>
+                  <Form.Label className='fw-medium'>
+                    Daftar Asset Tersedia <span className='text-danger'>*</span>
                   </Form.Label>
                   {sortedAssets.length === 0 ? (
-                    <div className="p-3 bg-light border rounded text-center">
-                      <small className="text-muted">Pilih kriteria di atas untuk melihat daftar asset.</small>
+                    <div className='p-3 bg-light border rounded text-center'>
+                      <small className='text-muted'>
+                        Pilih kriteria di atas untuk melihat daftar asset.
+                      </small>
                     </div>
                   ) : itemsLoading ? (
-                    <div className="d-flex justify-content-center align-items-center py-4 gap-2">
-                      <Spinner animation="border" size="sm" role="status" aria-hidden="true" />
+                    <div className='d-flex justify-content-center align-items-center py-4 gap-2'>
+                      <Spinner animation='border' size='sm' role='status' aria-hidden='true' />
                       <small>Memuat item...</small>
                     </div>
                   ) : (
-                    <div className="table-responsive border rounded" style={{ maxHeight: '200px' }}>
-                      <Table size="sm" bordered hover className="mb-0">
-                        <thead className="table-light sticky-top">
+                    <div className='table-responsive border rounded' style={{ maxHeight: '200px' }}>
+                      <Table size='sm' bordered hover className='mb-0'>
+                        <thead className='table-light sticky-top'>
                           <tr>
-                            <th className="text-center" style={{ width: "50px" }}>Pilih</th>
+                            <th className='text-center' style={{ width: '50px' }}>
+                              Pilih
+                            </th>
                             <th>No. Asset</th>
                             <th>Hostname</th>
                           </tr>
@@ -268,16 +275,18 @@ function ScheduleForm({
                         <tbody>
                           {sortedAssets.map((asset) => (
                             <tr key={asset.noAsset}>
-                              <td className="text-center align-middle">
+                              <td className='text-center align-middle'>
                                 <Form.Check
-                                  type="radio" // Gunakan radio karena hanya satu yang boleh dipilih
-                                  name="assetSelection"
+                                  type='radio' // Gunakan radio karena hanya satu yang boleh dipilih
+                                  controlId='assetSelection'
                                   checked={formData.assetId === asset.noAsset}
                                   onChange={() => onAssetChange(asset.noAsset)}
                                 />
                               </td>
-                              <td className="small">{asset.noAsset}</td>
-                              <td className="small text-truncate" style={{ maxWidth: '150px' }}>{asset.hostname || "-"}</td>
+                              <td className='small'>{asset.noAsset}</td>
+                              <td className='small text-truncate' style={{ maxWidth: '150px' }}>
+                                {asset.hostname || '-'}
+                              </td>
                             </tr>
                           ))}
                         </tbody>
@@ -289,30 +298,30 @@ function ScheduleForm({
             </Row>
           )}
 
-          <hr className="my-4" />
+          <hr className='my-4' />
 
           {/* Section 2: Schedule Details */}
-          <Row className="g-3">
+          <Row className='g-3'>
             <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label className="fw-medium">
-                  Tanggal &amp; Jam Mulai <span className="text-danger">*</span>
+              <Form.Group className='mb-3'>
+                <Form.Label className='fw-medium'>
+                  Tanggal & Jam Mulai <span className='text-danger'>*</span>
                 </Form.Label>
-                <Row className="g-2">
+                <Row className='g-2'>
                   <Col>
                     <Form.Control
-                      type="date"
+                      type='date'
                       value={formData.scheduledDate}
-                      onChange={(e) => onFormChange("scheduledDate", e.target.value)}
+                      onChange={(e) => onFormChange('scheduledDate', e.target.value)}
                       required
                       min={isEditing ? undefined : today}
                     />
                   </Col>
                   <Col>
                     <Form.Control
-                      type="time"
-                      value={formData.scheduledTime || ""}
-                      onChange={(e) => onFormChange("scheduledTime", e.target.value)}
+                      type='time'
+                      value={formData.scheduledTime || ''}
+                      onChange={(e) => onFormChange('scheduledTime', e.target.value)}
                       required
                     />
                   </Col>
@@ -320,24 +329,24 @@ function ScheduleForm({
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label className="fw-medium">
-                  Tanggal &amp; Jam Selesai <span className="text-danger">*</span>
+              <Form.Group className='mb-3'>
+                <Form.Label className='fw-medium'>
+                  Tanggal & Jam Selesai <span className='text-danger'>*</span>
                 </Form.Label>
-                <Row className="g-2">
+                <Row className='g-2'>
                   <Col>
                     <Form.Control
-                      type="date"
-                      value={formData.scheduledEndDate || ""}
-                      onChange={(e) => onFormChange("scheduledEndDate", e.target.value)}
+                      type='date'
+                      value={formData.scheduledEndDate || ''}
+                      onChange={(e) => onFormChange('scheduledEndDate', e.target.value)}
                       min={formData.scheduledDate || today}
                     />
                   </Col>
                   <Col>
                     <Form.Control
-                      type="time"
-                      value={formData.scheduledEndTime || ""}
-                      onChange={(e) => onFormChange("scheduledEndTime", e.target.value)}
+                      type='time'
+                      value={formData.scheduledEndTime || ''}
+                      onChange={(e) => onFormChange('scheduledEndTime', e.target.value)}
                       required
                     />
                   </Col>
@@ -346,32 +355,32 @@ function ScheduleForm({
             </Col>
           </Row>
 
-          <Row className="g-3">
+          <Row className='g-3'>
             <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label className="fw-medium">PIC Pelaksana</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label className='fw-medium'>PIC Pelaksana</Form.Label>
                 <Select
                   options={picOptions}
                   value={picOptions.find((opt) => opt.value === formData.pic) || null}
-                  onChange={(opt) => onFormChange("pic", opt?.value || "")}
+                  onChange={(opt) => onFormChange('pic', opt?.value || '')}
                   isClearable
                   isSearchable
-                  placeholder="Cari PIC (NIK / Nama)"
+                  placeholder='Cari PIC (NIK / Nama)'
                   styles={{
-                    control: (base) => ({ ...base, minHeight: "38px" }),
+                    control: (base) => ({ ...base, minHeight: '38px' }),
                   }}
                 />
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label className="fw-medium">Detail / Description</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label className='fw-medium'>Detail / Description</Form.Label>
                 <Form.Control
-                  as="textarea"
+                  as='textarea'
                   rows={1}
                   value={formData.detail}
-                  onChange={(e) => onFormChange("detail", e.target.value)}
-                  placeholder="Ringkasan tugas..."
+                  onChange={(e) => onFormChange('detail', e.target.value)}
+                  placeholder='Ringkasan tugas...'
                   style={{ minHeight: '38px' }}
                 />
               </Form.Group>
@@ -380,37 +389,48 @@ function ScheduleForm({
 
           <Row>
             <Col md={12}>
-              <Form.Group className="mb-0">
-                <Form.Label className="fw-medium text-muted small text-uppercase">Catatan Tambahan</Form.Label>
+              <Form.Group className='mb-0'>
+                <Form.Label className='fw-medium text-muted small text-uppercase'>
+                  Catatan Tambahan
+                </Form.Label>
                 <Form.Control
-                  as="textarea"
+                  as='textarea'
                   rows={2}
-                  value={formData.notes || ""}
-                  onChange={(e) => onFormChange("notes", e.target.value)}
-                  placeholder="Informasi tambahan jika ada..."
+                  value={formData.notes || ''}
+                  onChange={(e) => onFormChange('notes', e.target.value)}
+                  placeholder='Informasi tambahan jika ada...'
                 />
               </Form.Group>
             </Col>
           </Row>
         </Modal.Body>
 
-        <Modal.Footer className="bg-light">
-          <Button variant="outline-secondary" onClick={handleClose} type="button" className="px-4">
+        <Modal.Footer className='bg-light'>
+          <Button variant='outline-secondary' onClick={handleClose} type='button' className='px-4'>
             Batal
           </Button>
           <Button
-            variant="primary"
-            type="submit"
+            variant='primary'
+            type='submit'
             disabled={isSubmitting || isFormIncomplete}
-            className="px-4 shadow-sm"
+            className='px-4 shadow-sm'
           >
             {isSubmitting ? (
               <>
-                <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
+                <Spinner
+                  as='span'
+                  animation='border'
+                  size='sm'
+                  role='status'
+                  aria-hidden='true'
+                  className='me-2'
+                />
                 Menyimpan...
               </>
+            ) : isEditing ? (
+              'Simpan Perubahan'
             ) : (
-              isEditing ? "Simpan Perubahan" : "Simpan Jadwal"
+              'Simpan Jadwal'
             )}
           </Button>
         </Modal.Footer>

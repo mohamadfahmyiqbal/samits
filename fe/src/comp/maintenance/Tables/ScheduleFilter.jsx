@@ -1,9 +1,10 @@
+
 import React from "react";
 import { Form } from "react-bootstrap";
 
 export default function ScheduleFilter({ filterStatus, setFilterStatus }) {
   return (
-    <Form.Select
+    <Form as="form".Select
       value={filterStatus}
       onChange={(e) => setFilterStatus(e.target.value)}
     >

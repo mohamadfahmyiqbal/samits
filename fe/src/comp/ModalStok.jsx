@@ -1,14 +1,21 @@
-import React from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import React from 'react';
+import { Modal, Button, Form } from 'react-bootstrap';
 
-export default function StokModal({ show, onHide, editMode, currentItem, setCurrentItem, saveItem }) {
+export default function StokModal({
+  show,
+  onHide,
+  editMode,
+  currentItem,
+  setCurrentItem,
+  saveItem,
+}) {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>{editMode ? "Edit Stok" : "Tambah Stok"}</Modal.Title>
+        <Modal.Title>{editMode ? 'Edit Stok' : 'Tambah Stok'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Group className="mb-2">
+        <Form.Group className='mb-2'>
           <Form.Label>Nama</Form.Label>
           <Form.Control
             value={currentItem.name}
@@ -16,7 +23,7 @@ export default function StokModal({ show, onHide, editMode, currentItem, setCurr
           />
         </Form.Group>
 
-        <Form.Group className="mb-2">
+        <Form.Group className='mb-2'>
           <Form.Label>Kategori</Form.Label>
           <Form.Select
             value={currentItem.category}
@@ -28,16 +35,16 @@ export default function StokModal({ show, onHide, editMode, currentItem, setCurr
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="mb-2">
-          <Form.Label>Qty</Form.Label>
+        <Form.Group className='mb-2'>
+          <Form.Label>Stok</Form.Label>
           <Form.Control
-            type="number"
+            type='number'
             value={currentItem.qty}
             onChange={(e) => setCurrentItem({ ...currentItem, qty: Number(e.target.value) })}
           />
         </Form.Group>
 
-        <Form.Group className="mb-2">
+        <Form.Group className='mb-2'>
           <Form.Label>Lokasi</Form.Label>
           <Form.Control
             value={currentItem.location}

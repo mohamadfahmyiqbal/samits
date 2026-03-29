@@ -44,11 +44,10 @@ export const AssetProvider = ({ children }) => {
 
   // 2. UPDATE
 const saveUpdate = useCallback(async (assetNo, updateData) => {
-    console.log('🔄 DEBUG UPDATE - Input:', { assetNo, updateDataKeys: Object.keys(updateData) });
+
     try {
-      console.log('📡 Calling AssetService.updateAsset...');
+
       const res = await AssetService.updateAsset(assetNo, updateData);
-      console.log('✅ UPDATE SUCCESS - Response:', res.data ? { noAsset: res.data.noAsset, nama: res.data.nama } : 'No data' );
 
       if (res.data) {
         updateAssetList(res.data.assetGroup, res.data);
@@ -95,9 +94,19 @@ const saveUpdate = useCallback(async (assetNo, updateData) => {
     }
   }, [setUtama, setClient]); 
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check auth status from localStorage
   useEffect(() => {
-    fetchAllAssets();
-  }, [fetchAllAssets]);
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchAllAssets();
+    }
+  }, [fetchAllAssets, isAuthenticated]);
 
   return (
     <AssetContext.Provider

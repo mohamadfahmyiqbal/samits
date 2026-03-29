@@ -23,10 +23,10 @@ export default (sequelize) => {
       },
     },
     {
-      tableName: "user",
+      tableName: "users",
       freezeTableName: true,
       timestamps: false,
-    }
+    },
   );
 
   return HRGAUser;

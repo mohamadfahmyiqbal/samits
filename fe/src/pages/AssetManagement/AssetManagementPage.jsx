@@ -1,15 +1,15 @@
-import React from "react";
-import AssetManagementTabs from "./components/AssetManagementTabs";
-import PrimaryTabs from "./components/PrimaryTabs";
-import AssetManagementModals from "./components/AssetManagementModals";
-import ErrorBoundary from "./components/ErrorBoundary";
-import { AssetManagementProvider } from "./context/AssetManagementContext";
+import React from 'react';
+import AssetManagementTabs from './components/AssetManagementTabs';
+import PrimaryTabs from './components/PrimaryTabs';
+import AssetManagementModals from './components/AssetManagementModals';
+import ErrorBoundary from './components/ErrorBoundary';
+import { AssetManagementProvider } from './context/AssetManagementContext';
 
 function AssetManagementPage() {
   return (
     <ErrorBoundary>
       <AssetManagementProvider>
-        <div className="AssetManagement asset-utama-page">
+        <div className='asset-management-page'>
           <PrimaryTabs />
           <AssetManagementTabs />
           <AssetManagementModals />
@@ -18,5 +18,7 @@ function AssetManagementPage() {
     </ErrorBoundary>
   );
 }
+
+AssetManagementPage.displayName = 'AssetManagementPage';
 
 export default AssetManagementPage;

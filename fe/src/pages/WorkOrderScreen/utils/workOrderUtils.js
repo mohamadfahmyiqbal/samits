@@ -1,6 +1,11 @@
 // src/pages/WorkOrderScreen/utils/workOrderUtils.js
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+import {
+  PRIORITY_CONFIG,
+  STATUS_BADGE_CONFIG,
+  statusLabels,
+} from '../constants/workOrderConstants.js';
 
 export const formatDateWO = (dateString) => {
   if (!dateString) return '-';
@@ -35,10 +40,7 @@ export const getOverdueStatus = (dueDate, status) => {
 
 export const exportWorkOrdersToExcel = (workOrders, filteredOrders) => {
   // Excel export logic (placeholder)
-  console.log('Export:', filteredOrders);
 };
-
-import { PRIORITY_CONFIG, STATUS_BADGE_CONFIG, statusLabels } from '../constants/workOrderConstants.js';
 
 export const priorityColors = PRIORITY_CONFIG;
 export const statusConfig = STATUS_BADGE_CONFIG;

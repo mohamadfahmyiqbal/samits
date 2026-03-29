@@ -1,23 +1,14 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import userService from '@/services/UserService';
+import userService from '../../../../../services/UserService';
 import {
   fetchClassifications,
   fetchStatuses,
   fetchAssetGroups,
   fetchMainTypes,
   fetchCategoryTypes,
-} from '@/services/AssetService';
-import { showError } from '@/comp/Notification';
+} from '../../../../../services/AssetService';
+import { showError } from '../../../../../comp/Notification';
 import { initialAssetState, validateAssetForm } from '../constants/assetConstants';
-
-// Utility: debounce function
-const debounce = (func, wait) => {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
-  };
-};
 
 export const useAssetForm = (show, asset = null) => {
   const [newAsset, setNewAsset] = useState(initialAssetState);
@@ -43,23 +34,25 @@ export const useAssetForm = (show, asset = null) => {
   const karyawanCache = useRef(null);
   const classificationCache = useRef(null);
   const statusCache = useRef(null);
-  const assetGroupCache = useRef(null);
   const mainTypeCache = useRef(null);
-  const categoryTypesCache = useRef(null);
 
   // ✅ NEW: Debounced karyawan search function
   const debouncedSearchKaryawan = useCallback(
-    debounce((searchTerm, setOptionsCallback) => {
-      if (!searchTerm || searchTerm.length < 2) {
-        setOptionsCallback(karyawanOptions);
-        return;
-      }
+    (searchTerm, setOptionsCallback) => {
+      const timeoutId = setTimeout(() => {
+        if (!searchTerm || searchTerm.length < 2) {
+          setOptionsCallback(karyawanOptions);
+          return;
+        }
 
-      const filtered = karyawanOptions.filter((option) =>
-        option.label.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setOptionsCallback(filtered);
-    }, 300),
+        const filtered = karyawanOptions.filter((option) =>
+          option.label.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setOptionsCallback(filtered);
+      }, 300);
+
+      return () => clearTimeout(timeoutId);
+    },
     [karyawanOptions]
   );
 
@@ -94,10 +87,22 @@ export const useAssetForm = (show, asset = null) => {
           category_id: asset.category_id || '',
           sub_category_id: asset.sub_category_id || '',
           asset_group_id: asset.asset_group_id || '',
+          assetGroup: asset.assetGroup || asset.asset_group_name || '',
+          classification_id: asset.classification_id || asset.classification || '',
+          sub_category: asset.sub_category || asset.sub_category_name || asset.type || '',
+          sub_category_name: asset.sub_category_name || asset.sub_category || asset.type || '',
+          type: asset.type || '',
           nik: asset.nik || '',
           dept: asset.dept || asset.department || '',
           hostname: asset.hostname || '',
           status: asset.status || asset.current_status || 'Active',
+          depreciation_end_date: asset.depreciation_end_date || '',
+          mainIpAdress: asset.mainIpAdress || asset.ip_address || asset.main_ip_address || '',
+          backupIpAdress: asset.backupIpAdress || '',
+          accounting_asset_no: asset.accounting_asset_no || asset.asset_tag || '',
+          acquisition_status: asset.acquisition_status || initialAssetState.acquisition_status,
+          request_id: asset.request_id || '',
+          invoice_number: asset.invoice_number || '',
         };
 
         // ✅ AUTO-SYNC Edit mode: accounting_asset_no = noAsset
@@ -120,28 +125,38 @@ export const useAssetForm = (show, asset = null) => {
     if (!show) return;
 
     const fetchMainTypesData = async () => {
-      console.log('🔍 DEBUG fetchMainTypes - show:', show, 'cache:', !!mainTypeCache.current);
       if (mainTypeCache.current) {
-        console.log('✅ Using mainType cache:', mainTypeCache.current.length, 'options');
         setMainTypeOptions(mainTypeCache.current);
         return;
       }
 
       try {
-        console.log('📡 Calling fetchMainTypes API...');
         const res = await fetchMainTypes();
-        console.log('📥 MainTypes response:', res?.data);
+
         const data = Array.isArray(res?.data) ? res.data : [];
-        const options = data.map((mt) => ({
-          value: String(mt.asset_main_type_id), // ✅ FORCE STRING
-          label: mt.main_type_name,
-        }));
+
+        const options = data.map((mt, i) => {
+          const opt = {
+            value: String(mt.asset_main_type_id),
+            label: mt.main_type_name,
+            fieldName: 'asset_main_type_id', // Tambahan untuk auto-infer
+          };
+
+          return opt;
+        });
+
         mainTypeCache.current = options;
-        console.log('✅ MainType options ready:', options.length, options[0]);
+
         setMainTypeOptions(options);
       } catch (err) {
         console.error('❌ Failed to load main types:', err);
-        setMainTypeOptions([]);
+        // Fallback dummy untuk testing
+        const fallback = [
+          { value: '1', label: 'UTAMA', fieldName: 'asset_main_type_id' },
+          { value: '2', label: 'CLIENT', fieldName: 'asset_main_type_id' },
+        ];
+
+        setMainTypeOptions(fallback);
       }
     };
 
@@ -161,18 +176,14 @@ export const useAssetForm = (show, asset = null) => {
         console.warn(
           `🚨 MAIN TYPE MISMATCH: value="${stringValue}" not in options (${mainTypeOptions.length} opts)`
         );
-        console.log(
-          'Available options:',
-          mainTypeOptions.map((o) => ({ v: o.value, l: o.label }))
-        );
+
         // Optional: refetch jika mismatch
         // mainTypeCache.current = null;
         // fetchMainTypesData();
       } else {
-        console.log(`✅ MAIN TYPE SYNC OK: "${stringValue}" matched`);
       }
     }
-  }, [show, newAsset.asset_main_type_id, mainTypeOptions.length]);
+  }, [show, newAsset.asset_main_type_id, mainTypeOptions]);
 
   // Fetch Categories based on Main Type
   useEffect(() => {
@@ -338,14 +349,17 @@ export const useAssetForm = (show, asset = null) => {
     fetchStatusesData();
   }, [show]);
 
-  // Cache classifications - hanya muncul jika sub_category = PC
+  // Cache classifications - hanya muncul jika sub_category mengandung PC
   useEffect(() => {
     if (!show) return;
 
-    // Cek apakah sub category adalah PC (bisa dari API atau dari props)
-    const isPC =
-      newAsset.sub_category?.toLowerCase() === 'pc' ||
-      newAsset.sub_category_name?.toLowerCase() === 'pc';
+    const subLabel = (
+      newAsset.sub_category_name ||
+      newAsset.sub_category ||
+      newAsset.type ||
+      ''
+    ).toLowerCase();
+    const isPC = subLabel === 'pc' || subLabel.includes('pc');
 
     if (!isPC) {
       setClassificationOptions([]);
@@ -374,7 +388,7 @@ export const useAssetForm = (show, asset = null) => {
         setClassificationOptions([]);
       })
       .finally(() => setLoadingClassification(false));
-  }, [show, newAsset.sub_category, newAsset.sub_category_name]);
+  }, [show, newAsset.sub_category, newAsset.sub_category_name, newAsset.type]);
 
   // Handle form input changes
   const handleChange = useCallback(
@@ -389,13 +403,15 @@ export const useAssetForm = (show, asset = null) => {
         [name]: formattedValue,
       };
 
-      // Auto-format tahunBeli ke YYYY01 untuk BE + calculate depreciation_end_date (+6 tahun)
+      // Auto-format tahunBeli: simpan full date untuk display, calculate depreciation_end_date
       if (name === 'tahunBeli') {
         const date = new Date(value);
         if (!isNaN(date.getTime())) {
           const year = date.getFullYear();
-          formattedValue = `${year}01`;
-          baseAsset[name] = formattedValue;
+          // Simpan full date untuk display di form
+          baseAsset[name] = value;
+          // Simpan juga po_date_period untuk backend (YYYY01 format)
+          baseAsset.po_date_period = `${year}01`;
 
           // Auto calculate akhir depresiasi: +6 tahun (default)
           const endYear = year + 6;
@@ -438,26 +454,38 @@ export const useAssetForm = (show, asset = null) => {
   );
 
   // Handle Select changes
+
   const handleSelectChange = useCallback(
     (name, selectedOption) => {
-      const value = selectedOption?.value ?? '';
-      const assetGroupId = selectedOption?.asset_group_id || '';
-      const label = selectedOption?.label || '';
+      const option =
+        typeof selectedOption === 'string' || typeof selectedOption === 'number'
+          ? { value: selectedOption, label: String(selectedOption) }
+          : selectedOption;
 
+      // Auto-infer name jika tidak diberikan (untuk OptimizedSelect)
+      const fieldName = name || selectedOption?.fieldName || 'unknown';
+      const value = option?.value ?? '';
+      const label = option?.label ?? '';
+      const assetGroupId = option?.asset_group_id || '';
+
+      // Basic update
       setNewAsset((prev) => ({
         ...prev,
-        [name]: value,
-        // Also set asset_group_id when assetGroup is selected
-        ...(name === 'assetGroup' ? { asset_group_id: assetGroupId } : {}),
+        [fieldName]: value,
+        ...(fieldName === 'assetGroup' ? { asset_group_id: assetGroupId } : {}),
+        ...(fieldName === 'asset_main_type_id' ? { asset_main_type_name: label } : {}),
+        ...(fieldName === 'sub_category_id'
+          ? { sub_category: label, sub_category_name: label }
+          : {}),
       }));
 
       // Clear error
-      if (errors[name]) {
-        setErrors((prev) => ({ ...prev, [name]: null }));
+      if (errors[fieldName]) {
+        setErrors((prev) => ({ ...prev, [fieldName]: null }));
       }
 
-      // Handle Main Type change - reset semua yang di bawahnya
-      if (name === 'asset_main_type_id') {
+      // Cascade reset logic
+      if (fieldName === 'asset_main_type_id') {
         setNewAsset((prev) => ({
           ...prev,
           asset_main_type_id: value,
@@ -474,15 +502,10 @@ export const useAssetForm = (show, asset = null) => {
         setSubCategoryOptionsApi([]);
         setAssetGroupOptions([]);
         setClassificationOptions([]);
-      }
-      // Handle Category change
-      else if (name === 'category' || name === 'category_id') {
-        const catId = name === 'category_id' ? value : selectedOption?.category_id;
-        const catName = name === 'category' ? value : label;
+      } else if (fieldName === 'category_id') {
         setNewAsset((prev) => ({
           ...prev,
-          category: catName,
-          category_id: catId,
+          category_id: value,
           sub_category: '',
           sub_category_id: '',
           classification_id: '',
@@ -492,25 +515,19 @@ export const useAssetForm = (show, asset = null) => {
         setSubCategoryOptionsApi([]);
         setAssetGroupOptions([]);
         setClassificationOptions([]);
-      }
-      // Handle Sub Category change
-      else if (name === 'sub_category' || name === 'sub_category_id') {
-        const subCatId = name === 'sub_category_id' ? value : selectedOption?.sub_category_id;
-        const subCatName = name === 'sub_category' ? value : label;
+      } else if (fieldName === 'sub_category_id') {
         setNewAsset((prev) => ({
           ...prev,
-          sub_category: subCatName,
-          sub_category_id: subCatId,
+          sub_category_id: value,
           classification_id: '',
           assetGroup: '',
           asset_group_id: '',
         }));
         setClassificationOptions([]);
         setAssetGroupOptions([]);
-      }
-      // Handle NIK change - fill dept
-      else if (name === 'nik') {
+      } else if (fieldName === 'nik') {
         const selectedKaryawan = karyawanList.find((k) => k.nik === value);
+
         setNewAsset((prev) => ({
           ...prev,
           nik: value,
@@ -566,7 +583,6 @@ export const useAssetForm = (show, asset = null) => {
     const matchedOption = options.find((o) => String(o.value) === stringValue);
 
     if (matchedOption) {
-      console.log(`✅ getSelectValue MATCH: value="${stringValue}" → "${matchedOption.label}"`);
       return matchedOption;
     }
 
@@ -575,11 +591,11 @@ export const useAssetForm = (show, asset = null) => {
       String(o.label).toLowerCase().includes(stringValue.toLowerCase())
     );
     if (labelMatch) {
-      console.warn(`⚠️ getSelectValue FALLBACK LABEL: "${stringValue}" → "${labelMatch.label}"`);
+      // Debug: console.warn(`getSelectValue FALLBACK LABEL: "${stringValue}" → "${labelMatch.label}"`);
       return labelMatch;
     }
 
-    console.warn(`❌ getSelectValue NO MATCH: value="${stringValue}", options=${options.length}`);
+    // Debug: console.warn(`getSelectValue NO MATCH: value="${stringValue}", options=${options.length}`);
     return null;
   }, []);
 

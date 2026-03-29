@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Table, Button, Form, Input, Select, Row, Col, message, Modal, Alert, Tag, Steps, Timeline, Progress, DatePicker, Upload } from 'antd';
+import { Form, Card, Table, Button, Input, Select, Row, Col, message, Modal, Alert, Tag, Steps, Progress, Upload } from 'antd';
 import { 
-  ToolOutlined, 
-  CheckCircleOutlined, 
-  ClockCircleOutlined,
   EyeOutlined,
   PlusOutlined,
   EditOutlined,
@@ -248,8 +245,7 @@ export default function CorrectiveAction() {
       };
 
       // API call to save corrective action
-      console.log('Saving corrective action:', actionData);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
@@ -279,8 +275,7 @@ export default function CorrectiveAction() {
       };
 
       // API call to complete corrective action
-      console.log('Completing corrective action:', resultData);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
@@ -320,8 +315,7 @@ export default function CorrectiveAction() {
       setFileList([...fileList, file]);
       return false;
     },
-    fileList,
-  };
+    fileList };
 
   const getActionSteps = (steps) => {
     return steps.map((step, index) => ({
@@ -435,24 +429,24 @@ export default function CorrectiveAction() {
         footer={null}
         width={700}
       >
-        <Form
+        <Form as="form"
           form={form}
           layout="vertical"
           onFinish={handleSubmitAction}
         >
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item
-                name="job_request_id"
+              <Form as="form".Item
+                controlId="job_request_id"
                 label="Job Request ID"
                 rules={[{ required: true, message: 'Masukkan Job Request ID!' }]}
               >
                 <Input placeholder="Contoh: JR-001" />
-              </Form.Item>
+              </Form.Group>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="action_type"
+              <Form as="form".Item
+                controlId="action_type"
                 label="Tipe Tindakan"
                 rules={[{ required: true, message: 'Pilih tipe tindakan!' }]}
               >
@@ -462,71 +456,71 @@ export default function CorrectiveAction() {
                   <Option value="configure">Configure</Option>
                   <Option value="troubleshoot">Troubleshoot</Option>
                 </Select>
-              </Form.Item>
+              </Form.Group>
             </Col>
           </Row>
 
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item
-                name="asset_name"
+              <Form as="form".Item
+                controlId="asset_name"
                 label="Nama Aset"
                 rules={[{ required: true, message: 'Masukkan nama aset!' }]}
               >
                 <Input placeholder="Masukkan nama aset" />
-              </Form.Item>
+              </Form.Group>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="technician_name"
+              <Form as="form".Item
+                controlId="technician_name"
                 label="Teknisi"
                 rules={[{ required: true, message: 'Masukkan nama teknisi!' }]}
               >
                 <Input placeholder="Masukkan nama teknisi" />
-              </Form.Item>
+              </Form.Group>
             </Col>
           </Row>
 
-          <Form.Item
-            name="description"
+          <Form as="form".Item
+            controlId="description"
             label="Deskripsi Tindakan"
             rules={[{ required: true, message: 'Masukkan deskripsi!' }]}
           >
             <TextArea rows={4} placeholder="Deskripsikan tindakan yang akan dilakukan..." />
-          </Form.Item>
+          </Form.Group>
 
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item
-                name="estimated_completion"
+              <Form as="form".Item
+                controlId="estimated_completion"
                 label="Estimasi Selesai"
                 rules={[{ required: true, message: 'Pilih tanggal estimasi!' }]}
               >
                 <DatePicker style={{ width: '100%' }} placeholder="Pilih tanggal" />
-              </Form.Item>
+              </Form.Group>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="labor_hours"
+              <Form as="form".Item
+                controlId="labor_hours"
                 label="Estimasi Jam Kerja"
                 rules={[{ required: true, message: 'Masukkan estimasi jam!' }]}
               >
                 <Input type="number" placeholder="Contoh: 4" />
-              </Form.Item>
+              </Form.Group>
             </Col>
           </Row>
 
-          <Form.Item
-            name="attachments"
+          <Form as="form".Item
+            controlId="attachments"
             label="Lampiran (Opsional)"
           >
             <Upload {...uploadProps}>
               <Button icon={<UploadOutlined />}>Upload Lampiran</Button>
             </Upload>
             <small>Format: PDF, JPG, PNG (Max: 5MB)</small>
-          </Form.Item>
+          </Form.Group>
 
-          <Form.Item>
+          <Form as="form".Item>
             <div className="form-actions">
               <Button onClick={() => setShowCreateModal(false)}>
                 Batal
@@ -539,7 +533,7 @@ export default function CorrectiveAction() {
                 Buat Action
               </Button>
             </div>
-          </Form.Item>
+          </Form.Group>
         </Form>
       </Modal>
 
@@ -665,7 +659,7 @@ export default function CorrectiveAction() {
         width={600}
       >
         {selectedAction && (
-          <Form
+          <Form as="form"
             form={form}
             layout="vertical"
             onFinish={handleSubmitResult}
@@ -677,8 +671,8 @@ export default function CorrectiveAction() {
               style={{ marginBottom: 16 }}
             />
 
-            <Form.Item
-              name="final_status"
+            <Form as="form".Item
+              controlId="final_status"
               label="Status Akhir"
               rules={[{ required: true, message: 'Pilih status akhir!' }]}
             >
@@ -687,47 +681,47 @@ export default function CorrectiveAction() {
                 <Option value="failed">Failed</Option>
                 <Option value="cancelled">Cancelled</Option>
               </Select>
-            </Form.Item>
+            </Form.Group>
 
-            <Form.Item
-              name="completion_notes"
+            <Form as="form".Item
+              controlId="completion_notes"
               label="Catatan Penyelesaian"
               rules={[{ required: true, message: 'Masukkan catatan!' }]}
             >
               <TextArea rows={4} placeholder="Deskripsikan hasil penyelesaian..." />
-            </Form.Item>
+            </Form.Group>
 
             <Row gutter={16}>
               <Col span={12}>
-                <Form.Item
-                  name="actual_labor_hours"
+                <Form as="form".Item
+                  controlId="actual_labor_hours"
                   label="Aktual Jam Kerja"
                   rules={[{ required: true, message: 'Masukkan aktual jam kerja!' }]}
                 >
                   <Input type="number" placeholder="Contoh: 3.5" />
-                </Form.Item>
+                </Form.Group>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="parts_cost"
+                <Form as="form".Item
+                  controlId="parts_cost"
                   label="Total Cost Parts"
                 >
                   <Input placeholder="Total cost parts" />
-                </Form.Item>
+                </Form.Group>
               </Col>
             </Row>
 
-            <Form.Item
-              name="attachments"
+            <Form as="form".Item
+              controlId="attachments"
               label="Lampiran Hasil"
             >
               <Upload {...uploadProps}>
                 <Button icon={<UploadOutlined />}>Upload Lampiran</Button>
               </Upload>
               <small>Format: PDF, JPG, PNG (Max: 5MB)</small>
-            </Form.Item>
+            </Form.Group>
 
-            <Form.Item>
+            <Form as="form".Item>
               <div className="form-actions">
                 <Button onClick={() => setShowResultModal(false)}>
                   Batal
@@ -740,7 +734,7 @@ export default function CorrectiveAction() {
                   Selesaikan
                 </Button>
               </div>
-            </Form.Item>
+            </Form.Group>
           </Form>
         )}
       </Modal>

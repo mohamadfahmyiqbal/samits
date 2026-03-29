@@ -1,9 +1,9 @@
 // src/services/SocketService.js
 import { io } from 'socket.io-client';
-import { API_BASE_URL } from '../config/api';
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || API_BASE_URL.replace(/\/api\/?$/, '');
-const ENABLE_WEBSOCKET = import.meta.env.VITE_SOCKET_USE_WEBSOCKET === 'true';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://pik1com074.local.ikoito.co.id:5002/api';
+const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || API_BASE_URL.replace(/\/api\/?$/, '');
+const ENABLE_WEBSOCKET = process.env.REACT_APP_SOCKET_USE_WEBSOCKET === 'true';
 
 class SocketService {
   constructor() {
@@ -20,14 +20,14 @@ class SocketService {
     this.socket = io(SOCKET_URL, {
       withCredentials: true,
       auth: {
-        token: token,
+        token: token
       },
       transports: ENABLE_WEBSOCKET ? ['websocket', 'polling'] : ['polling'],
       upgrade: ENABLE_WEBSOCKET,
       reconnection: true,
       reconnectionAttempts: 8,
       reconnectionDelay: 1000,
-      timeout: 15000,
+      timeout: 15000
     });
 
     // Re-attach app listeners when socket is recreated/reconnected.
@@ -45,11 +45,14 @@ class SocketService {
       this.isConnected = false;
     });
 
-    this.socket.on('socket:ready', () => {});
+    this.socket.on('socket:ready', () => {
+    });
 
-    this.socket.on('server:pong', () => {});
+    this.socket.on('server:pong', () => {
+    });
 
-    this.socket.on('connect_error', () => {});
+    this.socket.on('connect_error', () => {
+    });
   }
 
   disconnect() {

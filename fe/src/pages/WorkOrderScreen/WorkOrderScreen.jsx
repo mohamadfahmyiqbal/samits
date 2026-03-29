@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, Alert, Badge, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Alert, Button, Badge } from 'react-bootstrap';
 import { useWorkOrderData } from './hooks/useWorkOrderData.js';
 import WorkOrderTable from './components/WorkOrderTable.jsx';
 import WorkOrderFilter from './components/WorkOrderFilter.jsx';
@@ -17,8 +17,7 @@ const WorkOrderScreen = () => {
     searchTerm,
     setSearchTerm,
     refreshData,
-    getStatusConfig,
-    deleteWorkOrder
+    deleteWorkOrder,
   } = useWorkOrderData();
 
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -26,7 +25,10 @@ const WorkOrderScreen = () => {
   const [editWorkOrder, setEditWorkOrder] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 25;
-  const paginatedOrders = workOrders.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  const paginatedOrders = workOrders.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
   const totalPages = Math.ceil(workOrders.length / ITEMS_PER_PAGE);
 
   const handleCreateNew = () => setShowCreateModal(true);
@@ -62,16 +64,15 @@ const WorkOrderScreen = () => {
 
   const handleAction = async (action, wo) => {
     // Handle assign, start, complete actions
-    console.log('Action:', action, wo);
   };
 
   if (error) {
     return (
-      <Container className="py-5">
-        <Alert variant="danger">
+      <Container className='py-5'>
+        <Alert variant='danger'>
           <Alert.Heading>Error Loading Work Orders</Alert.Heading>
           <pre>{error}</pre>
-          <Button onClick={handleRefresh} variant="outline-danger">
+          <Button onClick={handleRefresh} variant='outline-danger'>
             Retry
           </Button>
         </Alert>
@@ -80,27 +81,25 @@ const WorkOrderScreen = () => {
   }
 
   return (
-    <Container fluid className="py-4">
+    <Container fluid className='py-4'>
       <Row>
         <Col>
-          <div className="d-flex justify-content-between align-items-center mb-4">
+          <div className='d-flex justify-content-between align-items-center mb-4'>
             <div>
-              <h1 className="fw-bold mb-1">
-                <i className="bi bi-list-task text-primary me-3"></i>
+              <h1 className='fw-bold mb-1'>
+                <i className='bi bi-list-task text-primary me-3'></i>
                 Work Orders
               </h1>
-              <p className="text-muted mb-0">
-                Manage maintenance work orders and assignments
-              </p>
+              <p className='text-muted mb-0'>Manage maintenance work orders and assignments</p>
             </div>
-            <div className="stats-badge-group">
-              <Badge bg="info" className="me-2 py-2 px-3">
+            <div className='stats-badge-group'>
+              <Badge bg='info' className='me-2 py-2 px-3'>
                 Total: {stats.total || 0}
               </Badge>
-              <Badge bg="warning" className="me-2 py-2 px-3">
+              <Badge bg='warning' className='me-2 py-2 px-3'>
                 Open: {stats.open || 0}
               </Badge>
-              <Badge bg="primary" className="me-2 py-2 px-3">
+              <Badge bg='primary' className='me-2 py-2 px-3'>
                 In Progress: {stats.inProgress || 0}
               </Badge>
             </div>
@@ -117,8 +116,8 @@ const WorkOrderScreen = () => {
             onCreateNew={handleCreateNew}
           />
 
-          <Card className="shadow-sm border-0">
-            <Card.Body className="p-0">
+          <Card className='shadow-sm border-0'>
+            <Card.Body className='p-0'>
               <WorkOrderTable
                 workOrders={paginatedOrders}
                 loading={loading}
@@ -151,4 +150,3 @@ const WorkOrderScreen = () => {
 };
 
 export default WorkOrderScreen;
-

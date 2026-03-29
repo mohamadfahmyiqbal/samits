@@ -21,7 +21,6 @@ export const deleteAsset = async (req, res) => {
     const ITItemAttribute = db.ITItemAttribute;
     const ITItemSoftware = db.ITItemSoftware;
     const ITItemSetupChecklist = db.ITItemSetupChecklist;
-    const ITItemStatusHistory = db.ITItemStatusHistory;
     const AssetDocument = db.AssetDocument;
     const LicenseAllocation = db.LicenseAllocation;
     const ITItem = db.ITItem;

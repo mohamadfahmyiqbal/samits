@@ -1,4 +1,5 @@
-import { API_BASE_URL } from '../config/api';
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || 'https://pik1com074.local.ikoito.co.id:5002/api';
 
 const SERVICE_WORKER_PATH = '/service-worker.js';
 
@@ -29,8 +30,8 @@ const fetchVapidPublicKey = async () => {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      ...getAuthHeader(),
-    },
+      ...getAuthHeader()
+    }
   });
 
   if (!response.ok) {
@@ -47,9 +48,9 @@ const submitSubscription = async (subscription) => {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      ...getAuthHeader(),
+      ...getAuthHeader()
     },
-    body: JSON.stringify({ subscription }),
+    body: JSON.stringify({ subscription })
   });
 
   if (!response.ok) {
@@ -79,7 +80,9 @@ export const registerAndSubscribeWebPush = async () => {
   }
 
   const permission =
-    Notification.permission === 'granted' ? 'granted' : await Notification.requestPermission();
+    Notification.permission === 'granted'
+      ? 'granted'
+      : await Notification.requestPermission();
 
   if (permission !== 'granted') {
     return;
@@ -92,7 +95,7 @@ export const registerAndSubscribeWebPush = async () => {
   if (!subscription) {
     subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(publicKey),
+      applicationServerKey: urlBase64ToUint8Array(publicKey)
     });
   }
 

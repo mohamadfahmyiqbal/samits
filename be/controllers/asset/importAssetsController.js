@@ -1,8 +1,36 @@
 import xlsx from "xlsx";
 import crypto from "crypto";
+import winston from "winston";
 import { db, sequelize } from "../../models/index.js";
 import { Op } from "sequelize";
 import { resolveClassificationId, resolveSubCategoryId } from "./shared.js";
+
+// Setup logger for import operations
+const logger = winston.createLogger({
+  level: process.env.NODE_ENV === "production" ? "error" : "debug",
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json(),
+  ),
+  transports: [new winston.transports.File({ filename: "logs/import.log" })],
+});
+
+if (process.env.NODE_ENV !== "production") {
+  logger.add(
+    new winston.transports.Console({
+      format: winston.format.simple(),
+    }),
+  );
+}
+
+const debugLog = (message) => {
+  if (
+    process.env.NODE_ENV !== "production" &&
+    process.env.DEBUG_IMPORT === "true"
+  ) {
+    logger.debug(message);
+  }
+};
 
 const parseYear = (value) => {
   if (!value) return null;
@@ -98,7 +126,7 @@ const getSubCategoryIdByType = async (asset, notFoundCategories = []) => {
       throw new Error(`Category untuk type "${typeName}" tidak ditemukan.`);
     }
 
-    console.log(
+    debugLog(
       `[DEBUG] Found: ${subCategoryId} for "${typeName}", category_id: ${categoryId}`,
     );
     return { subCategoryId, categoryId };
@@ -106,7 +134,7 @@ const getSubCategoryIdByType = async (asset, notFoundCategories = []) => {
     const typeName = String(asset?.type || "").trim();
     if (typeName && !notFoundCategories.includes(typeName)) {
       notFoundCategories.push(typeName);
-      console.log(`[DEBUG] NOT FOUND: "${typeName}"`);
+      debugLog(`[DEBUG] NOT FOUND: "${typeName}"`);
     }
     throw error;
   }
@@ -146,11 +174,11 @@ const extractHostname = (asset = {}) => {
   return hostname;
 };
 
-const upsertItemAssignment = async (itemId, asset) => {
+const upsertItemAssignment = async (itemId, asset, transaction) => {
   const noAsset = String(asset?.noAsset || asset?.["NO.ASSET"] || "").trim();
   try {
     const nik = extractNik(asset);
-    console.log(
+    debugLog(
       `[DEBUG][ASSIGN] asset=${noAsset || "-"} itemId=${itemId} nik="${nik}"`,
     );
 
@@ -159,7 +187,7 @@ const upsertItemAssignment = async (itemId, asset) => {
     }
 
     if (!nik) {
-      console.log(
+      debugLog(
         `[DEBUG][ASSIGN] skip insert assignment because nik is empty for asset=${noAsset || "-"}`,
       );
       return;
@@ -177,9 +205,10 @@ const upsertItemAssignment = async (itemId, asset) => {
           returned_at: null,
           nik: { [Op.ne]: nik },
         },
+        transaction,
       },
     );
-    console.log(
+    debugLog(
       `[DEBUG][ASSIGN] closed previous active assignments count=${closedCount} itemId=${itemId} nik=${nik}`,
     );
 
@@ -191,37 +220,40 @@ const upsertItemAssignment = async (itemId, asset) => {
         returned_at: null,
       },
     });
-    console.log(
+    debugLog(
       `[DEBUG][ASSIGN] activeSameNik count=${activeSameNik ? 1 : 0} itemId=${itemId} nik=${nik}`,
     );
 
     if (!activeSameNik) {
-      await ITItemAssignment.create({
-        nik: nik,
-        assigned_at: now,
-        it_item_id: itemId,
-      });
-      console.log(
+      await ITItemAssignment.create(
+        {
+          nik: nik,
+          assigned_at: now,
+          it_item_id: itemId,
+        },
+        { transaction },
+      );
+      debugLog(
         `[DEBUG][ASSIGN] inserted new assignment itemId=${itemId} nik=${nik}`,
       );
     } else {
-      console.log(
+      debugLog(
         `[DEBUG][ASSIGN] skip insert because active assignment already exists itemId=${itemId} nik=${nik}`,
       );
     }
   } catch (error) {
-    console.error(
+    logger.error(
       `[DEBUG][ASSIGN] abnormal for asset=${noAsset || "-"} itemId=${itemId}: ${error.message}`,
     );
     throw new Error(`Abnormal it_item_assignments: ${error.message}`);
   }
 };
 
-const upsertItemNetwork = async (itemId, asset) => {
+const upsertItemNetwork = async (itemId, asset, transaction) => {
   const noAsset = String(asset?.noAsset || asset?.["NO.ASSET"] || "").trim();
   try {
     const hostname = extractHostname(asset);
-    console.log(
+    debugLog(
       `[DEBUG][NETWORK] asset=${noAsset || "-"} itemId=${itemId} hostname="${hostname}"`,
     );
 
@@ -230,7 +262,7 @@ const upsertItemNetwork = async (itemId, asset) => {
     }
 
     if (!hostname) {
-      console.log(
+      debugLog(
         `[DEBUG][NETWORK] skip upsert network because hostname is empty for asset=${noAsset || "-"}`,
       );
       return;
@@ -247,26 +279,30 @@ const upsertItemNetwork = async (itemId, asset) => {
           it_item_id: itemId,
           is_primary: true,
         },
+        transaction,
       },
     );
 
-    console.log(
+    debugLog(
       `[DEBUG][NETWORK] primary network updated count=${updatedCount} itemId=${itemId}`,
     );
 
     if (!updatedCount) {
-      await ITItemNetwork.create({
-        it_item_id: itemId,
-        hostname: hostname,
-        is_primary: true,
-        updated_at: now,
-      });
-      console.log(
+      await ITItemNetwork.create(
+        {
+          it_item_id: itemId,
+          hostname: hostname,
+          is_primary: true,
+          updated_at: now,
+        },
+        { transaction },
+      );
+      debugLog(
         `[DEBUG][NETWORK] inserted primary network itemId=${itemId} hostname="${hostname}"`,
       );
     }
   } catch (error) {
-    console.error(
+    logger.error(
       `[DEBUG][NETWORK] abnormal for asset=${noAsset || "-"} itemId=${itemId}: ${error.message}`,
     );
     throw new Error(`Abnormal it_item_networks: ${error.message}`);
@@ -328,7 +364,7 @@ const getClassificationIdByAsset = async (asset) => {
   return await getClassificationId();
 };
 
-const createNewAsset = async (asset, notFoundCategories) => {
+const createNewAsset = async (asset, notFoundCategories, transaction) => {
   const noAsset = (asset.noAsset || "").trim();
   const status = asset.status || "Active";
   const tahunBeli = asset.tahunBeli
@@ -342,34 +378,37 @@ const createNewAsset = async (asset, notFoundCategories) => {
   );
   const classificationId = await getClassificationIdByAsset(asset);
 
-  console.log(
+  debugLog(
     `[DEBUG] createNewAsset - noAsset: ${noAsset}, subCategoryId: ${subCategoryId}, categoryId: ${categoryId}, classificationId: ${classificationId}`,
   );
 
-  const newItem = await db.ITItem.create({
-    it_item_id: crypto.randomUUID(),
-    sub_category_id: subCategoryId,
-    category_id: categoryId,
-    classification_id: classificationId,
-    asset_tag: noAsset,
-    current_status: status,
-    po_date_period: period,
-    inspection_date_period: period,
-    acquisition_status: "Acquired",
-    is_disposed: false,
-    po_number: asset.noPO || null,
-    asset_main_type_id: asset.asset_main_type_id
-      ? Number(asset.asset_main_type_id)
-      : null,
-  });
+  const newItem = await db.ITItem.create(
+    {
+      it_item_id: crypto.randomUUID(),
+      sub_category_id: subCategoryId,
+      category_id: categoryId,
+      classification_id: classificationId,
+      asset_tag: noAsset,
+      current_status: status,
+      po_date_period: period,
+      inspection_date_period: period,
+      acquisition_status: "Acquired",
+      is_disposed: false,
+      po_number: asset.noPO || null,
+      asset_main_type_id: asset.asset_main_type_id
+        ? Number(asset.asset_main_type_id)
+        : null,
+    },
+    { transaction },
+  );
 
-  await upsertItemAssignment(newItem.it_item_id, asset);
-  await upsertItemNetwork(newItem.it_item_id, asset);
+  await upsertItemAssignment(newItem.it_item_id, asset, transaction);
+  await upsertItemNetwork(newItem.it_item_id, asset, transaction);
 
   return { success: true, noAsset, it_item_id: newItem.it_item_id };
 };
 
-const updateExistingAsset = async (itItemId, asset) => {
+const updateExistingAsset = async (itItemId, asset, transaction) => {
   const status = asset.status || "Active";
   const tahunBeli = asset.tahunBeli
     ? String(asset.tahunBeli).slice(0, 4)
@@ -388,22 +427,25 @@ const updateExistingAsset = async (itItemId, asset) => {
     },
     {
       where: { it_item_id: itItemId },
+      transaction,
     },
   );
 
-  await upsertItemAssignment(itItemId, asset);
-  await upsertItemNetwork(itItemId, asset);
+  await upsertItemAssignment(itItemId, asset, transaction);
+  await upsertItemNetwork(itItemId, asset, transaction);
 
   return { success: true };
 };
 
 export const importAssets = async (req, res) => {
+  const transaction = await sequelize.transaction();
   try {
     const assets = req.body;
 
-    console.log("[DEBUG] importAssets called, total:", assets?.length);
+    debugLog("[DEBUG] importAssets called, total:", assets?.length);
 
     if (!Array.isArray(assets) || assets.length === 0) {
+      await transaction.rollback();
       return res.status(400).json({ message: "Data array kosong." });
     }
 
@@ -419,10 +461,10 @@ export const importAssets = async (req, res) => {
     for (let i = 0; i < assets.length; i++) {
       try {
         const asset = assets[i];
-        const noAsset = (asset.noAsset || asset["NO.ASSET"] || "").trim();
+        const noAsset = (asset.noAsset || asset?.["NO.ASSET"] || "").trim();
         const nik = extractNik(asset);
         const hostname = extractHostname(asset);
-        console.log(
+        debugLog(
           `[DEBUG][IMPORT API] row=${i + 1} noAsset=${noAsset || "-"} nik="${nik}" hostname="${hostname}"`,
         );
 
@@ -435,16 +477,21 @@ export const importAssets = async (req, res) => {
         const existing = await findExistingAsset(noAsset);
 
         if (existing) {
-          await updateExistingAsset(existing.it_item_id, asset);
+          await updateExistingAsset(existing.it_item_id, asset, transaction);
           results.updated++;
         } else {
-          await createNewAsset(asset, results.notFoundCategories);
+          await createNewAsset(asset, results.notFoundCategories, transaction);
           results.created++;
         }
       } catch (rowError) {
         results.failed++;
         results.errors.push({ row: i + 1, error: rowError.message });
 
+        await transaction.rollback();
+        logger.error(
+          `[DEBUG] Import API error at row ${i + 1}:`,
+          rowError.message,
+        );
         return res.status(200).json({
           message: `Import berhenti di row ${i + 1} karena error: ${rowError.message}`,
           results,
@@ -452,18 +499,22 @@ export const importAssets = async (req, res) => {
       }
     }
 
+    await transaction.commit();
     return res.status(200).json({
       message: `Import selesai. Created: ${results.created}, Updated: ${results.updated}, Failed: ${results.failed}`,
       results,
     });
   } catch (error) {
+    await transaction.rollback();
     return res.status(500).json({ message: `Gagal import: ${error.message}` });
   }
 };
 
 export const importAssetsFromExcel = async (req, res) => {
+  const transaction = await sequelize.transaction();
   try {
     if (!req.file) {
+      await transaction.rollback();
       return res.status(400).json({ message: "File Excel wajib diupload." });
     }
 
@@ -477,7 +528,7 @@ export const importAssetsFromExcel = async (req, res) => {
       .filter(Boolean);
     const debugFlag = String(normalizedBody.debug || "").trim() === "1";
 
-    console.log("[DEBUG] Reading workbook");
+    debugLog("[DEBUG] Reading workbook");
     const workbook = xlsx.read(req.file.buffer, { type: "buffer" });
     const selectedSheetNames = requestedSheetNames.length
       ? workbook.SheetNames.filter((name) => requestedSheetNames.includes(name))
@@ -491,8 +542,8 @@ export const importAssetsFromExcel = async (req, res) => {
     }
 
     if (debugFlag) {
-      console.log("[DEBUG] Body:", normalizedBody);
-      console.log("[DEBUG] Selected sheets:", selectedSheetNames);
+      logger.debug("[DEBUG] Body:", normalizedBody);
+      logger.debug("[DEBUG] Selected sheets:", selectedSheetNames);
     }
 
     const results = {
@@ -514,7 +565,7 @@ export const importAssetsFromExcel = async (req, res) => {
 
       if (!rawData || rawData.length < 5) {
         if (debugFlag) {
-          console.log(
+          logger.debug(
             `[DEBUG] Skip sheet "${sheetName}" karena format tidak valid`,
           );
         }
@@ -523,9 +574,7 @@ export const importAssetsFromExcel = async (req, res) => {
 
       const dataRows = rawData.slice(4);
       results.total += dataRows.length;
-      console.log(
-        `[DEBUG] Sheet "${sheetName}" total rows: ${dataRows.length}`,
-      );
+      debugLog(`[DEBUG] Sheet "${sheetName}" total rows: ${dataRows.length}`);
 
       for (let i = 0; i < dataRows.length; i++) {
         const rowNum = i + 5;
@@ -537,7 +586,7 @@ export const importAssetsFromExcel = async (req, res) => {
           const normalizedType = typeValue.toUpperCase();
 
           if (debugFlag) {
-            console.log(
+            debugLog(
               `[DEBUG] Sheet "${sheetName}" Row ${rowNum} - noAsset: "${noAsset}", type: "${typeValue}"`,
             );
           }
@@ -559,27 +608,31 @@ export const importAssetsFromExcel = async (req, res) => {
             noAsset: noAsset,
             type: typeValue,
             sheetName: sheetName,
-            status: String(row[13] || "Active").trim(),
+            status: String(row[24] || row[13] || "Active").trim(),
             tahunBeli: parseYear(row[10]),
             noPO: String(row[21] || "").trim(),
-            nik: String(row[6] || "").trim(),
-            hostname: String(row[7] || "").trim(),
+            nik: String(row[6] || row[22] || row[23] || "").trim(),
+            hostname: String(row[9] || row[24] || row[25] || "").trim(),
           };
-          console.log(
+          debugLog(
             `[DEBUG][IMPORT EXCEL] sheet=${sheetName} row=${rowNum} noAsset=${asset.noAsset || "-"} nik="${asset.nik}" hostname="${asset.hostname}"`,
           );
 
           const existing = await findExistingAsset(noAsset);
 
           if (existing) {
-            await updateExistingAsset(existing.it_item_id, asset);
+            await updateExistingAsset(existing.it_item_id, asset, transaction);
             results.updated++;
           } else {
-            await createNewAsset(asset, results.notFoundCategories);
+            await createNewAsset(
+              asset,
+              results.notFoundCategories,
+              transaction,
+            );
             results.created++;
           }
         } catch (rowError) {
-          console.error(
+          logger.error(
             `[DEBUG] Sheet "${sheetName}" Row ${rowNum} - ERROR:`,
             rowError.message,
           );
@@ -591,6 +644,7 @@ export const importAssetsFromExcel = async (req, res) => {
             error: rowError.message,
           });
 
+          await transaction.rollback();
           return res.status(200).json({
             message: `Import berhenti di sheet ${sheetName} row ${rowNum} karena error: ${rowError.message}`,
             results,
@@ -599,13 +653,15 @@ export const importAssetsFromExcel = async (req, res) => {
       }
     }
 
-    console.log("[DEBUG] Import completed - results:", results);
+    debugLog("[DEBUG] Import completed - results:", results);
+    await transaction.commit();
     return res.status(200).json({
       message: `Import selesai. Created: ${results.created}, Updated: ${results.updated}, Failed: ${results.failed}`,
       results,
     });
   } catch (error) {
-    console.error("[DEBUG] Import Excel error:", error.message);
+    await transaction.rollback();
+    logger.error("[DEBUG] Import Excel error:", error.message);
     return res.status(500).json({ message: `Gagal import: ${error.message}` });
   }
 };
