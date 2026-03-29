@@ -52,6 +52,12 @@ const userService = {
     });
     return response.data;
   },
+  fetchMaintenanceUsers: async () => {
+    const response = await axios.get(`${API_URL}/maintenance-team`, {
+      withCredentials: true,
+    });
+    return response.data;
+  },
 };
 
 export default userService;

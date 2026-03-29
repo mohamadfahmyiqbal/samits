@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { handleError } from '../utils/errorHandler';
 
 const API_BASE = process.env.REACT_APP_API_BASE_URL || 'https://localhost:5002/api';
 
@@ -37,7 +38,17 @@ export const useUserRole = () => {
         localStorage.setItem('userData', JSON.stringify(user));
       }
     } catch (error) {
-      console.error('Error fetching user profile:', error);
+      handleError(error, {
+        fallbackMessage: 'Gagal memuat data user',
+        showToast: false, // Don't show toast for background fetch
+        customAction: (error, errorType) => {
+          if (errorType === 'authentication') {
+            setUserRole(null);
+            setUserData(null);
+            return;
+          }
+        },
+      });
       // Fallback ke localStorage jika API gagal
       const storedUserData = localStorage.getItem('userData');
       if (storedUserData) {
@@ -48,7 +59,10 @@ export const useUserRole = () => {
           }
           setUserData(parsed);
         } catch (e) {
-          console.error('Error parsing stored user data:', e);
+          handleError(e, {
+            fallbackMessage: 'Gagal memuat data user tersimpan',
+            showToast: false,
+          });
         }
       }
     } finally {
@@ -68,7 +82,10 @@ export const useUserRole = () => {
         }
         setUserData(parsed);
       } catch (e) {
-        console.error('Error parsing stored user data:', e);
+        handleError(e, {
+          fallbackMessage: 'Gagal memuat data user tersimpan',
+          showToast: false,
+        });
       }
     }
 

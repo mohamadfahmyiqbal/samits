@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Card, Table, Button, Input, Select, Row, Col, message, Modal, Alert, Tag, Steps, Progress, Upload } from 'antd';
-import { 
+import {
+  Form,
+  Card,
+  Table,
+  Button,
+  Input,
+  Select,
+  Row,
+  Col,
+  message,
+  Modal,
+  Alert,
+  Tag,
+  Steps,
+  Progress,
+  Upload,
+} from 'antd';
+import {
   EyeOutlined,
   PlusOutlined,
   EditOutlined,
   UploadOutlined,
   WarningOutlined,
   PlayCircleOutlined,
-  StopOutlined
+  StopOutlined,
 } from '@ant-design/icons';
 import './CorrectiveAction.css';
 
@@ -30,13 +46,13 @@ export default function CorrectiveAction() {
       title: 'Action ID',
       dataIndex: 'action_id',
       key: 'action_id',
-      render: (text) => <Tag color="blue">{text}</Tag>
+      render: (text) => <Tag color='blue'>{text}</Tag>,
     },
     {
       title: 'Job Request',
       dataIndex: 'job_request_id',
       key: 'job_request_id',
-      render: (text) => <Tag color="green">{text}</Tag>
+      render: (text) => <Tag color='green'>{text}</Tag>,
     },
     {
       title: 'Aset',
@@ -47,7 +63,7 @@ export default function CorrectiveAction() {
           <div style={{ fontWeight: 500 }}>{text}</div>
           <div style={{ fontSize: '12px', color: '#666' }}>{record.asset_tag}</div>
         </div>
-      )
+      ),
     },
     {
       title: 'Tindakan',
@@ -55,18 +71,18 @@ export default function CorrectiveAction() {
       key: 'action_type',
       render: (type) => {
         const colorMap = {
-          'repair': 'blue',
-          'replace': 'orange',
-          'configure': 'green',
-          'troubleshoot': 'purple'
+          repair: 'blue',
+          replace: 'orange',
+          configure: 'green',
+          troubleshoot: 'purple',
         };
         return <Tag color={colorMap[type]}>{type}</Tag>;
-      }
+      },
     },
     {
       title: 'Teknisi',
       dataIndex: 'technician_name',
-      key: 'technician_name'
+      key: 'technician_name',
     },
     {
       title: 'Status',
@@ -74,60 +90,56 @@ export default function CorrectiveAction() {
       key: 'status',
       render: (status) => {
         const colorMap = {
-          'planned': 'orange',
-          'in_progress': 'blue',
-          'completed': 'green',
-          'failed': 'red',
-          'cancelled': 'default'
+          planned: 'orange',
+          in_progress: 'blue',
+          completed: 'green',
+          failed: 'red',
+          cancelled: 'default',
         };
         const iconMap = {
-          'planned': <ClockCircleOutlined />,
-          'in_progress': <PlayCircleOutlined />,
-          'completed': <CheckCircleOutlined />,
-          'failed': <WarningOutlined />,
-          'cancelled': <StopOutlined />
+          planned: <ClockCircleOutlined />,
+          in_progress: <PlayCircleOutlined />,
+          completed: <CheckCircleOutlined />,
+          failed: <WarningOutlined />,
+          cancelled: <StopOutlined />,
         };
         return (
           <Tag color={colorMap[status]} icon={iconMap[status]}>
             {status}
           </Tag>
         );
-      }
+      },
     },
     {
       title: 'Progress',
       dataIndex: 'progress',
       key: 'progress',
       render: (progress) => (
-        <Progress 
-          percent={progress} 
-          size="small" 
+        <Progress
+          percent={progress}
+          size='small'
           status={progress === 100 ? 'success' : 'active'}
         />
-      )
+      ),
     },
     {
       title: 'Tanggal',
       dataIndex: 'created_date',
       key: 'created_date',
-      render: (date) => new Date(date).toLocaleDateString('id-ID')
+      render: (date) => new Date(date).toLocaleDateString('id-ID'),
     },
     {
       title: 'Aksi',
       key: 'action',
       render: (_, record) => (
-        <div className="action-buttons">
-          <Button 
-            size="small" 
-            icon={<EyeOutlined />}
-            onClick={() => handleViewDetail(record)}
-          >
+        <div className='action-buttons'>
+          <Button size='small' icon={<EyeOutlined />} onClick={() => handleViewDetail(record)}>
             Detail
           </Button>
           {record.status === 'in_progress' && (
-            <Button 
-              type="primary" 
-              size="small" 
+            <Button
+              type='primary'
+              size='small'
               icon={<CheckCircleOutlined />}
               onClick={() => handleCompleteAction(record)}
             >
@@ -135,8 +147,8 @@ export default function CorrectiveAction() {
             </Button>
           )}
         </div>
-      )
-    }
+      ),
+    },
   ];
 
   useEffect(() => {
@@ -157,14 +169,27 @@ export default function CorrectiveAction() {
         actual_completion: null,
         description: 'Perbaikan power supply laptop yang mati',
         steps: [
-          { step: 'Diagnosis', status: 'completed', completed_date: '2024-03-25', notes: 'Power supply rusak' },
-          { step: 'Replacement', status: 'in_progress', completed_date: null, notes: 'Sedang mengganti PSU' },
-          { step: 'Testing', status: 'pending', completed_date: null, notes: 'Menunggu replacement selesai' }
+          {
+            step: 'Diagnosis',
+            status: 'completed',
+            completed_date: '2024-03-25',
+            notes: 'Power supply rusak',
+          },
+          {
+            step: 'Replacement',
+            status: 'in_progress',
+            completed_date: null,
+            notes: 'Sedang mengganti PSU',
+          },
+          {
+            step: 'Testing',
+            status: 'pending',
+            completed_date: null,
+            notes: 'Menunggu replacement selesai',
+          },
         ],
-        parts_used: [
-          { name: 'Power Supply Dell XPS', quantity: 1, cost: 1500000 }
-        ],
-        labor_hours: 3
+        parts_used: [{ name: 'Power Supply Dell XPS', quantity: 1, cost: 1500000 }],
+        labor_hours: 3,
       },
       {
         id: 2,
@@ -181,14 +206,27 @@ export default function CorrectiveAction() {
         actual_completion: '2024-03-25',
         description: 'Penggantian fan server yang overheating',
         steps: [
-          { step: 'Diagnosis', status: 'completed', completed_date: '2024-03-24', notes: 'Fan rusak, penyebab overheating' },
-          { step: 'Replacement', status: 'completed', completed_date: '2024-03-25', notes: 'Fan berhasil diganti' },
-          { step: 'Testing', status: 'completed', completed_date: '2024-03-25', notes: 'Temperature normal' }
+          {
+            step: 'Diagnosis',
+            status: 'completed',
+            completed_date: '2024-03-24',
+            notes: 'Fan rusak, penyebab overheating',
+          },
+          {
+            step: 'Replacement',
+            status: 'completed',
+            completed_date: '2024-03-25',
+            notes: 'Fan berhasil diganti',
+          },
+          {
+            step: 'Testing',
+            status: 'completed',
+            completed_date: '2024-03-25',
+            notes: 'Temperature normal',
+          },
         ],
-        parts_used: [
-          { name: 'Cooling Fan HP ProLiant', quantity: 2, cost: 2500000 }
-        ],
-        labor_hours: 4
+        parts_used: [{ name: 'Cooling Fan HP ProLiant', quantity: 2, cost: 2500000 }],
+        labor_hours: 4,
       },
       {
         id: 3,
@@ -205,13 +243,28 @@ export default function CorrectiveAction() {
         actual_completion: null,
         description: 'Troubleshooting monitor yang berkedip',
         steps: [
-          { step: 'Diagnosis', status: 'completed', completed_date: '2024-03-23', notes: 'Kemungkinan kabel VGA loose' },
-          { step: 'Cable Check', status: 'pending', completed_date: null, notes: 'Periksa kabel VGA' },
-          { step: 'Testing', status: 'pending', completed_date: null, notes: 'Test dengan kabel baru' }
+          {
+            step: 'Diagnosis',
+            status: 'completed',
+            completed_date: '2024-03-23',
+            notes: 'Kemungkinan kabel VGA loose',
+          },
+          {
+            step: 'Cable Check',
+            status: 'pending',
+            completed_date: null,
+            notes: 'Periksa kabel VGA',
+          },
+          {
+            step: 'Testing',
+            status: 'pending',
+            completed_date: null,
+            notes: 'Test dengan kabel baru',
+          },
         ],
         parts_used: [],
-        labor_hours: 2
-      }
+        labor_hours: 2,
+      },
     ]);
   }, []);
 
@@ -226,34 +279,33 @@ export default function CorrectiveAction() {
     form.setFieldsValue({
       completion_notes: '',
       final_status: 'completed',
-      parts_cost: action.parts_used.reduce((total, part) => total + (part.cost * part.quantity), 0),
-      actual_labor_hours: action.labor_hours
+      parts_cost: action.parts_used.reduce((total, part) => total + part.cost * part.quantity, 0),
+      actual_labor_hours: action.labor_hours,
     });
   };
 
   const handleSubmitAction = async (values) => {
     try {
       setLoading(true);
-      
+
       const actionData = {
         action_id: `CA-${String(correctiveActionData.length + 1).padStart(3, '0')}`,
         ...values,
         created_date: new Date().toISOString().split('T')[0],
         created_by: 'current_user', // Replace with actual user
         status: 'planned',
-        progress: 0
+        progress: 0,
       };
 
       // API call to save corrective action
 
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       message.success('Corrective action berhasil dibuat!');
       setShowCreateModal(false);
       form.resetFields();
       setFileList([]);
-      
     } catch (error) {
       message.error('Gagal membuat corrective action');
     } finally {
@@ -264,39 +316,40 @@ export default function CorrectiveAction() {
   const handleSubmitResult = async (values) => {
     try {
       setLoading(true);
-      
+
       const resultData = {
         action_id: selectedAction.action_id,
         ...values,
         actual_completion: new Date().toISOString().split('T')[0],
         completed_by: 'current_user', // Replace with actual user
         status: values.final_status,
-        progress: 100
+        progress: 100,
       };
 
       // API call to complete corrective action
 
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       // Update local state
-      setCorrectiveActionData(prev => prev.map(item => 
-        item.id === selectedAction.id 
-          ? { 
-              ...item, 
-              status: values.final_status,
-              progress: 100,
-              actual_completion: resultData.actual_completion,
-              completion_notes: values.completion_notes
-            }
-          : item
-      ));
-      
+      setCorrectiveActionData((prev) =>
+        prev.map((item) =>
+          item.id === selectedAction.id
+            ? {
+                ...item,
+                status: values.final_status,
+                progress: 100,
+                actual_completion: resultData.actual_completion,
+                completion_notes: values.completion_notes,
+              }
+            : item
+        )
+      );
+
       message.success('Corrective action berhasil diselesaikan!');
       setShowResultModal(false);
       setSelectedAction(null);
       form.resetFields();
-      
     } catch (error) {
       message.error('Gagal menyelesaikan corrective action');
     } finally {
@@ -315,34 +368,40 @@ export default function CorrectiveAction() {
       setFileList([...fileList, file]);
       return false;
     },
-    fileList };
+    fileList,
+  };
 
   const getActionSteps = (steps) => {
     return steps.map((step, index) => ({
       title: step.step,
       description: step.status === 'completed' ? step.completed_date : 'Pending',
-      status: step.status === 'completed' ? 'finish' : 
-              step.status === 'in_progress' ? 'process' : 'wait',
-      icon: step.status === 'completed' ? <CheckCircleOutlined /> : 
-            step.status === 'in_progress' ? <PlayCircleOutlined /> : 
-            <ClockCircleOutlined />
+      status:
+        step.status === 'completed' ? 'finish' : step.status === 'in_progress' ? 'process' : 'wait',
+      icon:
+        step.status === 'completed' ? (
+          <CheckCircleOutlined />
+        ) : step.status === 'in_progress' ? (
+          <PlayCircleOutlined />
+        ) : (
+          <ClockCircleOutlined />
+        ),
     }));
   };
 
   const getActionStats = () => {
     const total = correctiveActionData.length;
-    const inProgress = correctiveActionData.filter(a => a.status === 'in_progress').length;
-    const completed = correctiveActionData.filter(a => a.status === 'completed').length;
-    const planned = correctiveActionData.filter(a => a.status === 'planned').length;
-    
+    const inProgress = correctiveActionData.filter((a) => a.status === 'in_progress').length;
+    const completed = correctiveActionData.filter((a) => a.status === 'completed').length;
+    const planned = correctiveActionData.filter((a) => a.status === 'planned').length;
+
     return { total, inProgress, completed, planned };
   };
 
   const stats = getActionStats();
 
   return (
-    <div className="corrective-action">
-      <div className="page-header">
+    <div className='corrective-action'>
+      <div className='page-header'>
         <h1>Corrective Action Workflow</h1>
         <p>Kelola tindakan korektif untuk perbaikan aset</p>
       </div>
@@ -351,11 +410,11 @@ export default function CorrectiveAction() {
       <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
         <Col span={6}>
           <Card>
-            <div className="stat-card">
-              <div className="stat-icon total">
+            <div className='stat-card'>
+              <div className='stat-icon total'>
                 <ToolOutlined />
               </div>
-              <div className="stat-content">
+              <div className='stat-content'>
                 <h3>{stats.total}</h3>
                 <p>Total Actions</p>
               </div>
@@ -364,9 +423,9 @@ export default function CorrectiveAction() {
         </Col>
         <Col span={6}>
           <Card>
-            <div className="stat-card progress">
+            <div className='stat-card progress'>
               <PlayCircleOutlined />
-              <div className="stat-content">
+              <div className='stat-content'>
                 <h3>{stats.inProgress}</h3>
                 <p>In Progress</p>
               </div>
@@ -375,9 +434,9 @@ export default function CorrectiveAction() {
         </Col>
         <Col span={6}>
           <Card>
-            <div className="stat-card completed">
+            <div className='stat-card completed'>
               <CheckCircleOutlined />
-              <div className="stat-content">
+              <div className='stat-content'>
                 <h3>{stats.completed}</h3>
                 <p>Completed</p>
               </div>
@@ -386,9 +445,9 @@ export default function CorrectiveAction() {
         </Col>
         <Col span={6}>
           <Card>
-            <div className="stat-card planned">
+            <div className='stat-card planned'>
               <ClockCircleOutlined />
-              <div className="stat-content">
+              <div className='stat-content'>
                 <h3>{stats.planned}</h3>
                 <p>Planned</p>
               </div>
@@ -398,12 +457,8 @@ export default function CorrectiveAction() {
       </Row>
 
       <Card>
-        <div className="card-header">
-          <Button 
-            type="primary" 
-            icon={<PlusOutlined />}
-            onClick={() => setShowCreateModal(true)}
-          >
+        <div className='card-header'>
+          <Button type='primary' icon={<PlusOutlined />} onClick={() => setShowCreateModal(true)}>
             Buat Corrective Action
           </Button>
         </div>
@@ -411,7 +466,7 @@ export default function CorrectiveAction() {
         <Table
           columns={correctiveActionColumns}
           dataSource={correctiveActionData}
-          rowKey="id"
+          rowKey='id'
           pagination={{ pageSize: 10 }}
           scroll={{ x: 1200 }}
         />
@@ -419,7 +474,7 @@ export default function CorrectiveAction() {
 
       {/* Create Modal */}
       <Modal
-        title="Buat Corrective Action"
+        title='Buat Corrective Action'
         open={showCreateModal}
         onCancel={() => {
           setShowCreateModal(false);
@@ -429,184 +484,209 @@ export default function CorrectiveAction() {
         footer={null}
         width={700}
       >
-        <Form as="form"
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmitAction}
-        >
+        <Form form={form} layout='vertical' onFinish={handleSubmitAction}>
           <Row gutter={16}>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="job_request_id"
-                label="Job Request ID"
+              <Form.Item
+                name='job_request_id'
+                label='Job Request ID'
                 rules={[{ required: true, message: 'Masukkan Job Request ID!' }]}
               >
-                <Input placeholder="Contoh: JR-001" />
-              </Form.Group>
+                <Input placeholder='Contoh: JR-001' />
+              </Form.Item>
             </Col>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="action_type"
-                label="Tipe Tindakan"
+              <Form.Item
+                name='action_type'
+                label='Tipe Tindakan'
                 rules={[{ required: true, message: 'Pilih tipe tindakan!' }]}
               >
-                <Select placeholder="Pilih tipe">
-                  <Option value="repair">Repair</Option>
-                  <Option value="replace">Replace</Option>
-                  <Option value="configure">Configure</Option>
-                  <Option value="troubleshoot">Troubleshoot</Option>
+                <Select placeholder='Pilih tipe'>
+                  <Option value='repair'>Repair</Option>
+                  <Option value='replace'>Replace</Option>
+                  <Option value='configure'>Configure</Option>
+                  <Option value='troubleshoot'>Troubleshoot</Option>
                 </Select>
-              </Form.Group>
+              </Form.Item>
             </Col>
           </Row>
 
           <Row gutter={16}>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="asset_name"
-                label="Nama Aset"
+              <Form.Item
+                name='asset_name'
+                label='Nama Aset'
                 rules={[{ required: true, message: 'Masukkan nama aset!' }]}
               >
-                <Input placeholder="Masukkan nama aset" />
-              </Form.Group>
+                <Input placeholder='Masukkan nama aset' />
+              </Form.Item>
             </Col>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="technician_name"
-                label="Teknisi"
+              <Form.Item
+                name='technician_name'
+                label='Teknisi'
                 rules={[{ required: true, message: 'Masukkan nama teknisi!' }]}
               >
-                <Input placeholder="Masukkan nama teknisi" />
-              </Form.Group>
+                <Input placeholder='Masukkan nama teknisi' />
+              </Form.Item>
             </Col>
           </Row>
 
-          <Form as="form".Item
-            controlId="description"
-            label="Deskripsi Tindakan"
+          <Form.Item
+            name='description'
+            label='Deskripsi Tindakan'
             rules={[{ required: true, message: 'Masukkan deskripsi!' }]}
           >
-            <TextArea rows={4} placeholder="Deskripsikan tindakan yang akan dilakukan..." />
-          </Form.Group>
+            <TextArea rows={4} placeholder='Deskripsikan tindakan yang akan dilakukan...' />
+          </Form.Item>
 
           <Row gutter={16}>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="estimated_completion"
-                label="Estimasi Selesai"
+              <Form.Item
+                name='estimated_completion'
+                label='Estimasi Selesai'
                 rules={[{ required: true, message: 'Pilih tanggal estimasi!' }]}
               >
-                <DatePicker style={{ width: '100%' }} placeholder="Pilih tanggal" />
-              </Form.Group>
+                <DatePicker style={{ width: '100%' }} placeholder='Pilih tanggal' />
+              </Form.Item>
             </Col>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="labor_hours"
-                label="Estimasi Jam Kerja"
+              <Form.Item
+                name='labor_hours'
+                label='Estimasi Jam Kerja'
                 rules={[{ required: true, message: 'Masukkan estimasi jam!' }]}
               >
-                <Input type="number" placeholder="Contoh: 4" />
-              </Form.Group>
+                <Input type='number' placeholder='Contoh: 4' />
+              </Form.Item>
             </Col>
           </Row>
 
-          <Form as="form".Item
-            controlId="attachments"
-            label="Lampiran (Opsional)"
-          >
+          <Form.Item name='attachments' label='Lampiran (Opsional)'>
             <Upload {...uploadProps}>
               <Button icon={<UploadOutlined />}>Upload Lampiran</Button>
             </Upload>
             <small>Format: PDF, JPG, PNG (Max: 5MB)</small>
-          </Form.Group>
+          </Form.Item>
 
-          <Form as="form".Item>
-            <div className="form-actions">
-              <Button onClick={() => setShowCreateModal(false)}>
-                Batal
-              </Button>
-              <Button 
-                type="primary" 
-                htmlType="submit"
-                loading={loading}
-              >
+          <Form.Item>
+            <div className='form-actions'>
+              <Button onClick={() => setShowCreateModal(false)}>Batal</Button>
+              <Button type='primary' htmlType='submit' loading={loading}>
                 Buat Action
               </Button>
             </div>
-          </Form.Group>
+          </Form.Item>
         </Form>
       </Modal>
 
       {/* Detail Modal */}
       <Modal
-        title="Detail Corrective Action"
+        title='Detail Corrective Action'
         open={showDetailModal}
         onCancel={() => setShowDetailModal(false)}
         footer={[
-          <Button key="close" onClick={() => setShowDetailModal(false)}>
+          <Button key='close' onClick={() => setShowDetailModal(false)}>
             Tutup
-          </Button>
+          </Button>,
         ]}
         width={900}
       >
         {selectedAction && (
-          <div className="action-detail">
+          <div className='action-detail'>
             <Row gutter={[16, 16]}>
               <Col span={12}>
                 <h4>Informasi Action</h4>
-                <p><strong>Action ID:</strong> {selectedAction.action_id}</p>
-                <p><strong>Job Request:</strong> {selectedAction.job_request_id}</p>
-                <p><strong>Tipe:</strong> <Tag color="blue">{selectedAction.action_type}</Tag></p>
-                <p><strong>Teknisi:</strong> {selectedAction.technician_name}</p>
-                <p><strong>Status:</strong> <Tag color="green">{selectedAction.status}</Tag></p>
+                <p>
+                  <strong>Action ID:</strong> {selectedAction.action_id}
+                </p>
+                <p>
+                  <strong>Job Request:</strong> {selectedAction.job_request_id}
+                </p>
+                <p>
+                  <strong>Tipe:</strong> <Tag color='blue'>{selectedAction.action_type}</Tag>
+                </p>
+                <p>
+                  <strong>Teknisi:</strong> {selectedAction.technician_name}
+                </p>
+                <p>
+                  <strong>Status:</strong> <Tag color='green'>{selectedAction.status}</Tag>
+                </p>
               </Col>
               <Col span={12}>
                 <h4>Informasi Aset</h4>
-                <p><strong>Nama Aset:</strong> {selectedAction.asset_name}</p>
-                <p><strong>Asset Tag:</strong> {selectedAction.asset_tag}</p>
-                <p><strong>Progress:</strong></p>
+                <p>
+                  <strong>Nama Aset:</strong> {selectedAction.asset_name}
+                </p>
+                <p>
+                  <strong>Asset Tag:</strong> {selectedAction.asset_tag}
+                </p>
+                <p>
+                  <strong>Progress:</strong>
+                </p>
                 <Progress percent={selectedAction.progress} />
               </Col>
             </Row>
-            
+
             <Divider />
-            
+
             <div>
               <h4>Deskripsi</h4>
               <p>{selectedAction.description}</p>
             </div>
 
             <Divider />
-            
+
             <div>
               <h4>Progress Steps</h4>
               <Steps
-                current={selectedAction.steps.findIndex(s => s.status === 'in_progress')}
+                current={selectedAction.steps.findIndex((s) => s.status === 'in_progress')}
                 items={getActionSteps(selectedAction.steps)}
-                size="small"
+                size='small'
               />
-              
-              <div className="steps-timeline">
+
+              <div className='steps-timeline'>
                 <Timeline>
                   {selectedAction.steps.map((step, index) => (
                     <Timeline.Item
                       key={index}
-                      color={step.status === 'completed' ? 'green' : 
-                             step.status === 'in_progress' ? 'blue' : 'gray'}
-                      dot={step.status === 'completed' ? <CheckCircleOutlined /> : 
-                           step.status === 'in_progress' ? <PlayCircleOutlined /> : 
-                           <ClockCircleOutlined />}
+                      color={
+                        step.status === 'completed'
+                          ? 'green'
+                          : step.status === 'in_progress'
+                            ? 'blue'
+                            : 'gray'
+                      }
+                      dot={
+                        step.status === 'completed' ? (
+                          <CheckCircleOutlined />
+                        ) : step.status === 'in_progress' ? (
+                          <PlayCircleOutlined />
+                        ) : (
+                          <ClockCircleOutlined />
+                        )
+                      }
                     >
-                      <div className="timeline-content">
-                        <div className="timeline-header">
+                      <div className='timeline-content'>
+                        <div className='timeline-header'>
                           <strong>{step.step}</strong>
-                          <Tag color={step.status === 'completed' ? 'green' : 
-                                     step.status === 'in_progress' ? 'blue' : 'orange'}>
+                          <Tag
+                            color={
+                              step.status === 'completed'
+                                ? 'green'
+                                : step.status === 'in_progress'
+                                  ? 'blue'
+                                  : 'orange'
+                            }
+                          >
                             {step.status}
                           </Tag>
                         </div>
                         <p>{step.notes}</p>
-                        {step.completed_date && <p><small>Tanggal: {step.completed_date}</small></p>}
+                        {step.completed_date && (
+                          <p>
+                            <small>Tanggal: {step.completed_date}</small>
+                          </p>
+                        )}
                       </div>
                     </Timeline.Item>
                   ))}
@@ -619,7 +699,7 @@ export default function CorrectiveAction() {
                 <Divider />
                 <div>
                   <h4>Parts yang Digunakan</h4>
-                  <table className="parts-table">
+                  <table className='parts-table'>
                     <thead>
                       <tr>
                         <th>Nama Part</th>
@@ -648,7 +728,7 @@ export default function CorrectiveAction() {
 
       {/* Result Modal */}
       <Modal
-        title="Selesaikan Corrective Action"
+        title='Selesaikan Corrective Action'
         open={showResultModal}
         onCancel={() => {
           setShowResultModal(false);
@@ -659,82 +739,66 @@ export default function CorrectiveAction() {
         width={600}
       >
         {selectedAction && (
-          <Form as="form"
-            form={form}
-            layout="vertical"
-            onFinish={handleSubmitResult}
-          >
+          <Form form={form} layout='vertical' onFinish={handleSubmitResult}>
             <Alert
               message={`Menyelesaikan: ${selectedAction.action_id}`}
               description={`${selectedAction.asset_name} - ${selectedAction.description}`}
-              type="info"
+              type='info'
               style={{ marginBottom: 16 }}
             />
 
-            <Form as="form".Item
-              controlId="final_status"
-              label="Status Akhir"
+            <Form.Item
+              name='final_status'
+              label='Status Akhir'
               rules={[{ required: true, message: 'Pilih status akhir!' }]}
             >
-              <Select placeholder="Pilih status">
-                <Option value="completed">Completed</Option>
-                <Option value="failed">Failed</Option>
-                <Option value="cancelled">Cancelled</Option>
+              <Select placeholder='Pilih status'>
+                <Option value='completed'>Completed</Option>
+                <Option value='failed'>Failed</Option>
+                <Option value='cancelled'>Cancelled</Option>
               </Select>
-            </Form.Group>
+            </Form.Item>
 
-            <Form as="form".Item
-              controlId="completion_notes"
-              label="Catatan Penyelesaian"
+            <Form.Item
+              name='completion_notes'
+              label='Catatan Penyelesaian'
               rules={[{ required: true, message: 'Masukkan catatan!' }]}
             >
-              <TextArea rows={4} placeholder="Deskripsikan hasil penyelesaian..." />
-            </Form.Group>
+              <TextArea rows={4} placeholder='Deskripsikan hasil penyelesaian...' />
+            </Form.Item>
 
             <Row gutter={16}>
               <Col span={12}>
-                <Form as="form".Item
-                  controlId="actual_labor_hours"
-                  label="Aktual Jam Kerja"
+                <Form.Item
+                  name='actual_labor_hours'
+                  label='Aktual Jam Kerja'
                   rules={[{ required: true, message: 'Masukkan aktual jam kerja!' }]}
                 >
-                  <Input type="number" placeholder="Contoh: 3.5" />
-                </Form.Group>
+                  <Input type='number' placeholder='Contoh: 3.5' />
+                </Form.Item>
               </Col>
               <Col span={12}>
-                <Form as="form".Item
-                  controlId="parts_cost"
-                  label="Total Cost Parts"
-                >
-                  <Input placeholder="Total cost parts" />
-                </Form.Group>
+                <Form.Item name='parts_cost' label='Total Cost Parts'>
+                  <Input placeholder='Total cost parts' />
+                </Form.Item>
               </Col>
             </Row>
 
-            <Form as="form".Item
-              controlId="attachments"
-              label="Lampiran Hasil"
-            >
+            <Form.Item name='attachments' label='Lampiran Hasil'>
               <Upload {...uploadProps}>
                 <Button icon={<UploadOutlined />}>Upload Lampiran</Button>
               </Upload>
               <small>Format: PDF, JPG, PNG (Max: 5MB)</small>
-            </Form.Group>
+            </Form.Item>
 
-            <Form as="form".Item>
-              <div className="form-actions">
-                <Button onClick={() => setShowResultModal(false)}>
-                  Batal
-                </Button>
-                <Button 
-                  type="primary" 
-                  htmlType="submit"
-                  loading={loading}
-                >
+            <Form.Item>
+              <div className='form-actions'>
+                <Button onClick={() => setShowResultModal(false)}>Batal</Button>
+                <Button type='primary' htmlType='submit' loading={loading}>
                   Selesaikan
                 </Button>
               </div>
-            </Form.Group>
+            </Form.Item>
           </Form>
         )}
       </Modal>

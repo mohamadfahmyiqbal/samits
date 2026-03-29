@@ -1,16 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Button, Table, Tag, Space, message, Steps, Modal } from 'antd';
-import { 
-  CalendarOutlined,
-  TeamOutlined,
-  PrinterOutlined,
-  EditOutlined,
-  DeleteOutlined
-} from '@ant-design/icons';
+import {
+  Card,
+  Row,
+  Col,
+  Button,
+  Space,
+  message,
+  Switch,
+  Select,
+  Modal,
+  Form,
+  DatePicker,
+} from 'antd';
+import { BarChartOutlined, ScheduleOutlined } from '@ant-design/icons';
+import DetailModal from './components/modals/DetailModal';
+import AddScheduleModal from './components/modals/AddScheduleModal';
+import ScheduleTable from './components/ScheduleTable';
+import GanttChart from './components/GanttChart';
+import StatisticsCards from './components/StatisticsCards';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './MaintenanceSchedule.css';
+import {
+  format,
+  differenceInDays,
+  addDays,
+  subDays,
+  startOfWeek,
+  endOfWeek,
+  startOfMonth,
+  endOfMonth,
+} from 'date-fns';
+import {
+  fetchActiveLogs,
+  createLog,
+  updateLog,
+  deleteLog,
+} from '../../services/MaintenanceService';
+import {
+  fetchMainTypes,
+  fetchCategoriesByMainType,
+  fetchSubCategoriesByCategory,
+  fetchITItemsByCategory,
+} from '../../services/CategoryService';
+import userService from '../../services/UserService';
 
-const { Step } = Steps;
+const { Option } = Select;
 
 export default function MaintenanceSchedule() {
   const navigate = useNavigate();
@@ -19,66 +52,283 @@ export default function MaintenanceSchedule() {
   const [scheduleData, setScheduleData] = useState([]);
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
+  const [addModalVisible, setAddModalVisible] = useState(false);
+  const [viewMode, setViewMode] = useState('table'); // 'table' or 'gantt'
+  const [ganttViewType, setGanttViewType] = useState('weekly'); // 'daily', 'weekly', 'monthly'
+  const [selectedDateRange, setSelectedDateRange] = useState(null);
+  const [form] = Form.useForm();
+
+  // Category states
+  const [mainTypes, setMainTypes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [itItems, setItItems] = useState([]);
+  const [selectedMainType, setSelectedMainType] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [categoriesLoading, setCategoriesLoading] = useState(false);
+  const [itItemsLoading, setItItemsLoading] = useState(false);
+
+  // Maintenance team state
+  const [maintenanceTeam, setMaintenanceTeam] = useState([]);
+  const [teamLoading, setTeamLoading] = useState(false);
 
   const { category, subcategory, schedule, selectedDate, selectedTime } = location.state || {};
 
-  const mockScheduleData = [
-    {
-      id: 1,
-      schedule_code: 'MS-2024-001',
-      category: 'Preventive Maintenance',
-      subcategory: 'Monthly Check',
-      equipment: 'Server HP ProLiant DL360',
-      location: 'Data Center Lantai 2',
-      team: 'Team Alpha',
-      date: '2024-03-28',
-      start_time: '08:00',
-      end_time: '10:00',
-      status: 'scheduled',
-      priority: 'medium',
-      created_by: 'Admin',
-      created_date: '2024-03-25',
-      notes: 'Monthly preventive maintenance for server'
-    },
-    {
-      id: 2,
-      schedule_code: 'MS-2024-002',
-      category: 'Corrective Maintenance',
-      subcategory: 'Emergency Repair',
-      equipment: 'Laptop Dell XPS 15',
-      location: 'IT Office',
-      team: 'Team Beta',
-      date: '2024-03-27',
-      start_time: '14:00',
-      end_time: '16:00',
-      status: 'in_progress',
-      priority: 'high',
-      created_by: 'User',
-      created_date: '2024-03-24',
-      notes: 'Emergency repair for laptop display issue'
-    },
-    {
-      id: 3,
-      schedule_code: 'MS-2024-003',
-      category: 'Predictive Maintenance',
-      subcategory: 'Vibration Analysis',
-      equipment: 'Industrial Pump Unit A',
-      location: 'Production Area',
-      team: 'Team Gamma',
-      date: '2024-03-29',
-      start_time: '09:00',
-      end_time: '12:00',
-      status: 'pending',
-      priority: 'low',
-      created_by: 'Maintenance',
-      created_date: '2024-03-26',
-      notes: 'Vibration analysis for pump unit'
+  const timelineItems = selectedSchedule
+    ? [
+        {
+          label: 'Created',
+          children: (
+            <div>
+              <p>
+                <strong>Date:</strong> {selectedSchedule.created_date}
+              </p>
+              <p>
+                <strong>By:</strong> {selectedSchedule.created_by}
+              </p>
+            </div>
+          ),
+          color: 'green',
+        },
+        {
+          label: 'Scheduled',
+          children: (
+            <div>
+              <p>
+                <strong>Date:</strong> {selectedSchedule.date}
+              </p>
+              <p>
+                <strong>Time:</strong> {selectedSchedule.start_time} - {selectedSchedule.end_time}
+              </p>
+              <p>
+                <strong>Team:</strong> {selectedSchedule.team}
+              </p>
+            </div>
+          ),
+          color: 'blue',
+        },
+        ...(selectedSchedule.status === 'completed'
+          ? [
+              {
+                label: 'Completed',
+                children: (
+                  <div>
+                    <p>Maintenance completed successfully</p>
+                  </div>
+                ),
+                color: 'green',
+              },
+            ]
+          : []),
+      ]
+    : [];
+
+  // Transform backend data to frontend format
+  const transformBackendData = (backendData) => {
+    return backendData.map((item) => ({
+      id: item.id,
+      schedule_code: `MS-${item.id}`,
+      category: item.category || 'Preventive Maintenance',
+      subcategory: item.type || 'General Check',
+      equipment: item.assetName || item.hostname || 'Unknown Equipment',
+      location: item.location || 'To be determined',
+      team: item.pic || 'To be assigned',
+      date: item.scheduledDate,
+      start_time: item.scheduledStartTime || '09:00',
+      end_time: item.scheduledEndTime || '11:00',
+      status:
+        item.status === 'done'
+          ? 'completed'
+          : item.status === 'abnormal'
+            ? 'cancelled'
+            : item.status,
+      priority: item.priority || 'medium',
+      criticality: item.criticality || 'medium',
+      required_skills: item.requiredSkills || [],
+      estimated_duration: item.estimatedDuration || 2,
+      created_by: item.createdBy,
+      created_date: item.createdAt?.split('T')[0] || new Date().toISOString().split('T')[0],
+      notes: item.description || item.notes || 'No notes',
+      // Keep original data for API calls
+      originalData: item,
+    }));
+  };
+
+  // Fetch maintenance team from API
+  const fetchMaintenanceTeam = async () => {
+    setTeamLoading(true);
+    try {
+      const response = await userService.fetchMaintenanceUsers();
+      if (response.success) {
+        setMaintenanceTeam(response.data || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch maintenance team:', error);
+      // Fallback to mock data if API fails
+      setMaintenanceTeam([
+        { nik: '12345', name: 'John Doe', display_name: 'John Doe (12345)' },
+        { nik: '67890', name: 'Jane Smith', display_name: 'Jane Smith (67890)' },
+        { nik: '11111', name: 'Mike Johnson', display_name: 'Mike Johnson (11111)' },
+      ]);
+    } finally {
+      setTeamLoading(false);
     }
-  ];
+  };
+
+  // Fetch categories from API
+  const fetchCategories = async () => {
+    try {
+      const response = await fetchMainTypes();
+      if (response.data) {
+        setMainTypes(response.data || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch main types:', error);
+      // Fallback to mock data if API fails
+      setMainTypes([
+        { asset_main_type_id: 1, main_type_name: 'IT Infrastructure' },
+        { asset_main_type_id: 2, main_type_name: 'Network Equipment' },
+        { asset_main_type_id: 3, main_type_name: 'Server' },
+        { asset_main_type_id: 4, main_type_name: 'Storage' },
+        { asset_main_type_id: 5, main_type_name: 'Security' },
+        { asset_main_type_id: 6, main_type_name: 'Facility' },
+      ]);
+    }
+  };
+
+  // Fetch categories by main type
+  const fetchCategoriesByMainTypeLocal = async (mainTypeId) => {
+    if (!mainTypeId) {
+      setCategories([]);
+      return;
+    }
+
+    setCategoriesLoading(true);
+    try {
+      const response = await fetchCategoriesByMainType(mainTypeId);
+      if (response.data) {
+        setCategories(response.data || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch categories:', error);
+      // Fallback to mock data
+      setCategories([
+        { category: 'Preventive Maintenance', category_id: 1, sub_categories: [] },
+        { category: 'Corrective Maintenance', category_id: 2, sub_categories: [] },
+        { category: 'Predictive Maintenance', category_id: 3, sub_categories: [] },
+        { category: 'Emergency Maintenance', category_id: 4, sub_categories: [] },
+      ]);
+    } finally {
+      setCategoriesLoading(false);
+    }
+  };
+
+  // Fetch subcategories by category
+  const fetchSubCategoriesByCategoryLocal = async (categoryId) => {
+    if (!categoryId) {
+      setSubCategories([]);
+      return;
+    }
+
+    try {
+      const response = await fetchSubCategoriesByCategory(categoryId);
+      if (response.data && response.data.length > 0) {
+        // Backend returns categories with sub_categories array
+        const categoryData = response.data[0];
+        setSubCategories(categoryData.sub_categories || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch subcategories:', error);
+      // Fallback to mock data
+      setSubCategories([
+        { sub_category_id: 1, sub_category_name: 'Equipment Inspection' },
+        { sub_category_id: 2, sub_category_name: 'Lubrication' },
+        { sub_category_id: 3, sub_category_name: 'Calibration' },
+        { sub_category_id: 4, sub_category_name: 'Cleaning' },
+        { sub_category_id: 5, sub_category_name: 'Hardware Repair' },
+        { sub_category_id: 6, sub_category_name: 'Software Update' },
+        { sub_category_id: 7, sub_category_name: 'Network Configuration' },
+        { sub_category_id: 8, sub_category_name: 'Security Audit' },
+      ]);
+    }
+  };
+
+  // Fetch IT items by category/subcategory
+  const fetchITItems = async (categoryId, subCategoryId, mainTypeId = null) => {
+    if (!categoryId || !subCategoryId) {
+      setItItems([]);
+      return;
+    }
+    setItItemsLoading(true);
+    try {
+      const response = await fetchITItemsByCategory(categoryId, subCategoryId, mainTypeId);
+      if (response.data) {
+        setItItems(response.data || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch IT items:', error);
+      setItItems([]);
+    } finally {
+      setItItemsLoading(false);
+    }
+  };
+
+  // Handle main type change
+  const handleMainTypeChange = (value) => {
+    setSelectedMainType(value);
+    setSelectedCategory(null);
+    setSelectedSubCategory(null);
+    setCategories([]);
+    setSubCategories([]);
+    setItItems([]);
+    form.setFieldsValue({
+      category_id: undefined,
+      sub_category_id: undefined,
+      hostname: undefined,
+    });
+    fetchCategoriesByMainTypeLocal(value);
+  };
+
+  // Handle category change
+  const handleCategoryChange = (value) => {
+    setSelectedCategory(value);
+    setSelectedSubCategory(null);
+    setSubCategories([]);
+    setItItems([]);
+    form.setFieldsValue({ sub_category_id: undefined, hostname: undefined });
+    fetchSubCategoriesByCategoryLocal(value);
+  };
+
+  // Handle subcategory change
+  const handleSubCategoryChange = (value) => {
+    setSelectedSubCategory(value);
+    form.setFieldsValue({ hostname: undefined });
+    fetchITItems(selectedCategory, value, selectedMainType);
+  };
+  const fetchSchedules = async () => {
+    setLoading(true);
+    try {
+      const response = await fetchActiveLogs();
+      if (response.success) {
+        const transformedData = transformBackendData(response.data);
+        setScheduleData(transformedData);
+      }
+    } catch (error) {
+      console.error('Failed to fetch schedules:', error);
+      message.error('Gagal mengambil data jadwal');
+      // Fallback to mock data if API fails
+      setScheduleData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    setScheduleData(mockScheduleData);
-    
+    fetchSchedules();
+    fetchCategories(); // Fetch categories on component mount
+    fetchMaintenanceTeam(); // Fetch maintenance team on component mount
+
     // Add new schedule if coming from previous steps
     if (category && subcategory && schedule) {
       const newSchedule = {
@@ -94,27 +344,84 @@ export default function MaintenanceSchedule() {
         end_time: schedule.end_time || '11:00',
         status: 'scheduled',
         priority: schedule.priority || 'medium',
+        criticality: 'medium',
+        required_skills: [],
+        estimated_duration: 2,
         created_by: 'Current User',
         created_date: new Date().toISOString().split('T')[0],
-        notes: schedule.notes || 'New maintenance schedule'
+        notes: schedule.notes || 'New maintenance schedule',
       };
-      
-      setScheduleData(prev => [newSchedule, ...prev]);
-      message.success('Jadwal maintenance berhasil dibuat!');
+
+      // Create schedule via API
+      createScheduleFromWizard(newSchedule);
     }
   }, [category, subcategory, schedule, selectedDate]);
 
+  // Create schedule from wizard data
+  const createScheduleFromWizard = async (scheduleData) => {
+    console.log('[DEBUG Frontend] scheduleData from form:', JSON.stringify(scheduleData, null, 2));
+    try {
+      const payload = {
+        hostname: scheduleData.hostname,
+        category_id: scheduleData.category_id,
+        sub_category_id: scheduleData.sub_category_id,
+        start_date: scheduleData.start_date?.format
+          ? scheduleData.start_date.format('YYYY-MM-DD')
+          : scheduleData.start_date,
+        end_date: scheduleData.end_date?.format
+          ? scheduleData.end_date.format('YYYY-MM-DD')
+          : scheduleData.end_date,
+        start_time: scheduleData.start_time?.format
+          ? scheduleData.start_time.format('HH:mm')
+          : scheduleData.start_time,
+        end_time: scheduleData.end_time?.format
+          ? scheduleData.end_time.format('HH:mm')
+          : scheduleData.end_time,
+        team: scheduleData.team,
+        description: scheduleData.notes,
+        notes: scheduleData.notes,
+        priority: scheduleData.priority || 'medium',
+        estimated_duration: scheduleData.estimated_duration || 2.0,
+        recurrence: scheduleData.recurrence,
+        recurrence_interval: scheduleData.recurrence_interval,
+        recurrence_end_date: scheduleData.recurrence_end_date?.format
+          ? scheduleData.recurrence_end_date.format('YYYY-MM-DD')
+          : scheduleData.recurrence_end_date,
+        recurrence_count: scheduleData.recurrence_count,
+      };
+      console.log('[DEBUG Frontend] payload to be sent:', JSON.stringify(payload, null, 2));
+
+      const response = await createLog(payload);
+      if (response.success) {
+        message.success('Jadwal maintenance berhasil dibuat!');
+        fetchSchedules(); // Refresh data
+        return true; // Success - modal can close
+      } else {
+        message.error(response.message || 'Gagal membuat jadwal');
+        return false; // Failed - keep modal open
+      }
+    } catch (error) {
+      console.error('Failed to create schedule:', error);
+      message.error('Gagal membuat jadwal');
+      return false; // Failed - keep modal open
+    }
+  };
+
   const handleViewDetail = (schedule) => {
-    setSelectedSchedule(schedule);
-    setDetailModalVisible(true);
+    navigate('/dashboard-maintenance', {
+      state: {
+        viewMode: 'detail',
+        scheduleData: schedule,
+      },
+    });
   };
 
   const handleEdit = (schedule) => {
-    navigate('/pilih-category', { 
-      state: { 
+    navigate('/pilih-category', {
+      state: {
         editMode: true,
-        scheduleData: schedule
-      } 
+        scheduleData: schedule,
+      },
     });
   };
 
@@ -126,338 +433,151 @@ export default function MaintenanceSchedule() {
       cancelText: 'Tidak',
       onOk: async () => {
         try {
-          setScheduleData(prev => prev.filter(item => item.id !== id));
-          message.success('Jadwal berhasil dihapus');
+          const response = await deleteLog(id);
+          if (response.success) {
+            message.success('Jadwal berhasil dihapus');
+            fetchSchedules(); // Refresh data
+          } else {
+            message.error(response.message || 'Gagal menghapus jadwal');
+          }
         } catch (error) {
+          console.error('Failed to delete schedule:', error);
           message.error('Gagal menghapus jadwal');
         }
-      }
+      },
     });
+  };
+
+  const handleAddSchedule = () => {
+    // Show modal for creating new schedule
+    setAddModalVisible(true);
   };
 
   const handlePrint = (schedule) => {
     message.info('Fitur print akan segera tersedia');
   };
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'scheduled': return 'blue';
-      case 'in_progress': return 'orange';
-      case 'completed': return 'green';
-      case 'cancelled': return 'red';
-      case 'pending': return 'default';
-      default: return 'default';
+  // Helper function to get date range based on view type
+  const getDateRange = () => {
+    const now = new Date();
+
+    if (selectedDateRange && selectedDateRange[0] && selectedDateRange[1]) {
+      return { start: selectedDateRange[0], end: selectedDateRange[1] };
+    }
+
+    switch (ganttViewType) {
+      case 'daily':
+        return { start: now, end: addDays(now, 0) }; // Today only
+      case 'weekly':
+        return {
+          start: startOfWeek(now, { weekStartsOn: 1 }),
+          end: endOfWeek(now, { weekStartsOn: 1 }),
+        };
+      case 'monthly':
+        return { start: startOfMonth(now), end: endOfMonth(now) };
+      default:
+        return { start: subDays(now, 7), end: addDays(now, 30) };
     }
   };
-
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case 'critical': return 'red';
-      case 'high': return 'orange';
-      case 'medium': return 'blue';
-      case 'low': return 'green';
-      default: return 'default';
-    }
-  };
-
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'scheduled': return <CalendarOutlined />;
-      case 'in_progress': return <ClockCircleOutlined />;
-      case 'completed': return <CheckCircleOutlined />;
-      case 'cancelled': return <ExclamationCircleOutlined />;
-      default: return <CalendarOutlined />;
-    }
-  };
-
-  const columns = [
-    {
-      title: 'Schedule Code',
-      dataIndex: 'schedule_code',
-      key: 'schedule_code',
-      render: (text) => <strong>{text}</strong> },
-    {
-      title: 'Category',
-      dataIndex: 'category',
-      key: 'category',
-      render: (category) => <Tag color="blue">{category}</Tag> },
-    {
-      title: 'Equipment',
-      dataIndex: 'equipment',
-      key: 'equipment' },
-    {
-      title: 'Location',
-      dataIndex: 'location',
-      key: 'location' },
-    {
-      title: 'Team',
-      dataIndex: 'team',
-      key: 'team',
-      render: (team) => <Tag color="green">{team}</Tag> },
-    {
-      title: 'Date & Time',
-      key: 'datetime',
-      render: (_, record) => (
-        <div>
-          <div>{record.date}</div>
-          <small>{record.start_time} - {record.end_time}</small>
-        </div>
-      ) },
-    {
-      title: 'Priority',
-      dataIndex: 'priority',
-      key: 'priority',
-      render: (priority) => (
-        <Tag color={getPriorityColor(priority)}>
-          {priority.toUpperCase()}
-        </Tag>
-      ) },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status) => (
-        <Tag color={getStatusColor(status)} icon={getStatusIcon(status)}>
-          {status.replace('_', ' ').toUpperCase()}
-        </Tag>
-      ) },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space>
-          <Button
-            type="primary"
-            size="small"
-            icon={<EditOutlined />}
-            onClick={() => handleEdit(record)}
-          >
-            Edit
-          </Button>
-          <Button
-            type="primary"
-            size="small"
-            icon={<PrinterOutlined />}
-            onClick={() => handlePrint(record)}
-          >
-            Print
-          </Button>
-          <Button
-            type="primary"
-            danger
-            size="small"
-            icon={<DeleteOutlined />}
-            onClick={() => handleDelete(record.id)}
-          >
-            Delete
-          </Button>
-        </Space>
-      ) },
-  ];
-
-  const timelineItems = selectedSchedule ? [
-    {
-      label: 'Created',
-      children: (
-        <div>
-          <p><strong>Date:</strong> {selectedSchedule.created_date}</p>
-          <p><strong>By:</strong> {selectedSchedule.created_by}</p>
-        </div>
-      ),
-      color: 'green' },
-    {
-      label: 'Scheduled',
-      children: (
-        <div>
-          <p><strong>Date:</strong> {selectedSchedule.date}</p>
-          <p><strong>Time:</strong> {selectedSchedule.start_time} - {selectedSchedule.end_time}</p>
-          <p><strong>Team:</strong> {selectedSchedule.team}</p>
-        </div>
-      ),
-      color: 'blue' },
-    ...(selectedSchedule.status === 'completed' ? [{
-      label: 'Completed',
-      children: (
-        <div>
-          <p>Maintenance completed successfully</p>
-        </div>
-      ),
-      color: 'green' }] : []),
-  ] : [];
 
   return (
-    <div className="maintenance-schedule">
-      <div className="page-header">
+    <div className='maintenance-schedule'>
+      <div className='page-header'>
         <h1>Maintenance Schedule</h1>
         <p>Kelola jadwal maintenance dan monitoring status</p>
       </div>
 
-      <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
-        <Col span={6}>
-          <Card>
-            <div className="statistic-card">
-              <CalendarOutlined className="statistic-icon scheduled" />
-              <div className="statistic-content">
-                <div className="statistic-title">Scheduled</div>
-                <div className="statistic-value">
-                  {scheduleData.filter(item => item.status === 'scheduled').length}
-                </div>
-              </div>
-            </div>
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <div className="statistic-card">
-              <ClockCircleOutlined className="statistic-icon in-progress" />
-              <div className="statistic-content">
-                <div className="statistic-title">In Progress</div>
-                <div className="statistic-value">
-                  {scheduleData.filter(item => item.status === 'in_progress').length}
-                </div>
-              </div>
-            </div>
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <div className="statistic-card">
-              <CheckCircleOutlined className="statistic-icon completed" />
-              <div className="statistic-content">
-                <div className="statistic-title">Completed</div>
-                <div className="statistic-value">
-                  {scheduleData.filter(item => item.status === 'completed').length}
-                </div>
-              </div>
-            </div>
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <div className="statistic-card">
-              <ExclamationCircleOutlined className="statistic-icon pending" />
-              <div className="statistic-content">
-                <div className="statistic-title">Pending</div>
-                <div className="statistic-value">
-                  {scheduleData.filter(item => item.status === 'pending').length}
-                </div>
-              </div>
-            </div>
-          </Card>
-        </Col>
-      </Row>
+      <StatisticsCards scheduleData={scheduleData} />
 
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <Card 
-            title="Daftar Jadwal Maintenance"
+          <Card
+            title='Daftar Jadwal Maintenance'
             extra={
-              <Button 
-                type="primary" 
-                onClick={() => navigate('/pilih-category')}
-              >
-                + Tambah Jadwal
-              </Button>
+              <Space>
+                <Switch
+                  checkedChildren={<BarChartOutlined />}
+                  unCheckedChildren={<ScheduleOutlined />}
+                  checked={viewMode === 'gantt'}
+                  onChange={(checked) => setViewMode(checked ? 'gantt' : 'table')}
+                />
+                {viewMode === 'gantt' && (
+                  <Select value={ganttViewType} onChange={setGanttViewType} style={{ width: 120 }}>
+                    <Option value='daily'>Daily</Option>
+                    <Option value='weekly'>Weekly</Option>
+                    <Option value='monthly'>Monthly</Option>
+                  </Select>
+                )}
+                <DatePicker.RangePicker
+                  value={selectedDateRange}
+                  onChange={setSelectedDateRange}
+                  placeholder={['Start Date', 'End Date']}
+                />
+                <Button type='primary' onClick={handleAddSchedule}>
+                  Tambah Jadwal
+                </Button>
+              </Space>
             }
           >
-            <Table
-              columns={columns}
-              dataSource={scheduleData}
-              rowKey="id"
-              loading={loading}
-              pagination={{
-                total: scheduleData.length,
-                pageSize: 10,
-                showSizeChanger: true,
-                showQuickJumper: true,
-                showTotal: (total, range) => 
-                  `${range[0]}-${range[1]} dari ${total} jadwal` }}
-              expandable={{
-                expandedRowRender: (record) => (
-                  <div className="expanded-content">
-                    <Row gutter={[16, 16]}>
-                      <Col span={12}>
-                        <h4>Detail Schedule</h4>
-                        <p><strong>Subcategory:</strong> {record.subcategory}</p>
-                        <p><strong>Priority:</strong> <Tag color={getPriorityColor(record.priority)}>{record.priority.toUpperCase()}</Tag></p>
-                        <p><strong>Created Date:</strong> {record.created_date}</p>
-                        <p><strong>Created By:</strong> {record.created_by}</p>
-                      </Col>
-                      <Col span={12}>
-                        <h4>Catatan</h4>
-                        <p>{record.notes}</p>
-                      </Col>
-                    </Row>
-                  </div>
-                ),
-                rowExpandable: (record) => record.notes }}
-            />
+            {viewMode === 'gantt' ? (
+              <GanttChart
+                scheduleData={scheduleData}
+                ganttViewType={ganttViewType}
+                selectedDateRange={selectedDateRange}
+                getDateRange={getDateRange}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                onViewDetail={handleViewDetail}
+              />
+            ) : (
+              <ScheduleTable
+                scheduleData={scheduleData}
+                loading={loading}
+                onEdit={handleEdit}
+                onPrint={handlePrint}
+                onDelete={handleDelete}
+              />
+            )}
           </Card>
         </Col>
       </Row>
 
-      <Modal
-        title="Detail Maintenance Schedule"
-        open={detailModalVisible}
-        onCancel={() => {
+      <DetailModal
+        visible={detailModalVisible}
+        onClose={() => {
           setDetailModalVisible(false);
           setSelectedSchedule(null);
         }}
-        footer={[
-          <Button key="print" icon={<PrinterOutlined />}>
-            Print
-          </Button>,
-          <Button key="close" onClick={() => setDetailModalVisible(false)}>
-            Close
-          </Button>
-        ]}
-        width={800}
-      >
-        {selectedSchedule && (
-          <div className="schedule-detail">
-            <Row gutter={[16, 16]}>
-              <Col span={12}>
-                <div className="detail-section">
-                  <h4>Informasi Schedule</h4>
-                  <p><strong>Kode:</strong> {selectedSchedule.schedule_code}</p>
-                  <p><strong>Kategori:</strong> {selectedSchedule.category}</p>
-                  <p><strong>Subkategori:</strong> {selectedSchedule.subcategory}</p>
-                  <p><strong>Status:</strong> <Tag color={getStatusColor(selectedSchedule.status)}>{selectedSchedule.status.replace('_', ' ').toUpperCase()}</Tag></p>
-                  <p><strong>Priority:</strong> <Tag color={getPriorityColor(selectedSchedule.priority)}>{selectedSchedule.priority.toUpperCase()}</Tag></p>
-                </div>
-              </Col>
-              <Col span={12}>
-                <div className="detail-section">
-                  <h4>Detail Waktu & Lokasi</h4>
-                  <p><strong>Tanggal:</strong> {selectedSchedule.date}</p>
-                  <p><strong>Waktu:</strong> {selectedSchedule.start_time} - {selectedSchedule.end_time}</p>
-                  <p><strong>Lokasi:</strong> {selectedSchedule.location}</p>
-                  <p><strong>Equipment:</strong> {selectedSchedule.equipment}</p>
-                  <p><strong>Tim:</strong> {selectedSchedule.team}</p>
-                </div>
-              </Col>
-            </Row>
-            
-            <Row gutter={[16, 16]}>
-              <Col span={24}>
-                <div className="detail-section">
-                  <h4>Catatan</h4>
-                  <p>{selectedSchedule.notes}</p>
-                </div>
-              </Col>
-            </Row>
+        selectedSchedule={selectedSchedule}
+        timelineItems={timelineItems}
+      />
 
-            <Row gutter={[16, 16]}>
-              <Col span={24}>
-                <div className="detail-section">
-                  <h4>Timeline</h4>
-                  <Timeline items={timelineItems} />
-                </div>
-              </Col>
-            </Row>
-          </div>
-        )}
-      </Modal>
+      <AddScheduleModal
+        visible={addModalVisible}
+        onCancel={() => setAddModalVisible(false)}
+        onSubmit={async (values) => {
+          const success = await createScheduleFromWizard(values);
+          if (success) {
+            setAddModalVisible(false);
+            form.resetFields();
+          }
+        }}
+        form={form}
+        maintenanceTeam={maintenanceTeam}
+        teamLoading={teamLoading}
+        mainTypes={mainTypes}
+        categories={categories}
+        subCategories={subCategories}
+        itItems={itItems}
+        itItemsLoading={itItemsLoading}
+        selectedMainType={selectedMainType}
+        selectedCategory={selectedCategory}
+        selectedSubCategory={selectedSubCategory}
+        categoriesLoading={categoriesLoading}
+        onMainTypeChange={handleMainTypeChange}
+        onCategoryChange={handleCategoryChange}
+        onSubCategoryChange={handleSubCategoryChange}
+      />
     </div>
   );
 }

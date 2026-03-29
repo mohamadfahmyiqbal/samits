@@ -128,7 +128,9 @@ export const listItItems = async (req, res) => {
         dept: null, // TODO: Fix HRGAUser
         nik: assignment?.nik || null,
         tahunBeli: tahunBeli,
-        tahunDepreciation: item.useful_life_year,
+        tahunDepreciation: item.depreciation_end_date
+          ? new Date(item.depreciation_end_date).getFullYear()
+          : null,
         hostname: networkMain?.hostname || null,
         mainIpAdress: networkMain?.ip_address || null,
         backupIpAdress: networkBackup?.ip_address || null,

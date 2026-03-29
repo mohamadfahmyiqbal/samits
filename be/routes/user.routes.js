@@ -14,6 +14,7 @@ import { getAllRoles } from "../controllers/user/getAllRolesController.js";
 import { listLocalUsers } from "../controllers/user/listLocalUsersController.js";
 import { deleteUser } from "../controllers/user/deleteController.js";
 import { testAuth } from "../controllers/user/testController.js";
+import { getMaintenanceTeam } from "../controllers/user/getMaintenanceTeamController.js";
 
 const router = express.Router();
 
@@ -27,6 +28,7 @@ router.get("/test", testAuth);
 router.get("/profile", authMiddleware, getProfile);
 router.put("/:nik", authMiddleware, updateUser);
 router.get("/karyawan/:nik", authMiddleware, getKaryawanByNik);
+router.get("/maintenance-team", authMiddleware, getMaintenanceTeam);
 
 // Public route - untuk dropdown karyawan & role
 router.get("/getallkaryawan", getAllKaryawan);

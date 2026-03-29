@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Card, Row, Col, Table, Button, Modal, Input, Select, Tag, Space, message } from 'antd';
-import { UserOutlined, SearchOutlined, 
-  EditOutlined,
-  ReloadOutlined
-} from '@ant-design/icons';
+import {
+  Form,
+  Card,
+  Row,
+  Col,
+  Table,
+  Button,
+  Modal,
+  Input,
+  Select,
+  Tag,
+  Space,
+  message,
+} from 'antd';
+import { UserOutlined, SearchOutlined, EditOutlined, ReloadOutlined } from '@ant-design/icons';
 import './DataPengguna.css';
 
 const { Option } = Select;
@@ -26,7 +36,7 @@ export default function DataPengguna() {
       asset_count: 3,
       assets: ['Laptop Dell XPS 15', 'Monitor LG 27 inch', 'Mouse Logitech'],
       join_date: '2022-01-15',
-      status: 'active'
+      status: 'active',
     },
     {
       id: 2,
@@ -37,7 +47,7 @@ export default function DataPengguna() {
       asset_count: 2,
       assets: ['Laptop HP EliteBook', 'Docking Station'],
       join_date: '2021-06-20',
-      status: 'active'
+      status: 'active',
     },
     {
       id: 3,
@@ -48,8 +58,8 @@ export default function DataPengguna() {
       asset_count: 4,
       assets: ['Laptop ThinkPad', 'iPhone 13', 'Tablet iPad', 'Headset Jabra'],
       join_date: '2020-03-10',
-      status: 'active'
-    }
+      status: 'active',
+    },
   ];
 
   useEffect(() => {
@@ -58,10 +68,11 @@ export default function DataPengguna() {
   }, []);
 
   useEffect(() => {
-    const filtered = userData.filter(user => 
-      user.nama.toLowerCase().includes(searchText.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchText.toLowerCase()) ||
-      user.department.toLowerCase().includes(searchText.toLowerCase())
+    const filtered = userData.filter(
+      (user) =>
+        user.nama.toLowerCase().includes(searchText.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchText.toLowerCase()) ||
+        user.department.toLowerCase().includes(searchText.toLowerCase())
     );
     setFilteredData(filtered);
   }, [searchText, userData]);
@@ -76,10 +87,10 @@ export default function DataPengguna() {
     try {
       // API call to update user data
 
-      setUserData(prev => prev.map(user => 
-        user.id === selectedUser.id ? { ...user, ...values } : user
-      ));
-      
+      setUserData((prev) =>
+        prev.map((user) => (user.id === selectedUser.id ? { ...user, ...values } : user))
+      );
+
       message.success('Data pengguna berhasil diperbarui');
       setEditModalVisible(false);
       setSelectedUser(null);
@@ -108,7 +119,8 @@ export default function DataPengguna() {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
-      width: 80 },
+      width: 80,
+    },
     {
       title: 'Nama',
       dataIndex: 'nama',
@@ -118,51 +130,54 @@ export default function DataPengguna() {
           <UserOutlined />
           <span>{text}</span>
         </Space>
-      ) },
+      ),
+    },
     {
       title: 'Email',
       dataIndex: 'email',
-      key: 'email' },
+      key: 'email',
+    },
     {
       title: 'Department',
       dataIndex: 'department',
-      key: 'department' },
+      key: 'department',
+    },
     {
       title: 'Position',
       dataIndex: 'position',
-      key: 'position' },
+      key: 'position',
+    },
     {
       title: 'Jumlah Aset',
       dataIndex: 'asset_count',
       key: 'asset_count',
-      render: (count) => <Tag color="blue">{count} Aset</Tag> },
+      render: (count) => <Tag color='blue'>{count} Aset</Tag>,
+    },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status) => (
-        <Tag color={getStatusColor(status)}>
-          {status.toUpperCase()}
-        </Tag>
-      ) },
+      render: (status) => <Tag color={getStatusColor(status)}>{status.toUpperCase()}</Tag>,
+    },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Button
-          type="primary"
-          size="small"
+          type='primary'
+          size='small'
           icon={<EditOutlined />}
           onClick={() => handleEdit(record)}
         >
           Edit
         </Button>
-      ) },
+      ),
+    },
   ];
 
   return (
-    <div className="data-pengguna">
-      <div className="page-header">
+    <div className='data-pengguna'>
+      <div className='page-header'>
         <h1>Data Pengguna</h1>
         <p>Kelola data pengguna dan alokasi aset</p>
       </div>
@@ -170,20 +185,16 @@ export default function DataPengguna() {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Card>
-            <div className="table-header">
+            <div className='table-header'>
               <Space>
                 <Input
-                  placeholder="Cari pengguna..."
+                  placeholder='Cari pengguna...'
                   prefix={<SearchOutlined />}
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   style={{ width: 300 }}
                 />
-                <Button
-                  icon={<ReloadOutlined />}
-                  onClick={handleRefresh}
-                  loading={loading}
-                >
+                <Button icon={<ReloadOutlined />} onClick={handleRefresh} loading={loading}>
                   Refresh
                 </Button>
               </Space>
@@ -192,35 +203,38 @@ export default function DataPengguna() {
             <Table
               columns={columns}
               dataSource={filteredData}
-              rowKey="id"
+              rowKey='id'
               loading={loading}
               pagination={{
                 total: filteredData.length,
                 pageSize: 10,
                 showSizeChanger: true,
                 showQuickJumper: true,
-                showTotal: (total, range) => 
-                  `${range[0]}-${range[1]} dari ${total} pengguna` }}
+                showTotal: (total, range) => `${range[0]}-${range[1]} dari ${total} pengguna`,
+              }}
               expandable={{
                 expandedRowRender: (record) => (
-                  <div className="expanded-content">
+                  <div className='expanded-content'>
                     <h4>Daftar Aset:</h4>
                     <ul>
                       {record.assets.map((asset, index) => (
                         <li key={index}>{asset}</li>
                       ))}
                     </ul>
-                    <p><strong>Tanggal Bergabung:</strong> {record.join_date}</p>
+                    <p>
+                      <strong>Tanggal Bergabung:</strong> {record.join_date}
+                    </p>
                   </div>
                 ),
-                rowExpandable: (record) => record.assets.length > 0 }}
+                rowExpandable: (record) => record.assets.length > 0,
+              }}
             />
           </Card>
         </Col>
       </Row>
 
       <Modal
-        title="Edit Data Pengguna"
+        title='Edit Data Pengguna'
         open={editModalVisible}
         onCancel={() => {
           setEditModalVisible(false);
@@ -230,78 +244,77 @@ export default function DataPengguna() {
         width={600}
       >
         {selectedUser && (
-          <Form as="form"
-            layout="vertical"
+          <Form
+            layout='vertical'
             initialValues={{
               nama: selectedUser.nama,
               email: selectedUser.email,
               department: selectedUser.department,
               position: selectedUser.position,
-              status: selectedUser.status }}
+              status: selectedUser.status,
+            }}
             onFinish={handleSave}
           >
-            <Form as="form".Item
-              controlId="nama"
-              label="Nama Lengkap"
+            <Form.Item
+              name='nama'
+              label='Nama Lengkap'
               rules={[{ required: true, message: 'Nama harus diisi!' }]}
             >
               <Input />
-            </Form.Group>
+            </Form.Item>
 
-            <Form as="form".Item
-              controlId="email"
-              label="Email"
+            <Form.Item
+              name='email'
+              label='Email'
               rules={[
                 { required: true, message: 'Email harus diisi!' },
-                { type: 'email', message: 'Format email tidak valid!' }
+                { type: 'email', message: 'Format email tidak valid!' },
               ]}
             >
               <Input />
-            </Form.Group>
+            </Form.Item>
 
-            <Form as="form".Item
-              controlId="department"
-              label="Department"
+            <Form.Item
+              name='department'
+              label='Department'
               rules={[{ required: true, message: 'Department harus diisi!' }]}
             >
               <Select>
-                <Option value="IT">IT</Option>
-                <Option value="Finance">Finance</Option>
-                <Option value="Operations">Operations</Option>
-                <Option value="HR">HR</Option>
-                <Option value="Marketing">Marketing</Option>
+                <Option value='IT'>IT</Option>
+                <Option value='Finance'>Finance</Option>
+                <Option value='Operations'>Operations</Option>
+                <Option value='HR'>HR</Option>
+                <Option value='Marketing'>Marketing</Option>
               </Select>
-            </Form.Group>
+            </Form.Item>
 
-            <Form as="form".Item
-              controlId="position"
-              label="Position"
+            <Form.Item
+              name='position'
+              label='Position'
               rules={[{ required: true, message: 'Position harus diisi!' }]}
             >
               <Input />
-            </Form.Group>
+            </Form.Item>
 
-            <Form as="form".Item
-              controlId="status"
-              label="Status"
+            <Form.Item
+              name='status'
+              label='Status'
               rules={[{ required: true, message: 'Status harus diisi!' }]}
             >
               <Select>
-                <Option value="active">Active</Option>
-                <Option value="inactive">Inactive</Option>
+                <Option value='active'>Active</Option>
+                <Option value='inactive'>Inactive</Option>
               </Select>
-            </Form.Group>
+            </Form.Item>
 
-            <Form as="form".Item>
+            <Form.Item>
               <Space>
-                <Button type="primary" htmlType="submit" loading={loading} icon={<SaveOutlined />}>
+                <Button type='primary' htmlType='submit' loading={loading} icon={<SaveOutlined />}>
                   Simpan
                 </Button>
-                <Button onClick={() => setEditModalVisible(false)}>
-                  Batal
-                </Button>
+                <Button onClick={() => setEditModalVisible(false)}>Batal</Button>
               </Space>
-            </Form.Group>
+            </Form.Item>
           </Form>
         )}
       </Modal>

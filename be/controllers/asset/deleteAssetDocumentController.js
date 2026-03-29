@@ -2,15 +2,19 @@ import { db } from "../../models/index.js";
 import fs from "fs/promises";
 import path from "path";
 
-const ASSET_DOCUMENT_BASE_DIR = path.resolve(process.cwd(), "uploads", "asset-documents");
+const ASSET_DOCUMENT_BASE_DIR = path.resolve(
+  process.cwd(),
+  "uploads",
+  "asset-documents",
+);
 
 export const deleteAssetDocument = async (req, res) => {
-  const { assetNo, documentId } = req.params;
+  const { id: assetNo, docId: documentId } = req.params;
 
   if (!assetNo || !documentId) {
-    return res.status(400).json({ 
-      success: false, 
-      message: "Asset No dan Document ID wajib diisi" 
+    return res.status(400).json({
+      success: false,
+      message: "Asset No dan Document ID wajib diisi",
     });
   }
 
@@ -25,7 +29,7 @@ export const deleteAssetDocument = async (req, res) => {
 
     // Find the document
     const document = await AssetDocument.findOne({
-      where: { 
+      where: {
         document_id: documentId,
       },
       transaction,
@@ -33,9 +37,9 @@ export const deleteAssetDocument = async (req, res) => {
 
     if (!document) {
       await transaction.rollback();
-      return res.status(404).json({ 
-        success: false, 
-        message: "Dokumen tidak ditemukan" 
+      return res.status(404).json({
+        success: false,
+        message: "Dokumen tidak ditemukan",
       });
     }
 
@@ -46,22 +50,22 @@ export const deleteAssetDocument = async (req, res) => {
         [db.Sequelize.Op.or]: [
           { asset_tag: assetNo },
           { accounting_asset_no: assetNo },
-        ]
+        ],
       },
       transaction,
     });
 
     if (!item || item.it_item_id !== document.it_item_id) {
       await transaction.rollback();
-      return res.status(403).json({ 
-        success: false, 
-        message: "Dokumen tidak terhubung dengan aset ini" 
+      return res.status(403).json({
+        success: false,
+        message: "Dokumen tidak terhubung dengan aset ini",
       });
     }
 
     // Get file path for deletion
     const filePath = document.file_path;
-    
+
     // Delete from database first
     await AssetDocument.destroy({
       where: { document_id: documentId },
@@ -81,11 +85,10 @@ export const deleteAssetDocument = async (req, res) => {
       }
     }
 
-    return res.status(200).json({ 
-      success: true, 
-      message: "Dokumen berhasil dihapus" 
+    return res.status(200).json({
+      success: true,
+      message: "Dokumen berhasil dihapus",
     });
-
   } catch (error) {
     if (transaction && !transaction.finished) {
       try {
@@ -96,10 +99,9 @@ export const deleteAssetDocument = async (req, res) => {
     }
 
     console.error("Delete document error:", error);
-    return res.status(500).json({ 
-      success: false, 
-      message: `Gagal menghapus dokumen: ${error.message}` 
+    return res.status(500).json({
+      success: false,
+      message: `Gagal menghapus dokumen: ${error.message}`,
     });
   }
 };
-

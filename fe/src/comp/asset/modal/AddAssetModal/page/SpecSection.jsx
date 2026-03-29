@@ -112,7 +112,7 @@ const SpecSection = ({ newAsset, onInputChange, isPC }) => {
                 value={formatDateForInput(newAsset.tahunBeli)}
                 onChange={onInputChange}
               />
-              <Form.Text className='text-muted small'>Pilih tanggal untuk ekstrak tahun</Form.Text>
+              <Form.Text className='text-muted small'>Pilih tanggal pembelian</Form.Text>
             </Form.Group>
           </Col>
           <Col md={6}>

@@ -543,6 +543,10 @@ export const useAssetForm = (show, asset = null) => {
     (e, alertWarning) => {
       const files = Array.from(e.target.files);
       const existingNames = new Set(attachments.map((a) => a.name));
+      // Also check existing documents from database
+      const existingDocNames = new Set(
+        existingDocuments.map((d) => d.original_name || d.file_name)
+      );
       const newAttachments = [];
 
       files.forEach((file) => {
@@ -558,6 +562,11 @@ export const useAssetForm = (show, asset = null) => {
           alertWarning(`File ${file.name} sudah ada dalam daftar`);
           return;
         }
+        // Check if file name matches existing documents
+        if (existingDocNames.has(file.name)) {
+          alertWarning(`File ${file.name} sudah ada di dokumen asset`);
+          return;
+        }
         newAttachments.push(file);
         existingNames.add(file.name);
       });
@@ -567,7 +576,7 @@ export const useAssetForm = (show, asset = null) => {
       }
       e.target.value = '';
     },
-    [attachments]
+    [attachments, existingDocuments]
   );
 
   const removeAttachment = useCallback((index) => {

@@ -1,27 +1,27 @@
 export const ROUTES = {
   DASHBOARD: 'dashboard',
-  DASHBOARD_USER: 'dashboard user',
-  DATA_PENGGUNA: 'data pengguna',
+  DASHBOARD_USER: 'dashboard-user',
+  DATA_PENGGUNA: 'data-pengguna',
   FINANCE: 'finance',
   FINANCE2: 'finance2',
   INVOICE: 'invoice',
-  PILIH_CATEGORY: 'pilih category',
-  PILIH_SCHEDULE: 'pilih schedule',
-  MAINTENANCE_SCHEDULE: 'maintenance schedule',
-  STOCK_LIST: 'stock list',
-  MINIMUM_STOCK: 'minimum stock',
-  ADD_STOCK: 'add stock',
-  PART_CATEGORY: 'part category',
-  USER_APPROVAL: 'user approval',
-  FINANCE_APPROVAL: 'finance approval',
-  PD_APPROVAL: 'pd approval',
+  PILIH_CATEGORY: 'pilih-category',
+  PILIH_SCHEDULE: 'pilih-schedule',
+  MAINTENANCE_SCHEDULE: 'maintenance-schedule',
+  STOCK_LIST: 'stock-list',
+  MINIMUM_STOCK: 'minimum-stock',
+  ADD_STOCK: 'add-stock',
+  PART_CATEGORY: 'part-category',
+  USER_APPROVAL: 'user-approval',
+  FINANCE_APPROVAL: 'finance-approval',
+  PD_APPROVAL: 'pd-approval',
   JOB_REQUEST2: 'jobrequest2',
   RESULT2: 'result2',
   APPROVAL4: 'approval4',
-  REQ_ASET: 'req aset',
+  REQ_ASET: 'req-aset',
   PV: 'pv',
   APPROVAL2: 'approval2',
-  PO: 'po'
+  PO: 'po',
 };
 
 export const ROUTE_GROUPS = {
@@ -31,5 +31,5 @@ export const ROUTE_GROUPS = {
   STOCK_CONTROL: [ROUTES.STOCK_LIST, ROUTES.MINIMUM_STOCK, ROUTES.ADD_STOCK, ROUTES.PART_CATEGORY],
   APPROVAL_CHAIN: [ROUTES.USER_APPROVAL, ROUTES.FINANCE_APPROVAL, ROUTES.PD_APPROVAL],
   ABNORMALITY: [ROUTES.JOB_REQUEST2, ROUTES.RESULT2, ROUTES.APPROVAL4],
-  REQUEST_ASSET: [ROUTES.REQ_ASET, ROUTES.PV, ROUTES.APPROVAL2, ROUTES.PO]
+  REQUEST_ASSET: [ROUTES.REQ_ASET, ROUTES.PV, ROUTES.APPROVAL2, ROUTES.PO],
 };

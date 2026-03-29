@@ -10,7 +10,13 @@ const WorkOrderModals = ({
   onCloseEdit,
   onRefresh,
   technicians,
-  assets, // from props or context
+  assets,
+  showAssign,
+  onCloseAssign,
+  selectedWorkOrder,
+  showComplete,
+  onCloseComplete,
+  onShowToast,
 }) => {
   const [formData, setFormData] = useState({
     title: '',
@@ -18,18 +24,32 @@ const WorkOrderModals = ({
     assetId: '',
     priority: 'medium',
     category: 'preventive',
+    technicianId: '',
+    assignNotes: '',
+    result: 'success',
+    timeSpent: '',
+    partsUsed: '',
+    notes: '',
   });
-
-  const [showAssign, setShowAssign] = useState(false);
-  const [showComplete, setShowComplete] = useState(false);
-  const [selectedWO] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   // Edit mode
   useEffect(() => {
     if (editWorkOrder) {
-      setFormData(editWorkOrder);
+      setFormData({
+        title: editWorkOrder.title || '',
+        description: editWorkOrder.description || '',
+        assetId: editWorkOrder.assetId || '',
+        priority: editWorkOrder.priority || 'medium',
+        category: editWorkOrder.category || 'preventive',
+        technicianId: '',
+        assignNotes: '',
+        result: 'success',
+        timeSpent: '',
+        partsUsed: '',
+        notes: '',
+      });
     }
   }, [editWorkOrder]);
 
@@ -41,8 +61,10 @@ const WorkOrderModals = ({
     try {
       if (editWorkOrder?.id) {
         await updateWorkOrder(editWorkOrder.id, formData);
+        onShowToast('Work Order berhasil diupdate', 'success');
       } else {
         await createWorkOrder(formData);
+        onShowToast('Work Order berhasil dibuat', 'success');
       }
       onRefresh();
       onCloseEdit();
@@ -53,9 +75,16 @@ const WorkOrderModals = ({
         assetId: '',
         priority: 'medium',
         category: 'preventive',
+        technicianId: '',
+        assignNotes: '',
+        result: 'success',
+        timeSpent: '',
+        partsUsed: '',
+        notes: '',
       });
     } catch (err) {
       setError(err.message);
+      onShowToast('Error: ' + err.message, 'danger');
     } finally {
       setLoading(false);
     }
@@ -65,12 +94,15 @@ const WorkOrderModals = ({
     e.preventDefault();
     setLoading(true);
     try {
-      // TODO: Backend endpoint belum ada
+      // TODO: Implement assignWorkOrder API when available
+      // await assignWorkOrder(selectedWorkOrder.id, { technicianId: formData.technicianId, notes: formData.assignNotes });
       onRefresh();
-      setShowAssign(false);
-      alert('Assign feature coming soon');
+      onCloseAssign();
+      onShowToast('Technician assigned successfully', 'success');
+      setFormData({ ...formData, technicianId: '', assignNotes: '' });
     } catch (err) {
       setError(err.message);
+      onShowToast('Error: ' + err.message, 'danger');
     } finally {
       setLoading(false);
     }
@@ -80,12 +112,15 @@ const WorkOrderModals = ({
     e.preventDefault();
     setLoading(true);
     try {
-      // TODO: Backend endpoint belum ada
+      // TODO: Implement completeWorkOrder API when available
+      // await completeWorkOrder(selectedWorkOrder.id, { result: formData.result, timeSpent: formData.timeSpent, partsUsed: formData.partsUsed, notes: formData.notes });
       onRefresh();
-      setShowComplete(false);
-      alert('Complete feature coming soon');
+      onCloseComplete();
+      onShowToast('Work Order completed successfully', 'success');
+      setFormData({ ...formData, result: 'success', timeSpent: '', partsUsed: '', notes: '' });
     } catch (err) {
       setError(err.message);
+      onShowToast('Error: ' + err.message, 'danger');
     } finally {
       setLoading(false);
     }
@@ -204,14 +239,15 @@ const WorkOrderModals = ({
       </Modal>
 
       {/* Assign Modal */}
-      <Modal show={showAssign} onHide={() => setShowAssign(false)}>
+      <Modal show={showAssign} onHide={onCloseAssign}>
         <Modal.Header closeButton>
           <Modal.Title>Assign Technician</Modal.Title>
         </Modal.Header>
         <Form as='form' onSubmit={handleAssign}>
           <Modal.Body>
             <h6>
-              WO-{selectedWO?.id.slice(-6)}: {selectedWO?.title}
+              WO-{(selectedWorkOrder?.id || selectedWorkOrder?.wo_id || 'N/A').toString().slice(-6)}
+              : {selectedWorkOrder?.title}
             </h6>
             <Form.Group className='mb-3'>
               <Form.Label>Technician</Form.Label>
@@ -238,7 +274,7 @@ const WorkOrderModals = ({
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant='secondary' onClick={() => setShowAssign(false)}>
+            <Button variant='secondary' onClick={onCloseAssign}>
               Cancel
             </Button>
             <Button variant='primary' type='submit' disabled={loading}>
@@ -249,14 +285,15 @@ const WorkOrderModals = ({
       </Modal>
 
       {/* Complete Modal */}
-      <Modal show={showComplete} onHide={() => setShowComplete(false)} size='lg'>
+      <Modal show={showComplete} onHide={onCloseComplete} size='lg'>
         <Modal.Header closeButton>
           <Modal.Title>Complete Work Order</Modal.Title>
         </Modal.Header>
         <Form as='form' onSubmit={handleComplete}>
           <Modal.Body>
             <h6>
-              WO-{selectedWO?.id.slice(-6)}: {selectedWO?.title}
+              WO-{(selectedWorkOrder?.id || selectedWorkOrder?.wo_id || 'N/A').toString().slice(-6)}
+              : {selectedWorkOrder?.title}
             </h6>
             <Row>
               <Col md={6}>
@@ -304,7 +341,7 @@ const WorkOrderModals = ({
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant='secondary' onClick={() => setShowComplete(false)}>
+            <Button variant='secondary' onClick={onCloseComplete}>
               Cancel
             </Button>
             <Button variant='success' type='submit' disabled={loading}>

@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Table, Button, Form, Badge } from 'react-bootstrap';
-import '../../../styles/ScheduleTable.css';
 
 import ModalSop from '../../../comp/ModalSop';
 import ModalMulaiMTC from '../../../comp/ModalMulaiMTC';

@@ -702,7 +702,11 @@ export default function useAssetPage({
 
   const handleUpdate = useCallback(async (asset) => {
     try {
+      console.log('[DEBUG handleUpdate] Fetching details for:', asset.noAsset);
       const response = await getAssetDetails(asset.noAsset);
+      console.log('[DEBUG handleUpdate] API response:', response);
+      console.log('[DEBUG handleUpdate] response.data:', response?.data);
+      console.log('[DEBUG handleUpdate] documents:', response?.data?.documents);
       const detailedAsset = response?.data || asset;
       setSelectedAsset(detailedAsset);
     } catch (err) {

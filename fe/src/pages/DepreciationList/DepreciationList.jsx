@@ -1,12 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Card, Table, Button, Row, Col, Select, Input, message, Modal, Alert, Tag, Progress, Statistic, Tooltip } from 'antd';
-import { 
-  CalculatorOutlined, 
-  DeleteOutlined, 
-  EyeOutlined, 
+import {
+  Form,
+  Card,
+  Table,
+  Button,
+  Row,
+  Col,
+  Select,
+  Input,
+  message,
+  Modal,
+  Alert,
+  Tag,
+  Progress,
+  Statistic,
+  Tooltip,
+} from 'antd';
+import {
+  CalculatorOutlined,
+  DeleteOutlined,
+  EyeOutlined,
   DownloadOutlined,
   FilterOutlined,
-  InfoCircleOutlined
+  InfoCircleOutlined,
 } from '@ant-design/icons';
 import './DepreciationList.css';
 
@@ -44,7 +60,7 @@ export default function DepreciationList() {
       disposalDate: null,
       disposalValue: 0,
       lastUpdated: '2024-03-30',
-      notes: 'Standard laptop for development team'
+      notes: 'Standard laptop for development team',
     },
     {
       id: 2,
@@ -59,13 +75,13 @@ export default function DepreciationList() {
       annualDepreciation: 10000000,
       accumulatedDepreciation: 30000000,
       bookValue: 20000000,
-      depreciationRate: 20.00,
+      depreciationRate: 20.0,
       status: 'active',
       remainingLife: 2,
       disposalDate: null,
       disposalValue: 0,
       lastUpdated: '2024-03-30',
-      notes: 'Main production server'
+      notes: 'Main production server',
     },
     {
       id: 3,
@@ -86,7 +102,7 @@ export default function DepreciationList() {
       disposalDate: '2024-03-25',
       disposalValue: 500000,
       lastUpdated: '2024-03-25',
-      notes: 'Screen damage, disposed early'
+      notes: 'Screen damage, disposed early',
     },
     {
       id: 4,
@@ -107,8 +123,8 @@ export default function DepreciationList() {
       disposalDate: null,
       disposalValue: 0,
       lastUpdated: '2024-03-30',
-      notes: 'Office software license'
-    }
+      notes: 'Office software license',
+    },
   ];
 
   const years = ['all', '2021', '2022', '2023', '2024', '2025'];
@@ -119,10 +135,11 @@ export default function DepreciationList() {
   }, []);
 
   useEffect(() => {
-    let filtered = depreciationData.filter(asset => {
-      const matchesSearch = asset.assetName.toLowerCase().includes(searchText.toLowerCase()) ||
-                           asset.assetCode.toLowerCase().includes(searchText.toLowerCase()) ||
-                           asset.assetCategory.toLowerCase().includes(searchText.toLowerCase());
+    let filtered = depreciationData.filter((asset) => {
+      const matchesSearch =
+        asset.assetName.toLowerCase().includes(searchText.toLowerCase()) ||
+        asset.assetCode.toLowerCase().includes(searchText.toLowerCase()) ||
+        asset.assetCategory.toLowerCase().includes(searchText.toLowerCase());
       const matchesYear = selectedYear === 'all' || asset.currentYear.toString() === selectedYear;
       return matchesSearch && matchesYear;
     });
@@ -141,7 +158,7 @@ export default function DepreciationList() {
       assetName: asset.assetName,
       depreciationYears: asset.depreciationYears,
       depreciationMethod: asset.depreciationMethod,
-      notes: asset.notes
+      notes: asset.notes,
     });
     setEditModalVisible(true);
   };
@@ -154,12 +171,12 @@ export default function DepreciationList() {
         ...values,
         annualDepreciation: values.purchaseValue / values.depreciationYears,
         depreciationRate: (100 / values.depreciationYears).toFixed(2),
-        lastUpdated: new Date().toISOString().split('T')[0]
+        lastUpdated: new Date().toISOString().split('T')[0],
       };
 
-      setDepreciationData(prev => prev.map(asset => 
-        asset.id === selectedAsset.id ? updatedAsset : asset
-      ));
+      setDepreciationData((prev) =>
+        prev.map((asset) => (asset.id === selectedAsset.id ? updatedAsset : asset))
+      );
 
       message.success('Depreciation data updated successfully');
       setEditModalVisible(false);
@@ -175,17 +192,19 @@ export default function DepreciationList() {
   const handleDispose = async (asset) => {
     setLoading(true);
     try {
-      setDepreciationData(prev => prev.map(item => 
-        item.id === asset.id 
-          ? { 
-              ...item, 
-              status: 'disposed', 
-              disposalDate: new Date().toISOString().split('T')[0],
-              bookValue: 0,
-              remainingLife: 0
-            } 
-          : item
-      ));
+      setDepreciationData((prev) =>
+        prev.map((item) =>
+          item.id === asset.id
+            ? {
+                ...item,
+                status: 'disposed',
+                disposalDate: new Date().toISOString().split('T')[0],
+                bookValue: 0,
+                remainingLife: 0,
+              }
+            : item
+        )
+      );
 
       message.success('Asset disposed successfully');
     } catch (error) {
@@ -197,10 +216,14 @@ export default function DepreciationList() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'active': return 'green';
-      case 'disposed': return 'red';
-      case 'fully_depreciated': return 'orange';
-      default: return 'default';
+      case 'active':
+        return 'green';
+      case 'disposed':
+        return 'red';
+      case 'fully_depreciated':
+        return 'orange';
+      default:
+        return 'default';
     }
   };
 
@@ -211,36 +234,44 @@ export default function DepreciationList() {
 
   const totalPurchaseValue = filteredData.reduce((sum, asset) => sum + asset.purchaseValue, 0);
   const totalBookValue = filteredData.reduce((sum, asset) => sum + asset.bookValue, 0);
-  const totalDepreciation = filteredData.reduce((sum, asset) => sum + asset.accumulatedDepreciation, 0);
-  const activeAssets = filteredData.filter(asset => asset.status === 'active').length;
+  const totalDepreciation = filteredData.reduce(
+    (sum, asset) => sum + asset.accumulatedDepreciation,
+    0
+  );
+  const activeAssets = filteredData.filter((asset) => asset.status === 'active').length;
 
   const columns = [
     {
       title: 'Asset Code',
       dataIndex: 'assetCode',
       key: 'assetCode',
-      render: (text) => <strong>{text}</strong> },
+      render: (text) => <strong>{text}</strong>,
+    },
     {
       title: 'Asset Name',
       dataIndex: 'assetName',
       key: 'assetName',
-      ellipsis: true },
+      ellipsis: true,
+    },
     {
       title: 'Category',
       dataIndex: 'assetCategory',
-      key: 'assetCategory' },
+      key: 'assetCategory',
+    },
     {
       title: 'Purchase Value',
       dataIndex: 'purchaseValue',
       key: 'purchaseValue',
       render: (value) => `Rp ${value.toLocaleString('id-ID')}`,
-      sorter: (a, b) => a.purchaseValue - b.purchaseValue },
+      sorter: (a, b) => a.purchaseValue - b.purchaseValue,
+    },
     {
       title: 'Book Value',
       dataIndex: 'bookValue',
       key: 'bookValue',
       render: (value) => `Rp ${value.toLocaleString('id-ID')}`,
-      sorter: (a, b) => a.bookValue - b.bookValue },
+      sorter: (a, b) => a.bookValue - b.bookValue,
+    },
     {
       title: 'Depreciation',
       key: 'depreciation',
@@ -248,49 +279,48 @@ export default function DepreciationList() {
         <div>
           <div>Rate: {record.depreciationRate}%</div>
           <div>Annual: Rp {record.annualDepreciation.toLocaleString('id-ID')}</div>
-          <Progress 
-            percent={getDepreciationProgress(record)} 
-            size="small" 
+          <Progress
+            percent={getDepreciationProgress(record)}
+            size='small'
             style={{ marginTop: 4 }}
           />
         </div>
-      ) },
+      ),
+    },
     {
       title: 'Remaining Life',
       key: 'remainingLife',
       render: (_, record) => (
         <div>
           <div>{record.remainingLife} years</div>
-          <div style={{ fontSize: '12px', color: '#8c8c8c' }}>
-            {record.depreciationMethod}
-          </div>
+          <div style={{ fontSize: '12px', color: '#8c8c8c' }}>{record.depreciationMethod}</div>
         </div>
-      ) },
+      ),
+    },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
       render: (status) => (
-        <Tag color={getStatusColor(status)}>
-          {status.replace('_', ' ').toUpperCase()}
-        </Tag>
-      ) },
+        <Tag color={getStatusColor(status)}>{status.replace('_', ' ').toUpperCase()}</Tag>
+      ),
+    },
     {
       title: 'Actions',
       key: 'actions',
       render: (_, record) => (
         <Space>
           <Button
-            type="primary"
-            size="small"
+            type='primary'
+            size='small'
             icon={<EyeOutlined />}
             onClick={() => handleViewDetail(record)}
           >
             Detail
           </Button>
           <Button
-            type="primary"
-            size="small"
+            type='primary'
+            size='small'
             icon={<CalculatorOutlined />}
             onClick={() => handleEdit(record)}
             disabled={record.status === 'disposed'}
@@ -299,9 +329,9 @@ export default function DepreciationList() {
           </Button>
           {record.status === 'active' && (
             <Button
-              type="primary"
+              type='primary'
               danger
-              size="small"
+              size='small'
               icon={<DeleteOutlined />}
               onClick={() => handleDispose(record)}
               loading={loading}
@@ -310,12 +340,13 @@ export default function DepreciationList() {
             </Button>
           )}
         </Space>
-      ) },
+      ),
+    },
   ];
 
   return (
-    <div className="depreciation-list">
-      <div className="page-header">
+    <div className='depreciation-list'>
+      <div className='page-header'>
         <h1>Depreciation List</h1>
         <p>Management asset depreciation and book value tracking</p>
       </div>
@@ -324,7 +355,7 @@ export default function DepreciationList() {
         <Col span={6}>
           <Card>
             <Statistic
-              title="Total Assets"
+              title='Total Assets'
               value={filteredData.length}
               prefix={<CalculatorOutlined />}
             />
@@ -333,7 +364,7 @@ export default function DepreciationList() {
         <Col span={6}>
           <Card>
             <Statistic
-              title="Active Assets"
+              title='Active Assets'
               value={activeAssets}
               valueStyle={{ color: '#3f8600' }}
             />
@@ -342,9 +373,9 @@ export default function DepreciationList() {
         <Col span={6}>
           <Card>
             <Statistic
-              title="Total Book Value"
+              title='Total Book Value'
               value={totalBookValue}
-              prefix="Rp "
+              prefix='Rp '
               formatter={(value) => `${value.toLocaleString('id-ID')}`}
             />
           </Card>
@@ -352,9 +383,9 @@ export default function DepreciationList() {
         <Col span={6}>
           <Card>
             <Statistic
-              title="Total Depreciation"
+              title='Total Depreciation'
               value={totalDepreciation}
-              prefix="Rp "
+              prefix='Rp '
               formatter={(value) => `${value.toLocaleString('id-ID')}`}
               valueStyle={{ color: '#cf1322' }}
             />
@@ -362,11 +393,11 @@ export default function DepreciationList() {
         </Col>
       </Row>
 
-      <Card title="Depreciation List">
-        <div className="table-controls">
+      <Card title='Depreciation List'>
+        <div className='table-controls'>
           <Space>
             <Search
-              placeholder="Search assets..."
+              placeholder='Search assets...'
               allowClear
               style={{ width: 300 }}
               onChange={(e) => setSearchText(e.target.value)}
@@ -375,35 +406,31 @@ export default function DepreciationList() {
               value={selectedYear}
               onChange={setSelectedYear}
               style={{ width: 150 }}
-              placeholder="Select Year"
+              placeholder='Select Year'
             >
-              {years.map(year => (
+              {years.map((year) => (
                 <Option key={year} value={year}>
                   {year === 'all' ? 'All Years' : year}
                 </Option>
               ))}
             </Select>
-            <Button icon={<FilterOutlined />}>
-              More Filters
-            </Button>
-            <Button icon={<DownloadOutlined />}>
-              Export
-            </Button>
+            <Button icon={<FilterOutlined />}>More Filters</Button>
+            <Button icon={<DownloadOutlined />}>Export</Button>
           </Space>
         </div>
 
         <Table
           columns={columns}
           dataSource={filteredData}
-          rowKey="id"
+          rowKey='id'
           loading={loading}
           pagination={{
             total: filteredData.length,
             pageSize: 10,
             showSizeChanger: true,
             showQuickJumper: true,
-            showTotal: (total, range) => 
-              `${range[0]}-${range[1]} dari ${total} assets` }}
+            showTotal: (total, range) => `${range[0]}-${range[1]} dari ${total} assets`,
+          }}
           rowClassName={(record) => {
             if (record.status === 'disposed') return 'row-disposed';
             if (record.remainingLife <= 1) return 'row-warning';
@@ -413,76 +440,96 @@ export default function DepreciationList() {
       </Card>
 
       <Modal
-        title="Asset Depreciation Detail"
+        title='Asset Depreciation Detail'
         open={detailModalVisible}
         onCancel={() => {
           setDetailModalVisible(false);
           setSelectedAsset(null);
         }}
         footer={[
-          <Button key="close" onClick={() => setDetailModalVisible(false)}>
+          <Button key='close' onClick={() => setDetailModalVisible(false)}>
             Close
           </Button>,
-          <Button key="download" icon={<DownloadOutlined />}>
+          <Button key='download' icon={<DownloadOutlined />}>
             Download Report
-          </Button>
+          </Button>,
         ]}
         width={800}
       >
         {selectedAsset && (
-          <div className="asset-detail">
+          <div className='asset-detail'>
             <Row gutter={[16, 16]}>
               <Col span={12}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Asset Information</h4>
-                  <p><strong>Asset Code:</strong> {selectedAsset.assetCode}</p>
-                  <p><strong>Asset Name:</strong> {selectedAsset.assetName}</p>
-                  <p><strong>Category:</strong> {selectedAsset.assetCategory}</p>
-                  <p><strong>Status:</strong> <Tag color={getStatusColor(selectedAsset.status)}>{selectedAsset.status.replace('_', ' ').toUpperCase()}</Tag></p>
+                  <p>
+                    <strong>Asset Code:</strong> {selectedAsset.assetCode}
+                  </p>
+                  <p>
+                    <strong>Asset Name:</strong> {selectedAsset.assetName}
+                  </p>
+                  <p>
+                    <strong>Category:</strong> {selectedAsset.assetCategory}
+                  </p>
+                  <p>
+                    <strong>Status:</strong>{' '}
+                    <Tag color={getStatusColor(selectedAsset.status)}>
+                      {selectedAsset.status.replace('_', ' ').toUpperCase()}
+                    </Tag>
+                  </p>
                 </div>
               </Col>
               <Col span={12}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Depreciation Details</h4>
-                  <p><strong>Method:</strong> {selectedAsset.depreciationMethod}</p>
-                  <p><strong>Years:</strong> {selectedAsset.depreciationYears}</p>
-                  <p><strong>Rate:</strong> {selectedAsset.depreciationRate}%</p>
-                  <p><strong>Annual:</strong> Rp {selectedAsset.annualDepreciation.toLocaleString('id-ID')}</p>
+                  <p>
+                    <strong>Method:</strong> {selectedAsset.depreciationMethod}
+                  </p>
+                  <p>
+                    <strong>Years:</strong> {selectedAsset.depreciationYears}
+                  </p>
+                  <p>
+                    <strong>Rate:</strong> {selectedAsset.depreciationRate}%
+                  </p>
+                  <p>
+                    <strong>Annual:</strong> Rp{' '}
+                    {selectedAsset.annualDepreciation.toLocaleString('id-ID')}
+                  </p>
                 </div>
               </Col>
             </Row>
 
             <Row gutter={[16, 16]}>
               <Col span={24}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Financial Summary</h4>
                   <Row gutter={[16, 16]}>
                     <Col span={8}>
-                      <Card size="small">
+                      <Card size='small'>
                         <Statistic
-                          title="Purchase Value"
+                          title='Purchase Value'
                           value={selectedAsset.purchaseValue}
-                          prefix="Rp "
+                          prefix='Rp '
                           formatter={(value) => `${value.toLocaleString('id-ID')}`}
                         />
                       </Card>
                     </Col>
                     <Col span={8}>
-                      <Card size="small">
+                      <Card size='small'>
                         <Statistic
-                          title="Book Value"
+                          title='Book Value'
                           value={selectedAsset.bookValue}
-                          prefix="Rp "
+                          prefix='Rp '
                           formatter={(value) => `${value.toLocaleString('id-ID')}`}
                         />
                       </Card>
                     </Col>
                     <Col span={8}>
-                      <Card size="small">
+                      <Card size='small'>
                         <Statistic
-                          title="Accumulated"
+                          title='Accumulated'
                           value={selectedAsset.accumulatedDepreciation}
-                          prefix="Rp "
+                          prefix='Rp '
                           formatter={(value) => `${value.toLocaleString('id-ID')}`}
                           valueStyle={{ color: '#cf1322' }}
                         />
@@ -495,18 +542,21 @@ export default function DepreciationList() {
 
             <Row gutter={[16, 16]}>
               <Col span={24}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Depreciation Progress</h4>
                   <Progress
                     percent={getDepreciationProgress(selectedAsset)}
                     status={getDepreciationProgress(selectedAsset) >= 100 ? 'success' : 'active'}
                     strokeColor={{
                       from: '#108ee9',
-                      to: '#87d068' }}
+                      to: '#87d068',
+                    }}
                   />
                   <div style={{ marginTop: 8 }}>
                     <span>Depreciated: {getDepreciationProgress(selectedAsset).toFixed(2)}%</span>
-                    <span style={{ marginLeft: 16 }}>Remaining: {selectedAsset.remainingLife} years</span>
+                    <span style={{ marginLeft: 16 }}>
+                      Remaining: {selectedAsset.remainingLife} years
+                    </span>
                   </div>
                 </div>
               </Col>
@@ -514,18 +564,26 @@ export default function DepreciationList() {
 
             <Row gutter={[16, 16]}>
               <Col span={12}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Timeline</h4>
-                  <p><strong>Purchase Date:</strong> {selectedAsset.purchaseDate}</p>
-                  <p><strong>Current Year:</strong> {selectedAsset.currentYear}</p>
-                  <p><strong>Last Updated:</strong> {selectedAsset.lastUpdated}</p>
+                  <p>
+                    <strong>Purchase Date:</strong> {selectedAsset.purchaseDate}
+                  </p>
+                  <p>
+                    <strong>Current Year:</strong> {selectedAsset.currentYear}
+                  </p>
+                  <p>
+                    <strong>Last Updated:</strong> {selectedAsset.lastUpdated}
+                  </p>
                   {selectedAsset.disposalDate && (
-                    <p><strong>Disposal Date:</strong> {selectedAsset.disposalDate}</p>
+                    <p>
+                      <strong>Disposal Date:</strong> {selectedAsset.disposalDate}
+                    </p>
                   )}
                 </div>
               </Col>
               <Col span={12}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Notes</h4>
                   <p>{selectedAsset.notes}</p>
                 </div>
@@ -536,7 +594,7 @@ export default function DepreciationList() {
       </Modal>
 
       <Modal
-        title="Edit Depreciation"
+        title='Edit Depreciation'
         open={editModalVisible}
         onCancel={() => {
           setEditModalVisible(false);
@@ -546,74 +604,65 @@ export default function DepreciationList() {
         footer={null}
         width={600}
       >
-        <Form as="form"
-          form={form}
-          layout="vertical"
-          onFinish={handleUpdate}
-        >
+        <Form form={form} layout='vertical' onFinish={handleUpdate}>
           <Row gutter={[16, 16]}>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="assetCode"
-                label="Asset Code"
+              <Form.Item
+                name='assetCode'
+                label='Asset Code'
                 rules={[{ required: true, message: 'Asset code is required!' }]}
               >
                 <Input disabled />
-              </Form.Group>
+              </Form.Item>
             </Col>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="assetName"
-                label="Asset Name"
+              <Form.Item
+                name='assetName'
+                label='Asset Name'
                 rules={[{ required: true, message: 'Asset name is required!' }]}
               >
                 <Input />
-              </Form.Group>
+              </Form.Item>
             </Col>
           </Row>
 
           <Row gutter={[16, 16]}>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="depreciationYears"
-                label="Depreciation Years"
+              <Form.Item
+                name='depreciationYears'
+                label='Depreciation Years'
                 rules={[{ required: true, message: 'Depreciation years is required!' }]}
               >
-                <Input type="number" min={1} max={10} />
-              </Form.Group>
+                <Input type='number' min={1} max={10} />
+              </Form.Item>
             </Col>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="depreciationMethod"
-                label="Depreciation Method"
+              <Form.Item
+                name='depreciationMethod'
+                label='Depreciation Method'
                 rules={[{ required: true, message: 'Method is required!' }]}
               >
                 <Select>
-                  <Option value="Straight Line">Straight Line</Option>
-                  <Option value="Double Declining">Double Declining</Option>
-                  <Option value="Sum of Years">Sum of Years</Option>
+                  <Option value='Straight Line'>Straight Line</Option>
+                  <Option value='Double Declining'>Double Declining</Option>
+                  <Option value='Sum of Years'>Sum of Years</Option>
                 </Select>
-              </Form.Group>
+              </Form.Item>
             </Col>
           </Row>
 
-          <Form as="form".Item
-            controlId="notes"
-            label="Notes"
-          >
-            <TextArea rows={3} placeholder="Add notes about this asset..." />
-          </Form.Group>
+          <Form.Item name='notes' label='Notes'>
+            <TextArea rows={3} placeholder='Add notes about this asset...' />
+          </Form.Item>
 
-          <Form as="form".Item>
+          <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit" loading={loading}>
+              <Button type='primary' htmlType='submit' loading={loading}>
                 Update
               </Button>
-              <Button onClick={() => setEditModalVisible(false)}>
-                Cancel
-              </Button>
+              <Button onClick={() => setEditModalVisible(false)}>Cancel</Button>
             </Space>
-          </Form.Group>
+          </Form.Item>
         </Form>
       </Modal>
     </div>

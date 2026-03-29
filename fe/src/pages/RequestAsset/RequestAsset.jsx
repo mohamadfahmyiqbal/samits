@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Card, Row, Col, Table, Button, Tag, Space, message, Input, Select, Modal, Steps } from 'antd';
-import { 
-  ReloadOutlined,
-  PlusOutlined,
-  EyeOutlined,
-  FileTextOutlined
-} from '@ant-design/icons';
+import {
+  Form,
+  Card,
+  Row,
+  Col,
+  Table,
+  Button,
+  Tag,
+  Space,
+  message,
+  Input,
+  Select,
+  Modal,
+  Steps,
+} from 'antd';
+import { ReloadOutlined, PlusOutlined, EyeOutlined, FileTextOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import './RequestAsset.css';
 
@@ -37,7 +46,8 @@ export default function RequestAsset() {
       status: 'pending',
       request_date: '2024-03-30',
       required_date: '2024-04-15',
-      justification: 'Current laptops are outdated and cannot handle new development requirements. Need high-performance machines for software development.',
+      justification:
+        'Current laptops are outdated and cannot handle new development requirements. Need high-performance machines for software development.',
       items: [
         {
           item_name: 'Laptop Dell XPS 15',
@@ -46,19 +56,29 @@ export default function RequestAsset() {
           total_estimated_price: 90000000,
           specifications: 'Intel Core i7, 16GB RAM, 512GB SSD, RTX 3060',
           preferred_brand: 'Dell',
-          alternative_brands: ['HP', 'Lenovo']
-        }
+          alternative_brands: ['HP', 'Lenovo'],
+        },
       ],
       total_estimated_amount: 90000000,
       budget_code: 'IT-2024-DEV-001',
       budget_available: 120000000,
       workflow: [
-        { step: 'request', status: 'completed', assignee: 'Development Manager', completed_date: '2024-03-30' },
+        {
+          step: 'request',
+          status: 'completed',
+          assignee: 'Development Manager',
+          completed_date: '2024-03-30',
+        },
         { step: 'pv', status: 'pending', assignee: 'Procurement Team', completed_date: null },
-        { step: 'approval_finance', status: 'pending', assignee: 'Finance Manager', completed_date: null },
-        { step: 'po', status: 'pending', assignee: 'Procurement Manager', completed_date: null }
+        {
+          step: 'approval_finance',
+          status: 'pending',
+          assignee: 'Finance Manager',
+          completed_date: null,
+        },
+        { step: 'po', status: 'pending', assignee: 'Procurement Manager', completed_date: null },
       ],
-      attachments: ['requirements.pdf', 'comparison_chart.pdf']
+      attachments: ['requirements.pdf', 'comparison_chart.pdf'],
     },
     {
       id: 2,
@@ -71,7 +91,8 @@ export default function RequestAsset() {
       status: 'in_progress',
       request_date: '2024-03-29',
       required_date: '2024-04-10',
-      justification: 'Current servers cannot handle increasing load. Need upgrade for business continuity and performance.',
+      justification:
+        'Current servers cannot handle increasing load. Need upgrade for business continuity and performance.',
       items: [
         {
           item_name: 'Server Dell PowerEdge R740',
@@ -80,19 +101,34 @@ export default function RequestAsset() {
           total_estimated_price: 120000000,
           specifications: 'Intel Xeon Silver, 64GB RAM, 2TB SSD RAID, Redundant Power Supply',
           preferred_brand: 'Dell',
-          alternative_brands: ['HP', 'IBM']
-        }
+          alternative_brands: ['HP', 'IBM'],
+        },
       ],
       total_estimated_amount: 120000000,
       budget_code: 'IT-2024-INFRA-001',
       budget_available: 150000000,
       workflow: [
-        { step: 'request', status: 'completed', assignee: 'IT Infrastructure Manager', completed_date: '2024-03-29' },
-        { step: 'pv', status: 'completed', assignee: 'Procurement Team', completed_date: '2024-03-30' },
-        { step: 'approval_finance', status: 'pending', assignee: 'Finance Manager', completed_date: null },
-        { step: 'po', status: 'pending', assignee: 'Procurement Manager', completed_date: null }
+        {
+          step: 'request',
+          status: 'completed',
+          assignee: 'IT Infrastructure Manager',
+          completed_date: '2024-03-29',
+        },
+        {
+          step: 'pv',
+          status: 'completed',
+          assignee: 'Procurement Team',
+          completed_date: '2024-03-30',
+        },
+        {
+          step: 'approval_finance',
+          status: 'pending',
+          assignee: 'Finance Manager',
+          completed_date: null,
+        },
+        { step: 'po', status: 'pending', assignee: 'Procurement Manager', completed_date: null },
       ],
-      attachments: ['infrastructure_plan.pdf', 'capacity_analysis.pdf']
+      attachments: ['infrastructure_plan.pdf', 'capacity_analysis.pdf'],
     },
     {
       id: 3,
@@ -105,7 +141,8 @@ export default function RequestAsset() {
       status: 'completed',
       request_date: '2024-03-25',
       required_date: '2024-04-05',
-      justification: 'Current office furniture is worn out and affecting employee comfort and productivity.',
+      justification:
+        'Current office furniture is worn out and affecting employee comfort and productivity.',
       items: [
         {
           item_name: 'Ergonomic Chair',
@@ -114,20 +151,40 @@ export default function RequestAsset() {
           total_estimated_price: 15000000,
           specifications: 'Adjustable height, lumbar support, armrests, 5-year warranty',
           preferred_brand: 'Herman Miller',
-          alternative_brands: ['Steelcase', 'Okamura']
-        }
+          alternative_brands: ['Steelcase', 'Okamura'],
+        },
       ],
       total_estimated_amount: 15000000,
       budget_code: 'HR-2024-OFFICE-001',
       budget_available: 50000000,
       workflow: [
-        { step: 'request', status: 'completed', assignee: 'HR Manager', completed_date: '2024-03-25' },
-        { step: 'pv', status: 'completed', assignee: 'Procurement Team', completed_date: '2024-03-26' },
-        { step: 'approval_finance', status: 'completed', assignee: 'Finance Manager', completed_date: '2024-03-27' },
-        { step: 'po', status: 'completed', assignee: 'Procurement Manager', completed_date: '2024-03-28' }
+        {
+          step: 'request',
+          status: 'completed',
+          assignee: 'HR Manager',
+          completed_date: '2024-03-25',
+        },
+        {
+          step: 'pv',
+          status: 'completed',
+          assignee: 'Procurement Team',
+          completed_date: '2024-03-26',
+        },
+        {
+          step: 'approval_finance',
+          status: 'completed',
+          assignee: 'Finance Manager',
+          completed_date: '2024-03-27',
+        },
+        {
+          step: 'po',
+          status: 'completed',
+          assignee: 'Procurement Manager',
+          completed_date: '2024-03-28',
+        },
       ],
-      attachments: ['furniture_catalog.pdf', 'ergonomics_study.pdf']
-    }
+      attachments: ['furniture_catalog.pdf', 'ergonomics_study.pdf'],
+    },
   ];
 
   const statuses = [
@@ -135,14 +192,14 @@ export default function RequestAsset() {
     { value: 'pending', label: 'Pending' },
     { value: 'in_progress', label: 'In Progress' },
     { value: 'completed', label: 'Completed' },
-    { value: 'rejected', label: 'Rejected' }
+    { value: 'rejected', label: 'Rejected' },
   ];
 
   const priorities = [
     { value: 'low', label: 'Low', color: 'green' },
     { value: 'medium', label: 'Medium', color: 'blue' },
     { value: 'high', label: 'High', color: 'orange' },
-    { value: 'critical', label: 'Critical', color: 'red' }
+    { value: 'critical', label: 'Critical', color: 'red' },
   ];
 
   useEffect(() => {
@@ -151,10 +208,11 @@ export default function RequestAsset() {
   }, []);
 
   useEffect(() => {
-    let filtered = requestAssetData.filter(request => {
-      const matchesSearch = request.title.toLowerCase().includes(searchText.toLowerCase()) ||
-                           request.request_code.toLowerCase().includes(searchText.toLowerCase()) ||
-                           request.requester.toLowerCase().includes(searchText.toLowerCase());
+    let filtered = requestAssetData.filter((request) => {
+      const matchesSearch =
+        request.title.toLowerCase().includes(searchText.toLowerCase()) ||
+        request.request_code.toLowerCase().includes(searchText.toLowerCase()) ||
+        request.requester.toLowerCase().includes(searchText.toLowerCase());
       const matchesStatus = selectedStatus === 'all' || request.status === selectedStatus;
       return matchesSearch && matchesStatus;
     });
@@ -169,8 +227,9 @@ export default function RequestAsset() {
     setLoading(true);
     try {
       // Calculate total estimated amount
-      const totalAmount = values.items.reduce((sum, item) => 
-        sum + (item.quantity * item.estimated_unit_price), 0
+      const totalAmount = values.items.reduce(
+        (sum, item) => sum + item.quantity * item.estimated_unit_price,
+        0
       );
 
       const newRequest = {
@@ -181,14 +240,24 @@ export default function RequestAsset() {
         status: 'pending',
         request_date: new Date().toISOString().split('T')[0],
         workflow: [
-          { step: 'request', status: 'completed', assignee: values.requester, completed_date: new Date().toISOString().split('T')[0] },
+          {
+            step: 'request',
+            status: 'completed',
+            assignee: values.requester,
+            completed_date: new Date().toISOString().split('T')[0],
+          },
           { step: 'pv', status: 'pending', assignee: 'Procurement Team', completed_date: null },
-          { step: 'approval_finance', status: 'pending', assignee: 'Finance Manager', completed_date: null },
-          { step: 'po', status: 'pending', assignee: 'Procurement Manager', completed_date: null }
-        ]
+          {
+            step: 'approval_finance',
+            status: 'pending',
+            assignee: 'Finance Manager',
+            completed_date: null,
+          },
+          { step: 'po', status: 'pending', assignee: 'Procurement Manager', completed_date: null },
+        ],
       };
-      
-      setRequestAssetData(prev => [newRequest, ...prev]);
+
+      setRequestAssetData((prev) => [newRequest, ...prev]);
       message.success('Asset request berhasil dibuat');
       setCreateModalVisible(false);
       form.resetFields();
@@ -215,27 +284,34 @@ export default function RequestAsset() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'pending': return 'orange';
-      case 'in_progress': return 'blue';
-      case 'completed': return 'green';
-      case 'rejected': return 'red';
-      default: return 'default';
+      case 'pending':
+        return 'orange';
+      case 'in_progress':
+        return 'blue';
+      case 'completed':
+        return 'green';
+      case 'rejected':
+        return 'red';
+      default:
+        return 'default';
     }
   };
 
   const getPriorityColor = (priority) => {
-    const found = priorities.find(p => p.value === priority);
+    const found = priorities.find((p) => p.value === priority);
     return found ? found.color : 'default';
   };
 
   const getCurrentStep = (workflow) => {
-    const pendingStep = workflow.find(step => step.status === 'pending');
+    const pendingStep = workflow.find((step) => step.status === 'pending');
     return pendingStep ? pendingStep.step : 'completed';
   };
 
-  const pendingRequests = filteredData.filter(request => request.status === 'pending').length;
-  const inProgressRequests = filteredData.filter(request => request.status === 'in_progress').length;
-  const completedRequests = filteredData.filter(request => request.status === 'completed').length;
+  const pendingRequests = filteredData.filter((request) => request.status === 'pending').length;
+  const inProgressRequests = filteredData.filter(
+    (request) => request.status === 'in_progress'
+  ).length;
+  const completedRequests = filteredData.filter((request) => request.status === 'completed').length;
   const totalValue = filteredData.reduce((sum, request) => sum + request.total_estimated_amount, 0);
 
   const columns = [
@@ -243,68 +319,70 @@ export default function RequestAsset() {
       title: 'Request Code',
       dataIndex: 'request_code',
       key: 'request_code',
-      render: (text) => <strong>{text}</strong> },
+      render: (text) => <strong>{text}</strong>,
+    },
     {
       title: 'Title',
       dataIndex: 'title',
       key: 'title',
-      ellipsis: true },
+      ellipsis: true,
+    },
     {
       title: 'Requester',
       key: 'requester',
       render: (_, record) => (
         <div>
-          <div><strong>{record.requester}</strong></div>
-          <div style={{ fontSize: '12px', color: '#8c8c8c' }}>
-            {record.department}
+          <div>
+            <strong>{record.requester}</strong>
           </div>
+          <div style={{ fontSize: '12px', color: '#8c8c8c' }}>{record.department}</div>
         </div>
-      ) },
+      ),
+    },
     {
       title: 'Priority',
       dataIndex: 'priority',
       key: 'priority',
-      render: (priority) => (
-        <Tag color={getPriorityColor(priority)}>
-          {priority.toUpperCase()}
-        </Tag>
-      ) },
+      render: (priority) => <Tag color={getPriorityColor(priority)}>{priority.toUpperCase()}</Tag>,
+    },
     {
       title: 'Total Amount',
       dataIndex: 'total_estimated_amount',
       key: 'total_estimated_amount',
       render: (amount) => `Rp ${amount.toLocaleString('id-ID')}`,
-      sorter: (a, b) => a.total_estimated_amount - b.total_estimated_amount },
+      sorter: (a, b) => a.total_estimated_amount - b.total_estimated_amount,
+    },
     {
       title: 'Required Date',
       dataIndex: 'required_date',
-      key: 'required_date' },
+      key: 'required_date',
+    },
     {
       title: 'Current Step',
       key: 'current_step',
       render: (_, record) => {
         const step = getCurrentStep(record.workflow);
-        return step === 'completed' ? 
-          <Tag color="green">COMPLETED</Tag> : 
-          <Tag color="blue">{step.replace('_', ' ').toUpperCase()}</Tag>;
-      } },
+        return step === 'completed' ? (
+          <Tag color='green'>COMPLETED</Tag>
+        ) : (
+          <Tag color='blue'>{step.replace('_', ' ').toUpperCase()}</Tag>
+        );
+      },
+    },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status) => (
-        <Tag color={getStatusColor(status)}>
-          {status.toUpperCase()}
-        </Tag>
-      ) },
+      render: (status) => <Tag color={getStatusColor(status)}>{status.toUpperCase()}</Tag>,
+    },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space>
           <Button
-            type="primary"
-            size="small"
+            type='primary'
+            size='small'
             icon={<EyeOutlined />}
             onClick={() => handleViewDetail(record)}
           >
@@ -312,8 +390,8 @@ export default function RequestAsset() {
           </Button>
           {record.status === 'pending' && (
             <Button
-              type="primary"
-              size="small"
+              type='primary'
+              size='small'
               icon={<ShoppingCartOutlined />}
               onClick={() => navigate('/pv', { state: { request: record } })}
             >
@@ -321,12 +399,13 @@ export default function RequestAsset() {
             </Button>
           )}
         </Space>
-      ) },
+      ),
+    },
   ];
 
   return (
-    <div className="request-asset">
-      <div className="page-header">
+    <div className='request-asset'>
+      <div className='page-header'>
         <h1>Request Asset</h1>
         <p>Management permintaan pembelian aset baru</p>
       </div>
@@ -334,44 +413,44 @@ export default function RequestAsset() {
       <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
         <Col span={6}>
           <Card>
-            <div className="statistic-card pending">
-              <div className="statistic-icon">⏳</div>
-              <div className="statistic-content">
-                <div className="statistic-title">Pending Requests</div>
-                <div className="statistic-value">{pendingRequests}</div>
+            <div className='statistic-card pending'>
+              <div className='statistic-icon'>⏳</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>Pending Requests</div>
+                <div className='statistic-value'>{pendingRequests}</div>
               </div>
             </div>
           </Card>
         </Col>
         <Col span={6}>
           <Card>
-            <div className="statistic-card in-progress">
-              <div className="statistic-icon">🔄</div>
-              <div className="statistic-content">
-                <div className="statistic-title">In Progress</div>
-                <div className="statistic-value">{inProgressRequests}</div>
+            <div className='statistic-card in-progress'>
+              <div className='statistic-icon'>🔄</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>In Progress</div>
+                <div className='statistic-value'>{inProgressRequests}</div>
               </div>
             </div>
           </Card>
         </Col>
         <Col span={6}>
           <Card>
-            <div className="statistic-card completed">
-              <div className="statistic-icon">✅</div>
-              <div className="statistic-content">
-                <div className="statistic-title">Completed</div>
-                <div className="statistic-value">{completedRequests}</div>
+            <div className='statistic-card completed'>
+              <div className='statistic-icon'>✅</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>Completed</div>
+                <div className='statistic-value'>{completedRequests}</div>
               </div>
             </div>
           </Card>
         </Col>
         <Col span={6}>
           <Card>
-            <div className="statistic-card total">
-              <div className="statistic-icon">💰</div>
-              <div className="statistic-content">
-                <div className="statistic-title">Total Value</div>
-                <div className="statistic-value">Rp {totalValue.toLocaleString('id-ID')}</div>
+            <div className='statistic-card total'>
+              <div className='statistic-icon'>💰</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>Total Value</div>
+                <div className='statistic-value'>Rp {totalValue.toLocaleString('id-ID')}</div>
               </div>
             </div>
           </Card>
@@ -380,42 +459,30 @@ export default function RequestAsset() {
 
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <Card 
-            title="Daftar Request Asset"
+          <Card
+            title='Daftar Request Asset'
             extra={
-              <Button
-                type="primary"
-                icon={<PlusOutlined />}
-                onClick={handleCreate}
-              >
+              <Button type='primary' icon={<PlusOutlined />} onClick={handleCreate}>
                 Create Request
               </Button>
             }
           >
-            <div className="table-controls">
+            <div className='table-controls'>
               <Space>
                 <Search
-                  placeholder="Cari asset request..."
+                  placeholder='Cari asset request...'
                   allowClear
                   style={{ width: 300 }}
                   onChange={(e) => setSearchText(e.target.value)}
                 />
-                <Select
-                  value={selectedStatus}
-                  onChange={setSelectedStatus}
-                  style={{ width: 200 }}
-                >
-                  {statuses.map(status => (
+                <Select value={selectedStatus} onChange={setSelectedStatus} style={{ width: 200 }}>
+                  {statuses.map((status) => (
                     <Option key={status.value} value={status.value}>
                       {status.label}
                     </Option>
                   ))}
                 </Select>
-                <Button
-                  icon={<ReloadOutlined />}
-                  onClick={handleRefresh}
-                  loading={loading}
-                >
+                <Button icon={<ReloadOutlined />} onClick={handleRefresh} loading={loading}>
                   Refresh
                 </Button>
               </Space>
@@ -424,15 +491,15 @@ export default function RequestAsset() {
             <Table
               columns={columns}
               dataSource={filteredData}
-              rowKey="id"
+              rowKey='id'
               loading={loading}
               pagination={{
                 total: filteredData.length,
                 pageSize: 10,
                 showSizeChanger: true,
                 showQuickJumper: true,
-                showTotal: (total, range) => 
-                  `${range[0]}-${range[1]} dari ${total} requests` }}
+                showTotal: (total, range) => `${range[0]}-${range[1]} dari ${total} requests`,
+              }}
               rowClassName={(record) => {
                 if (record.status === 'pending') return 'row-pending';
                 if (record.status === 'in_progress') return 'row-in-progress';
@@ -446,7 +513,7 @@ export default function RequestAsset() {
       </Row>
 
       <Modal
-        title="Create Asset Request"
+        title='Create Asset Request'
         open={createModalVisible}
         onCancel={() => {
           setCreateModalVisible(false);
@@ -455,219 +522,221 @@ export default function RequestAsset() {
         footer={null}
         width={800}
       >
-        <Form as="form"
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit}
-        >
+        <Form form={form} layout='vertical' onFinish={handleSubmit}>
           <Row gutter={[16, 16]}>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="title"
-                label="Request Title"
+              <Form.Item
+                name='title'
+                label='Request Title'
                 rules={[{ required: true, message: 'Title harus diisi!' }]}
               >
-                <Input placeholder="Masukkan title request" />
-              </Form.Group>
+                <Input placeholder='Masukkan title request' />
+              </Form.Item>
             </Col>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="priority"
-                label="Priority"
+              <Form.Item
+                name='priority'
+                label='Priority'
                 rules={[{ required: true, message: 'Priority harus diisi!' }]}
               >
-                <Select placeholder="Pilih priority">
-                  {priorities.map(priority => (
+                <Select placeholder='Pilih priority'>
+                  {priorities.map((priority) => (
                     <Option key={priority.value} value={priority.value}>
                       {priority.label}
                     </Option>
                   ))}
                 </Select>
-              </Form.Group>
+              </Form.Item>
             </Col>
           </Row>
 
-          <Form as="form".Item
-            controlId="justification"
-            label="Justification"
+          <Form.Item
+            name='justification'
+            label='Justification'
             rules={[{ required: true, message: 'Justification harus diisi!' }]}
           >
-            <Input.TextArea rows={4} placeholder="Jelaskan alasan permintaan aset..." />
-          </Form.Group>
+            <Input.TextArea rows={4} placeholder='Jelaskan alasan permintaan aset...' />
+          </Form.Item>
 
           <Row gutter={[16, 16]}>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="requester"
-                label="Requester Name"
+              <Form.Item
+                name='requester'
+                label='Requester Name'
                 rules={[{ required: true, message: 'Requester name harus diisi!' }]}
               >
-                <Input placeholder="Nama requester" />
-              </Form.Group>
+                <Input placeholder='Nama requester' />
+              </Form.Item>
             </Col>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="requester_email"
-                label="Requester Email"
+              <Form.Item
+                name='requester_email'
+                label='Requester Email'
                 rules={[
                   { required: true, message: 'Email harus diisi!' },
-                  { type: 'email', message: 'Format email tidak valid!' }
+                  { type: 'email', message: 'Format email tidak valid!' },
                 ]}
               >
-                <Input placeholder="email@company.com" />
-              </Form.Group>
+                <Input placeholder='email@company.com' />
+              </Form.Item>
             </Col>
           </Row>
 
           <Row gutter={[16, 16]}>
             <Col span={8}>
-              <Form as="form".Item
-                controlId="department"
-                label="Department"
+              <Form.Item
+                name='department'
+                label='Department'
                 rules={[{ required: true, message: 'Department harus diisi!' }]}
               >
-                <Select placeholder="Pilih department">
-                  <Option value="IT">IT</Option>
-                  <Option value="Operations">Operations</Option>
-                  <Option value="Finance">Finance</Option>
-                  <Option value="HR">HR</Option>
-                  <Option value="Marketing">Marketing</Option>
+                <Select placeholder='Pilih department'>
+                  <Option value='IT'>IT</Option>
+                  <Option value='Operations'>Operations</Option>
+                  <Option value='Finance'>Finance</Option>
+                  <Option value='HR'>HR</Option>
+                  <Option value='Marketing'>Marketing</Option>
                 </Select>
-              </Form.Group>
+              </Form.Item>
             </Col>
             <Col span={8}>
-              <Form as="form".Item
-                controlId="budget_code"
-                label="Budget Code"
+              <Form.Item
+                name='budget_code'
+                label='Budget Code'
                 rules={[{ required: true, message: 'Budget code harus diisi!' }]}
               >
-                <Input placeholder="Budget code" />
-              </Form.Group>
+                <Input placeholder='Budget code' />
+              </Form.Item>
             </Col>
             <Col span={8}>
-              <Form as="form".Item
-                controlId="required_date"
-                label="Required Date"
+              <Form.Item
+                name='required_date'
+                label='Required Date'
                 rules={[{ required: true, message: 'Required date harus diisi!' }]}
               >
-                <Input placeholder="YYYY-MM-DD" />
-              </Form.Group>
+                <Input placeholder='YYYY-MM-DD' />
+              </Form.Item>
             </Col>
           </Row>
 
-          <Form as="form".Item
-            controlId="items"
-            label="Items Requested"
+          <Form.Item
+            name='items'
+            label='Items Requested'
             rules={[{ required: true, message: 'Items harus diisi!' }]}
           >
-            <Form as="form".List controlId="items">
+            <Form.List name='items'>
               {(fields, { add, remove }) => (
                 <>
                   {fields.map(({ key, name, ...restField }) => (
-                    <div key={key} style={{ marginBottom: 16, padding: 16, border: '1px solid #f0f0f0', borderRadius: 6 }}>
+                    <div
+                      key={key}
+                      style={{
+                        marginBottom: 16,
+                        padding: 16,
+                        border: '1px solid #f0f0f0',
+                        borderRadius: 6,
+                      }}
+                    >
                       <Row gutter={[16, 16]}>
                         <Col span={8}>
-                          <Form as="form".Item
+                          <Form.Item
                             {...restField}
-                            controlId={[name, 'item_name']}
-                            label="Item Name"
+                            name={[name, 'item_name']}
+                            label='Item Name'
                             rules={[{ required: true, message: 'Item name harus diisi!' }]}
                           >
-                            <Input placeholder="Nama item" />
-                          </Form.Group>
+                            <Input placeholder='Nama item' />
+                          </Form.Item>
                         </Col>
                         <Col span={4}>
-                          <Form as="form".Item
+                          <Form.Item
                             {...restField}
-                            controlId={[name, 'quantity']}
-                            label="Quantity"
+                            name={[name, 'quantity']}
+                            label='Quantity'
                             rules={[{ required: true, message: 'Quantity harus diisi!' }]}
                           >
-                            <Input type="number" placeholder="Qty" />
-                          </Form.Group>
+                            <Input type='number' placeholder='Qty' />
+                          </Form.Item>
                         </Col>
                         <Col span={6}>
-                          <Form as="form".Item
+                          <Form.Item
                             {...restField}
-                            controlId={[name, 'estimated_unit_price']}
-                            label="Unit Price"
+                            name={[name, 'estimated_unit_price']}
+                            label='Unit Price'
                             rules={[{ required: true, message: 'Unit price harus diisi!' }]}
                           >
-                            <Input type="number" placeholder="Rp 0" />
-                          </Form.Group>
+                            <Input type='number' placeholder='Rp 0' />
+                          </Form.Item>
                         </Col>
                         <Col span={6}>
-                          <Form as="form".Item label="Action">
-                            <Button 
-                              type="danger" 
+                          <Form.Item label='Action'>
+                            <Button
+                              type='danger'
                               onClick={() => remove(name)}
                               disabled={fields.length === 1}
                             >
                               Remove
                             </Button>
-                          </Form.Group>
+                          </Form.Item>
                         </Col>
                       </Row>
                       <Row gutter={[16, 16]}>
                         <Col span={12}>
-                          <Form as="form".Item
+                          <Form.Item
                             {...restField}
-                            controlId={[name, 'specifications']}
-                            label="Specifications"
+                            name={[name, 'specifications']}
+                            label='Specifications'
                           >
-                            <Input placeholder="Spesifikasi item" />
-                          </Form.Group>
+                            <Input placeholder='Spesifikasi item' />
+                          </Form.Item>
                         </Col>
                         <Col span={12}>
-                          <Form as="form".Item
+                          <Form.Item
                             {...restField}
-                            controlId={[name, 'preferred_brand']}
-                            label="Preferred Brand"
+                            name={[name, 'preferred_brand']}
+                            label='Preferred Brand'
                           >
-                            <Input placeholder="Brand yang diinginkan" />
-                          </Form.Group>
+                            <Input placeholder='Brand yang diinginkan' />
+                          </Form.Item>
                         </Col>
                       </Row>
                     </div>
                   ))}
-                  <Form as="form".Item>
-                    <Button type="dashed" onClick={() => add()} icon={<PlusOutlined />}>
+                  <Form.Item>
+                    <Button type='dashed' onClick={() => add()} icon={<PlusOutlined />}>
                       Add Item
                     </Button>
-                  </Form.Group>
+                  </Form.Item>
                 </>
               )}
             </Form.List>
-          </Form.Group>
+          </Form.Item>
 
-          <Form as="form".Item>
+          <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit" loading={loading}>
+              <Button type='primary' htmlType='submit' loading={loading}>
                 Create Request
               </Button>
-              <Button onClick={() => setCreateModalVisible(false)}>
-                Cancel
-              </Button>
+              <Button onClick={() => setCreateModalVisible(false)}>Cancel</Button>
             </Space>
-          </Form.Group>
+          </Form.Item>
         </Form>
       </Modal>
 
       <Modal
-        title="Asset Request Detail"
+        title='Asset Request Detail'
         open={detailModalVisible}
         onCancel={() => {
           setDetailModalVisible(false);
           setSelectedRequest(null);
         }}
         footer={[
-          <Button key="close" onClick={() => setDetailModalVisible(false)}>
+          <Button key='close' onClick={() => setDetailModalVisible(false)}>
             Close
           </Button>,
           selectedRequest?.status === 'pending' && (
             <Button
-              key="process"
-              type="primary"
+              key='process'
+              type='primary'
               icon={<ShoppingCartOutlined />}
               onClick={() => {
                 setDetailModalVisible(false);
@@ -676,39 +745,68 @@ export default function RequestAsset() {
             >
               Process to PV
             </Button>
-          )
+          ),
         ]}
         width={1000}
       >
         {selectedRequest && (
-          <div className="request-detail">
+          <div className='request-detail'>
             <Row gutter={[16, 16]}>
               <Col span={12}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Request Information</h4>
-                  <p><strong>Request Code:</strong> {selectedRequest.request_code}</p>
-                  <p><strong>Title:</strong> {selectedRequest.title}</p>
-                  <p><strong>Priority:</strong> <Tag color={getPriorityColor(selectedRequest.priority)}>{selectedRequest.priority.toUpperCase()}</Tag></p>
-                  <p><strong>Status:</strong> <Tag color={getStatusColor(selectedRequest.status)}>{selectedRequest.status.toUpperCase()}</Tag></p>
-                  <p><strong>Request Date:</strong> {selectedRequest.request_date}</p>
-                  <p><strong>Required Date:</strong> {selectedRequest.required_date}</p>
+                  <p>
+                    <strong>Request Code:</strong> {selectedRequest.request_code}
+                  </p>
+                  <p>
+                    <strong>Title:</strong> {selectedRequest.title}
+                  </p>
+                  <p>
+                    <strong>Priority:</strong>{' '}
+                    <Tag color={getPriorityColor(selectedRequest.priority)}>
+                      {selectedRequest.priority.toUpperCase()}
+                    </Tag>
+                  </p>
+                  <p>
+                    <strong>Status:</strong>{' '}
+                    <Tag color={getStatusColor(selectedRequest.status)}>
+                      {selectedRequest.status.toUpperCase()}
+                    </Tag>
+                  </p>
+                  <p>
+                    <strong>Request Date:</strong> {selectedRequest.request_date}
+                  </p>
+                  <p>
+                    <strong>Required Date:</strong> {selectedRequest.required_date}
+                  </p>
                 </div>
               </Col>
               <Col span={12}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Requester Information</h4>
-                  <p><strong>Name:</strong> {selectedRequest.requester}</p>
-                  <p><strong>Email:</strong> {selectedRequest.requester_email}</p>
-                  <p><strong>Department:</strong> {selectedRequest.department}</p>
-                  <p><strong>Budget Code:</strong> {selectedRequest.budget_code}</p>
-                  <p><strong>Budget Available:</strong> Rp {selectedRequest.budget_available.toLocaleString('id-ID')}</p>
+                  <p>
+                    <strong>Name:</strong> {selectedRequest.requester}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {selectedRequest.requester_email}
+                  </p>
+                  <p>
+                    <strong>Department:</strong> {selectedRequest.department}
+                  </p>
+                  <p>
+                    <strong>Budget Code:</strong> {selectedRequest.budget_code}
+                  </p>
+                  <p>
+                    <strong>Budget Available:</strong> Rp{' '}
+                    {selectedRequest.budget_available.toLocaleString('id-ID')}
+                  </p>
                 </div>
               </Col>
             </Row>
 
             <Row gutter={[16, 16]}>
               <Col span={24}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Justification</h4>
                   <p>{selectedRequest.justification}</p>
                 </div>
@@ -717,34 +815,102 @@ export default function RequestAsset() {
 
             <Row gutter={[16, 16]}>
               <Col span={24}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Items Requested</h4>
-                  <div className="items-table">
+                  <div className='items-table'>
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                       <thead>
                         <tr style={{ background: '#fafafa' }}>
-                          <th style={{ padding: '8px', border: '1px solid #f0f0f0', textAlign: 'left' }}>Item Name</th>
-                          <th style={{ padding: '8px', border: '1px solid #f0f0f0', textAlign: 'left' }}>Quantity</th>
-                          <th style={{ padding: '8px', border: '1px solid #f0f0f0', textAlign: 'left' }}>Unit Price</th>
-                          <th style={{ padding: '8px', border: '1px solid #f0f0f0', textAlign: 'left' }}>Total Price</th>
-                          <th style={{ padding: '8px', border: '1px solid #f0f0f0', textAlign: 'left' }}>Specifications</th>
+                          <th
+                            style={{
+                              padding: '8px',
+                              border: '1px solid #f0f0f0',
+                              textAlign: 'left',
+                            }}
+                          >
+                            Item Name
+                          </th>
+                          <th
+                            style={{
+                              padding: '8px',
+                              border: '1px solid #f0f0f0',
+                              textAlign: 'left',
+                            }}
+                          >
+                            Quantity
+                          </th>
+                          <th
+                            style={{
+                              padding: '8px',
+                              border: '1px solid #f0f0f0',
+                              textAlign: 'left',
+                            }}
+                          >
+                            Unit Price
+                          </th>
+                          <th
+                            style={{
+                              padding: '8px',
+                              border: '1px solid #f0f0f0',
+                              textAlign: 'left',
+                            }}
+                          >
+                            Total Price
+                          </th>
+                          <th
+                            style={{
+                              padding: '8px',
+                              border: '1px solid #f0f0f0',
+                              textAlign: 'left',
+                            }}
+                          >
+                            Specifications
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
                         {selectedRequest.items.map((item, index) => (
                           <tr key={index}>
-                            <td style={{ padding: '8px', border: '1px solid #f0f0f0' }}>{item.item_name}</td>
-                            <td style={{ padding: '8px', border: '1px solid #f0f0f0' }}>{item.quantity}</td>
-                            <td style={{ padding: '8px', border: '1px solid #f0f0f0' }}>Rp {item.estimated_unit_price.toLocaleString('id-ID')}</td>
-                            <td style={{ padding: '8px', border: '1px solid #f0f0f0' }}>Rp {item.total_estimated_price.toLocaleString('id-ID')}</td>
-                            <td style={{ padding: '8px', border: '1px solid #f0f0f0' }}>{item.specifications}</td>
+                            <td style={{ padding: '8px', border: '1px solid #f0f0f0' }}>
+                              {item.item_name}
+                            </td>
+                            <td style={{ padding: '8px', border: '1px solid #f0f0f0' }}>
+                              {item.quantity}
+                            </td>
+                            <td style={{ padding: '8px', border: '1px solid #f0f0f0' }}>
+                              Rp {item.estimated_unit_price.toLocaleString('id-ID')}
+                            </td>
+                            <td style={{ padding: '8px', border: '1px solid #f0f0f0' }}>
+                              Rp {item.total_estimated_price.toLocaleString('id-ID')}
+                            </td>
+                            <td style={{ padding: '8px', border: '1px solid #f0f0f0' }}>
+                              {item.specifications}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
                       <tfoot>
                         <tr>
-                          <td colSpan="3" style={{ padding: '8px', border: '1px solid #f0f0f0', textAlign: 'right', fontWeight: 'bold' }}>Total:</td>
-                          <td colSpan="2" style={{ padding: '8px', border: '1px solid #f0f0f0', fontWeight: 'bold', color: '#1890ff' }}>
+                          <td
+                            colSpan='3'
+                            style={{
+                              padding: '8px',
+                              border: '1px solid #f0f0f0',
+                              textAlign: 'right',
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            Total:
+                          </td>
+                          <td
+                            colSpan='2'
+                            style={{
+                              padding: '8px',
+                              border: '1px solid #f0f0f0',
+                              fontWeight: 'bold',
+                              color: '#1890ff',
+                            }}
+                          >
                             Rp {selectedRequest.total_estimated_amount.toLocaleString('id-ID')}
                           </td>
                         </tr>
@@ -757,9 +923,14 @@ export default function RequestAsset() {
 
             <Row gutter={[16, 16]}>
               <Col span={24}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Workflow Progress</h4>
-                  <Steps current={selectedRequest.workflow.findIndex(step => step.status === 'pending')} size="small">
+                  <Steps
+                    current={selectedRequest.workflow.findIndex(
+                      (step) => step.status === 'pending'
+                    )}
+                    size='small'
+                  >
                     {selectedRequest.workflow.map((step, index) => (
                       <Step
                         key={step.step}
@@ -767,10 +938,20 @@ export default function RequestAsset() {
                         description={
                           <div>
                             <div>{step.assignee}</div>
-                            {step.completed_date && <div style={{ fontSize: '12px', color: '#8c8c8c' }}>Completed: {step.completed_date}</div>}
+                            {step.completed_date && (
+                              <div style={{ fontSize: '12px', color: '#8c8c8c' }}>
+                                Completed: {step.completed_date}
+                              </div>
+                            )}
                           </div>
                         }
-                        status={step.status === 'completed' ? 'finish' : step.status === 'pending' ? 'wait' : 'process'}
+                        status={
+                          step.status === 'completed'
+                            ? 'finish'
+                            : step.status === 'pending'
+                              ? 'wait'
+                              : 'process'
+                        }
                       />
                     ))}
                   </Steps>
@@ -780,9 +961,9 @@ export default function RequestAsset() {
 
             <Row gutter={[16, 16]}>
               <Col span={24}>
-                <div className="detail-section">
+                <div className='detail-section'>
                   <h4>Attachments</h4>
-                  <div className="attachments">
+                  <div className='attachments'>
                     {selectedRequest.attachments.map((file, index) => (
                       <Tag key={index} icon={<FileTextOutlined />}>
                         {file}

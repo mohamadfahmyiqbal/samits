@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Form,
+import {
+  Form,
   Card,
   Button,
   Steps,
@@ -13,11 +14,15 @@ import { Form,
   Alert,
   Tag,
   Divider,
-  Space } from 'antd';
-import { UserOutlined, SearchOutlined,
+  Space,
+} from 'antd';
+import {
+  UserOutlined,
+  SearchOutlined,
   SwapOutlined,
   ArrowLeftOutlined,
-  ArrowRightOutlined } from '@ant-design/icons';
+  ArrowRightOutlined,
+} from '@ant-design/icons';
 import './UserReplacement.css';
 
 const { Step } = Steps;
@@ -38,15 +43,18 @@ export default function UserReplacement() {
     {
       title: 'Search Asset',
       description: 'Find the asset to transfer',
-      icon: <SearchOutlined /> },
+      icon: <SearchOutlined />,
+    },
     {
       title: 'Select User',
       description: 'Choose the new user',
-      icon: <UserOutlined /> },
+      icon: <UserOutlined />,
+    },
     {
       title: 'Transfer Details',
       description: 'Review and confirm transfer',
-      icon: <SwapOutlined /> },
+      icon: <SwapOutlined />,
+    },
   ];
 
   const mockAssets = [
@@ -63,7 +71,8 @@ export default function UserReplacement() {
       status: 'active',
       purchaseDate: '2022-01-15',
       lastMaintenance: '2024-03-15',
-      warrantyExpiry: '2025-01-15' },
+      warrantyExpiry: '2025-01-15',
+    },
     {
       id: 2,
       assetCode: 'AST-002',
@@ -77,7 +86,8 @@ export default function UserReplacement() {
       status: 'active',
       purchaseDate: '2022-03-10',
       lastMaintenance: '2024-03-10',
-      warrantyExpiry: '2025-03-10' },
+      warrantyExpiry: '2025-03-10',
+    },
     {
       id: 3,
       assetCode: 'AST-003',
@@ -91,7 +101,8 @@ export default function UserReplacement() {
       status: 'active',
       purchaseDate: '2022-02-20',
       lastMaintenance: '2024-02-20',
-      warrantyExpiry: '2024-02-20' },
+      warrantyExpiry: '2024-02-20',
+    },
   ];
 
   const mockUsers = [
@@ -104,7 +115,8 @@ export default function UserReplacement() {
       currentAssets: 0,
       maxAssets: 3,
       status: 'active',
-      joinDate: '2021-06-15' },
+      joinDate: '2021-06-15',
+    },
     {
       id: 2,
       name: 'Robert Wilson',
@@ -114,7 +126,8 @@ export default function UserReplacement() {
       currentAssets: 1,
       maxAssets: 2,
       status: 'active',
-      joinDate: '2020-09-20' },
+      joinDate: '2020-09-20',
+    },
     {
       id: 3,
       name: 'Lisa Anderson',
@@ -124,7 +137,8 @@ export default function UserReplacement() {
       currentAssets: 2,
       maxAssets: 3,
       status: 'active',
-      joinDate: '2019-04-10' },
+      joinDate: '2019-04-10',
+    },
     {
       id: 4,
       name: 'James Taylor',
@@ -134,7 +148,8 @@ export default function UserReplacement() {
       currentAssets: 1,
       maxAssets: 2,
       status: 'active',
-      joinDate: '2021-01-15' },
+      joinDate: '2021-01-15',
+    },
   ];
 
   useEffect(() => {
@@ -200,13 +215,16 @@ export default function UserReplacement() {
       oldUser: {
         name: selectedAsset.currentUser,
         email: selectedAsset.userEmail,
-        department: selectedAsset.department },
+        department: selectedAsset.department,
+      },
       newUser: {
         name: newUser.name,
         email: newUser.email,
-        department: newUser.department },
+        department: newUser.department,
+      },
       transferDate: new Date().toISOString().split('T')[0],
-      reason: form.getFieldValue('reason') || 'User replacement request' });
+      reason: form.getFieldValue('reason') || 'User replacement request',
+    });
 
     setShowConfirmModal(true);
   };
@@ -222,12 +240,14 @@ export default function UserReplacement() {
         currentUser: newUser.name,
         userEmail: newUser.email,
         department: newUser.department,
-        lastUpdated: new Date().toISOString().split('T')[0] }));
+        lastUpdated: new Date().toISOString().split('T')[0],
+      }));
 
       // Update user asset count
       setNewUser((prev) => ({
         ...prev,
-        currentAssets: prev.currentAssets + 1 }));
+        currentAssets: prev.currentAssets + 1,
+      }));
 
       message.success('Asset transferred successfully');
       setShowConfirmModal(false);
@@ -253,16 +273,19 @@ export default function UserReplacement() {
       title: 'Asset Code',
       dataIndex: 'assetCode',
       key: 'assetCode',
-      render: (text) => <strong>{text}</strong> },
+      render: (text) => <strong>{text}</strong>,
+    },
     {
       title: 'Asset Name',
       dataIndex: 'assetName',
       key: 'assetName',
-      ellipsis: true },
+      ellipsis: true,
+    },
     {
       title: 'Type',
       dataIndex: 'assetType',
-      key: 'assetType' },
+      key: 'assetType',
+    },
     {
       title: 'Current User',
       key: 'currentUser',
@@ -273,22 +296,26 @@ export default function UserReplacement() {
           </div>
           <div style={{ fontSize: '12px', color: '#8c8c8c' }}>{record.userEmail}</div>
         </div>
-      ) },
+      ),
+    },
     {
       title: 'Department',
       dataIndex: 'department',
-      key: 'department' },
+      key: 'department',
+    },
     {
       title: 'Location',
       dataIndex: 'location',
-      key: 'location' },
+      key: 'location',
+    },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
       render: (status) => (
         <Tag color={status === 'active' ? 'green' : 'red'}>{status.toUpperCase()}</Tag>
-      ) },
+      ),
+    },
     {
       title: 'Action',
       key: 'action',
@@ -301,7 +328,8 @@ export default function UserReplacement() {
         >
           Select
         </Button>
-      ) },
+      ),
+    },
   ];
 
   const userColumns = [
@@ -309,19 +337,23 @@ export default function UserReplacement() {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <strong>{text}</strong> },
+      render: (text) => <strong>{text}</strong>,
+    },
     {
       title: 'Email',
       dataIndex: 'email',
-      key: 'email' },
+      key: 'email',
+    },
     {
       title: 'Department',
       dataIndex: 'department',
-      key: 'department' },
+      key: 'department',
+    },
     {
       title: 'Position',
       dataIndex: 'position',
-      key: 'position' },
+      key: 'position',
+    },
     {
       title: 'Current Assets',
       key: 'currentAssets',
@@ -338,14 +370,16 @@ export default function UserReplacement() {
             )}
           </div>
         </div>
-      ) },
+      ),
+    },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
       render: (status) => (
         <Tag color={status === 'active' ? 'green' : 'red'}>{status.toUpperCase()}</Tag>
-      ) },
+      ),
+    },
     {
       title: 'Action',
       key: 'action',
@@ -358,7 +392,8 @@ export default function UserReplacement() {
         >
           Select
         </Button>
-      ) },
+      ),
+    },
   ];
 
   return (
@@ -399,7 +434,8 @@ export default function UserReplacement() {
               pagination={{
                 pageSize: 10,
                 showSizeChanger: true,
-                showQuickJumper: true }}
+                showQuickJumper: true,
+              }}
             />
           </div>
         )}
@@ -468,7 +504,8 @@ export default function UserReplacement() {
               pagination={{
                 pageSize: 10,
                 showSizeChanger: true,
-                showQuickJumper: true }}
+                showQuickJumper: true,
+              }}
             />
           </div>
         )}
@@ -539,9 +576,9 @@ export default function UserReplacement() {
                     </Col>
                   </Row>
                   <Divider />
-                  <Form as="form" form={form} layout='vertical'>
-                    <Form as="form".Item
-                      controlId='reason'
+                  <Form form={form} layout='vertical'>
+                    <Form.Item
+                      name='reason'
                       label='Transfer Reason'
                       rules={[{ required: true, message: 'Please provide transfer reason!' }]}
                     >
@@ -549,7 +586,7 @@ export default function UserReplacement() {
                         rows={3}
                         placeholder='Explain why this transfer is necessary...'
                       />
-                    </Form.Group>
+                    </Form.Item>
                   </Form>
                 </Card>
               </Col>

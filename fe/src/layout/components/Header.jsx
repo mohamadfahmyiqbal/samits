@@ -52,7 +52,6 @@ export default function Header({ side, handleUser = noop, handleSidebar }) {
   const fetchUserData = useCallback(async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      console.log('[Header] No token found, skipping user fetch');
       setLoading(false);
       return;
     }

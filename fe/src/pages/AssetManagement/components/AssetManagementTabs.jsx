@@ -64,6 +64,7 @@ export default function AssetManagementTabs() {
       onDetail: onDetail,
       onUpdate: onUpdate,
       onDelete: onDelete,
+      onHistory: onDetail, // Menggunakan onDetail sebagai fallback untuk history
       isLoading: isLoading,
       onAdd: onAdd,
     }),

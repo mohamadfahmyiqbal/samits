@@ -1,6 +1,17 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Card, Alert, Button, Badge } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Alert,
+  Button,
+  Badge,
+  Toast,
+  ToastContainer,
+} from 'react-bootstrap';
 import { useWorkOrderData } from './hooks/useWorkOrderData.js';
+import { fetchAssets } from '../../services/AssetService.js';
 import WorkOrderTable from './components/WorkOrderTable.jsx';
 import WorkOrderFilter from './components/WorkOrderFilter.jsx';
 import WorkOrderModals from './components/WorkOrderModals.jsx';
@@ -22,8 +33,13 @@ const WorkOrderScreen = () => {
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showAssignModal, setShowAssignModal] = useState(false);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
   const [editWorkOrder, setEditWorkOrder] = useState(null);
+  const [selectedWorkOrder, setSelectedWorkOrder] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [assets, setAssets] = useState([]);
+  const [toast, setToast] = useState({ show: false, message: '', variant: 'success' });
   const ITEMS_PER_PAGE = 25;
   const paginatedOrders = workOrders.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -31,10 +47,32 @@ const WorkOrderScreen = () => {
   );
   const totalPages = Math.ceil(workOrders.length / ITEMS_PER_PAGE);
 
+  // Reset pagination when filters or search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, searchTerm]);
+
+  // Load assets on mount
+  useEffect(() => {
+    const loadAssets = async () => {
+      try {
+        const response = await fetchAssets();
+        setAssets(response.data || response || []);
+      } catch (err) {
+        console.error('Failed to load assets:', err);
+      }
+    };
+    loadAssets();
+  }, []);
+
   const handleCreateNew = () => setShowCreateModal(true);
-  const handleCloseCreate = () => setShowCreateModal(false);
+  const handleCloseCreate = () => {
+    setShowCreateModal(false);
+    setSelectedWorkOrder(null);
+  };
 
   const handleEdit = (wo) => {
+    setSelectedWorkOrder(wo);
     setEditWorkOrder(wo);
     setShowEditModal(true);
   };
@@ -42,6 +80,7 @@ const WorkOrderScreen = () => {
   const handleCloseEdit = () => {
     setShowEditModal(false);
     setEditWorkOrder(null);
+    setSelectedWorkOrder(null);
   };
 
   const handleRefresh = () => {
@@ -56,14 +95,44 @@ const WorkOrderScreen = () => {
       try {
         await deleteWorkOrder(id);
         refreshData();
+        setToast({ show: true, message: 'Work Order berhasil dihapus', variant: 'success' });
       } catch (err) {
-        alert('Error: ' + err.message);
+        setToast({ show: true, message: 'Error: ' + err.message, variant: 'danger' });
       }
     }
   };
 
   const handleAction = async (action, wo) => {
-    // Handle assign, start, complete actions
+    setSelectedWorkOrder(wo);
+    switch (action) {
+      case 'assign':
+        setShowAssignModal(true);
+        break;
+      case 'start':
+        try {
+          // TODO: Implement startWorkOrder API when available
+          setToast({ show: true, message: 'Work Order dimulai', variant: 'success' });
+          refreshData();
+        } catch (err) {
+          setToast({ show: true, message: 'Error: ' + err.message, variant: 'danger' });
+        }
+        break;
+      case 'complete':
+        setShowCompleteModal(true);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleCloseAssign = () => {
+    setShowAssignModal(false);
+    setSelectedWorkOrder(null);
+  };
+
+  const handleCloseComplete = () => {
+    setShowCompleteModal(false);
+    setSelectedWorkOrder(null);
   };
 
   if (error) {
@@ -143,8 +212,30 @@ const WorkOrderScreen = () => {
         onCloseEdit={handleCloseEdit}
         onRefresh={refreshData}
         technicians={technicians}
-        assets={[]} // Integrate with AssetService later
+        assets={assets}
+        showAssign={showAssignModal}
+        onCloseAssign={handleCloseAssign}
+        selectedWorkOrder={selectedWorkOrder}
+        showComplete={showCompleteModal}
+        onCloseComplete={handleCloseComplete}
+        onShowToast={(msg, variant) => setToast({ show: true, message: msg, variant })}
       />
+      <ToastContainer position='top-end' className='p-3'>
+        <Toast
+          show={toast.show}
+          onClose={() => setToast({ ...toast, show: false })}
+          delay={3000}
+          autohide
+          bg={toast.variant}
+        >
+          <Toast.Header>
+            <strong className='me-auto'>{toast.variant === 'success' ? 'Success' : 'Error'}</strong>
+          </Toast.Header>
+          <Toast.Body className={toast.variant === 'danger' ? 'text-white' : ''}>
+            {toast.message}
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
     </Container>
   );
 };

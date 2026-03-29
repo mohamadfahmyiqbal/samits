@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Form,
+import {
+  Form,
   Card,
   Row,
   Col,
@@ -11,12 +12,9 @@ import { Form,
   Table,
   Tag,
   Space,
-  Alert } from 'antd';
-import {
-  CalendarOutlined,
-  TeamOutlined,
-  LeftOutlined,
-  RightOutlined } from '@ant-design/icons';
+  Alert,
+} from 'antd';
+import { CalendarOutlined, TeamOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './SelectSchedule.css';
 
@@ -38,10 +36,12 @@ export default function SelectSchedule() {
     category: categoryData?.category || '',
     subcategory: categoryData?.subcategory || '',
     priority: categoryData?.priority || 'medium',
+    criticality: categoryData?.criticality || 'medium',
     description: categoryData?.description || '',
     requester: categoryData?.requester || '',
     department: categoryData?.department || '',
     location: categoryData?.location || '',
+    required_skills: categoryData?.required_skills || [],
     estimated_duration: categoryData?.estimated_duration || 2,
     required_date: categoryData?.required_date || '',
     schedule_date: '',
@@ -50,7 +50,8 @@ export default function SelectSchedule() {
     team_members: [],
     tools_required: [],
     materials_required: [],
-    notes: '' });
+    notes: '',
+  });
 
   const teams = [
     {
@@ -61,7 +62,8 @@ export default function SelectSchedule() {
       specialization: 'Preventive Maintenance',
       availability: 'available',
       current_workload: 3,
-      max_workload: 5 },
+      max_workload: 5,
+    },
     {
       id: 2,
       name: 'Technical Support Team',
@@ -70,7 +72,8 @@ export default function SelectSchedule() {
       specialization: 'Corrective Maintenance',
       availability: 'available',
       current_workload: 2,
-      max_workload: 4 },
+      max_workload: 4,
+    },
     {
       id: 3,
       name: 'Emergency Response Team',
@@ -79,7 +82,8 @@ export default function SelectSchedule() {
       specialization: 'Emergency Repairs',
       availability: 'busy',
       current_workload: 5,
-      max_workload: 5 },
+      max_workload: 5,
+    },
     {
       id: 4,
       name: 'Specialized Equipment Team',
@@ -88,7 +92,8 @@ export default function SelectSchedule() {
       specialization: 'Heavy Equipment',
       availability: 'available',
       current_workload: 1,
-      max_workload: 3 },
+      max_workload: 3,
+    },
   ];
 
   const availableSlots = [
@@ -109,22 +114,28 @@ export default function SelectSchedule() {
         category: categoryData.category,
         subcategory: categoryData.subcategory,
         priority: categoryData.priority,
+        criticality: categoryData.criticality,
         description: categoryData.description,
         requester: categoryData.requester,
         department: categoryData.department,
         location: categoryData.location,
+        required_skills: categoryData.required_skills,
         estimated_duration: categoryData.estimated_duration,
-        required_date: categoryData.required_date }));
+        required_date: categoryData.required_date,
+      }));
       form.setFieldsValue({
         category: categoryData.category,
         subcategory: categoryData.subcategory,
         priority: categoryData.priority,
+        criticality: categoryData.criticality,
         description: categoryData.description,
         requester: categoryData.requester,
         department: categoryData.department,
         location: categoryData.location,
+        required_skills: categoryData.required_skills,
         estimated_duration: categoryData.estimated_duration,
-        required_date: categoryData.required_date });
+        required_date: categoryData.required_date,
+      });
     }
   }, [categoryData, form]);
 
@@ -144,7 +155,8 @@ export default function SelectSchedule() {
     setScheduleData((prev) => ({
       ...prev,
       assigned_team: team.name,
-      team_members: team.members }));
+      team_members: team.members,
+    }));
   };
 
   const handleSubmit = async (values) => {
@@ -156,13 +168,16 @@ export default function SelectSchedule() {
         schedule_date: selectedDate,
         schedule_time: selectedTime,
         assigned_team: selectedTeam?.name,
-        team_members: selectedTeam?.members || [] };
+        team_members: selectedTeam?.members || [],
+      };
 
       // Navigate to maintenance schedule with schedule data
       navigate('/maintenance-schedule', {
         state: {
           categoryData: categoryData,
-          scheduleData: finalScheduleData } });
+          scheduleData: finalScheduleData,
+        },
+      });
 
       message.success('Schedule selected successfully');
     } catch (error) {
@@ -205,20 +220,36 @@ export default function SelectSchedule() {
     }
   };
 
+  const getCriticalityColor = (criticality) => {
+    switch (criticality) {
+      case 'low':
+        return 'green';
+      case 'medium':
+        return 'orange';
+      case 'high':
+        return 'red';
+      default:
+        return 'default';
+    }
+  };
+
   const teamColumns = [
     {
       title: 'Team Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <strong>{text}</strong> },
+      render: (text) => <strong>{text}</strong>,
+    },
     {
       title: 'Specialization',
       dataIndex: 'specialization',
-      key: 'specialization' },
+      key: 'specialization',
+    },
     {
       title: 'Team Leader',
       dataIndex: 'leader',
-      key: 'leader' },
+      key: 'leader',
+    },
     {
       title: 'Members',
       key: 'members',
@@ -230,7 +261,8 @@ export default function SelectSchedule() {
             </Tag>
           ))}
         </div>
-      ) },
+      ),
+    },
     {
       title: 'Workload',
       key: 'workload',
@@ -243,13 +275,15 @@ export default function SelectSchedule() {
             {Math.round((record.current_workload / record.max_workload) * 100)}% utilized
           </div>
         </div>
-      ) },
+      ),
+    },
     {
       title: 'Availability',
       key: 'availability',
       render: (_, record) => (
         <Tag color={getTeamAvailabilityColor(record)}>{record.availability.toUpperCase()}</Tag>
-      ) },
+      ),
+    },
     {
       title: 'Action',
       key: 'action',
@@ -262,7 +296,8 @@ export default function SelectSchedule() {
         >
           {record.availability === 'busy' ? 'Unavailable' : 'Select Team'}
         </Button>
-      ) },
+      ),
+    },
   ];
 
   return (
@@ -282,7 +317,7 @@ export default function SelectSchedule() {
           <Step title='Review & Submit' icon={<CheckCircleOutlined />} />
         </Steps>
 
-        <Form as="form" form={form} layout='vertical' onFinish={handleSubmit}>
+        <Form form={form} layout='vertical' onFinish={handleSubmit}>
           {/* Step 1: Date & Time Selection */}
           {currentStep === 0 && (
             <div className='step-content'>
@@ -304,6 +339,12 @@ export default function SelectSchedule() {
                       </Tag>
                     </p>
                     <p>
+                      <strong>Criticality:</strong>{' '}
+                      <Tag color={getCriticalityColor(scheduleData.criticality)}>
+                        {scheduleData.criticality?.toUpperCase() || 'MEDIUM'}
+                      </Tag>
+                    </p>
+                    <p>
                       <strong>Duration:</strong> {scheduleData.estimated_duration} hours
                     </p>
                   </Col>
@@ -314,14 +355,22 @@ export default function SelectSchedule() {
                     <p>
                       <strong>Required Date:</strong> {scheduleData.required_date}
                     </p>
+                    <p>
+                      <strong>Required Skills:</strong>{' '}
+                      {scheduleData.required_skills?.map((skill, index) => (
+                        <Tag key={index} color='blue' style={{ marginBottom: 4 }}>
+                          {skill}
+                        </Tag>
+                      ))}
+                    </p>
                   </Col>
                 </Row>
               </Card>
 
               <Row gutter={[16, 16]}>
                 <Col span={12}>
-                  <Form as="form".Item
-                    controlId='schedule_date'
+                  <Form.Item
+                    name='schedule_date'
                     label='Schedule Date'
                     rules={[{ required: true, message: 'Please select schedule date!' }]}
                   >
@@ -330,11 +379,11 @@ export default function SelectSchedule() {
                       onChange={handleDateChange}
                       placeholder='Select maintenance date'
                     />
-                  </Form.Group>
+                  </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form as="form".Item
-                    controlId='schedule_time'
+                  <Form.Item
+                    name='schedule_time'
                     label='Schedule Time'
                     rules={[{ required: true, message: 'Please select schedule time!' }]}
                   >
@@ -344,7 +393,7 @@ export default function SelectSchedule() {
                       format='HH:mm'
                       placeholder='Select maintenance time'
                     />
-                  </Form.Group>
+                  </Form.Item>
                 </Col>
               </Row>
 
@@ -364,12 +413,12 @@ export default function SelectSchedule() {
                 </div>
               </Card>
 
-              <Form as="form".Item controlId='notes' label='Special Requirements'>
+              <Form.Item name='notes' label='Special Requirements'>
                 <Input.TextArea
                   rows={3}
                   placeholder='Any special requirements or notes for the maintenance...'
                 />
-              </Form.Group>
+              </Form.Item>
             </div>
           )}
 
@@ -408,8 +457,8 @@ export default function SelectSchedule() {
                 </Row>
               </Card>
 
-              <Form as="form".Item
-                controlId='assigned_team'
+              <Form.Item
+                name='assigned_team'
                 label='Available Teams'
                 rules={[{ required: true, message: 'Please select a team!' }]}
               >
@@ -421,7 +470,7 @@ export default function SelectSchedule() {
                   size='small'
                   rowClassName={(record) => (selectedTeam?.id === record.id ? 'selected-row' : '')}
                 />
-              </Form.Group>
+              </Form.Item>
 
               {selectedTeam && (
                 <Card size='small' title='Selected Team Details' style={{ marginBottom: 16 }}>
@@ -457,7 +506,7 @@ export default function SelectSchedule() {
                 </Card>
               )}
 
-              <Form as="form".Item controlId='tools_required' label='Tools Required'>
+              <Form.Item name='tools_required' label='Tools Required'>
                 <Select
                   mode='multiple'
                   placeholder='Select tools required'
@@ -470,9 +519,9 @@ export default function SelectSchedule() {
                   <Option value='Safety Equipment'>Safety Equipment</Option>
                   <Option value='Ladder'>Ladder</Option>
                 </Select>
-              </Form.Group>
+              </Form.Item>
 
-              <Form as="form".Item controlId='materials_required' label='Materials Required'>
+              <Form.Item name='materials_required' label='Materials Required'>
                 <Select
                   mode='multiple'
                   placeholder='Select materials required'
@@ -485,7 +534,7 @@ export default function SelectSchedule() {
                   <Option value='Cleaning Supplies'>Cleaning Supplies</Option>
                   <Option value='Safety Gear'>Safety Gear</Option>
                 </Select>
-              </Form.Group>
+              </Form.Item>
             </div>
           )}
 
@@ -510,10 +559,24 @@ export default function SelectSchedule() {
                         </Tag>
                       </p>
                       <p>
+                        <strong>Criticality:</strong>{' '}
+                        <Tag color={getCriticalityColor(scheduleData.criticality)}>
+                          {scheduleData.criticality?.toUpperCase() || 'MEDIUM'}
+                        </Tag>
+                      </p>
+                      <p>
                         <strong>Duration:</strong> {scheduleData.estimated_duration} hours
                       </p>
                       <p>
                         <strong>Location:</strong> {scheduleData.location}
+                      </p>
+                      <p>
+                        <strong>Required Skills:</strong>{' '}
+                        {scheduleData.required_skills?.map((skill, index) => (
+                          <Tag key={index} color='blue' style={{ marginBottom: 4 }}>
+                            {skill}
+                          </Tag>
+                        ))}
                       </p>
                     </div>
                   </Col>
@@ -564,7 +627,7 @@ export default function SelectSchedule() {
             </div>
           )}
 
-          <Form as="form".Item style={{ marginTop: 24 }}>
+          <Form.Item style={{ marginTop: 24 }}>
             <Space>
               {currentStep > 0 && (
                 <Button onClick={prevStep} icon={<LeftOutlined />}>
@@ -587,7 +650,7 @@ export default function SelectSchedule() {
                 </Button>
               )}
             </Space>
-          </Form.Group>
+          </Form.Item>
         </Form>
       </Card>
     </div>

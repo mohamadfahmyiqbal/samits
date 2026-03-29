@@ -12,7 +12,9 @@ export const deleteAsset = async (req, res) => {
 
     if (!found) {
       await transaction.rollback();
-      return res.status(404).json({ message: "Asset tidak ditemukan untuk dihapus" });
+      return res
+        .status(404)
+        .json({ message: "Asset tidak ditemukan untuk dihapus" });
     }
 
     const itemId = found.id;
@@ -23,6 +25,7 @@ export const deleteAsset = async (req, res) => {
     const ITItemSetupChecklist = db.ITItemSetupChecklist;
     const AssetDocument = db.AssetDocument;
     const LicenseAllocation = db.LicenseAllocation;
+    const ITItemStatusHistory = db.ITItemStatusHistory;
     const ITItem = db.ITItem;
 
     // Delete related records using ORM
@@ -76,7 +79,9 @@ export const deleteAsset = async (req, res) => {
       docs.forEach((doc) => {
         const relativePath = String(doc?.file_path || "").replace(/\\/g, "/");
         if (relativePath) {
-          filesToDelete.push(path.resolve(process.cwd(), "uploads", relativePath));
+          filesToDelete.push(
+            path.resolve(process.cwd(), "uploads", relativePath),
+          );
         }
       });
       await AssetDocument.destroy({
@@ -84,7 +89,7 @@ export const deleteAsset = async (req, res) => {
         transaction,
       });
     }
-    
+
     // Delete the main item
     await ITItem.destroy({
       where: { it_item_id: itemId },
@@ -100,13 +105,15 @@ export const deleteAsset = async (req, res) => {
           } catch (_err) {
             // no-op: cleanup best effort
           }
-        })
+        }),
       );
     }
     return res.status(204).send();
   } catch (error) {
     await transaction.rollback();
     console.error("Delete asset error:", error);
-    return res.status(500).json({ message: `Gagal menghapus asset: ${error.message}` });
+    return res
+      .status(500)
+      .json({ message: `Gagal menghapus asset: ${error.message}` });
   }
 };

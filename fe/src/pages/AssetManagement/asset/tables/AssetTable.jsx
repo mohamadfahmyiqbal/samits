@@ -2,9 +2,6 @@
 import React, { useState, useMemo } from 'react';
 import { Table, Badge, Pagination, Row, Col, Form, Button, Placeholder } from 'react-bootstrap';
 import { FaSort, FaSortUp, FaSortDown, FaEye, FaEdit, FaTrash, FaHistory } from 'react-icons/fa';
-import '../../../../styles/Tabel.css';
-import '../../../../styles/AssetAction.css';
-import './AssetTable.css';
 
 // Inline small components to reduce file fragmentation
 

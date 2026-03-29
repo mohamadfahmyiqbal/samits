@@ -857,6 +857,7 @@ export const loadAssetByNo = async (assetNo, transaction) => {
     const relativePath = String(doc.file_path || "").replace(/\\/g, "/");
     return {
       document_id: doc.document_id,
+      document_type: doc.document_type || "General",
       original_name: doc.file_name || null, // Menggunakan field 'file_name' dari model AssetDocument
       stored_name: doc.file_path || null, // Menggunakan field 'file_path' dari model AssetDocument
       mime_type: doc.mime_type,
@@ -1098,6 +1099,9 @@ export const loadAssetByNo = async (assetNo, transaction) => {
     po_number: item.po_number,
     no_cip: item.no_cip,
     useful_life_year: item.useful_life_year,
+    tahunDepreciation: item.depreciation_end_date
+      ? new Date(item.depreciation_end_date).getFullYear()
+      : null, // ← Ambil tahun dari Tanggal Akhir Depresiasi
     line_code: item.line_code,
 
     // Financial fields

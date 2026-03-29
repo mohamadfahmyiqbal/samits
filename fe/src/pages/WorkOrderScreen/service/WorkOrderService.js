@@ -1,8 +1,8 @@
 // src/pages/WorkOrderScreen/service/WorkOrderService.js
 // Production-ready service dengan pola MaintenanceService
 
-// 1. Definisikan URL Root API yang Benar dan Mutlak
-const API_ROOT_URL = "https://pik1com074.local.ikoito.co.id:5002/api";
+// 1. Definisikan URL Root API dari environment variable
+const API_ROOT_URL = process.env.REACT_APP_API_BASE_URL || 'https://localhost:5002/api';
 const BASE_URL = `${API_ROOT_URL}/workorder`;
 
 // ---------------------------------------------------
@@ -10,11 +10,11 @@ const BASE_URL = `${API_ROOT_URL}/workorder`;
 // ---------------------------------------------------
 const handleResponse = async (response) => {
   if (response.ok) {
-    if (response.status === 204) return { message: "Operation successful" };
+    if (response.status === 204) return { message: 'Operation successful' };
     try {
       return await response.json();
     } catch {
-      return { message: "Operation successful, no content returned" };
+      return { message: 'Operation successful, no content returned' };
     }
   }
 
@@ -26,8 +26,8 @@ const handleResponse = async (response) => {
   } catch {
     errorMessage = response.statusText || errorMessage;
   }
-  
-  console.error("API Error:", response.url, errorMessage);
+
+  console.error('API Error:', response.url, errorMessage);
   throw new Error(errorMessage);
 };
 
@@ -38,7 +38,7 @@ const apiFetch = async (url, config = {}) => {
   const finalConfig = {
     ...config,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       ...config.headers,
     },
     credentials: 'include', // ✅ Cookie auth

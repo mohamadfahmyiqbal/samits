@@ -34,9 +34,10 @@ const NestedMenuItem = React.memo(
               return (
                 <NavDropdown.Item
                   key={sub.path}
+                  as='div'
                   className={active ? 'active' : ''}
                   onClick={() => goTo(sub.path)}
-                  style={{ paddingLeft: '2.5rem', fontSize: '0.9em' }}
+                  style={{ paddingLeft: '2.5rem', fontSize: '0.9em', cursor: 'pointer' }}
                 >
                   {sub.label}
                 </NavDropdown.Item>

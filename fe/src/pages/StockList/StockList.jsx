@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Card, Row, Col, Table, Button, Tag, Space, message, Input, Select, Modal } from 'antd';
-import { 
-  ReloadOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  PlusOutlined
-} from '@ant-design/icons';
+import {
+  Form,
+  Card,
+  Row,
+  Col,
+  Table,
+  Button,
+  Tag,
+  Space,
+  message,
+  Input,
+  Select,
+  Modal,
+} from 'antd';
+import { ReloadOutlined, EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import './StockList.css';
 
 const { Option } = Select;
@@ -37,7 +45,7 @@ export default function StockList() {
       next_restock: '2024-04-20',
       status: 'normal',
       price: 5500000,
-      total_value: 82500000
+      total_value: 82500000,
     },
     {
       id: 2,
@@ -54,7 +62,7 @@ export default function StockList() {
       next_restock: '2024-04-15',
       status: 'low',
       price: 1200000,
-      total_value: 9600000
+      total_value: 9600000,
     },
     {
       id: 3,
@@ -71,7 +79,7 @@ export default function StockList() {
       next_restock: '2024-04-18',
       status: 'normal',
       price: 1800000,
-      total_value: 45000000
+      total_value: 45000000,
     },
     {
       id: 4,
@@ -88,7 +96,7 @@ export default function StockList() {
       next_restock: '2024-04-10',
       status: 'critical',
       price: 2200000,
-      total_value: 11000000
+      total_value: 11000000,
     },
     {
       id: 5,
@@ -105,8 +113,8 @@ export default function StockList() {
       next_restock: '2024-04-22',
       status: 'normal',
       price: 8500000,
-      total_value: 153000000
-    }
+      total_value: 153000000,
+    },
   ];
 
   const categories = [
@@ -117,7 +125,7 @@ export default function StockList() {
     { value: 'Power Supply', label: 'Power Supply' },
     { value: 'Graphics Card', label: 'Graphics Card' },
     { value: 'Motherboard', label: 'Motherboard' },
-    { value: 'Cooling', label: 'Cooling' }
+    { value: 'Cooling', label: 'Cooling' },
   ];
 
   useEffect(() => {
@@ -126,10 +134,11 @@ export default function StockList() {
   }, []);
 
   useEffect(() => {
-    let filtered = stockData.filter(item => {
-      const matchesSearch = item.part_name.toLowerCase().includes(searchText.toLowerCase()) ||
-                           item.part_code.toLowerCase().includes(searchText.toLowerCase()) ||
-                           item.supplier.toLowerCase().includes(searchText.toLowerCase());
+    let filtered = stockData.filter((item) => {
+      const matchesSearch =
+        item.part_name.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.part_code.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.supplier.toLowerCase().includes(searchText.toLowerCase());
       const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
@@ -150,12 +159,12 @@ export default function StockList() {
       cancelText: 'Tidak',
       onOk: async () => {
         try {
-          setStockData(prev => prev.filter(item => item.id !== id));
+          setStockData((prev) => prev.filter((item) => item.id !== id));
           message.success('Item berhasil dihapus');
         } catch (error) {
           message.error('Gagal menghapus item');
         }
-      }
+      },
     });
   };
 
@@ -164,11 +173,13 @@ export default function StockList() {
     try {
       if (selectedItem) {
         // Update existing item
-        setStockData(prev => prev.map(item => 
-          item.id === selectedItem.id 
-            ? { ...item, ...values, total_value: values.current_stock * values.price }
-            : item
-        ));
+        setStockData((prev) =>
+          prev.map((item) =>
+            item.id === selectedItem.id
+              ? { ...item, ...values, total_value: values.current_stock * values.price }
+              : item
+          )
+        );
         message.success('Item berhasil diperbarui');
       } else {
         // Add new item
@@ -176,10 +187,14 @@ export default function StockList() {
           ...values,
           id: Date.now(),
           total_value: values.current_stock * values.price,
-          status: values.current_stock <= values.minimum_stock / 2 ? 'critical' : 
-                  values.current_stock <= values.minimum_stock ? 'low' : 'normal'
+          status:
+            values.current_stock <= values.minimum_stock / 2
+              ? 'critical'
+              : values.current_stock <= values.minimum_stock
+                ? 'low'
+                : 'normal',
         };
-        setStockData(prev => [newItem, ...prev]);
+        setStockData((prev) => [newItem, ...prev]);
         message.success('Item berhasil ditambahkan');
       }
       setEditModalVisible(false);
@@ -203,54 +218,70 @@ export default function StockList() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'normal': return 'green';
-      case 'low': return 'orange';
-      case 'critical': return 'red';
-      default: return 'default';
+      case 'normal':
+        return 'green';
+      case 'low':
+        return 'orange';
+      case 'critical':
+        return 'red';
+      default:
+        return 'default';
     }
   };
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'normal': return <CheckCircleOutlined />;
-      case 'low': return <ExclamationCircleOutlined />;
-      case 'critical': return <ExclamationCircleOutlined />;
-      default: return null;
+      case 'normal':
+        return <CheckCircleOutlined />;
+      case 'low':
+        return <ExclamationCircleOutlined />;
+      case 'critical':
+        return <ExclamationCircleOutlined />;
+      default:
+        return null;
     }
   };
 
   const totalItems = filteredData.reduce((sum, item) => sum + item.current_stock, 0);
   const totalValue = filteredData.reduce((sum, item) => sum + item.total_value, 0);
-  const lowStockItems = filteredData.filter(item => item.status === 'low' || item.status === 'critical').length;
+  const lowStockItems = filteredData.filter(
+    (item) => item.status === 'low' || item.status === 'critical'
+  ).length;
 
   const columns = [
     {
       title: 'Part Code',
       dataIndex: 'part_code',
       key: 'part_code',
-      render: (text) => <strong>{text}</strong> },
+      render: (text) => <strong>{text}</strong>,
+    },
     {
       title: 'Part Name',
       dataIndex: 'part_name',
       key: 'part_name',
-      ellipsis: true },
+      ellipsis: true,
+    },
     {
       title: 'Category',
       dataIndex: 'category',
       key: 'category',
-      render: (category) => <Tag color="blue">{category}</Tag> },
+      render: (category) => <Tag color='blue'>{category}</Tag>,
+    },
     {
       title: 'Current Stock',
       dataIndex: 'current_stock',
       key: 'current_stock',
       render: (stock, record) => (
         <div>
-          <strong>{stock} {record.unit}</strong>
+          <strong>
+            {stock} {record.unit}
+          </strong>
           <div style={{ fontSize: '12px', color: '#8c8c8c' }}>
             Min: {record.minimum_stock} | Max: {record.maximum_stock}
           </div>
         </div>
-      ) },
+      ),
+    },
     {
       title: 'Status',
       dataIndex: 'status',
@@ -259,52 +290,57 @@ export default function StockList() {
         <Tag color={getStatusColor(status)} icon={getStatusIcon(status)}>
           {status.toUpperCase()}
         </Tag>
-      ) },
+      ),
+    },
     {
       title: 'Location',
       dataIndex: 'location',
-      key: 'location' },
+      key: 'location',
+    },
     {
       title: 'Unit Price',
       dataIndex: 'price',
       key: 'price',
       render: (price) => `Rp ${price.toLocaleString('id-ID')}`,
-      sorter: (a, b) => a.price - b.price },
+      sorter: (a, b) => a.price - b.price,
+    },
     {
       title: 'Total Value',
       dataIndex: 'total_value',
       key: 'total_value',
       render: (value) => `Rp ${value.toLocaleString('id-ID')}`,
-      sorter: (a, b) => a.total_value - b.total_value },
+      sorter: (a, b) => a.total_value - b.total_value,
+    },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space>
           <Button
-            type="primary"
-            size="small"
+            type='primary'
+            size='small'
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           >
             Edit
           </Button>
           <Button
-            type="primary"
+            type='primary'
             danger
-            size="small"
+            size='small'
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.id)}
           >
             Delete
           </Button>
         </Space>
-      ) },
+      ),
+    },
   ];
 
   return (
-    <div className="stock-list">
-      <div className="page-header">
+    <div className='stock-list'>
+      <div className='page-header'>
         <h1>Stock List</h1>
         <p>Kelola daftar stock parts dan monitoring ketersediaan</p>
       </div>
@@ -312,33 +348,33 @@ export default function StockList() {
       <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
         <Col span={8}>
           <Card>
-            <div className="statistic-card">
-              <div className="statistic-icon total">📦</div>
-              <div className="statistic-content">
-                <div className="statistic-title">Total Items</div>
-                <div className="statistic-value">{totalItems.toLocaleString('id-ID')}</div>
+            <div className='statistic-card'>
+              <div className='statistic-icon total'>📦</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>Total Items</div>
+                <div className='statistic-value'>{totalItems.toLocaleString('id-ID')}</div>
               </div>
             </div>
           </Card>
         </Col>
         <Col span={8}>
           <Card>
-            <div className="statistic-card">
-              <div className="statistic-icon value">💰</div>
-              <div className="statistic-content">
-                <div className="statistic-title">Total Value</div>
-                <div className="statistic-value">Rp {totalValue.toLocaleString('id-ID')}</div>
+            <div className='statistic-card'>
+              <div className='statistic-icon value'>💰</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>Total Value</div>
+                <div className='statistic-value'>Rp {totalValue.toLocaleString('id-ID')}</div>
               </div>
             </div>
           </Card>
         </Col>
         <Col span={8}>
           <Card>
-            <div className="statistic-card">
-              <div className="statistic-icon warning">⚠️</div>
-              <div className="statistic-content">
-                <div className="statistic-title">Low Stock Items</div>
-                <div className="statistic-value">{lowStockItems}</div>
+            <div className='statistic-card'>
+              <div className='statistic-icon warning'>⚠️</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>Low Stock Items</div>
+                <div className='statistic-value'>{lowStockItems}</div>
               </div>
             </div>
           </Card>
@@ -347,12 +383,12 @@ export default function StockList() {
 
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <Card 
-            title="Daftar Stock Parts"
+          <Card
+            title='Daftar Stock Parts'
             extra={
               <Space>
                 <Button
-                  type="primary"
+                  type='primary'
                   icon={<PlusOutlined />}
                   onClick={() => {
                     setSelectedItem(null);
@@ -365,10 +401,10 @@ export default function StockList() {
               </Space>
             }
           >
-            <div className="table-controls">
+            <div className='table-controls'>
               <Space>
                 <Search
-                  placeholder="Cari parts..."
+                  placeholder='Cari parts...'
                   allowClear
                   style={{ width: 300 }}
                   onChange={(e) => setSearchText(e.target.value)}
@@ -378,17 +414,13 @@ export default function StockList() {
                   onChange={setSelectedCategory}
                   style={{ width: 200 }}
                 >
-                  {categories.map(cat => (
+                  {categories.map((cat) => (
                     <Option key={cat.value} value={cat.value}>
                       {cat.label}
                     </Option>
                   ))}
                 </Select>
-                <Button
-                  icon={<ReloadOutlined />}
-                  onClick={handleRefresh}
-                  loading={loading}
-                >
+                <Button icon={<ReloadOutlined />} onClick={handleRefresh} loading={loading}>
                   Refresh
                 </Button>
               </Space>
@@ -397,15 +429,15 @@ export default function StockList() {
             <Table
               columns={columns}
               dataSource={filteredData}
-              rowKey="id"
+              rowKey='id'
               loading={loading}
               pagination={{
                 total: filteredData.length,
                 pageSize: 10,
                 showSizeChanger: true,
                 showQuickJumper: true,
-                showTotal: (total, range) => 
-                  `${range[0]}-${range[1]} dari ${total} items` }}
+                showTotal: (total, range) => `${range[0]}-${range[1]} dari ${total} items`,
+              }}
               rowClassName={(record) => {
                 if (record.status === 'critical') return 'row-critical';
                 if (record.status === 'low') return 'row-low';
@@ -427,134 +459,130 @@ export default function StockList() {
         footer={null}
         width={800}
       >
-        <Form as="form"
-          form={form}
-          layout="vertical"
-          onFinish={handleSave}
-        >
+        <Form form={form} layout='vertical' onFinish={handleSave}>
           <Row gutter={[16, 16]}>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="part_code"
-                label="Part Code"
+              <Form.Item
+                name='part_code'
+                label='Part Code'
                 rules={[{ required: true, message: 'Part code harus diisi!' }]}
               >
-                <Input placeholder="Contoh: CPU-001" />
-              </Form.Group>
+                <Input placeholder='Contoh: CPU-001' />
+              </Form.Item>
             </Col>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="part_name"
-                label="Part Name"
+              <Form.Item
+                name='part_name'
+                label='Part Name'
                 rules={[{ required: true, message: 'Part name harus diisi!' }]}
               >
-                <Input placeholder="Contoh: Intel Core i7-12700K" />
-              </Form.Group>
+                <Input placeholder='Contoh: Intel Core i7-12700K' />
+              </Form.Item>
             </Col>
           </Row>
 
           <Row gutter={[16, 16]}>
             <Col span={8}>
-              <Form as="form".Item
-                controlId="category"
-                label="Category"
+              <Form.Item
+                name='category'
+                label='Category'
                 rules={[{ required: true, message: 'Category harus diisi!' }]}
               >
-                <Select placeholder="Pilih category">
-                  {categories.filter(cat => cat.value !== 'all').map(cat => (
-                    <Option key={cat.value} value={cat.value}>
-                      {cat.label}
-                    </Option>
-                  ))}
+                <Select placeholder='Pilih category'>
+                  {categories
+                    .filter((cat) => cat.value !== 'all')
+                    .map((cat) => (
+                      <Option key={cat.value} value={cat.value}>
+                        {cat.label}
+                      </Option>
+                    ))}
                 </Select>
-              </Form.Group>
+              </Form.Item>
             </Col>
             <Col span={8}>
-              <Form as="form".Item
-                controlId="unit"
-                label="Unit"
+              <Form.Item
+                name='unit'
+                label='Unit'
                 rules={[{ required: true, message: 'Unit harus diisi!' }]}
               >
-                <Select placeholder="Pilih unit">
-                  <Option value="pcs">pcs</Option>
-                  <Option value="box">box</Option>
-                  <Option value="set">set</Option>
-                  <Option value="meter">meter</Option>
+                <Select placeholder='Pilih unit'>
+                  <Option value='pcs'>pcs</Option>
+                  <Option value='box'>box</Option>
+                  <Option value='set'>set</Option>
+                  <Option value='meter'>meter</Option>
                 </Select>
-              </Form.Group>
+              </Form.Item>
             </Col>
             <Col span={8}>
-              <Form as="form".Item
-                controlId="price"
-                label="Unit Price (Rp)"
+              <Form.Item
+                name='price'
+                label='Unit Price (Rp)'
                 rules={[{ required: true, message: 'Price harus diisi!' }]}
               >
-                <Input type="number" placeholder="0" />
-              </Form.Group>
+                <Input type='number' placeholder='0' />
+              </Form.Item>
             </Col>
           </Row>
 
           <Row gutter={[16, 16]}>
             <Col span={8}>
-              <Form as="form".Item
-                controlId="current_stock"
-                label="Current Stock"
+              <Form.Item
+                name='current_stock'
+                label='Current Stock'
                 rules={[{ required: true, message: 'Current stock harus diisi!' }]}
               >
-                <Input type="number" placeholder="0" />
-              </Form.Group>
+                <Input type='number' placeholder='0' />
+              </Form.Item>
             </Col>
             <Col span={8}>
-              <Form as="form".Item
-                controlId="minimum_stock"
-                label="Minimum Stock"
+              <Form.Item
+                name='minimum_stock'
+                label='Minimum Stock'
                 rules={[{ required: true, message: 'Minimum stock harus diisi!' }]}
               >
-                <Input type="number" placeholder="0" />
-              </Form.Group>
+                <Input type='number' placeholder='0' />
+              </Form.Item>
             </Col>
             <Col span={8}>
-              <Form as="form".Item
-                controlId="maximum_stock"
-                label="Maximum Stock"
+              <Form.Item
+                name='maximum_stock'
+                label='Maximum Stock'
                 rules={[{ required: true, message: 'Maximum stock harus diisi!' }]}
               >
-                <Input type="number" placeholder="0" />
-              </Form.Group>
+                <Input type='number' placeholder='0' />
+              </Form.Item>
             </Col>
           </Row>
 
           <Row gutter={[16, 16]}>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="location"
-                label="Location"
+              <Form.Item
+                name='location'
+                label='Location'
                 rules={[{ required: true, message: 'Location harus diisi!' }]}
               >
-                <Input placeholder="Contoh: Warehouse A - Rack 1" />
-              </Form.Group>
+                <Input placeholder='Contoh: Warehouse A - Rack 1' />
+              </Form.Item>
             </Col>
             <Col span={12}>
-              <Form as="form".Item
-                controlId="supplier"
-                label="Supplier"
+              <Form.Item
+                name='supplier'
+                label='Supplier'
                 rules={[{ required: true, message: 'Supplier harus diisi!' }]}
               >
-                <Input placeholder="Contoh: PT. Intel Indonesia" />
-              </Form.Group>
+                <Input placeholder='Contoh: PT. Intel Indonesia' />
+              </Form.Item>
             </Col>
           </Row>
 
-          <Form as="form".Item>
+          <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit" loading={loading}>
+              <Button type='primary' htmlType='submit' loading={loading}>
                 {selectedItem ? 'Update' : 'Tambah'}
               </Button>
-              <Button onClick={() => setEditModalVisible(false)}>
-                Batal
-              </Button>
+              <Button onClick={() => setEditModalVisible(false)}>Batal</Button>
             </Space>
-          </Form.Group>
+          </Form.Item>
         </Form>
       </Modal>
     </div>

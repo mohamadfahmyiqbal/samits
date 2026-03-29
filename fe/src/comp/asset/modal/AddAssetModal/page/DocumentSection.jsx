@@ -26,15 +26,41 @@ const DocumentSection = ({
   const poAttachments = attachments.filter((f) => f.documentType === 'po');
   const invoiceAttachments = attachments.filter((f) => f.documentType === 'invoice');
 
-  // Filter existing documents by type
-  const pvDocs = existingDocuments.filter(
+  // Filter existing documents by type (support legacy 'General' type)
+  // Legacy documents with 'General' type will be distributed across slots
+  const generalDocs = existingDocuments.filter((d) => d.document_type === 'General');
+  const pvSpecificDocs = existingDocuments.filter(
     (d) => d.document_type === 'PV' || d.document_type === 'pv'
   );
-  const poDocs = existingDocuments.filter(
+  const poSpecificDocs = existingDocuments.filter(
     (d) => d.document_type === 'PO' || d.document_type === 'po'
   );
-  const invoiceDocs = existingDocuments.filter(
+  const invoiceSpecificDocs = existingDocuments.filter(
     (d) => d.document_type === 'Invoice' || d.document_type === 'invoice'
+  );
+
+  // Combine specific docs with distributed general docs for legacy support
+  const pvDocs = [
+    ...pvSpecificDocs,
+    ...(pvSpecificDocs.length === 0 ? [generalDocs[0]].filter(Boolean) : []),
+  ];
+  const poDocs = [
+    ...poSpecificDocs,
+    ...(poSpecificDocs.length === 0 && generalDocs.length > 1
+      ? [generalDocs[1]].filter(Boolean)
+      : []),
+  ];
+  const invoiceDocs = [
+    ...invoiceSpecificDocs,
+    ...(invoiceSpecificDocs.length === 0 && generalDocs.length > 2
+      ? [generalDocs[2]].filter(Boolean)
+      : []),
+  ];
+
+  // Remaining general docs that don't fit in the three slots
+  const remainingGeneralDocs = generalDocs.slice(
+    pvSpecificDocs.length === 0 ? 1 : 0,
+    generalDocs.length
   );
 
   // Local alert function
@@ -166,6 +192,44 @@ const DocumentSection = ({
             )}
           </Col>
         </Row>
+
+        {/* Remaining General Documents (Legacy) */}
+        {remainingGeneralDocs.length > 0 && (
+          <>
+            <hr />
+            <p className='text-muted small mb-2'>Dokumen Lainnya (Legacy):</p>
+            {remainingGeneralDocs.map((doc) => (
+              <div
+                key={doc.document_id}
+                className='d-flex align-items-center justify-content-between p-2 mb-2 bg-light rounded'
+              >
+                <span className='small text-truncate' title={doc.original_name || doc.file_name}>
+                  <FaFilePdf className='text-secondary me-2' />
+                  {doc.original_name || doc.file_name}
+                </span>
+                <div>
+                  <Button
+                    variant='link'
+                    size='sm'
+                    className='text-info p-0 me-2'
+                    onClick={() => handlePreviewDocument(doc)}
+                  >
+                    <FaEye />
+                  </Button>
+                  <Button
+                    variant='link'
+                    size='sm'
+                    className='text-danger p-0'
+                    onClick={() => handleDeleteDocument(doc)}
+                    disabled={deletingDocId === doc.document_id}
+                  >
+                    {deletingDocId === doc.document_id ? <Spinner size='sm' /> : <FaTrash />}
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
 
         {/* Other Attachments */}
         {attachments.filter((f) => !f.documentType).length > 0 && (

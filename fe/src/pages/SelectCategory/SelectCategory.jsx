@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Form,
+import {
+  Form,
   Card,
   Row,
   Col,
@@ -8,10 +9,15 @@ import { Form,
   Input,
   message,
   Steps,
-  Space } from 'antd';
+  Space,
+  DatePicker,
+} from 'antd';
 import {
   CalendarOutlined,
-  RightOutlined } from '@ant-design/icons';
+  RightOutlined,
+  ToolOutlined,
+  CheckCircleOutlined,
+} from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import './SelectCategory.css';
 
@@ -35,7 +41,8 @@ export default function SelectCategory() {
         { id: 12, name: 'Lubrication', estimated_time: 1 },
         { id: 13, name: 'Calibration', estimated_time: 3 },
         { id: 14, name: 'Cleaning', estimated_time: 1 },
-      ] },
+      ],
+    },
     {
       id: 2,
       name: 'Corrective Maintenance',
@@ -46,7 +53,8 @@ export default function SelectCategory() {
         { id: 22, name: 'Component Replacement', estimated_time: 2 },
         { id: 23, name: 'System Troubleshooting', estimated_time: 3 },
         { id: 24, name: 'Emergency Repair', estimated_time: 6 },
-      ] },
+      ],
+    },
     {
       id: 3,
       name: 'Predictive Maintenance',
@@ -57,7 +65,8 @@ export default function SelectCategory() {
         { id: 32, name: 'Thermal Analysis', estimated_time: 1 },
         { id: 33, name: 'Oil Analysis', estimated_time: 1 },
         { id: 34, name: 'Performance Monitoring', estimated_time: 2 },
-      ] },
+      ],
+    },
   ];
 
   useEffect(() => {
@@ -66,7 +75,8 @@ export default function SelectCategory() {
       category: null,
       subcategory: null,
       priority: 'medium',
-      description: '' });
+      description: '',
+    });
   }, [form]);
 
   const handleCategoryChange = (categoryId) => {
@@ -74,7 +84,8 @@ export default function SelectCategory() {
     setSelectedCategory(category);
     form.setFieldsValue({
       subcategory: null,
-      estimated_time: category ? category.subcategories[0]?.estimated_time || 2 : 2 });
+      estimated_time: category ? category.subcategories[0]?.estimated_time || 2 : 2,
+    });
   };
 
   const handleSubmit = async (values) => {
@@ -86,7 +97,9 @@ export default function SelectCategory() {
       navigate('/select-schedule', {
         state: {
           categoryData: values,
-          selectedCategory: selectedCategory } });
+          selectedCategory: selectedCategory,
+        },
+      });
 
       message.success('Category selected successfully');
     } catch (error) {
@@ -114,9 +127,9 @@ export default function SelectCategory() {
               <Step title='Review & Submit' icon={<CheckCircleOutlined />} />
             </Steps>
 
-            <Form as="form" form={form} layout='vertical' onFinish={handleSubmit}>
-              <Form as="form".Item
-                controlId='category'
+            <Form form={form} layout='vertical' onFinish={handleSubmit}>
+              <Form.Item
+                name='category'
                 label='Maintenance Category'
                 rules={[{ required: true, message: 'Please select a category!' }]}
               >
@@ -139,11 +152,11 @@ export default function SelectCategory() {
                     </Option>
                   ))}
                 </Select>
-              </Form.Group>
+              </Form.Item>
 
               {selectedCategory && (
-                <Form as="form".Item
-                  controlId='subcategory'
+                <Form.Item
+                  name='subcategory'
                   label='Subcategory'
                   rules={[{ required: true, message: 'Please select a subcategory!' }]}
                 >
@@ -159,13 +172,13 @@ export default function SelectCategory() {
                       </Option>
                     ))}
                   </Select>
-                </Form.Group>
+                </Form.Item>
               )}
 
               <Row gutter={[16, 16]}>
                 <Col span={8}>
-                  <Form as="form".Item
-                    controlId='priority'
+                  <Form.Item
+                    name='priority'
                     label='Priority'
                     rules={[{ required: true, message: 'Please select priority!' }]}
                   >
@@ -175,33 +188,33 @@ export default function SelectCategory() {
                       <Option value='high'>High</Option>
                       <Option value='critical'>Critical</Option>
                     </Select>
-                  </Form.Group>
+                  </Form.Item>
                 </Col>
                 <Col span={8}>
-                  <Form as="form".Item controlId='estimated_time' label='Estimated Time (hours)'>
+                  <Form.Item name='estimated_time' label='Estimated Time (hours)'>
                     <Input type='number' placeholder='2' disabled />
-                  </Form.Group>
+                  </Form.Item>
                 </Col>
                 <Col span={8}>
-                  <Form as="form".Item
-                    controlId='target_date'
+                  <Form.Item
+                    name='target_date'
                     label='Target Date'
                     rules={[{ required: true, message: 'Please select target date!' }]}
                   >
                     <DatePicker style={{ width: '100%' }} />
-                  </Form.Group>
+                  </Form.Item>
                 </Col>
               </Row>
 
-              <Form as="form".Item
-                controlId='description'
+              <Form.Item
+                name='description'
                 label='Description'
                 rules={[{ required: true, message: 'Please provide description!' }]}
               >
                 <Input.TextArea rows={4} placeholder='Describe the maintenance requirements...' />
-              </Form.Group>
+              </Form.Item>
 
-              <Form as="form".Item>
+              <Form.Item>
                 <Space>
                   <Button
                     type='primary'
@@ -214,7 +227,7 @@ export default function SelectCategory() {
                   </Button>
                   <Button size='large'>Cancel</Button>
                 </Space>
-              </Form.Group>
+              </Form.Item>
             </Form>
           </Card>
         </Col>

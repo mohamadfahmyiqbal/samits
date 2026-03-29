@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Card, Row, Col, Button, Tag, Space, message } from 'antd';
-import { UserOutlined, 
-  EditOutlined,
-  ReloadOutlined
-} from '@ant-design/icons';
+import { UserOutlined, EditOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 // Shared Components
@@ -36,7 +33,7 @@ export default function DataPengguna() {
       position: 'Software Engineer',
       status: 'active',
       joinDate: '2022-01-15',
-      lastActive: '2024-03-30'
+      lastActive: '2024-03-30',
     },
     // ... more mock data
   ];
@@ -55,14 +52,14 @@ export default function DataPengguna() {
     try {
       if (selectedUser) {
         // Update existing user
-        setData(prev => prev.map(user => 
-          user.id === selectedUser.id ? { ...user, ...values } : user
-        ));
+        setData((prev) =>
+          prev.map((user) => (user.id === selectedUser.id ? { ...user, ...values } : user))
+        );
         message.success('User berhasil diupdate');
       } else {
         // Add new user
         const newUser = { id: Date.now(), ...values };
-        setData(prev => [...prev, newUser]);
+        setData((prev) => [...prev, newUser]);
         message.success('User berhasil ditambahkan');
       }
       hideModal();
@@ -77,43 +74,45 @@ export default function DataPengguna() {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <strong>{text}</strong> },
+      render: (text) => <strong>{text}</strong>,
+    },
     {
       title: 'Email',
       dataIndex: 'email',
-      key: 'email' },
+      key: 'email',
+    },
     {
       title: 'Department',
       dataIndex: 'department',
-      key: 'department' },
+      key: 'department',
+    },
     {
       title: 'Position',
       dataIndex: 'position',
-      key: 'position' },
+      key: 'position',
+    },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status) => (
-        <Tag color={getStatusColor(status)}>
-          {status.toUpperCase()}
-        </Tag>
-      ) },
+      render: (status) => <Tag color={getStatusColor(status)}>{status.toUpperCase()}</Tag>,
+    },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space>
           <Button
-            type="primary"
-            size="small"
+            type='primary'
+            size='small'
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           >
             Edit
           </Button>
         </Space>
-      ) },
+      ),
+    },
   ];
 
   const filters = [
@@ -124,24 +123,20 @@ export default function DataPengguna() {
       placeholder: 'Filter by Status',
       options: [
         { value: 'all', label: 'All Status' },
-        ...Object.values(STATUSES).map(status => ({
+        ...Object.values(STATUSES).map((status) => ({
           value: status.value,
-          label: status.label
-        }))
-      ]
-    }
+          label: status.label,
+        })),
+      ],
+    },
   ];
 
   return (
-    <PageLayout 
-      title="Data Pengguna"
-      subtitle="Management data pengguna sistem"
+    <PageLayout
+      title='Data Pengguna'
+      subtitle='Management data pengguna sistem'
       extra={
-        <Button 
-          type="primary" 
-          icon={<UserOutlined />}
-          onClick={() => showModal()}
-        >
+        <Button type='primary' icon={<UserOutlined />} onClick={() => showModal()}>
           Add User
         </Button>
       }
@@ -149,44 +144,50 @@ export default function DataPengguna() {
       <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
         <Col span={6}>
           <Card>
-            <div className="statistic-card">
-              <div className="statistic-icon">👥</div>
-              <div className="statistic-content">
-                <div className="statistic-title">Total Users</div>
-                <div className="statistic-value">{data.length}</div>
+            <div className='statistic-card'>
+              <div className='statistic-icon'>👥</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>Total Users</div>
+                <div className='statistic-value'>{data.length}</div>
               </div>
             </div>
           </Card>
         </Col>
         <Col span={6}>
           <Card>
-            <div className="statistic-card pending">
-              <div className="statistic-icon">⏳</div>
-              <div className="statistic-content">
-                <div className="statistic-title">Pending</div>
-                <div className="statistic-value">{data.filter(u => u.status === 'pending').length}</div>
+            <div className='statistic-card pending'>
+              <div className='statistic-icon'>⏳</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>Pending</div>
+                <div className='statistic-value'>
+                  {data.filter((u) => u.status === 'pending').length}
+                </div>
               </div>
             </div>
           </Card>
         </Col>
         <Col span={6}>
           <Card>
-            <div className="statistic-card in-progress">
-              <div className="statistic-icon">🔄</div>
-              <div className="statistic-content">
-                <div className="statistic-title">Active</div>
-                <div className="statistic-value">{data.filter(u => u.status === 'active').length}</div>
+            <div className='statistic-card in-progress'>
+              <div className='statistic-icon'>🔄</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>Active</div>
+                <div className='statistic-value'>
+                  {data.filter((u) => u.status === 'active').length}
+                </div>
               </div>
             </div>
           </Card>
         </Col>
         <Col span={6}>
           <Card>
-            <div className="statistic-card completed">
-              <div className="statistic-icon">✅</div>
-              <div className="statistic-content">
-                <div className="statistic-title">Completed</div>
-                <div className="statistic-value">{data.filter(u => u.status === 'completed').length}</div>
+            <div className='statistic-card completed'>
+              <div className='statistic-icon'>✅</div>
+              <div className='statistic-content'>
+                <div className='statistic-title'>Completed</div>
+                <div className='statistic-value'>
+                  {data.filter((u) => u.status === 'completed').length}
+                </div>
               </div>
             </div>
           </Card>
@@ -202,9 +203,9 @@ export default function DataPengguna() {
           pageSize: 10,
           showSizeChanger: true,
           showQuickJumper: true,
-          showTotal: (total, range) => 
-            `${range[0]}-${range[1]} dari ${total} users` }}
-        searchPlaceholder="Cari user..."
+          showTotal: (total, range) => `${range[0]}-${range[1]} dari ${total} users`,
+        }}
+        searchPlaceholder='Cari user...'
         filters={filters}
         onRefresh={refreshData}
         rowClassName={(record) => {
@@ -222,64 +223,60 @@ export default function DataPengguna() {
         onSubmit={() => form.submit()}
         loading={loading}
       >
-        <Form as="form"
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit}
-        >
-          <Form as="form".Item
-            controlId="name"
-            label="Full Name"
+        <Form form={form} layout='vertical' onFinish={handleSubmit}>
+          <Form.Item
+            name='name'
+            label='Full Name'
             rules={[{ required: true, message: 'Name harus diisi!' }]}
           >
-            <Input placeholder="Masukkan nama lengkap" />
-          </Form.Group>
+            <Input placeholder='Masukkan nama lengkap' />
+          </Form.Item>
 
-          <Form as="form".Item
-            controlId="email"
-            label="Email"
+          <Form.Item
+            name='email'
+            label='Email'
             rules={[
               { required: true, message: 'Email harus diisi!' },
-              { type: 'email', message: 'Format email tidak valid!' }
+              { type: 'email', message: 'Format email tidak valid!' },
             ]}
           >
-            <Input placeholder="email@company.com" />
-          </Form.Group>
+            <Input placeholder='email@company.com' />
+          </Form.Item>
 
-          <Form as="form".Item
-            controlId="department"
-            label="Department"
+          <Form.Item
+            name='department'
+            label='Department'
             rules={[{ required: true, message: 'Department harus diisi!' }]}
           >
-            <Select placeholder="Pilih department">
-              <Option value="IT">IT</Option>
-              <Option value="Finance">Finance</Option>
-              <Option value="HR">HR</Option>
-              <Option value="Operations">Operations</Option>
+            <Select placeholder='Pilih department'>
+              <Option value='IT'>IT</Option>
+              <Option value='Finance'>Finance</Option>
+              <Option value='HR'>HR</Option>
+              <Option value='Operations'>Operations</Option>
             </Select>
-          </Form.Group>
+          </Form.Item>
 
-          <Form as="form".Item
-            controlId="position"
-            label="Position"
+          <Form.Item
+            name='position'
+            label='Position'
             rules={[{ required: true, message: 'Position harus diisi!' }]}
           >
-            <Input placeholder="Masukkan posisi/jabatan" />
-          </Form.Group>
+            <Input placeholder='Masukkan posisi/jabatan' />
+          </Form.Item>
 
-          <Form as="form".Item
-            controlId="status"
-            label="Status"
+          <Form.Item
+            name='status'
+            label='Status'
             rules={[{ required: true, message: 'Status harus diisi!' }]}
           >
-            <Select placeholder="Pilih status">
-              {Object.values(STATUSES).map(status => (
+            <Select placeholder='Pilih status'>
+              {Object.values(STATUSES).map((status) => (
                 <Option key={status.value} value={status.value}>
                   {status.label}
                 </Option>
               ))}
             </Select>
-          </Form.Group>
+          </Form.Item>
         </Form>
       </ActionModal>
     </PageLayout>
