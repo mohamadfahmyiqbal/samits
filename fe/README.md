@@ -2,6 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Lokal HTTPS & sertifikat
+
+- Development server sudah diaktifkan dengan `HTTPS=true` dan akan memuat certificate/key yang ditunjuk oleh `SSL_CRT_FILE`/`SSL_KEY_FILE` di `.env` (`cert/pik1com074.local.ikoito.co.id/certificate.cer` + `cert/pik1com074.local.ikoito.co.id/private.key`).
+- Agar browser menerima TLS backend yang memakai sertifikat internal `https://pik1com074.local.ikoito.co.id:5002`, impor `fe/cert/pik1com074.local.ikoito.co.id/certificate.cer` ke trust store sistem Anda dan pastikan environment (`REACT_APP_API_BASE_URL`) tetap menunjuk host yang sama.
+  - **Windows**: jalankan `certutil -addstore Root "D:\DEV\REACT\samit\fe\cert\pik1com074.local.ikoito.co.id\certificate.cer"` atau buka file sertifikat dan gunakan wizard **Install Certificate...** → simpan di *Trusted Root Certification Authorities* untuk user saat ini.
+  - **macOS**: `sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /path/to/fe/cert/pik1com074.local.ikoito.co.id/certificate.cer`, lalu restart browser.
+  - **Linux (Debian/Ubuntu)**: `sudo cp fe/cert/pik1com074.local.ikoito.co.id/certificate.cer /usr/local/share/ca-certificates/pik1com074.crt && sudo update-ca-certificates`.
+- Setelah sertifikat terpasang, restart browser agar perubahan trust diterapkan. Semua panggilan `https://pik1com074.local.ikoito.co.id:5002` (atau host backend) akan memakai sertifikat yang dipercaya.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -9,7 +18,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [https://pik1com074.local.ikoito.co.id:3000](https://pik1com074.local.ikoito.co.id:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.

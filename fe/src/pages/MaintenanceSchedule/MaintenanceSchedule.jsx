@@ -6,16 +6,13 @@ import {
   Button,
   Space,
   message,
-  Switch,
   Select,
   Modal,
   Form,
   DatePicker,
 } from 'antd';
-import { BarChartOutlined, ScheduleOutlined } from '@ant-design/icons';
 import DetailModal from './components/modals/DetailModal';
-import AddScheduleModal from './components/modals/AddScheduleModal';
-import ScheduleTable from './components/ScheduleTable';
+import ScheduleModal from './components/modals/ScheduleModal';
 import GanttChart from './components/GanttChart';
 import StatisticsCards from './components/StatisticsCards';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -34,6 +31,7 @@ import {
   createLog,
   updateLog,
   deleteLog,
+  fetchSchedule,
 } from '../../services/MaintenanceService';
 import {
   fetchMainTypes,
@@ -48,15 +46,16 @@ const { Option } = Select;
 export default function MaintenanceSchedule() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
   const [scheduleData, setScheduleData] = useState([]);
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
-  const [addModalVisible, setAddModalVisible] = useState(false);
-  const [viewMode, setViewMode] = useState('table'); // 'table' or 'gantt'
+  const [scheduleModalVisible, setScheduleModalVisible] = useState(false);
+  const [scheduleModalMode, setScheduleModalMode] = useState('add');
+  const [modalInitialValues, setModalInitialValues] = useState(null);
   const [ganttViewType, setGanttViewType] = useState('weekly'); // 'daily', 'weekly', 'monthly'
   const [selectedDateRange, setSelectedDateRange] = useState(null);
   const [form] = Form.useForm();
+  const [modalLoading, setModalLoading] = useState(false);
 
   // Category states
   const [mainTypes, setMainTypes] = useState([]);
@@ -156,21 +155,25 @@ export default function MaintenanceSchedule() {
   };
 
   // Fetch maintenance team from API
+  const fallbackMaintenanceTeam = [
+    { nik: '12345', name: 'John Doe', display_name: 'John Doe (12345)' },
+    { nik: '67890', name: 'Jane Smith', display_name: 'Jane Smith (67890)' },
+    { nik: '11111', name: 'Mike Johnson', display_name: 'Mike Johnson (11111)' },
+  ];
+
   const fetchMaintenanceTeam = async () => {
     setTeamLoading(true);
     try {
       const response = await userService.fetchMaintenanceUsers();
       if (response.success) {
-        setMaintenanceTeam(response.data || []);
+        setMaintenanceTeam(response.data || fallbackMaintenanceTeam);
+      } else {
+        setMaintenanceTeam(fallbackMaintenanceTeam);
       }
     } catch (error) {
       console.error('Failed to fetch maintenance team:', error);
       // Fallback to mock data if API fails
-      setMaintenanceTeam([
-        { nik: '12345', name: 'John Doe', display_name: 'John Doe (12345)' },
-        { nik: '67890', name: 'Jane Smith', display_name: 'Jane Smith (67890)' },
-        { nik: '11111', name: 'Mike Johnson', display_name: 'Mike Johnson (11111)' },
-      ]);
+      setMaintenanceTeam(fallbackMaintenanceTeam);
     } finally {
       setTeamLoading(false);
     }
@@ -307,7 +310,6 @@ export default function MaintenanceSchedule() {
     fetchITItems(selectedCategory, value, selectedMainType);
   };
   const fetchSchedules = async () => {
-    setLoading(true);
     try {
       const response = await fetchActiveLogs();
       if (response.success) {
@@ -319,8 +321,6 @@ export default function MaintenanceSchedule() {
       message.error('Gagal mengambil data jadwal');
       // Fallback to mock data if API fails
       setScheduleData([]);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -362,7 +362,10 @@ export default function MaintenanceSchedule() {
     console.log('[DEBUG Frontend] scheduleData from form:', JSON.stringify(scheduleData, null, 2));
     try {
       const payload = {
-        hostname: scheduleData.hostname,
+        hostname: Array.isArray(scheduleData.hostname)
+          ? scheduleData.hostname[0]
+          : scheduleData.hostname,
+        asset_main_type_id: scheduleData.asset_main_type_id,
         category_id: scheduleData.category_id,
         sub_category_id: scheduleData.sub_category_id,
         start_date: scheduleData.start_date?.format
@@ -388,6 +391,7 @@ export default function MaintenanceSchedule() {
           ? scheduleData.recurrence_end_date.format('YYYY-MM-DD')
           : scheduleData.recurrence_end_date,
         recurrence_count: scheduleData.recurrence_count,
+        selected_assets: scheduleData.selected_assets,
       };
       console.log('[DEBUG Frontend] payload to be sent:', JSON.stringify(payload, null, 2));
 
@@ -416,13 +420,92 @@ export default function MaintenanceSchedule() {
     });
   };
 
-  const handleEdit = (schedule) => {
-    navigate('/pilih-category', {
-      state: {
-        editMode: true,
-        scheduleData: schedule,
-      },
-    });
+  const handleEdit = async (schedule) => {
+    setScheduleModalMode('edit');
+    setModalLoading(true);
+    try {
+      const response = await fetchSchedule(schedule.id);
+      if (response.success && response.data) {
+        setModalInitialValues(response.data);
+        setScheduleModalVisible(true);
+      } else {
+        message.error(response.message || 'Gagal memuat data jadwal');
+      }
+    } catch (error) {
+      console.error('Failed to load schedule detail:', error);
+      message.error('Gagal memuat data jadwal');
+    } finally {
+      setModalLoading(false);
+    }
+  };
+
+  const closeScheduleModal = () => {
+    setScheduleModalVisible(false);
+    setModalInitialValues(null);
+    form.resetFields();
+    setModalLoading(false);
+  };
+
+  const handleUpdateSchedule = async (values) => {
+    if (!modalInitialValues) return;
+    setModalLoading(true);
+    try {
+      const scheduledDate =
+        values.start_date?.format('YYYY-MM-DD') || modalInitialValues.scheduledDate;
+      const scheduledEndDate =
+        values.end_date?.format('YYYY-MM-DD') || modalInitialValues.scheduledEndDate;
+      const payload = {
+        scheduledDate,
+        scheduledEndDate,
+        scheduledTime: values.start_time?.format('HH:mm'),
+        scheduledEndTime: values.end_time?.format('HH:mm'),
+        status: values.status || modalInitialValues.status,
+        priority: values.priority || modalInitialValues.priority,
+        criticality: values.criticality || modalInitialValues.criticality,
+        notes: values.notes ?? modalInitialValues.notes,
+        description: values.notes ?? modalInitialValues.notes,
+        pic: values.team?.trim() ? values.team : modalInitialValues.team,
+        asset_main_type_id: values.asset_main_type_id,
+        category_id: values.category_id,
+        sub_category_id: values.sub_category_id,
+        selected_assets: values.selected_assets,
+      };
+
+      const response = await updateLog(modalInitialValues.id, payload);
+      if (response.success) {
+        message.success('Jadwal berhasil diperbarui');
+        fetchSchedules();
+        closeScheduleModal();
+      } else {
+        message.error(response.message || 'Gagal memperbarui jadwal');
+      }
+    } catch (error) {
+      console.error('Failed to update schedule:', error);
+      message.error('Gagal memperbarui jadwal');
+    } finally {
+      setModalLoading(false);
+    }
+  };
+
+  const handleModalSubmit = async (values) => {
+    if (scheduleModalMode === 'add') {
+      setModalLoading(true);
+      try {
+        const success = await createScheduleFromWizard(values);
+        if (success) {
+          closeScheduleModal();
+        }
+      } finally {
+        setModalLoading(false);
+      }
+    } else {
+      await handleUpdateSchedule(values);
+    }
+  };
+
+  const handleModalDelete = () => {
+    if (!modalInitialValues) return;
+    handleDelete(modalInitialValues.id);
   };
 
   const handleDelete = async (id) => {
@@ -437,6 +520,7 @@ export default function MaintenanceSchedule() {
           if (response.success) {
             message.success('Jadwal berhasil dihapus');
             fetchSchedules(); // Refresh data
+            closeScheduleModal();
           } else {
             message.error(response.message || 'Gagal menghapus jadwal');
           }
@@ -449,12 +533,10 @@ export default function MaintenanceSchedule() {
   };
 
   const handleAddSchedule = () => {
-    // Show modal for creating new schedule
-    setAddModalVisible(true);
-  };
-
-  const handlePrint = (schedule) => {
-    message.info('Fitur print akan segera tersedia');
+    setScheduleModalMode('add');
+    setModalInitialValues(null);
+    form.resetFields();
+    setScheduleModalVisible(true);
   };
 
   // Helper function to get date range based on view type
@@ -495,19 +577,11 @@ export default function MaintenanceSchedule() {
             title='Daftar Jadwal Maintenance'
             extra={
               <Space>
-                <Switch
-                  checkedChildren={<BarChartOutlined />}
-                  unCheckedChildren={<ScheduleOutlined />}
-                  checked={viewMode === 'gantt'}
-                  onChange={(checked) => setViewMode(checked ? 'gantt' : 'table')}
-                />
-                {viewMode === 'gantt' && (
-                  <Select value={ganttViewType} onChange={setGanttViewType} style={{ width: 120 }}>
-                    <Option value='daily'>Daily</Option>
-                    <Option value='weekly'>Weekly</Option>
-                    <Option value='monthly'>Monthly</Option>
-                  </Select>
-                )}
+                <Select value={ganttViewType} onChange={setGanttViewType} style={{ width: 120 }}>
+                  <Option value='daily'>Daily</Option>
+                  <Option value='weekly'>Weekly</Option>
+                  <Option value='monthly'>Monthly</Option>
+                </Select>
                 <DatePicker.RangePicker
                   value={selectedDateRange}
                   onChange={setSelectedDateRange}
@@ -519,25 +593,15 @@ export default function MaintenanceSchedule() {
               </Space>
             }
           >
-            {viewMode === 'gantt' ? (
-              <GanttChart
-                scheduleData={scheduleData}
-                ganttViewType={ganttViewType}
-                selectedDateRange={selectedDateRange}
-                getDateRange={getDateRange}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                onViewDetail={handleViewDetail}
-              />
-            ) : (
-              <ScheduleTable
-                scheduleData={scheduleData}
-                loading={loading}
-                onEdit={handleEdit}
-                onPrint={handlePrint}
-                onDelete={handleDelete}
-              />
-            )}
+            <GanttChart
+              scheduleData={scheduleData}
+              ganttViewType={ganttViewType}
+              selectedDateRange={selectedDateRange}
+              getDateRange={getDateRange}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onViewDetail={handleViewDetail}
+            />
           </Card>
         </Col>
       </Row>
@@ -552,17 +616,14 @@ export default function MaintenanceSchedule() {
         timelineItems={timelineItems}
       />
 
-      <AddScheduleModal
-        visible={addModalVisible}
-        onCancel={() => setAddModalVisible(false)}
-        onSubmit={async (values) => {
-          const success = await createScheduleFromWizard(values);
-          if (success) {
-            setAddModalVisible(false);
-            form.resetFields();
-          }
-        }}
+      <ScheduleModal
+        mode={scheduleModalMode}
+        visible={scheduleModalVisible}
         form={form}
+        onCancel={closeScheduleModal}
+        onSubmit={handleModalSubmit}
+        onDelete={handleModalDelete}
+        confirmLoading={modalLoading}
         maintenanceTeam={maintenanceTeam}
         teamLoading={teamLoading}
         mainTypes={mainTypes}
@@ -577,6 +638,7 @@ export default function MaintenanceSchedule() {
         onMainTypeChange={handleMainTypeChange}
         onCategoryChange={handleCategoryChange}
         onSubCategoryChange={handleSubCategoryChange}
+        initialValues={modalInitialValues}
       />
     </div>
   );

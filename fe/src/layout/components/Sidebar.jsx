@@ -15,7 +15,7 @@ export default function Sidebar({ onNavigate }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [state, dispatch] = useReducer(sidebarReducer, initialSidebarState);
-  const { userRole, hasRole } = useUserRole();
+  const { userRole, hasRole, isLoading } = useUserRole();
 
   // Filter menu berdasarkan role user
   const filteredMenuGroups = useMemo(() => {
@@ -103,7 +103,7 @@ export default function Sidebar({ onNavigate }) {
   );
 
   // Show loading state while user role is being determined
-  if (userRole === null || userRole === undefined) {
+  if (isLoading) {
     return (
       <Navbar bg='light' className='shadow-sm sidebar-navbar'>
         <Container fluid className='px-0 d-flex justify-content-center align-items-center py-4'>

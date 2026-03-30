@@ -1,25 +1,22 @@
-import React, { useState } from 'react';
-import { Tooltip, Badge, Dropdown, Button } from 'antd';
+import React, { useMemo, useState } from 'react';
+import { Badge, Button, Dropdown, Tag, Tooltip } from 'antd';
 import {
-  CalendarOutlined,
-  ClockCircleOutlined,
   CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  MoreOutlined,
-  EyeOutlined,
-  EditOutlined,
+  ClockCircleOutlined,
   DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  MoreOutlined,
 } from '@ant-design/icons';
-import {
-  format,
-  differenceInDays,
-  addDays,
-  startOfWeek,
-  endOfWeek,
-  startOfMonth,
-  endOfMonth,
-  parseISO,
-} from 'date-fns';
+import { format, startOfDay, addDays } from 'date-fns';
+
+const statusLabelMap = {
+  scheduled: 'Scheduled',
+  in_progress: 'In Progress',
+  completed: 'Completed',
+  cancelled: 'Canceled',
+  pending: 'Pending',
+};
 
 const GanttChart = ({
   scheduleData,
@@ -32,6 +29,8 @@ const GanttChart = ({
 }) => {
   const [hoveredTask, setHoveredTask] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
+
+  const dateRange = getDateRange();
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -47,23 +46,6 @@ const GanttChart = ({
         return '#8c8c8c';
       default:
         return '#d9d9d9';
-    }
-  };
-
-  const getStatusBgColor = (status) => {
-    switch (status) {
-      case 'scheduled':
-        return '#e6f7ff';
-      case 'in_progress':
-        return '#fff7e6';
-      case 'completed':
-        return '#f6ffed';
-      case 'cancelled':
-        return '#fff2f0';
-      case 'pending':
-        return '#f5f5f5';
-      default:
-        return '#fafafa';
     }
   };
 
@@ -97,482 +79,536 @@ const GanttChart = ({
     }
   };
 
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'scheduled':
-        return <CalendarOutlined />;
-      case 'in_progress':
-        return <ClockCircleOutlined />;
-      case 'completed':
-        return <CheckCircleOutlined />;
-      case 'cancelled':
-        return <ExclamationCircleOutlined />;
-      default:
-        return <CalendarOutlined />;
+  const formatDateLabel = (date) => format(date, 'dd/MM');
+  const formatDayLabel = (date) => format(date, 'EEE');
+
+  const formatMinutes = (totalMinutes) => {
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  };
+
+  const parseDateString = (value) => {
+    if (!value) return null;
+    const clean = value.split('T')[0].trim();
+    const parts = clean.split('-').map((part) => parseInt(part, 10));
+    if (parts.length < 3 || parts.some((part) => Number.isNaN(part))) return null;
+    const [year, month, day] = parts;
+    return { year, month, day };
+  };
+
+  const parseTimeString = (value) => {
+    if (!value) return { hours: 0, minutes: 0, seconds: 0 };
+    const clean = value.trim();
+    const parts = clean.split(':').map((part) => parseInt(part, 10));
+    const [hours = 0, minutes = 0, seconds = 0] = parts.map((num) =>
+      Number.isNaN(num) ? 0 : num,
+    );
+    return { hours, minutes, seconds };
+  };
+
+  const ganttData = useMemo(() => {
+    return scheduleData
+      .map((item) => {
+        const startDateValue = item.scheduledDate || item.date || item.start_date;
+        const startTime = item.scheduledStartTime || item.start_time || '00:00';
+        const endTime = item.scheduledEndTime || item.end_time || startTime || '23:59';
+        const startDateParts = parseDateString(startDateValue);
+        const startTimeParts = parseTimeString(startTime);
+        const endTimeParts = parseTimeString(endTime);
+        const startMinutesOfDay = startTimeParts.hours * 60 + startTimeParts.minutes;
+        const endMinutesOfDay = endTimeParts.hours * 60 + endTimeParts.minutes;
+        const displayDate =
+          startDateParts &&
+          new Date(startDateParts.year, startDateParts.month - 1, startDateParts.day);
+
+        return {
+          ...item,
+          startTime,
+          endTime,
+          startMinutesOfDay,
+          endMinutesOfDay,
+          name: `${item.equipment} - ${item.subcategory}`,
+          statusLabel: statusLabelMap[item.status] || 'Scheduled',
+          durationMinutes: Math.max(endMinutesOfDay - startMinutesOfDay, 0),
+          dateKey: startDateParts
+            ? `${startDateParts.year}-${String(startDateParts.month).padStart(2, '0')}-${String(
+                startDateParts.day,
+              ).padStart(2, '0')}`
+            : format(new Date(), 'yyyy-MM-dd'),
+        };
+      })
+      .sort((a, b) => a.startMinutesOfDay - b.startMinutesOfDay);
+  }, [scheduleData]);
+
+  const createDateFromKey = (key) => {
+    const parts = key.split('-').map((part) => parseInt(part, 10));
+    if (parts.length < 3 || parts.some((part) => Number.isNaN(part))) {
+      return new Date();
     }
+    const [year, month, day] = parts;
+    return new Date(year, month - 1, day);
   };
 
-  const getGanttData = () => {
-    return scheduleData.map((item) => {
-      const dateStr = item.date || item.scheduledDate;
-      const startTime = item.start_time || item.scheduledStartTime || '00:00';
-      const endTime = item.end_time || item.scheduledEndTime || '23:59';
+  const dateGroups = useMemo(() => {
+    if (!dateRange.start || !dateRange.end) {
+      return [];
+    }
 
-      const startDateTime = `${dateStr}T${startTime}:00`;
-      const endDateTime = `${dateStr}T${endTime}:00`;
+    const normalizedStart = startOfDay(dateRange.start);
+    const normalizedEnd = startOfDay(dateRange.end);
 
-      return {
-        id: item.id,
-        name: `${item.equipment} - ${item.subcategory}`,
-        start: parseISO(startDateTime),
-        end: parseISO(endDateTime),
-        dateStr: dateStr,
-        progress: item.status === 'completed' ? 100 : item.status === 'in_progress' ? 50 : 0,
-        status: item.status,
-        priority: item.priority,
-        criticality: item.criticality,
-        team: item.team,
-        dependencies: [],
-      };
+    if (ganttViewType === 'daily') {
+      const primaryDayKey = format(normalizedStart, 'yyyy-MM-dd');
+      const hourBuckets = Array.from({ length: 24 }, (_, index) => ({
+        key: `${primaryDayKey}-${index.toString().padStart(2, '0')}`,
+        date: normalizedStart,
+        hour: index,
+        label: `${index.toString().padStart(2, '0')}:00`,
+        tasks: [],
+        isHourly: true,
+      }));
+
+      const map = hourBuckets.reduce((acc, bucket) => {
+        acc[bucket.key] = bucket;
+        return acc;
+      }, {});
+
+      ganttData.forEach((task) => {
+        const taskDateKey = task.dateKey || primaryDayKey;
+        const bucketHour = Math.floor(task.startMinutesOfDay / 60)
+          .toString()
+          .padStart(2, '0');
+        const bucketKey = `${taskDateKey}-${bucketHour}`;
+
+        if (!map[bucketKey]) {
+          map[bucketKey] = {
+            key: bucketKey,
+            date: createDateFromKey(taskDateKey),
+            hour: parseInt(bucketHour, 10),
+            label: `${bucketHour}:00`,
+            tasks: [],
+            isHourly: true,
+          };
+        }
+        map[bucketKey].tasks.push(task);
+      });
+
+      return Object.values(map)
+        .map((group) => ({
+          ...group,
+          tasks: group.tasks.sort((a, b) => a.startMinutesOfDay - b.startMinutesOfDay),
+        }))
+        .sort((a, b) => a.key.localeCompare(b.key));
+    }
+
+    const days = [];
+    let cursor = normalizedStart;
+    while (cursor <= normalizedEnd) {
+      const key = format(cursor, 'yyyy-MM-dd');
+      days.push({
+        key,
+        date: new Date(cursor.getFullYear(), cursor.getMonth(), cursor.getDate()),
+        tasks: [],
+        isHourly: false,
+      });
+      cursor = addDays(cursor, 1);
+    }
+
+    const map = days.reduce((acc, day) => {
+      acc[day.key] = day;
+      return acc;
+    }, {});
+
+    ganttData.forEach((task) => {
+      const key = task.dateKey;
+      if (!map[key]) {
+        map[key] = {
+          key,
+          date: createDateFromKey(key),
+          tasks: [],
+          isHourly: false,
+        };
+      }
+      map[key].tasks.push(task);
     });
+
+    return Object.values(map)
+      .map((group) => ({
+        ...group,
+        tasks: group.tasks.sort((a, b) => a.startMinutesOfDay - b.startMinutesOfDay),
+      }))
+      .sort((a, b) => a.date - b.date);
+  }, [ganttData, dateRange, ganttViewType]);
+
+  const totalTasks = scheduleData.length;
+  const statusCounts = useMemo(
+    () => ({
+      completed: scheduleData.filter((item) => item.status === 'completed').length,
+      inProgress: scheduleData.filter((item) => item.status === 'in_progress').length,
+    }),
+    [scheduleData],
+  );
+
+  const toPlainDate = (value) => {
+    if (!value) return null;
+    if (typeof value.toDate === 'function') {
+      return value.toDate();
+    }
+    if (value instanceof Date) {
+      return value;
+    }
+    return new Date(value);
   };
 
-  const ganttData = getGanttData();
-  const { start: startDate, end: endDate } = getDateRange();
-  const totalDays = differenceInDays(endDate, startDate) + 1;
+  const rangeLabel = useMemo(() => {
+    const start = toPlainDate(selectedDateRange?.[0]) || dateRange.start;
+    const end = toPlainDate(selectedDateRange?.[1]) || dateRange.end;
 
-  const isHourlyView = ganttViewType === 'daily';
-  const displayDays = isHourlyView ? 24 : Math.min(totalDays, ganttViewType === 'monthly' ? 31 : 7);
-  const hourLabels = isHourlyView
-    ? Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`)
-    : Array.from({ length: displayDays }, (_, i) =>
-        ganttViewType === 'monthly'
-          ? format(addDays(startDate, i), 'dd')
-          : format(addDays(startDate, i), 'dd/MM')
-      );
+    if (!start || !end) return null;
+    return `${format(start, 'dd MMM')} - ${format(end, 'dd MMM yyyy')}`;
+  }, [dateRange, selectedDateRange]);
+
+  const viewTitle =
+    ganttViewType === 'daily'
+      ? 'Daily View'
+      : ganttViewType === 'weekly'
+        ? 'Weekly View'
+        : 'Monthly View';
+
+  const buildActionMenu = (task) => [
+    {
+      key: 'view',
+      icon: <EyeOutlined />,
+      label: 'View Details',
+      onClick: () => onViewDetail && onViewDetail(task),
+    },
+    {
+      key: 'edit',
+      icon: <EditOutlined />,
+      label: 'Edit',
+      onClick: () => onEdit && onEdit(task),
+    },
+    {
+      key: 'delete',
+      icon: <DeleteOutlined />,
+      label: 'Delete',
+      danger: true,
+      onClick: () => onDelete && onDelete(task.id),
+    },
+  ];
+
+  const getTimelinePercent = (minutes) => {
+    const totalMinutes = 24 * 60;
+    return Math.max(0, Math.min(100, (minutes / totalMinutes) * 100));
+  };
 
   return (
     <div
       className='gantt-chart'
       style={{
-        overflow: 'hidden',
-        background: '#fafafa',
-        borderRadius: '8px',
+        background: '#ffffff',
+        borderRadius: '12px',
         border: '1px solid #f0f0f0',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
       }}
     >
-      {/* Header with view controls */}
       <div
+        className='gantt-header'
         style={{
-          padding: '16px',
-          background: '#fff',
-          borderBottom: '1px solid #f0f0f0',
+          padding: '16px 24px',
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center',
+          alignItems: 'flex-start',
+          borderBottom: '1px solid #f0f0f0',
+          gap: '24px',
         }}
       >
         <div>
-          <h3 style={{ margin: 0, color: '#262626', fontSize: '16px' }}>Maintenance Timeline</h3>
-          <p style={{ margin: '4px 0 0 0', color: '#8c8c8c', fontSize: '12px' }}>
-            {ganttViewType === 'daily'
-              ? 'Daily View'
-              : ganttViewType === 'weekly'
-                ? 'Weekly View'
-                : 'Monthly View'}{' '}
-            •{scheduleData.length} tasks
+          <h3 style={{ margin: 0, color: '#0f172a', fontSize: '18px' }}>Maintenance Timeline</h3>
+          <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#475569' }}>
+            {viewTitle} • {totalTasks} tasks
           </p>
+          {rangeLabel && (
+            <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: '#94a3b8' }}>{rangeLabel}</p>
+          )}
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <Badge
-            count={scheduleData.filter((t) => t.status === 'completed').length}
-            style={{ backgroundColor: '#52c41a' }}
+            count={statusCounts.completed}
+            style={{ backgroundColor: '#52c41a', boxShadow: 'none' }}
           >
-            <Button size='small' icon={<CheckCircleOutlined />}>
+            <Button
+              size='small'
+              style={{
+                borderRadius: '20px',
+                fontSize: '12px',
+                height: '32px',
+                borderColor: '#f0f0f0',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+              icon={<CheckCircleOutlined />}
+            >
               Completed
             </Button>
           </Badge>
           <Badge
-            count={scheduleData.filter((t) => t.status === 'in_progress').length}
-            style={{ backgroundColor: '#fa8c16' }}
+            count={statusCounts.inProgress}
+            style={{ backgroundColor: '#fa8c16', boxShadow: 'none' }}
           >
-            <Button size='small' icon={<ClockCircleOutlined />}>
+            <Button
+              size='small'
+              style={{
+                borderRadius: '20px',
+                fontSize: '12px',
+                height: '32px',
+                borderColor: '#f0f0f0',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+              icon={<ClockCircleOutlined />}
+            >
               In Progress
             </Button>
           </Badge>
         </div>
       </div>
 
-      {/* Timeline content */}
       <div
-        className='gantt-scroll-wrapper'
+        className='gantt-body'
         style={{
-          overflow: 'auto',
-          maxHeight: '500px',
-          background: '#fff',
+          padding: '16px 24px 20px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px',
         }}
       >
-        <div className='gantt-content' style={{ minWidth: 'fit-content' }}>
-          {/* Date header */}
-          <div
-            className='gantt-header'
-            style={{
-              position: 'sticky',
-              left: 0,
-              zIndex: 10,
-              background: 'linear-gradient(to right, #f8f9fa 0%, #ffffff 100%)',
-              width: '100px',
-              borderRight: '2px solid #1890ff',
-            }}
-          >
-            <div className='gantt-timeline-vertical'>
-              {hourLabels.map((label, i) => (
-                <div
-                  key={i}
-                  className={`gantt-day-vertical ${isHourlyView ? 'gantt-hour-vertical' : ''}`}
-                  style={{
-                    height: '70px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderBottom: '1px solid #f0f0f0',
-                    fontSize: '12px',
-                    fontWeight: 'bold',
-                    background: i % 2 === 0 ? '#fafafa' : '#fff',
-                    color: '#262626',
-                    borderRight: '1px solid #e8e8e8',
-                  }}
-                >
-                  <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '14px', fontWeight: 'bold' }}>{label}</div>
-                    {ganttViewType === 'monthly' && (
-                      <div style={{ fontSize: '9px', color: '#8c8c8c', marginTop: '2px' }}>
-                        {format(addDays(startDate, i), 'EEE')}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+        {dateGroups.length === 0 ? (
+          <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8' }}>
+            Tidak ada jadwal maintenance di periode ini.
           </div>
+        ) : (
+          dateGroups.map((group) => (
+            <div
+              key={group.key}
+              style={{
+                display: 'flex',
+                gap: '16px',
+                padding: '14px 16px',
+                background: '#f9fafb',
+                borderRadius: '12px',
+              }}
+            >
+              <div
+                style={{
+                  minWidth: '88px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '8px 6px',
+                  borderRadius: '8px',
+                  background: '#ffffff',
+                  border: '1px solid #e5e7eb',
+                }}
+              >
+                <div style={{ fontSize: '20px', fontWeight: '700', color: '#0b1c2c' }}>
+                  {group.isHourly ? group.label : formatDateLabel(group.date)}
+                </div>
+                <div style={{ fontSize: '12px', color: '#64748b' }}>
+                  {group.isHourly ? format(group.date, 'dd MMM yyyy') : formatDayLabel(group.date)}
+                </div>
+              </div>
 
-          {/* Tasks area */}
-          <div className='gantt-body' style={{ display: 'flex', marginLeft: '100px' }}>
-            <div style={{ flex: 1, position: 'relative' }}>
-              {/* Timeline slots */}
-              {hourLabels.map((label, i) => (
-                <div
-                  key={i}
-                  style={{
-                    height: '70px',
-                    borderBottom: '1px solid #f0f0f0',
-                    position: 'relative',
-                    background: i % 2 === 0 ? '#fafafa' : '#fff',
-                    transition: 'background 0.2s ease',
-                  }}
-                  onMouseEnter={() => setHoveredTask(i)}
-                  onMouseLeave={() => setHoveredTask(null)}
-                >
-                  {/* Tasks for this slot */}
-                  {ganttData
-                    .filter((task) => {
-                      const taskStart = new Date(task.start);
-                      const taskEnd = new Date(task.end);
-                      const taskDate = task.dateStr;
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {group.tasks.length === 0 ? (
+                  <div
+                    style={{
+                      padding: '12px 16px',
+                      borderRadius: '10px',
+                      background: '#ffffff',
+                      border: '1px dashed #e5e7eb',
+                      color: '#94a3b8',
+                      fontSize: '12px',
+                    }}
+                  >
+                    Tidak ada jadwal pada {group.isHourly ? 'jam ini' : 'hari ini'}.
+                  </div>
+                ) : (
+                  group.tasks.map((task) => {
+                    const isHovered = hoveredTask === task.id;
+                    const isSelected = selectedTask === task.id;
+                    const startPercent = getTimelinePercent(task.startMinutesOfDay);
+                    const endPercent = getTimelinePercent(task.endMinutesOfDay);
+                    const widthPercent = Math.max(endPercent - startPercent, 6);
 
-                      if (isHourlyView) {
-                        const taskHour = taskStart.getHours();
-                        return taskHour === parseInt(label.split(':')[0]);
-                      } else {
-                        const rangeStartObj = new Date(startDate);
-                        const taskDateObj = new Date(taskDate);
-                        const localDiffDays = Math.floor(
-                          (taskDateObj.getTime() - rangeStartObj.getTime()) / (1000 * 60 * 60 * 24)
-                        );
+                    const rawTask = task.originalData || task;
+                    const menuItems = buildActionMenu(rawTask);
 
-                        if (ganttViewType === 'monthly') {
-                          const taskDay = taskDateObj.getDate();
-                          const labelDay = parseInt(label);
-                          return taskDay === labelDay;
-                        } else {
-                          return localDiffDays === i;
-                        }
-                      }
-                    })
-                    .map((task, taskIndex) => {
-                      const taskStart = new Date(task.start);
-                      const taskEnd = new Date(task.end);
-
-                      let duration;
-                      if (isHourlyView) {
-                        const taskStartHour = taskStart.getHours() + taskStart.getMinutes() / 60;
-                        const taskEndHour = taskEnd.getHours() + taskEnd.getMinutes() / 60;
-                        duration = taskEndHour - taskStartHour;
-                      } else {
-                        duration = Math.min(
-                          (taskEnd.getTime() - taskStart.getTime()) / (1000 * 60 * 60 * 24),
-                          1
-                        );
-                      }
-
-                      const isHovered = hoveredTask === task.id;
-                      const isSelected = selectedTask === task.id;
-
-                      const menuItems = [
-                        {
-                          key: 'view',
-                          icon: <EyeOutlined />,
-                          label: 'View Details',
-                          onClick: () => onViewDetail && onViewDetail(task),
-                        },
-                        {
-                          key: 'edit',
-                          icon: <EditOutlined />,
-                          label: 'Edit',
-                          onClick: () => onEdit && onEdit(task),
-                        },
-                        {
-                          key: 'delete',
-                          icon: <DeleteOutlined />,
-                          label: 'Delete',
-                          danger: true,
-                          onClick: () => onDelete && onDelete(task.id),
-                        },
-                      ];
-
-                      return (
+                    return (
+                      <div
+                        key={task.id}
+                        onMouseEnter={() => setHoveredTask(task.id)}
+                        onMouseLeave={() => setHoveredTask(null)}
+                        onClick={() => {
+                          setSelectedTask(task.id);
+                          onEdit && onEdit(rawTask);
+                        }}
+                        style={{
+                          padding: '12px 16px',
+                          borderRadius: '12px',
+                          background: '#ffffff',
+                          border: isSelected ? '1px solid #2563eb' : '1px solid #e5e7eb',
+                          boxShadow: isSelected
+                            ? '0 8px 20px rgba(37,99,235,0.15)'
+                            : isHovered
+                              ? '0 6px 16px rgba(15,23,42,0.08)'
+                              : 'none',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '8px',
+                          position: 'relative',
+                        }}
+                      >
                         <div
-                          key={task.id}
-                          style={{
-                            position: 'absolute',
-                            top: `${4 + taskIndex * 24}px`,
-                            left: '4px',
-                            right: '4px',
-                            padding: '6px',
-                            backgroundColor: getStatusBgColor(task.status),
-                            borderRadius: '6px',
-                            border: `2px solid ${getStatusColor(task.status)}`,
-                            fontSize: '10px',
-                            zIndex: isSelected ? 10 : isHovered ? 5 : 1,
-                            transform: isHovered ? 'scale(1.02)' : 'scale(1)',
-                            transition: 'all 0.2s ease',
-                            boxShadow: isSelected
-                              ? '0 4px 12px rgba(24, 144, 255, 0.15)'
-                              : isHovered
-                                ? '0 2px 8px rgba(0, 0, 0, 0.1)'
-                                : 'none',
-                            cursor: 'pointer',
-                          }}
-                          onMouseEnter={() => setHoveredTask(task.id)}
-                          onMouseLeave={() => setHoveredTask(null)}
-                          onClick={() => setSelectedTask(task.id)}
+                          style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}
                         >
-                          {/* Task header */}
-                          <div
-                            style={{ display: 'flex', alignItems: 'center', marginBottom: '3px' }}
-                          >
+                          <div style={{ flex: 1, minWidth: 0 }}>
                             <div
                               style={{
-                                width: '16px',
-                                textAlign: 'center',
-                                marginRight: '4px',
-                                color: getStatusColor(task.status),
+                                fontSize: '14px',
+                                fontWeight: 600,
+                                color: '#0f172a',
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
                               }}
                             >
-                              {getStatusIcon(task.status)}
+                              {task.name}
                             </div>
                             <div
                               style={{
-                                flex: 1,
-                                fontSize: '9px',
-                                fontWeight: 'bold',
-                                color: '#262626',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap',
-                              }}
-                            >
-                              {task.name.length > 18
-                                ? task.name.substring(0, 18) + '...'
-                                : task.name}
-                            </div>
-                            <Dropdown
-                              menu={{ items: menuItems }}
-                              trigger={['click']}
-                              placement='bottomRight'
-                            >
-                              <Button
-                                type='text'
-                                size='small'
-                                icon={<MoreOutlined />}
-                                style={{
-                                  padding: '0 2px',
-                                  height: '16px',
-                                  minWidth: '16px',
-                                }}
-                                onClick={(e) => e.stopPropagation()}
-                              />
-                            </Dropdown>
-                          </div>
-
-                          {/* Status bar */}
-                          <div
-                            style={{
-                              height: '14px',
-                              backgroundColor: getStatusColor(task.status),
-                              opacity: task.status === 'completed' ? 0.8 : 1,
-                              borderRadius: '2px',
-                              marginBottom: '3px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '8px',
-                              color: '#fff',
-                              fontWeight: 'bold',
-                              position: 'relative',
-                              overflow: 'hidden',
-                            }}
-                          >
-                            <span
-                              style={{
-                                textShadow: '1px 1px 1px rgba(0,0,0,0.3)',
-                                whiteSpace: 'nowrap',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                maxWidth: '100%',
-                              }}
-                            >
-                              {task.status === 'completed'
-                                ? '✓ Done'
-                                : task.status === 'in_progress'
-                                  ? '⏳ Progress'
-                                  : task.status === 'scheduled'
-                                    ? '📅 Scheduled'
-                                    : task.status.charAt(0).toUpperCase()}
-                            </span>
-                            {task.progress > 0 && (
-                              <div
-                                style={{
-                                  position: 'absolute',
-                                  left: 0,
-                                  top: 0,
-                                  height: '100%',
-                                  width: `${task.progress}%`,
-                                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                                  borderRadius: '2px',
-                                }}
-                              />
-                            )}
-                          </div>
-
-                          {/* Task details */}
-                          <div
-                            style={{
-                              fontSize: '8px',
-                              color: '#666',
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
-                            }}
-                          >
-                            <span
-                              style={{
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap',
-                                maxWidth: '60%',
+                                fontSize: '11px',
+                                color: '#64748b',
+                                marginTop: '2px',
                               }}
                             >
                               {task.team}
-                            </span>
-                            <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-                              <span
-                                style={{
-                                  color: getPriorityColor(task.priority),
-                                  fontWeight: 'bold',
-                                  fontSize: '7px',
-                                }}
-                              >
-                                {task.priority?.charAt(0).toUpperCase() || 'M'}
-                              </span>
-                              <span
-                                style={{
-                                  color: getCriticalityColor(task.criticality),
-                                  fontWeight: 'bold',
-                                  fontSize: '7px',
-                                }}
-                              >
-                                {task.criticality?.charAt(0).toUpperCase() || 'M'}
-                              </span>
                             </div>
                           </div>
+                          <Dropdown
+                            menu={{ items: menuItems }}
+                            trigger={['click']}
+                            placement='bottomRight'
+                          >
+                            <Button
+                              type='text'
+                              icon={<MoreOutlined />}
+                              style={{
+                                padding: '0',
+                                color: '#475569',
+                                height: '22px',
+                                width: '22px',
+                              }}
+                              onClick={(event) => event.stopPropagation()}
+                            />
+                          </Dropdown>
+                        </div>
 
-                          {/* Tooltip */}
-                          <Tooltip
-                            title={
-                              <div style={{ padding: '8px', fontSize: '11px', maxWidth: '250px' }}>
-                                <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>
-                                  {task.name}
-                                </div>
-                                <div style={{ marginBottom: '2px' }}>
-                                  <strong>Team:</strong> {task.team}
-                                </div>
-                                <div style={{ marginBottom: '2px' }}>
-                                  <strong>Status:</strong>
-                                  <span
-                                    style={{
-                                      color: getStatusColor(task.status),
-                                      marginLeft: '4px',
-                                    }}
-                                  >
-                                    {task.status.replace('_', ' ').toUpperCase()}
-                                  </span>
-                                </div>
-                                <div style={{ marginBottom: '2px' }}>
-                                  <strong>Priority:</strong>
-                                  <span
-                                    style={{
-                                      color: getPriorityColor(task.priority),
-                                      marginLeft: '4px',
-                                    }}
-                                  >
-                                    {task.priority?.toUpperCase()}
-                                  </span>
-                                </div>
-                                <div style={{ marginBottom: '2px' }}>
-                                  <strong>Criticality:</strong>
-                                  <span
-                                    style={{
-                                      color: getCriticalityColor(task.criticality),
-                                      marginLeft: '4px',
-                                    }}
-                                  >
-                                    {task.criticality?.toUpperCase()}
-                                  </span>
-                                </div>
-                                <div style={{ marginBottom: '2px' }}>
-                                  <strong>Date:</strong> {task.dateStr}
-                                </div>
-                                <div>
-                                  <strong>Duration:</strong>{' '}
-                                  {Math.round(duration * (isHourlyView ? 1 : 24))} hours
-                                </div>
-                              </div>
-                            }
-                            placement='topLeft'
+                        <div
+                          style={{ display: 'flex', justifyContent: 'space-between', gap: '8px' }}
+                        >
+                          <Tag
+                            color={getStatusColor(task.status)}
+                            style={{
+                              fontWeight: 600,
+                              fontSize: '11px',
+                              textTransform: 'capitalize',
+                            }}
+                          >
+                            {task.statusLabel}
+                          </Tag>
+                          <div style={{ display: 'flex', gap: '6px' }}>
+                            <Tag
+                              color={getPriorityColor(task.priority)}
+                              style={{ fontSize: '10px', fontWeight: 600 }}
+                            >
+                              P: {task.priority?.charAt(0)?.toUpperCase() || 'M'}
+                            </Tag>
+                            <Tag
+                              color={getCriticalityColor(task.criticality)}
+                              style={{ fontSize: '10px', fontWeight: 600 }}
+                            >
+                              C: {task.criticality?.charAt(0)?.toUpperCase() || 'M'}
+                            </Tag>
+                          </div>
+                          <div
+                            style={{
+                              fontSize: '10px',
+                              color: '#94a3b8',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                            }}
+                          >
+                            <ClockCircleOutlined />
+                            {`${(task.durationMinutes / 60).toFixed(1)} hrs`}
+                          </div>
+                        </div>
+
+                        <Tooltip
+                          trigger={['hover']}
+                          title={`${formatMinutes(task.startMinutesOfDay)} - ${formatMinutes(
+                            task.endMinutesOfDay,
+                          )}`}
+                        >
+                          <div
+                            style={{
+                              position: 'relative',
+                              height: '8px',
+                              borderRadius: '4px',
+                              background: '#e5e7eb',
+                              overflow: 'hidden',
+                            }}
                           >
                             <div
-                              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                              style={{
+                                position: 'absolute',
+                                left: `${startPercent}%`,
+                                width: `${widthPercent}%`,
+                                height: '100%',
+                                borderRadius: '4px',
+                                background: `linear-gradient(90deg, ${getStatusColor(
+                                  task.status,
+                                )} 0%, ${getStatusColor(task.status)}cc 100%)`,
+                              }}
                             />
-                          </Tooltip>
+                          </div>
+                        </Tooltip>
+
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            fontSize: '11px',
+                            color: '#94a3b8',
+                          }}
+                        >
+                          <span>{formatMinutes(task.startMinutesOfDay)}</span>
+                          <span>{formatMinutes(task.endMinutesOfDay)}</span>
                         </div>
-                      );
-                    })}
-                </div>
-              ))}
+                      </div>
+                    );
+                  })
+                )}
+              </div>
             </div>
-          </div>
-        </div>
+          ))
+        )}
       </div>
     </div>
   );

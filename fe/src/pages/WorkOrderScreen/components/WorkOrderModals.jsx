@@ -257,7 +257,7 @@ const WorkOrderModals = ({
               >
                 <option value=''>Pilih Technician</option>
                 {technicians.map((tech) => (
-                  <option key={tech.id} value={tech.id}>
+                  <option key={`tech-${tech.id}`} value={tech.id}>
                     {tech.name}
                   </option>
                 ))}

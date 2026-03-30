@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Container,
   Row,
@@ -29,6 +29,7 @@ const WorkOrderScreen = () => {
     setSearchTerm,
     refreshData,
     deleteWorkOrder,
+    startWorkOrder,
   } = useWorkOrderData();
 
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -41,11 +42,17 @@ const WorkOrderScreen = () => {
   const [assets, setAssets] = useState([]);
   const [toast, setToast] = useState({ show: false, message: '', variant: 'success' });
   const ITEMS_PER_PAGE = 25;
-  const paginatedOrders = workOrders.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
-  const totalPages = Math.ceil(workOrders.length / ITEMS_PER_PAGE);
+  const { paginatedOrders, totalPages } = useMemo(() => {
+    const total = workOrders.length;
+    const pages = Math.max(1, Math.ceil(total / ITEMS_PER_PAGE));
+    const sliceStart = (currentPage - 1) * ITEMS_PER_PAGE;
+    const sliceEnd = sliceStart + ITEMS_PER_PAGE;
+
+    return {
+      paginatedOrders: workOrders.slice(sliceStart, sliceEnd),
+      totalPages: pages,
+    };
+  }, [workOrders, currentPage]);
 
   // Reset pagination when filters or search changes
   useEffect(() => {
@@ -54,15 +61,21 @@ const WorkOrderScreen = () => {
 
   // Load assets on mount
   useEffect(() => {
+    let mounted = true;
     const loadAssets = async () => {
       try {
         const response = await fetchAssets();
+        if (!mounted) return;
         setAssets(response.data || response || []);
       } catch (err) {
+        if (!mounted) return;
         console.error('Failed to load assets:', err);
       }
     };
     loadAssets();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const handleCreateNew = () => setShowCreateModal(true);
@@ -110,7 +123,7 @@ const WorkOrderScreen = () => {
         break;
       case 'start':
         try {
-          // TODO: Implement startWorkOrder API when available
+          await startWorkOrder(wo.id);
           setToast({ show: true, message: 'Work Order dimulai', variant: 'success' });
           refreshData();
         } catch (err) {
@@ -161,18 +174,36 @@ const WorkOrderScreen = () => {
               </h1>
               <p className='text-muted mb-0'>Manage maintenance work orders and assignments</p>
             </div>
-            <div className='stats-badge-group'>
-              <Badge bg='info' className='me-2 py-2 px-3'>
+            <div className='stats-badge-group d-flex flex-wrap gap-2'>
+              <Badge bg='info' className='py-2 px-3'>
                 Total: {stats.total || 0}
               </Badge>
-              <Badge bg='warning' className='me-2 py-2 px-3'>
+              <Badge bg='warning' className='py-2 px-3'>
                 Open: {stats.open || 0}
               </Badge>
-              <Badge bg='primary' className='me-2 py-2 px-3'>
+              <Badge bg='primary' className='py-2 px-3'>
                 In Progress: {stats.inProgress || 0}
+              </Badge>
+              <Badge bg='success' className='py-2 px-3'>
+                Completed: {stats.completed || 0}
               </Badge>
             </div>
           </div>
+
+          <Row className='g-3 mb-4'>
+            {[
+              { label: 'Average Assign Time', value: stats.assignAvg || '-', variant: 'outline-primary' },
+              { label: 'Average Close Time', value: stats.closeAvg || '-', variant: 'outline-success' },
+              { label: 'Unassigned', value: stats.unassigned || '-', variant: 'outline-danger' },
+            ].map((card) => (
+              <Col md={4} key={card.label}>
+                <div className={`border rounded-3 p-3 bg-white shadow-sm ${card.variant}`}>
+                  <small className='text-muted'>{card.label}</small>
+                  <h5 className='mb-0 fw-semibold'>{card.value}</h5>
+                </div>
+              </Col>
+            ))}
+          </Row>
 
           <WorkOrderFilter
             filters={filters}

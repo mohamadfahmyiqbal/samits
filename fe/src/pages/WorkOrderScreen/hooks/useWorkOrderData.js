@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { fetchWorkOrders, fetchTechnicians, fetchWorkOrderStats, deleteWorkOrder } from '../service/WorkOrderService.js';
+import { fetchWorkOrders, fetchTechnicians, fetchWorkOrderStats, deleteWorkOrder, startWorkOrder } from '../service/WorkOrderService.js';
 import { statusConfig } from '../constants/workOrderConstants.js';
 
 export const useWorkOrderData = () => {
@@ -87,6 +87,15 @@ export const useWorkOrderData = () => {
     }
   }, [refreshData]);
 
+  const handleStart = useCallback(async (id) => {
+    try {
+      await startWorkOrder(id);
+      refreshData();
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }, [refreshData]);
+
   return {
     workOrders: filteredWorkOrders,
     technicians,
@@ -99,7 +108,8 @@ export const useWorkOrderData = () => {
     setSearchTerm,
     refreshData,
     getStatusConfig,
-    deleteWorkOrder: handleDelete
+    deleteWorkOrder: handleDelete,
+    startWorkOrder: handleStart,
   };
 };
 

@@ -65,6 +65,15 @@ export const fetchHistoryLogs = async () => {
 };
 
 /**
+ * Ambil detail schedule berdasarkan plan ID.
+ */
+export const fetchSchedule = async (planId) => {
+  return await apiFetch(`${BASE_URL}/${planId}`, {
+    method: 'GET',
+  });
+};
+
+/**
  * Mengirim pembaruan ke log maintenance tertentu (misalnya, status 'in-progress' atau 'done').
  */
 export const updateLog = async (assetId, updateData) => {

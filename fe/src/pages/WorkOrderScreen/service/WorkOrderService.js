@@ -82,6 +82,10 @@ export const deleteWorkOrder = async (id) => {
   return await apiFetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
 };
 
+export const startWorkOrder = async (id) => {
+  return await apiFetch(`${BASE_URL}/${id}/start`, { method: 'PATCH' });
+};
+
 // Future exports (untuk modals):
 export const createWorkOrder = async (data) => {
   return await apiFetch(BASE_URL, {
