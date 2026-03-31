@@ -23,7 +23,7 @@ export default (sequelize) => {
       },
     },
     {
-      tableName: "users",
+      tableName: "USER",
       freezeTableName: true,
       timestamps: false,
     },

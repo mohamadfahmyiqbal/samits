@@ -40,6 +40,10 @@ export default (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      notes: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
       category: {
         type: DataTypes.STRING(50),
         allowNull: true,
@@ -87,6 +91,38 @@ export default (sequelize) => {
         allowNull: true,
         defaultValue: 2.0,
       },
+      asset_main_type_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      sub_category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      recurrence: {
+        type: DataTypes.STRING(20),
+        allowNull: true,
+      },
+      recurrence_interval: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      recurrence_count: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      recurrence_end_date: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+      },
+      schedule_rule: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
+      },
     },
     {
       tableName: "maintenance_plans",
@@ -100,6 +136,13 @@ export default (sequelize) => {
       foreignKey: "plan_id",
       as: "workOrders",
     });
+
+    if (models.MaintenancePlanAsset) {
+      MaintenancePlan.hasMany(models.MaintenancePlanAsset, {
+        foreignKey: "plan_id",
+        as: "assets",
+      });
+    }
   };
 
   return MaintenancePlan;

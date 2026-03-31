@@ -7,6 +7,7 @@ import userRoutes from "./user.routes.js";
 import dashboardRoutes from "./dashboard.routes.js";
 import assetRoutes from "./asset.routes.js";
 // ✅ BARU: Import routes untuk Maintenance Log
+import maintenanceChecklistRoutes from "./maintenance.checklist.routes.js";
 import maintenanceRoutes from "./maintenance.routes.js";
 import pushRoutes from "./push.routes.js";
 import workorderRoutes from "./workorder.routes.js";
@@ -22,7 +23,8 @@ router.use("/users", userRoutes);
 router.use("/dashboard", dashboardRoutes);
 router.use("/assets", assetRoutes);
 
-// ✅ BARU: Daftarkan Maintenance Routes di prefix /api/maintenance
+// ✅ BARU: Daftarkan Maintenance Checklists sebelum general maintenance agar tidak tertangkap parameter
+router.use("/maintenance/checklists", maintenanceChecklistRoutes);
 router.use("/maintenance", maintenanceRoutes);
 router.use("/push", pushRoutes);
 router.use("/workorder", workorderRoutes);

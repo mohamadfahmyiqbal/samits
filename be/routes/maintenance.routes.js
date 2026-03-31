@@ -13,6 +13,9 @@ router.get('/history', maintenanceController.getHistoryLogs);
 // Route untuk membuat schedule baru (Memerlukan otentikasi)
 router.post('/', authMiddleware, maintenanceController.createLog);
 
+// Route untuk mengambil detail schedule (auth diperlukan)
+router.get('/:id', authMiddleware, maintenanceController.getScheduleById);
+
 // Route untuk pembaruan status log (Memerlukan otentikasi)
 router.put('/:id', authMiddleware, maintenanceController.updateLog);
 

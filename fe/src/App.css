@@ -2391,6 +2391,33 @@ code {
   border-radius: 4px;
 }
 
+.checksheet-template-table {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(7, 55, 99, 0.12);
+}
+
+.checksheet-template-table th,
+.checksheet-template-table td {
+  vertical-align: middle;
+  text-align: left;
+  border-color: rgba(7, 55, 99, 0.12);
+}
+
+.checksheet-template-table thead th {
+  border-bottom: 2px solid rgba(7, 55, 99, 0.25);
+  background: #073763;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.checksheet-template-table tbody td {
+  font-size: 0.9rem;
+}
+
 /* Tabel utama */
 .table-custom {
   width: 100%;
@@ -4271,3 +4298,54 @@ button:hover {
 /* ==========================================================================
    END OF COMBINED CSS - All styles merged into App.css
    ========================================================================== */
+/* Checksheet template grid */
+.checksheet-template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.checksheet-template-card {
+  border: 1px solid rgba(7, 55, 99, 0.15);
+  border-radius: 12px;
+  background: #fff;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 10px 25px rgba(7, 55, 99, 0.08);
+}
+
+.checksheet-template-card .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.checksheet-template-card .description {
+  min-height: 2.5rem;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+.checksheet-template-card .footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.checksheet-template-card .footer .btn {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.checksheet-template-table th,
+.checksheet-template-table td {
+  vertical-align: middle;
+}
+
+.checksheet-template-table tbody tr:hover {
+  background: rgba(7, 55, 99, 0.04);
+}

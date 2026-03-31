@@ -20,8 +20,7 @@ import { renderRoutes } from './utils/routeRenderer';
 /* eslint-enable */
 
 // Immediate debug
-console.log('🚀 App.jsx file loaded!');
-console.log('📦 Routes imported:', allRoutes.length);
+// Production clean
 
 // Public routes (still lazy loaded)
 const LoginScreen = lazy(() => import('./pages/LoginScreen'));
@@ -29,8 +28,7 @@ const TestRoute = lazy(() => import('./components/TestRoute'));
 const DebugAuth = lazy(() => import('./components/DebugAuth'));
 
 const App = memo(function App() {
-  console.log('=== App.jsx Debug ===');
-  console.log('App component rendering');
+// Clean
 
   return (
     <ErrorBoundary>
@@ -58,8 +56,7 @@ const App = memo(function App() {
                       </ProtectedRoute>
                     }
                   >
-                    {console.log('Rendering protected routes...')}
-                    {renderRoutes(allRoutes)}
+{renderRoutes(allRoutes)}
 
                     {/* Fallback untuk protected routes */}
                     <Route

@@ -63,8 +63,6 @@ export const getActiveLogs = async (req, res) => {
         "description",
         "notes",
         "created_by",
-        "created_at",
-        "updated_at",
         "priority",
         "criticality",
         "location",
@@ -100,8 +98,8 @@ export const getActiveLogs = async (req, res) => {
         description: log.description || log.notes || null,
         notes: log.notes || null,
         createdBy: log.created_by,
-        createdAt: log.created_at,
-        updatedAt: log.updated_at,
+        createdAt: log.created_at || null,
+        updatedAt: log.updated_at || null,
         // New fields from database
         priority: log.priority || "medium",
         criticality: log.criticality || "medium",
@@ -190,6 +188,49 @@ export const getHistoryLogs = async (req, res) => {
   }
 };
 
+export const getScheduleById = async (req, res) => {
+  try {
+    const MaintenancePlan = db.MaintenancePlan;
+    if (!MaintenancePlan) {
+      throw new Error("Model MaintenancePlan belum tersedia.");
+    }
+
+    const planId = parseInt(req.params.id, 10);
+    if (isNaN(planId)) {
+      return res.status(400).json({
+        success: false,
+        message: "ID schedule tidak valid.",
+      });
+    }
+
+    const plan = await MaintenancePlan.findByPk(planId, {
+      include: [
+        {
+          model: db.MaintenancePlanAsset,
+          as: "assets",
+        },
+      ],
+    });
+    if (!plan) {
+      return res.status(404).json({
+        success: false,
+        message: "Schedule tidak ditemukan.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: maintenanceService.transformPlan(plan.toJSON()),
+    });
+  } catch (error) {
+    console.error("Gagal mengambil detail schedule:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Gagal mengambil detail schedule.",
+    });
+  }
+};
+
 // 3. PUT Update Schedule
 export const updateLog = async (req, res) => {
   try {
@@ -225,6 +266,10 @@ export const updateLog = async (req, res) => {
 // 4. POST Create Schedule **(FIX: Ditambahkan lengkap)**
 export const createLog = async (req, res) => {
   try {
+    const takeFirstValue = (value) =>
+      Array.isArray(value) && value.length > 0 ? value[0] : value;
+    const firstHostname = takeFirstValue(req.body?.hostname);
+
     console.log(
       "[DEBUG] createLog received req.body:",
       JSON.stringify(req.body, null, 2),
@@ -239,7 +284,9 @@ export const createLog = async (req, res) => {
 
     const camelPayload = {
       ...req.body,
-      itItemId: req.body.itItemId || req.body.it_item_id || req.body.hostname,
+      itItemId:
+        req.body.itItemId || req.body.it_item_id || firstHostname || req.body.hostname,
+      selected_assets: req.body.selected_assets || req.body.assets,
       scheduledDate:
         req.body.scheduledDate ||
         req.body.scheduled_date ||

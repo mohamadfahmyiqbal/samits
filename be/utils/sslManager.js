@@ -9,23 +9,32 @@ const __dirname = path.dirname(__filename);
 
 class SSLManager {
   constructor() {
-    this.certPaths = {
-      key: process.env.SSL_KEY_PATH || "./cert/localhost/localhost.key",
-      cert: process.env.SSL_CERT_PATH || "./cert/localhost/localhost.crt",
-      ca: process.env.SSL_CA_PATH || "./cert/ca.cer",
+    this.defaultPaths = {
+      key: "./cert/localhost/localhost.key",
+      cert: "./cert/localhost/localhost.crt",
+      ca: "./cert/ca.cer",
+    };
+  }
+
+  get certPaths() {
+    return {
+      key: process.env.SSL_KEY_PATH || this.defaultPaths.key,
+      cert: process.env.SSL_CERT_PATH || this.defaultPaths.cert,
+      ca: process.env.SSL_CA_PATH || this.defaultPaths.ca,
     };
   }
 
   // Check if SSL certificates exist and are valid
   validateCertificates() {
+    const paths = this.certPaths;
     const missing = [];
 
     // Check required certificates
-    if (!fs.existsSync(this.certPaths.key)) {
+    if (!fs.existsSync(paths.key)) {
       missing.push("SSL private key");
     }
 
-    if (!fs.existsSync(this.certPaths.cert)) {
+    if (!fs.existsSync(paths.cert)) {
       missing.push("SSL certificate");
     }
 
@@ -36,7 +45,7 @@ class SSLManager {
     }
 
     // Check optional CA certificate
-    const caExists = fs.existsSync(this.certPaths.ca);
+    const caExists = fs.existsSync(paths.ca);
     if (caExists) {
       logger.info("CA certificate found and will be used");
     } else {
@@ -50,14 +59,15 @@ class SSLManager {
   getSSLOptions() {
     this.validateCertificates();
 
+    const paths = this.certPaths;
     const sslOptions = {
-      key: fs.readFileSync(this.certPaths.key),
-      cert: fs.readFileSync(this.certPaths.cert),
+      key: fs.readFileSync(paths.key),
+      cert: fs.readFileSync(paths.cert),
     };
 
     // Add CA certificate if available
-    if (fs.existsSync(this.certPaths.ca)) {
-      sslOptions.ca = fs.readFileSync(this.certPaths.ca);
+    if (fs.existsSync(paths.ca)) {
+      sslOptions.ca = fs.readFileSync(paths.ca);
     }
 
     logger.info("SSL options loaded successfully");
@@ -67,16 +77,11 @@ class SSLManager {
   // Get certificate info (for debugging)
   getCertificateInfo() {
     try {
+      const paths = this.certPaths;
       const stats = {
-        key: fs.existsSync(this.certPaths.key)
-          ? fs.statSync(this.certPaths.key)
-          : null,
-        cert: fs.existsSync(this.certPaths.cert)
-          ? fs.statSync(this.certPaths.cert)
-          : null,
-        ca: fs.existsSync(this.certPaths.ca)
-          ? fs.statSync(this.certPaths.ca)
-          : null,
+        key: fs.existsSync(paths.key) ? fs.statSync(paths.key) : null,
+        cert: fs.existsSync(paths.cert) ? fs.statSync(paths.cert) : null,
+        ca: fs.existsSync(paths.ca) ? fs.statSync(paths.ca) : null,
       };
 
       const info = {};
@@ -86,12 +91,12 @@ class SSLManager {
             exists: true,
             size: stats[key].size,
             modified: stats[key].mtime.toISOString(),
-            path: this.certPaths[key],
+            path: paths[key],
           };
         } else {
           info[key] = {
             exists: false,
-            path: this.certPaths[key],
+            path: paths[key],
           };
         }
       });

@@ -10,8 +10,11 @@ router.use(authMiddleware);
 router.post('/', woController.createWorkOrder);
 router.get('/', woController.listWorkOrders);
 router.delete('/:id', woController.deleteWorkOrder);
+router.put('/:id', woController.updateWorkOrder);
 router.get('/technicians', woController.getTechnicians);
 router.get('/stats', woController.getWorkOrderStats);
+router.patch('/:id/start', woController.startWorkOrder);
+router.post('/:id/assign', woController.assignWorkOrder);
 router.put('/:wo_id/complete', woController.completeWorkOrder);
 
 // Maintenance Plans

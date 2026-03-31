@@ -82,8 +82,25 @@ export const deleteWorkOrder = async (id) => {
   return await apiFetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
 };
 
-export const startWorkOrder = async (id) => {
-  return await apiFetch(`${BASE_URL}/${id}/start`, { method: 'PATCH' });
+export const startWorkOrder = async (id, payload = {}) => {
+  return await apiFetch(`${BASE_URL}/${id}/start`, {
+    method: 'PATCH',
+    body: JSON.stringify(payload),
+  });
+};
+
+export const assignWorkOrder = async (id, data = {}) => {
+  return await apiFetch(`${BASE_URL}/${id}/assign`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+};
+
+export const completeWorkOrder = async (id, data = {}) => {
+  return await apiFetch(`${BASE_URL}/${id}/complete`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
 };
 
 // Future exports (untuk modals):

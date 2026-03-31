@@ -50,3 +50,12 @@ MulterError: Unexpected field
     at SBMH.push (D:\coding\react\samit\be\node_modules\streamsearch\lib\sbmh.js:104:16)
     at Multipart._write (D:\coding\react\samit\be\node_modules\busboy\lib\types\multipart.js:567:19)
     at writeOrBuffer (node:internal/streams/writable:572:12)
+2026-03-31 08:00:43 [ERROR]: unhandledRejection: Transaction cannot be rolled back because it has been finished with state: rollback
+Error: Transaction cannot be rolled back because it has been finished with state: rollback
+    at Transaction.rollback (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\transaction.js:59:13)
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/importAssetsController.js:668:21)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {"error":{},"rejection":true,"date":"Tue Mar 31 2026 08:00:43 GMT+0700 (Western Indonesia Time)","process":{"pid":19908,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":179597312,"heapTotal":105070592,"heapUsed":68329992,"external":14758212,"arrayBuffers":12162711}},"os":{"loadavg":[0,0,0],"uptime":1297132.218},"trace":[{"column":13,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\transaction.js","function":"Transaction.rollback","line":59,"method":"rollback","native":false},{"column":21,"file":"file:///D:/DEV/REACT/samit/be/controllers/asset/importAssetsController.js","function":"importAssetsFromExcel","line":668,"method":null,"native":false},{"column":5,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":105,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: Transaction cannot be rolled back because it has been finished with state: rollback
+    at Transaction.rollback (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\transaction.js:59:13)
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/importAssetsController.js:668:21)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)

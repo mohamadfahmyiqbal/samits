@@ -1,5 +1,12 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { fetchWorkOrders, fetchTechnicians, fetchWorkOrderStats, deleteWorkOrder, startWorkOrder } from '../service/WorkOrderService.js';
+import {
+  fetchWorkOrders,
+  fetchTechnicians,
+  fetchWorkOrderStats,
+  deleteWorkOrder,
+  startWorkOrder,
+  completeWorkOrder,
+} from '../service/WorkOrderService.js';
 import { statusConfig } from '../constants/workOrderConstants.js';
 
 export const useWorkOrderData = () => {
@@ -87,14 +94,29 @@ export const useWorkOrderData = () => {
     }
   }, [refreshData]);
 
-  const handleStart = useCallback(async (id) => {
-    try {
-      await startWorkOrder(id);
-      refreshData();
-    } catch (err) {
-      throw new Error(err.message);
-    }
-  }, [refreshData]);
+  const handleStart = useCallback(
+    async (id, payload = {}) => {
+      try {
+        await startWorkOrder(id, payload);
+        refreshData();
+      } catch (err) {
+        throw new Error(err.message);
+      }
+    },
+    [refreshData, startWorkOrder],
+  );
+
+  const handleComplete = useCallback(
+    async (id, payload = {}) => {
+      try {
+        await completeWorkOrder(id, payload);
+        refreshData();
+      } catch (err) {
+        throw new Error(err.message);
+      }
+    },
+    [refreshData, completeWorkOrder],
+  );
 
   return {
     workOrders: filteredWorkOrders,
@@ -110,6 +132,7 @@ export const useWorkOrderData = () => {
     getStatusConfig,
     deleteWorkOrder: handleDelete,
     startWorkOrder: handleStart,
+    completeWorkOrder: handleComplete,
   };
 };
 

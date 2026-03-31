@@ -1,567 +1,645 @@
 -- SQL Server DDL Script for SAMIT Application
--- Generated from Sequelize models
+-- Derived directly from the Sequelize models under be/models.
+-- Tables that reference `it_items` receive their foreign keys after the ITAM section so dependencies resolve cleanly.
 
 -- =============================================
--- 1. USER MANAGEMENT MODULE
+-- Module 1 — User Management
 -- =============================================
 
--- Departments Table
 CREATE TABLE departments (
     department_id INT IDENTITY(1,1) PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE,
-    code VARCHAR(10) UNIQUE NULL,
-    description VARCHAR(255) NULL
+    name NVARCHAR(100) NOT NULL UNIQUE,
+    code NVARCHAR(10) NULL UNIQUE,
+    description NVARCHAR(255) NULL
 );
 
--- Roles Table
 CREATE TABLE roles (
     role_id INT IDENTITY(1,1) PRIMARY KEY,
-    role_name VARCHAR(50) NOT NULL UNIQUE,
-    description VARCHAR(255) NULL
+    role_name NVARCHAR(100) NOT NULL UNIQUE,
+    description NVARCHAR(255) NULL
 );
 
--- Users Table
 CREATE TABLE users (
-    nik VARCHAR(20) PRIMARY KEY,
-    nama VARCHAR(100) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(100) UNIQUE NULL,
-    phone VARCHAR(15) NULL,
-    position VARCHAR(50) NULL,
-    status DATE NULL,
-    last_login DATETIME NULL
+    nik NVARCHAR(30) PRIMARY KEY,
+    nama NVARCHAR(100) NOT NULL,
+    password NVARCHAR(255) NOT NULL,
+    email NVARCHAR(100) NULL UNIQUE,
+    phone NVARCHAR(30) NULL,
+    position NVARCHAR(100) NULL,
+    status NVARCHAR(20) NULL,
+    last_login DATETIME2 NULL
 );
 
--- User Roles Table
 CREATE TABLE user_roles (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    nik VARCHAR(20) NOT NULL,
-    role_id INT NOT NULL
+    nik NVARCHAR(30) NOT NULL,
+    role_id INT NOT NULL,
+    CONSTRAINT FK_user_roles_users FOREIGN KEY (nik) REFERENCES users(nik),
+    CONSTRAINT FK_user_roles_roles FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
 
--- Web Push Subscriptions Table
-CREATE TABLE web_push_subscriptions (
+CREATE UNIQUE INDEX UX_user_roles_nik_role ON user_roles (nik, role_id);
+
+CREATE TABLE webPushSubscriptions (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    nik VARCHAR(20) NOT NULL,
-    endpoint VARCHAR(500) NOT NULL,
-    p256dh_key VARCHAR(255) NOT NULL,
-    auth_key VARCHAR(255) NOT NULL,
-    created_at DATETIME DEFAULT GETDATE()
+    endpointHash NVARCHAR(64) NOT NULL UNIQUE,
+    endpoint NVARCHAR(MAX) NOT NULL,
+    p256dh NVARCHAR(MAX) NULL,
+    auth NVARCHAR(MAX) NULL,
+    contentEncoding NVARCHAR(50) NULL,
+    userNik NVARCHAR(20) NULL,
+    userId NVARCHAR(100) NULL,
+    userPosition NVARCHAR(100) NULL,
+    rawSubscription NVARCHAR(MAX) NOT NULL,
+    CONSTRAINT FK_webPushSubscriptions_users FOREIGN KEY (userNik) REFERENCES users(nik)
 );
 
 -- =============================================
--- 2. EAM CORE MODULE
+-- Module 2 — EAM Core
 -- =============================================
 
--- Asset Main Types Table
 CREATE TABLE asset_main_types (
-    main_type_id INT IDENTITY(1,1) PRIMARY KEY,
-    type_name VARCHAR(100) NOT NULL,
-    description VARCHAR(255) NULL
+    asset_main_type_id INT IDENTITY(1,1) PRIMARY KEY,
+    main_type_name NVARCHAR(50) NOT NULL
 );
 
--- Categories Table
 CREATE TABLE categories (
     category_id INT IDENTITY(1,1) PRIMARY KEY,
-    category_name VARCHAR(100) NOT NULL
+    category_name NVARCHAR(100) NOT NULL
 );
 
--- Asset Status Table
-CREATE TABLE asset_status (
-    status_id INT IDENTITY(1,1) PRIMARY KEY,
-    status_name VARCHAR(50) NOT NULL,
-    description VARCHAR(255) NULL
-);
-
--- Locations Table
 CREATE TABLE locations (
     location_id INT IDENTITY(1,1) PRIMARY KEY,
-    location_name VARCHAR(100) NULL
+    location_name NVARCHAR(100) NULL
 );
 
--- Vendors Table
 CREATE TABLE vendors (
     vendor_id INT IDENTITY(1,1) PRIMARY KEY,
-    vendor_name VARCHAR(100) NOT NULL,
-    contact VARCHAR(100) NULL
+    vendor_name NVARCHAR(100) NOT NULL,
+    contact NVARCHAR(100) NULL
 );
 
--- Assets Table
 CREATE TABLE assets (
     asset_id INT IDENTITY(1,1) PRIMARY KEY,
-    asset_name VARCHAR(150) NOT NULL,
+    asset_name NVARCHAR(150) NOT NULL,
     category_id INT NULL,
     vendor_id INT NULL,
     location_id INT NULL,
-    serial_number VARCHAR(100) NULL,
+    serial_number NVARCHAR(100) NULL,
     purchase_date DATE NULL,
-    depreciation_date DATE NULL
+    depreciation_date DATE NULL,
+    CONSTRAINT FK_assets_categories FOREIGN KEY (category_id) REFERENCES categories(category_id),
+    CONSTRAINT FK_assets_vendors FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id),
+    CONSTRAINT FK_assets_locations FOREIGN KEY (location_id) REFERENCES locations(location_id)
 );
 
--- Asset Documents Table
-CREATE TABLE asset_documents (
-    doc_id INT IDENTITY(1,1) PRIMARY KEY,
+CREATE TABLE asset_status (
+    status_id INT IDENTITY(1,1) PRIMARY KEY,
+    status_name NVARCHAR(50) NOT NULL,
+    status_description NVARCHAR(255) NULL,
+    is_active BIT NOT NULL DEFAULT 1,
+    is_disposed BIT NOT NULL DEFAULT 0,
+    display_order INT NOT NULL DEFAULT 0,
+    created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updated_at DATETIME2 NOT NULL DEFAULT GETDATE()
+);
+
+CREATE TABLE asset_lifecycles (
+    id INT IDENTITY(1,1) PRIMARY KEY,
     asset_id INT NOT NULL,
-    doc_name VARCHAR(255) NOT NULL,
-    doc_path VARCHAR(500) NOT NULL,
-    doc_type VARCHAR(50) NULL,
-    upload_date DATETIME DEFAULT GETDATE()
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_asset_lifecycles_assets FOREIGN KEY (asset_id) REFERENCES assets(asset_id)
 );
 
--- Asset Audit Logs Table
 CREATE TABLE asset_audit_logs (
-    log_id INT IDENTITY(1,1) PRIMARY KEY,
-    asset_id INT NOT NULL,
-    action VARCHAR(50) NOT NULL,
-    old_value VARCHAR(MAX) NULL,
-    new_value VARCHAR(MAX) NULL,
-    changed_by VARCHAR(20) NULL,
-    changed_at DATETIME DEFAULT GETDATE()
+    audit_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    it_item_id UNIQUEIDENTIFIER NULL,
+    asset_no NVARCHAR(50) NULL,
+    event_type NVARCHAR(20) NOT NULL,
+    actor_nik NVARCHAR(30) NULL,
+    actor_name NVARCHAR(100) NULL,
+    source_module NVARCHAR(50) NULL,
+    request_id NVARCHAR(100) NULL,
+    before_data NVARCHAR(MAX) NULL,
+    after_data NVARCHAR(MAX) NULL,
+    event_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    client_ip NVARCHAR(50) NULL,
+    user_agent NVARCHAR(300) NULL
 );
 
--- Asset Lifecycle Table
-CREATE TABLE asset_lifecycle (
-    lifecycle_id INT IDENTITY(1,1) PRIMARY KEY,
-    asset_id INT NOT NULL,
-    stage VARCHAR(50) NOT NULL,
-    start_date DATE NOT NULL,
-    end_date DATE NULL,
-    notes VARCHAR(MAX) NULL
+CREATE TABLE asset_documents (
+    document_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    it_item_id UNIQUEIDENTIFIER NOT NULL,
+    document_type NVARCHAR(50) NOT NULL,
+    file_name NVARCHAR(255) NOT NULL,
+    file_path NVARCHAR(500) NOT NULL,
+    file_size BIGINT NULL,
+    mime_type NVARCHAR(100) NULL,
+    uploaded_by NVARCHAR(30) NULL,
+    uploaded_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    notes NVARCHAR(500) NULL
 );
 
--- Asset Status History Table
 CREATE TABLE asset_status_history (
-    history_id INT IDENTITY(1,1) PRIMARY KEY,
-    asset_id INT NOT NULL,
-    old_status_id INT NULL,
-    new_status_id INT NOT NULL,
-    changed_by VARCHAR(20) NULL,
-    changed_at DATETIME DEFAULT GETDATE(),
-    notes VARCHAR(255) NULL
+    history_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    it_item_id UNIQUEIDENTIFIER NOT NULL,
+    old_status NVARCHAR(50) NULL,
+    new_status NVARCHAR(50) NOT NULL,
+    changed_by_nik NVARCHAR(30) NULL,
+    changed_by_name NVARCHAR(100) NULL,
+    changed_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    reason NVARCHAR(500) NULL,
+    notes NVARCHAR(MAX) NULL
 );
 
 -- =============================================
--- 3. MAINTENANCE FLOW MODULE
+-- Module 3 — Maintenance Flow
 -- =============================================
 
--- Maintenance Plans Table
 CREATE TABLE maintenance_plans (
     plan_id INT IDENTITY(1,1) PRIMARY KEY,
-    plan_name VARCHAR(100) NOT NULL,
-    asset_id INT NOT NULL,
-    plan_type VARCHAR(50) NOT NULL,
-    frequency VARCHAR(50) NULL,
-    next_due_date DATE NULL,
-    is_active BIT DEFAULT 1
+    it_item_id UNIQUEIDENTIFIER NULL,
+    plan_name NVARCHAR(150) NULL,
+    scheduled_date DATE NULL,
+    scheduled_end_date DATE NULL,
+    pic NVARCHAR(100) NULL,
+    status NVARCHAR(20) NULL DEFAULT 'pending',
+    description NVARCHAR(MAX) NULL,
+    notes NVARCHAR(MAX) NULL,
+    category NVARCHAR(50) NULL,
+    maintenance_type NVARCHAR(100) NULL,
+    hostname NVARCHAR(100) NULL,
+    scheduled_start_time TIME NULL,
+    scheduled_end_time TIME NULL,
+    created_by NVARCHAR(100) NULL,
+    priority NVARCHAR(10) NULL DEFAULT 'medium',
+    criticality NVARCHAR(10) NULL DEFAULT 'medium',
+    location NVARCHAR(200) NULL,
+    required_skills NVARCHAR(MAX) NULL,
+    estimated_duration DECIMAL(4,2) NULL DEFAULT 2.00,
+    CONSTRAINT CK_maintenance_plans_priority CHECK (priority IN ('low','medium','high','critical') OR priority IS NULL),
+    CONSTRAINT CK_maintenance_plans_criticality CHECK (criticality IN ('low','medium','high') OR criticality IS NULL)
 );
 
--- Plan Tasks Table
 CREATE TABLE plan_tasks (
     task_id INT IDENTITY(1,1) PRIMARY KEY,
     plan_id INT NOT NULL,
-    task_name VARCHAR(255) NOT NULL,
-    task_description VARCHAR(MAX) NULL,
-    estimated_hours DECIMAL(5,2) NULL
+    task_description NVARCHAR(255) NULL,
+    CONSTRAINT FK_plan_tasks_maintenance_plans FOREIGN KEY (plan_id) REFERENCES maintenance_plans(plan_id)
 );
 
--- Work Orders Table
 CREATE TABLE work_orders (
     wo_id INT IDENTITY(1,1) PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description VARCHAR(MAX) NULL,
-    asset_id BIGINT NOT NULL,
-    status VARCHAR(50) DEFAULT 'open',
-    priority VARCHAR(20) DEFAULT 'medium',
-    assigned_to_nik VARCHAR(20) NULL,
-    category VARCHAR(50) NULL,
-    scheduled_date DATETIME NULL,
-    completed_at DATETIME NULL,
-    created_at DATETIME DEFAULT GETDATE(),
-    updated_at DATETIME DEFAULT GETDATE()
+    title NVARCHAR(255) NOT NULL,
+    plan_id INT NOT NULL,
+    description NVARCHAR(MAX) NULL,
+    asset_id BIGINT NULL,
+    it_item_id UNIQUEIDENTIFIER NULL,
+    status NVARCHAR(50) NULL DEFAULT 'open',
+    priority NVARCHAR(20) NULL DEFAULT 'medium',
+    assigned_to_nik NVARCHAR(20) NULL,
+    category NVARCHAR(50) NULL,
+    scheduled_date DATETIME2 NULL,
+    completed_at DATETIME2 NULL,
+    created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updated_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_work_orders_plans FOREIGN KEY (plan_id) REFERENCES maintenance_plans(plan_id)
 );
 
--- WO Assignments Table
 CREATE TABLE wo_assignments (
-    assignment_id INT IDENTITY(1,1) PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     wo_id INT NOT NULL,
-    nik VARCHAR(20) NOT NULL,
-    assigned_at DATETIME DEFAULT GETDATE(),
-    assigned_by VARCHAR(20) NULL
+    nik NVARCHAR(30) NOT NULL,
+    assigned_date DATETIME2 NULL,
+    CONSTRAINT FK_wo_assignments_work_orders FOREIGN KEY (wo_id) REFERENCES work_orders(wo_id)
 );
 
--- WO Task Results Table
 CREATE TABLE wo_task_results (
-    result_id INT IDENTITY(1,1) PRIMARY KEY,
-    wo_id INT NOT NULL,
-    task_name VARCHAR(255) NOT NULL,
-    result VARCHAR(MAX) NULL,
-    completed_at DATETIME NULL,
-    completed_by VARCHAR(20) NULL
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    task_id INT NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_wo_task_results_plan_tasks FOREIGN KEY (task_id) REFERENCES plan_tasks(task_id)
 );
 
--- WO Timeline Table
-CREATE TABLE wo_timeline (
-    timeline_id INT IDENTITY(1,1) PRIMARY KEY,
-    wo_id INT NOT NULL,
-    action VARCHAR(100) NOT NULL,
-    description VARCHAR(MAX) NULL,
-    created_by VARCHAR(20) NULL,
-    created_at DATETIME DEFAULT GETDATE()
-);
-
--- WO Signatures Table
 CREATE TABLE wo_signatures (
-    signature_id INT IDENTITY(1,1) PRIMARY KEY,
-    wo_id INT NOT NULL,
-    nik VARCHAR(20) NOT NULL,
-    signature_path VARCHAR(500) NULL,
-    signed_at DATETIME DEFAULT GETDATE(),
-    role VARCHAR(50) NULL
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    workorder_id INT NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_wo_signatures_work_orders FOREIGN KEY (workorder_id) REFERENCES work_orders(wo_id)
 );
 
--- Breakdowns Table
+CREATE TABLE wo_timelines (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    workorder_id INT NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_wo_timelines_work_orders FOREIGN KEY (workorder_id) REFERENCES work_orders(wo_id)
+);
+
 CREATE TABLE breakdowns (
     breakdown_id INT IDENTITY(1,1) PRIMARY KEY,
     asset_id INT NOT NULL,
-    breakdown_date DATETIME NOT NULL,
-    description VARCHAR(MAX) NOT NULL,
-    severity VARCHAR(20) NOT NULL,
-    reported_by VARCHAR(20) NULL,
-    resolved_at DATETIME NULL,
-    resolved_by VARCHAR(20) NULL
+    description NVARCHAR(MAX) NULL,
+    detected_at DATETIME2 NULL,
+    wo_id INT NULL,
+    CONSTRAINT FK_breakdowns_assets FOREIGN KEY (asset_id) REFERENCES assets(asset_id),
+    CONSTRAINT FK_breakdowns_work_orders FOREIGN KEY (wo_id) REFERENCES work_orders(wo_id)
 );
 
--- Meter Readings Table
+CREATE TABLE incidents (
+    incident_id INT IDENTITY(1,1) PRIMARY KEY,
+    request_id INT NOT NULL,
+    asset_id UNIQUEIDENTIFIER NULL,
+    category NVARCHAR(50) NULL,
+    severity NVARCHAR(20) NULL,
+    status NVARCHAR(20) NULL,
+    detected_at DATETIME2 NULL,
+    resolved_at DATETIME2 NULL
+);
+
 CREATE TABLE meter_readings (
     reading_id INT IDENTITY(1,1) PRIMARY KEY,
     asset_id INT NOT NULL,
-    meter_type VARCHAR(50) NOT NULL,
-    reading_value DECIMAL(15,4) NOT NULL,
-    reading_date DATETIME NOT NULL,
-    recorded_by VARCHAR(20) NULL
+    wo_id INT NULL,
+    meter_value FLOAT NULL,
+    reading_time DATETIME2 NULL,
+    CONSTRAINT FK_meter_readings_assets FOREIGN KEY (asset_id) REFERENCES assets(asset_id),
+    CONSTRAINT FK_meter_readings_work_orders FOREIGN KEY (wo_id) REFERENCES work_orders(wo_id)
 );
 
 -- =============================================
--- 4. INVENTORY TOOLS MODULE
+-- Module 4 — Inventory Tools
 -- =============================================
 
--- Warehouses Table
 CREATE TABLE warehouses (
-    warehouse_id INT IDENTITY(1,1) PRIMARY KEY,
-    warehouse_name VARCHAR(100) NOT NULL,
-    location VARCHAR(255) NULL,
-    manager VARCHAR(100) NULL
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name NVARCHAR(100) NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE()
 );
 
--- Spare Parts Table
+CREATE TABLE warehouse_stocks (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    warehouse_id INT NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_warehouse_stocks_warehouses FOREIGN KEY (warehouse_id) REFERENCES warehouses(id)
+);
+
 CREATE TABLE spare_parts (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    part_number VARCHAR(50) NULL,
-    description VARCHAR(MAX) NULL,
-    unit VARCHAR(20) NULL,
-    created_at DATETIME DEFAULT GETDATE(),
-    updated_at DATETIME DEFAULT GETDATE()
+    name NVARCHAR(100) NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE()
 );
 
--- Warehouse Stock Table
-CREATE TABLE warehouse_stock (
-    stock_id INT IDENTITY(1,1) PRIMARY KEY,
-    warehouse_id INT NOT NULL,
-    spare_part_id INT NOT NULL,
-    quantity DECIMAL(15,2) NOT NULL DEFAULT 0,
-    min_stock_level DECIMAL(15,2) NULL,
-    max_stock_level DECIMAL(15,2) NULL,
-    last_updated DATETIME DEFAULT GETDATE()
-);
-
--- Tools Table
-CREATE TABLE tools (
-    tool_id INT IDENTITY(1,1) PRIMARY KEY,
-    tool_name VARCHAR(100) NOT NULL,
-    tool_code VARCHAR(50) UNIQUE NULL,
-    description VARCHAR(MAX) NULL,
-    status VARCHAR(20) DEFAULT 'available'
-);
-
--- Tool Assignment Table
-CREATE TABLE tool_assignment (
-    assignment_id INT IDENTITY(1,1) PRIMARY KEY,
-    tool_id INT NOT NULL,
-    nik VARCHAR(20) NOT NULL,
-    wo_id INT NULL,
-    assigned_at DATETIME DEFAULT GETDATE(),
-    returned_at DATETIME NULL,
-    notes VARCHAR(255) NULL
-);
-
--- Tool Transaction Table
-CREATE TABLE tool_transaction (
-    transaction_id INT IDENTITY(1,1) PRIMARY KEY,
-    tool_id INT NOT NULL,
-    transaction_type VARCHAR(20) NOT NULL,
-    nik VARCHAR(20) NULL,
-    transaction_date DATETIME DEFAULT GETDATE(),
-    notes VARCHAR(255) NULL
-);
-
--- Parts Usage Table
-CREATE TABLE parts_usage (
-    usage_id INT IDENTITY(1,1) PRIMARY KEY,
-    wo_id INT NOT NULL,
-    spare_part_id INT NOT NULL,
-    quantity_used DECIMAL(15,2) NOT NULL,
-    used_at DATETIME DEFAULT GETDATE(),
-    used_by VARCHAR(20) NULL
-);
-
--- Inventory Transaction Table
-CREATE TABLE inventory_transaction (
-    transaction_id INT IDENTITY(1,1) PRIMARY KEY,
-    warehouse_id INT NOT NULL,
-    spare_part_id INT NOT NULL,
-    transaction_type VARCHAR(20) NOT NULL,
-    quantity DECIMAL(15,2) NOT NULL,
-    reference_id INT NULL,
-    reference_type VARCHAR(50) NULL,
-    transaction_date DATETIME DEFAULT GETDATE(),
-    created_by VARCHAR(20) NULL
-);
-
--- Adjustment Reason Table
-CREATE TABLE adjustment_reason (
+CREATE TABLE adjustment_reasons (
     reason_id INT IDENTITY(1,1) PRIMARY KEY,
-    reason_name VARCHAR(100) NOT NULL,
-    description VARCHAR(255) NULL
+    reason_description NVARCHAR(255) NULL
+);
+
+CREATE TABLE inventory_transactions (
+    trans_id INT IDENTITY(1,1) PRIMARY KEY,
+    part_id INT NOT NULL,
+    wo_id INT NULL,
+    reason_id INT NULL,
+    qty INT NULL,
+    trans_date DATETIME2 NULL,
+    CONSTRAINT FK_inventory_transactions_parts FOREIGN KEY (part_id) REFERENCES spare_parts(id),
+    CONSTRAINT FK_inventory_transactions_wo FOREIGN KEY (wo_id) REFERENCES work_orders(wo_id),
+    CONSTRAINT FK_inventory_transactions_reasons FOREIGN KEY (reason_id) REFERENCES adjustment_reasons(reason_id)
+);
+
+CREATE TABLE parts_usage (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    wo_id INT NOT NULL,
+    part_id INT NOT NULL,
+    qty INT NULL,
+    CONSTRAINT FK_parts_usage_work_orders FOREIGN KEY (wo_id) REFERENCES work_orders(wo_id),
+    CONSTRAINT FK_parts_usage_spare_parts FOREIGN KEY (part_id) REFERENCES spare_parts(id)
+);
+
+CREATE TABLE tools (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name NVARCHAR(100) NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE()
+);
+
+CREATE TABLE tool_assignments (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    tool_id INT NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_tool_assignments_tools FOREIGN KEY (tool_id) REFERENCES tools(id)
+);
+
+CREATE TABLE tool_transactions (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    tool_id INT NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_tool_transactions_tools FOREIGN KEY (tool_id) REFERENCES tools(id)
 );
 
 -- =============================================
--- 5. ITAM MANAGEMENT MODULE
+-- Module 5 — ITAM Management
 -- =============================================
 
--- IT Categories Table
 CREATE TABLE it_categories (
     it_category_id INT IDENTITY(1,1) PRIMARY KEY,
-    category_name VARCHAR(100) NOT NULL,
-    description VARCHAR(255) NULL
+    category_name NVARCHAR(100) NOT NULL,
+    asset_group NVARCHAR(50) NULL,
+    asset_type NVARCHAR(100) NULL,
+    parent_category_id INT NULL,
+    asset_main_type_id INT NULL,
+    CONSTRAINT FK_it_categories_asset_main_types FOREIGN KEY (asset_main_type_id) REFERENCES asset_main_types(asset_main_type_id)
 );
 
--- IT Sub Categories Table
 CREATE TABLE it_sub_categories (
     sub_category_id INT IDENTITY(1,1) PRIMARY KEY,
     it_category_id INT NOT NULL,
-    sub_category_name VARCHAR(100) NOT NULL
+    sub_category_name NVARCHAR(100) NULL,
+    CONSTRAINT FK_it_sub_categories_it_categories FOREIGN KEY (it_category_id) REFERENCES it_categories(it_category_id)
 );
 
--- IT Classifications Table
+CREATE TABLE it_asset_groups (
+    asset_group_id INT IDENTITY(1,1) PRIMARY KEY,
+    sub_category_id INT NOT NULL,
+    asset_group_name NVARCHAR(100) NULL,
+    CONSTRAINT FK_it_asset_groups_it_sub_categories FOREIGN KEY (sub_category_id) REFERENCES it_sub_categories(sub_category_id)
+);
+
 CREATE TABLE it_classifications (
     classification_id INT IDENTITY(1,1) PRIMARY KEY,
-    classification_name VARCHAR(100) NOT NULL,
-    description VARCHAR(255) NULL
+    classification_name NVARCHAR(100) NOT NULL
 );
 
--- IT Asset Groups Table
-CREATE TABLE it_asset_groups (
-    group_id INT IDENTITY(1,1) PRIMARY KEY,
-    group_name VARCHAR(100) NOT NULL,
-    description VARCHAR(255) NULL
-);
-
--- IT Items Table
 CREATE TABLE it_items (
-    item_id INT IDENTITY(1,1) PRIMARY KEY,
-    asset_tag VARCHAR(50) UNIQUE NOT NULL,
-    item_name VARCHAR(200) NOT NULL,
-    it_category_id INT NULL,
-    sub_category_id INT NULL,
-    classification_id INT NULL,
-    group_id INT NULL,
-    serial_number VARCHAR(100) NULL,
-    model VARCHAR(100) NULL,
-    manufacturer VARCHAR(100) NULL,
-    status VARCHAR(50) DEFAULT 'active',
-    purchase_date DATE NULL,
-    warranty_expiry DATE NULL,
-    location VARCHAR(255) NULL,
-    assigned_to VARCHAR(20) NULL,
-    notes VARCHAR(MAX) NULL
+    it_item_id UNIQUEIDENTIFIER PRIMARY KEY,
+    sub_category_id INT NOT NULL,
+    category_id INT NULL,
+    request_id INT NULL,
+    current_status NVARCHAR(50) NULL,
+    purchase_price_plan DECIMAL(18,4) NULL,
+    purchase_price_actual DECIMAL(18,4) NULL,
+    po_date_period NVARCHAR(6) NULL,
+    inspection_date_period NVARCHAR(6) NULL,
+    no_cip NVARCHAR(50) NULL,
+    invoice_number NVARCHAR(100) NULL,
+    line_code NVARCHAR(10) NULL,
+    at_cost_value DECIMAL(18,4) NULL,
+    useful_life_year INT NULL,
+    initial_depreciation DECIMAL(18,4) NULL,
+    accounting_asset_no NVARCHAR(50) NULL,
+    acquisition_status NVARCHAR(20) NULL,
+    is_disposed BIT NULL,
+    disposal_id_ref INT NULL,
+    asset_tag NVARCHAR(50) NULL,
+    po_number NVARCHAR(100) NULL,
+    classification_id INT NOT NULL DEFAULT 1,
+    depreciation_end_date DATE NULL,
+    disposal_plan_date DATE NULL,
+    extend_warranty_date DATE NULL,
+    asset_group_id INT NULL,
+    asset_main_type_id INT NULL,
+    CONSTRAINT FK_it_items_it_sub_categories FOREIGN KEY (sub_category_id) REFERENCES it_sub_categories(sub_category_id),
+    CONSTRAINT FK_it_items_it_categories FOREIGN KEY (category_id) REFERENCES it_categories(it_category_id),
+    CONSTRAINT FK_it_items_it_classifications FOREIGN KEY (classification_id) REFERENCES it_classifications(classification_id),
+    CONSTRAINT FK_it_items_it_asset_groups FOREIGN KEY (asset_group_id) REFERENCES it_asset_groups(asset_group_id),
+    CONSTRAINT FK_it_items_asset_main_types FOREIGN KEY (asset_main_type_id) REFERENCES asset_main_types(asset_main_type_id)
 );
 
--- IT Item Attributes Table
+CREATE TABLE it_item_assignments (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nik NVARCHAR(30) NULL,
+    assigned_at DATETIME2 NULL,
+    returned_at DATETIME2 NULL,
+    it_item_id UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT FK_it_item_assignments_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id),
+    CONSTRAINT FK_it_item_assignments_users FOREIGN KEY (nik) REFERENCES users(nik)
+);
+
 CREATE TABLE it_item_attributes (
-    attribute_id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT NOT NULL,
-    attribute_name VARCHAR(100) NOT NULL,
-    attribute_value VARCHAR(MAX) NULL
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    it_item_id UNIQUEIDENTIFIER NOT NULL,
+    attr_name NVARCHAR(100) NULL,
+    attr_value NVARCHAR(255) NULL,
+    CONSTRAINT FK_it_item_attributes_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id)
 );
 
--- IT Item Assignment Table
-CREATE TABLE it_item_assignment (
-    assignment_id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT NOT NULL,
-    nik VARCHAR(20) NOT NULL,
-    assigned_at DATETIME DEFAULT GETDATE(),
-    assigned_by VARCHAR(20) NULL,
-    returned_at DATETIME NULL,
-    notes VARCHAR(255) NULL
-);
-
--- IT Item Network Table
-CREATE TABLE it_item_network (
+CREATE TABLE it_item_networks (
     network_id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT NOT NULL,
-    ip_address VARCHAR(15) NULL,
-    mac_address VARCHAR(17) NULL,
-    subnet_mask VARCHAR(15) NULL,
-    gateway VARCHAR(15) NULL,
-    dns VARCHAR(255) NULL
+    it_item_id UNIQUEIDENTIFIER NOT NULL,
+    hostname NVARCHAR(100) NULL,
+    ip_address NVARCHAR(50) NULL,
+    mac_address NVARCHAR(17) NULL,
+    is_primary BIT NOT NULL,
+    updated_at DATETIME2 NOT NULL,
+    CONSTRAINT FK_it_item_networks_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id)
 );
 
--- IT Item Software Table
-CREATE TABLE it_item_software (
-    software_id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT NOT NULL,
-    software_name VARCHAR(200) NOT NULL,
-    version VARCHAR(50) NULL,
-    license_key VARCHAR(255) NULL,
-    install_date DATE NULL,
-    status VARCHAR(20) DEFAULT 'installed'
+CREATE TABLE it_item_softwares (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    it_item_id UNIQUEIDENTIFIER NOT NULL,
+    software_name NVARCHAR(100) NOT NULL,
+    is_active BIT NOT NULL DEFAULT 1,
+    installed_at DATETIME2 NULL,
+    version NVARCHAR(50) NULL,
+    CONSTRAINT FK_it_item_softwares_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id)
 );
 
--- IT Item Setup Checklist Table
 CREATE TABLE it_item_setup_checklist (
-    checklist_id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT NOT NULL,
-    task_name VARCHAR(255) NOT NULL,
-    is_completed BIT DEFAULT 0,
-    completed_at DATETIME NULL,
-    completed_by VARCHAR(20) NULL
+    setup_id INT IDENTITY(1,1) PRIMARY KEY,
+    it_item_id UNIQUEIDENTIFIER NOT NULL,
+    task_name NVARCHAR(100) NOT NULL,
+    is_completed BIT NULL,
+    completed_at DATETIME2 NULL,
+    technician NVARCHAR(50) NULL,
+    CONSTRAINT FK_it_item_setup_checklist_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id)
 );
 
--- IT Item Status History Table
 CREATE TABLE it_item_status_history (
-    history_id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT NOT NULL,
-    old_status VARCHAR(50) NULL,
-    new_status VARCHAR(50) NOT NULL,
-    changed_by VARCHAR(20) NULL,
-    changed_at DATETIME DEFAULT GETDATE(),
-    notes VARCHAR(255) NULL
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    it_item_id UNIQUEIDENTIFIER NOT NULL,
+    status NVARCHAR(50) NULL,
+    changed_at DATETIME2 NULL,
+    CONSTRAINT FK_it_item_status_history_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id)
 );
 
--- Software Licenses Table
 CREATE TABLE software_licenses (
-    license_id INT IDENTITY(1,1) PRIMARY KEY,
-    software_name VARCHAR(200) NOT NULL,
-    license_key VARCHAR(255) UNIQUE NULL,
-    total_licenses INT NOT NULL DEFAULT 0,
-    used_licenses INT NOT NULL DEFAULT 0,
-    purchase_date DATE NULL,
-    expiry_date DATE NULL,
-    vendor VARCHAR(100) NULL
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name NVARCHAR(100) NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE()
 );
 
--- License Allocation Table
-CREATE TABLE license_allocation (
-    allocation_id INT IDENTITY(1,1) PRIMARY KEY,
+CREATE TABLE license_allocations (
+    id INT IDENTITY(1,1) PRIMARY KEY,
     license_id INT NOT NULL,
-    nik VARCHAR(20) NOT NULL,
-    allocated_at DATETIME DEFAULT GETDATE(),
-    allocated_by VARCHAR(20) NULL,
-    revoked_at DATETIME NULL,
-    notes VARCHAR(255) NULL
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_license_allocations_licenses FOREIGN KEY (license_id) REFERENCES software_licenses(id)
 );
 
--- Security Events Table
 CREATE TABLE security_events (
-    event_id INT IDENTITY(1,1) PRIMARY KEY,
-    item_id INT NULL,
-    event_type VARCHAR(100) NOT NULL,
-    description VARCHAR(MAX) NOT NULL,
-    severity VARCHAR(20) NOT NULL,
-    detected_at DATETIME DEFAULT GETDATE(),
-    resolved_at DATETIME NULL,
-    resolved_by VARCHAR(20) NULL
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    description NVARCHAR(MAX) NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE()
 );
 
 -- =============================================
--- 6. GENERAL UTILITY MODULE
+-- Module 6 — General Utility
 -- =============================================
 
--- Attachments Table
 CREATE TABLE attachments (
-    attachment_id INT IDENTITY(1,1) PRIMARY KEY,
-    reference_id INT NOT NULL,
-    reference_type VARCHAR(50) NOT NULL,
-    file_name VARCHAR(255) NOT NULL,
-    file_path VARCHAR(500) NOT NULL,
-    file_size BIGINT NULL,
-    mime_type VARCHAR(100) NULL,
-    uploaded_by VARCHAR(20) NULL,
-    uploaded_at DATETIME DEFAULT GETDATE()
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    filename NVARCHAR(255) NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE()
 );
 
--- Audit Logs Table
 CREATE TABLE audit_logs (
-    log_id INT IDENTITY(1,1) PRIMARY KEY,
-    table_name VARCHAR(100) NOT NULL,
-    record_id INT NOT NULL,
-    action VARCHAR(20) NOT NULL,
-    old_values VARCHAR(MAX) NULL,
-    new_values VARCHAR(MAX) NULL,
-    changed_by VARCHAR(20) NULL,
-    changed_at DATETIME DEFAULT GETDATE(),
-    ip_address VARCHAR(45) NULL
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    action NVARCHAR(100) NOT NULL,
+    createdAt DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updatedAt DATETIME2 NOT NULL DEFAULT GETDATE()
 );
 
 -- =============================================
--- 7. APPROVAL MODULE
+-- Module 7 — Approval
 -- =============================================
 
--- Approval History Table
+CREATE TABLE approval_levels (
+    level_id INT IDENTITY(1,1) PRIMARY KEY,
+    level_name NVARCHAR(100) NOT NULL
+);
+
 CREATE TABLE approval_history (
     approval_id INT IDENTITY(1,1) PRIMARY KEY,
-    reference_id INT NOT NULL,
-    reference_type VARCHAR(50) NOT NULL,
-    nik VARCHAR(20) NOT NULL,
-    action VARCHAR(20) NOT NULL,
-    comments VARCHAR(MAX) NULL,
-    approved_at DATETIME DEFAULT GETDATE()
+    document_type NVARCHAR(50) NULL,
+    document_id NVARCHAR(50) NULL,
+    level_id INT NULL,
+    approver_nik NVARCHAR(30) NULL,
+    status NVARCHAR(20) NULL,
+    notes NVARCHAR(MAX) NULL,
+    created_at DATETIME2 NULL,
+    updated_at DATETIME2 NULL,
+    step_sequence INT NULL,
+    CONSTRAINT FK_approval_history_levels FOREIGN KEY (level_id) REFERENCES approval_levels(level_id)
 );
 
 -- =============================================
--- 8. HRGA MODULE
+-- Module 8 — HRGA (users table reused via HRGAUser model)
+-- =============================================
+-- (No additional tables created; HRGAUser maps to the existing users table.)
+
+-- =============================================
+-- Module 9 — Procurement
 -- =============================================
 
--- (Add HRGA specific tables here based on available models)
+CREATE TABLE deliveries (
+    delivery_id INT IDENTITY(1,1) PRIMARY KEY,
+    po_id INT NOT NULL,
+    delivery_number NVARCHAR(50) NULL,
+    delivery_date DATE NULL,
+    received_by NVARCHAR(30) NULL,
+    status NVARCHAR(20) NULL
+);
+
+CREATE TABLE delivery_items (
+    delivery_item_id INT IDENTITY(1,1) PRIMARY KEY,
+    delivery_id INT NOT NULL,
+    item_name NVARCHAR(255) NULL,
+    qty INT NULL,
+    CONSTRAINT FK_delivery_items_deliveries FOREIGN KEY (delivery_id) REFERENCES deliveries(delivery_id)
+);
+
+CREATE TABLE issue_order_details (
+    order_detail_id INT IDENTITY(1,1) PRIMARY KEY,
+    request_id INT NULL,
+    item_name NVARCHAR(255) NULL,
+    account_code NVARCHAR(50) NULL,
+    budget_timing NVARCHAR(20) NULL,
+    budget_amount DECIMAL(15,2) NULL,
+    purchase_timing NVARCHAR(20) NULL,
+    purchase_amount DECIMAL(15,2) NULL,
+    is_sold_to_customer NVARCHAR(5) NULL,
+    customer_name NVARCHAR(150) NULL,
+    sold_amount DECIMAL(15,2) NULL,
+    profit_ratio DECIMAL(5,2) NULL
+);
 
 -- =============================================
--- INDEXES FOR PERFORMANCE
+-- Module 10 — Lifecycle
 -- =============================================
 
--- Users indexes
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_users_nik ON users(nik);
+CREATE TABLE asset_disposals (
+    disposal_id INT IDENTITY(1,1) PRIMARY KEY,
+    it_item_id UNIQUEIDENTIFIER NULL,
+    ba_number NVARCHAR(50) NULL,
+    disposal_date DATE NULL,
+    reason_disposal NVARCHAR(MAX) NULL,
+    proposed_method NVARCHAR(20) NULL,
+    net_book_value DECIMAL(15,2) NULL,
+    nbv_date DATE NULL,
+    acc_depreciation DECIMAL(15,2) NULL,
+    evidence_photo_path NVARCHAR(255) NULL,
+    status_disposal NVARCHAR(20) NULL
+);
 
--- Assets indexes
-CREATE INDEX idx_assets_category ON assets(category_id);
-CREATE INDEX idx_assets_vendor ON assets(vendor_id);
-CREATE INDEX idx_assets_location ON assets(location_id);
-CREATE INDEX idx_assets_serial ON assets(serial_number);
+-- =============================================
+-- Module 11 — Accounting
+-- =============================================
 
--- Work Orders indexes
-CREATE INDEX idx_wo_asset ON work_orders(asset_id);
-CREATE INDEX idx_wo_status ON work_orders(status);
-CREATE INDEX idx_wo_assigned ON work_orders(assigned_to_nik);
-CREATE INDEX idx_wo_date ON work_orders(scheduled_date);
+CREATE TABLE asset_depreciations (
+    depreciation_id INT IDENTITY(1,1) PRIMARY KEY,
+    it_item_id UNIQUEIDENTIFIER NOT NULL,
+    period NVARCHAR(6) NOT NULL,
+    depreciation_value DECIMAL(15,2) NULL,
+    accumulated_value DECIMAL(15,2) NULL,
+    created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_asset_depreciations_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id)
+);
 
--- IT Items indexes
-CREATE INDEX idx_it_items_category ON it_items(it_category_id);
-CREATE INDEX idx_it_items_asset_tag ON it_items(asset_tag);
-CREATE INDEX idx_it_items_assigned ON it_items(assigned_to);
+-- =============================================
+-- Deferred foreign keys referencing ITAM (it_items)
+-- =============================================
 
--- Audit Logs indexes
-CREATE INDEX idx_audit_table ON audit_logs(table_name);
-CREATE INDEX idx_audit_date ON audit_logs(changed_at);
+ALTER TABLE asset_audit_logs
+    ADD CONSTRAINT FK_asset_audit_logs_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id);
 
-PRINT 'SQL Server DDL for SAMIT Application completed successfully!';
+ALTER TABLE asset_documents
+    ADD CONSTRAINT FK_asset_documents_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id);
+
+ALTER TABLE asset_status_history
+    ADD CONSTRAINT FK_asset_status_history_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id);
+
+ALTER TABLE maintenance_plans
+    ADD CONSTRAINT FK_maintenance_plans_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id);
+
+ALTER TABLE work_orders
+    ADD CONSTRAINT FK_work_orders_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id);
+
+ALTER TABLE incidents
+    ADD CONSTRAINT FK_incidents_items FOREIGN KEY (asset_id) REFERENCES it_items(it_item_id);
+
+ALTER TABLE asset_disposals
+    ADD CONSTRAINT FK_asset_disposals_items FOREIGN KEY (it_item_id) REFERENCES it_items(it_item_id);
+
+-- =============================================
+-- Indexes for performance
+-- =============================================
+
+CREATE INDEX IDX_users_email ON users(email);
+CREATE INDEX IDX_work_orders_status ON work_orders(status);
+CREATE INDEX IDX_work_orders_assigned ON work_orders(assigned_to_nik);
+CREATE INDEX IDX_it_items_asset_tag ON it_items(asset_tag);
+CREATE INDEX IDX_it_item_assignments_nik ON it_item_assignments(nik);
+CREATE INDEX IDX_it_item_networks_it_item ON it_item_networks(it_item_id);
+
+PRINT 'SQL Server DDL for SAMIT generated from Sequelize models.';

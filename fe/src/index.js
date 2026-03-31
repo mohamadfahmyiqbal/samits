@@ -3,26 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './App.css';
 import reportWebVitals from './reportWebVitals';
 
-console.log('🌟 index.js loaded!');
-console.log('🌟 About to import App component...');
-
+// Production clean - debug removed
 let App;
 try {
   App = require('./App').default;
-  console.log('✅ App component imported successfully!');
 } catch (error) {
   console.error('❌ Error importing App component:', error);
-  // Fallback component
   App = () => <div>Error loading app. Check console for details.</div>;
 }
-
-console.log('🌟 About to render App component...');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 try {
   root.render(<App />);
-  console.log('✅ App rendered successfully!');
 } catch (error) {
   console.error('❌ Error rendering App:', error);
   root.render(

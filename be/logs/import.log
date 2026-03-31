@@ -1,0 +1,40 @@
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"PC,CCTV,GATHERING,SCANNER, ACCESSDOR","timestamp":"2026-03-31T01:00:43.255Z"}
+{"0":"PC","1":"CCTV","2":"GATHERING","3":"SCANNER","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-03-31T01:00:43.256Z"}
+{"level":"error","message":"[DEBUG][ASSIGN] abnormal for asset=FI-00412 itemId=24F10E4E-A280-45D2-B153-69926309FDFD: Conversion failed when converting date and/or time from character string.","timestamp":"2026-03-31T01:00:43.416Z"}
+{"level":"error","message":"[DEBUG] Sheet \"PC\" Row 7 - ERROR:","timestamp":"2026-03-31T01:00:43.416Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"PC,CCTV,GATHERING,SCANNER, ACCESSDOR","timestamp":"2026-03-31T01:06:34.625Z"}
+{"0":"PC","1":"CCTV","2":"GATHERING","3":"SCANNER","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-03-31T01:06:34.625Z"}
+{"level":"error","message":"[DEBUG][ASSIGN] abnormal for asset=FI-00412 itemId=24F10E4E-A280-45D2-B153-69926309FDFD: Conversion failed when converting date and/or time from character string.","timestamp":"2026-03-31T01:06:34.703Z"}
+{"level":"error","message":"[DEBUG] Sheet \"PC\" Row 7 - ERROR:","timestamp":"2026-03-31T01:06:34.703Z"}
+{"level":"error","message":"[DEBUG] Failed to rollback transaction (importAssetsFromExcel-PC-7): The ROLLBACK TRANSACTION request has no corresponding BEGIN TRANSACTION.","timestamp":"2026-03-31T01:06:34.705Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"PC,CCTV,GATHERING,SCANNER, ACCESSDOR","timestamp":"2026-03-31T01:10:21.905Z"}
+{"0":"PC","1":"CCTV","2":"GATHERING","3":"SCANNER","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-03-31T01:10:21.905Z"}
+{"level":"error","message":"[DEBUG][NETWORK] abnormal for asset=FI-00412 itemId=24F10E4E-A280-45D2-B153-69926309FDFD: Conversion failed when converting date and/or time from character string.","timestamp":"2026-03-31T01:10:21.931Z"}
+{"level":"error","message":"[DEBUG] Sheet \"PC\" Row 7 - ERROR:","timestamp":"2026-03-31T01:10:21.931Z"}
+{"level":"error","message":"[DEBUG] Failed to rollback transaction (importAssetsFromExcel-PC-7): The ROLLBACK TRANSACTION request has no corresponding BEGIN TRANSACTION.","timestamp":"2026-03-31T01:10:21.935Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"PC,CCTV,GATHERING,SCANNER, ACCESSDOR","timestamp":"2026-03-31T01:10:28.474Z"}
+{"0":"PC","1":"CCTV","2":"GATHERING","3":"SCANNER","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-03-31T01:10:28.474Z"}
+{"level":"error","message":"[DEBUG][NETWORK] abnormal for asset=FI-00412 itemId=24F10E4E-A280-45D2-B153-69926309FDFD: Conversion failed when converting date and/or time from character string.","timestamp":"2026-03-31T01:10:28.561Z"}
+{"level":"error","message":"[DEBUG] Sheet \"PC\" Row 7 - ERROR:","timestamp":"2026-03-31T01:10:28.562Z"}
+{"level":"error","message":"[DEBUG] Failed to rollback transaction (importAssetsFromExcel-PC-7): The ROLLBACK TRANSACTION request has no corresponding BEGIN TRANSACTION.","timestamp":"2026-03-31T01:10:28.563Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"PC,CCTV,GATHERING,SCANNER, ACCESSDOR","timestamp":"2026-03-31T01:10:39.561Z"}
+{"0":"PC","1":"CCTV","2":"GATHERING","3":"SCANNER","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-03-31T01:10:39.562Z"}
+{"level":"error","message":"[DEBUG][NETWORK] abnormal for asset=FI-00412 itemId=24F10E4E-A280-45D2-B153-69926309FDFD: Conversion failed when converting date and/or time from character string.","timestamp":"2026-03-31T01:10:39.647Z"}
+{"level":"error","message":"[DEBUG] Sheet \"PC\" Row 7 - ERROR:","timestamp":"2026-03-31T01:10:39.648Z"}
+{"level":"error","message":"[DEBUG] Failed to rollback transaction (importAssetsFromExcel-PC-7): The ROLLBACK TRANSACTION request has no corresponding BEGIN TRANSACTION.","timestamp":"2026-03-31T01:10:39.650Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"PC,CCTV,GATHERING,SCANNER, ACCESSDOR","timestamp":"2026-03-31T01:11:33.962Z"}
+{"0":"PC","1":"CCTV","2":"GATHERING","3":"SCANNER","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-03-31T01:11:33.962Z"}
+{"level":"error","message":"[DEBUG] Sheet \"PC\" Row 8 - ERROR:","timestamp":"2026-03-31T01:11:49.105Z"}
+{"level":"debug","message":"[DEBUG] Transaction rolled back (importAssetsFromExcel-PC-8).","timestamp":"2026-03-31T01:11:49.108Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"PC,CCTV,GATHERING,SCANNER, ACCESSDOR","timestamp":"2026-03-31T01:15:28.185Z"}
+{"0":"PC","1":"CCTV","2":"GATHERING","3":"SCANNER","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-03-31T01:15:28.186Z"}
+{"level":"error","message":"[DEBUG] Sheet \"PC\" Row 8 - ERROR:","timestamp":"2026-03-31T01:15:43.239Z"}
+{"level":"debug","message":"[DEBUG] Transaction rolled back (importAssetsFromExcel-PC-8).","timestamp":"2026-03-31T01:15:43.240Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"PC","timestamp":"2026-03-31T01:16:58.359Z"}
+{"0":"PC","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-03-31T01:16:58.359Z"}
+{"level":"error","message":"[DEBUG] Sheet \"PC\" Row 8 - ERROR:","timestamp":"2026-03-31T01:17:13.443Z"}
+{"level":"debug","message":"[DEBUG] Transaction rolled back (importAssetsFromExcel-PC-8).","timestamp":"2026-03-31T01:17:13.445Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"PC","timestamp":"2026-03-31T01:17:48.244Z"}
+{"0":"PC","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-03-31T01:17:48.245Z"}
+{"level":"error","message":"[DEBUG] Sheet \"PC\" Row 8 - ERROR:","timestamp":"2026-03-31T01:18:03.403Z"}
+{"level":"debug","message":"[DEBUG] Transaction rolled back (importAssetsFromExcel-PC-8).","timestamp":"2026-03-31T01:18:03.406Z"}

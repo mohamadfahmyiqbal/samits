@@ -63,6 +63,10 @@ export const maintenanceRoutes = [
     path: 'workorder',
     component: lazy(() => import('../pages/WorkOrderScreen/index.js')),
   },
+  {
+    path: 'preventive-checksheet',
+    component: lazy(() => import('../pages/MaintenanceChecksheet/MaintenanceChecksheet.jsx')),
+  },
 ];
 
 // Stock management routes - ONLY WORKING ONES

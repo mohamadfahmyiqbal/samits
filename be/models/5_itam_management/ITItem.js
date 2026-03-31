@@ -26,10 +26,6 @@ export default (sequelize) => {
         type: DataTypes.STRING(50),
         allowNull: true,
       },
-      asset_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
       purchase_price_plan: {
         type: DataTypes.DECIMAL,
         allowNull: true,

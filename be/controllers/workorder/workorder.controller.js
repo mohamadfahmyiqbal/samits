@@ -7,7 +7,10 @@ import {
   completeWorkOrder as completeWorkOrderService, 
   getTechnicians as getTechniciansService, 
   getWorkOrderStats as getWorkOrderStatsService, 
-  deleteWorkOrder as deleteWorkOrderService 
+  startWorkOrder as startWorkOrderService,
+  deleteWorkOrder as deleteWorkOrderService,
+  assignWorkOrder as assignWorkOrderService,
+  updateWorkOrder as updateWorkOrderService,
 } from '../../services/workorder.service.js';
 import { errorHandler } from '../../utils/errorHandler.js';
 
@@ -49,6 +52,34 @@ export const completeWorkOrder = async (req, res) => {
   try {
     const { wo_id } = req.params;
     const result = await completeWorkOrderService(wo_id);
+    sendResponse(res, result);
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
+// PATCH /api/workorder/:id/start
+export const startWorkOrder = async (req, res) => {
+  try {
+    const result = await startWorkOrderService(req.params.id, req.body);
+    sendResponse(res, result);
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
+export const assignWorkOrder = async (req, res) => {
+  try {
+    const result = await assignWorkOrderService(req.params.id, req.body);
+    sendResponse(res, result);
+  } catch (error) {
+    errorHandler(res, error);
+  }
+};
+
+export const updateWorkOrder = async (req, res) => {
+  try {
+    const result = await updateWorkOrderService(req.params.id, req.body);
     sendResponse(res, result);
   } catch (error) {
     errorHandler(res, error);

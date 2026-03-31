@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   Container,
   Row,
@@ -15,6 +15,7 @@ import { fetchAssets } from '../../services/AssetService.js';
 import WorkOrderTable from './components/WorkOrderTable.jsx';
 import WorkOrderFilter from './components/WorkOrderFilter.jsx';
 import WorkOrderModals from './components/WorkOrderModals.jsx';
+import ChecksheetBuilder from './components/ChecksheetBuilder.jsx';
 
 const WorkOrderScreen = () => {
   const {
@@ -30,17 +31,20 @@ const WorkOrderScreen = () => {
     refreshData,
     deleteWorkOrder,
     startWorkOrder,
+    completeWorkOrder,
   } = useWorkOrderData();
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAssignModal, setShowAssignModal] = useState(false);
-  const [showCompleteModal, setShowCompleteModal] = useState(false);
   const [editWorkOrder, setEditWorkOrder] = useState(null);
   const [selectedWorkOrder, setSelectedWorkOrder] = useState(null);
+  const [showActionModal, setShowActionModal] = useState(false);
+  const [modalAction, setModalAction] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [assets, setAssets] = useState([]);
   const [toast, setToast] = useState({ show: false, message: '', variant: 'success' });
+  const [showChecklistBuilder, setShowChecklistBuilder] = useState(false);
   const ITEMS_PER_PAGE = 25;
   const { paginatedOrders, totalPages } = useMemo(() => {
     const total = workOrders.length;
@@ -115,38 +119,76 @@ const WorkOrderScreen = () => {
     }
   };
 
-  const handleAction = async (action, wo) => {
+  const handleAction = (action, wo) => {
     setSelectedWorkOrder(wo);
     switch (action) {
       case 'assign':
         setShowAssignModal(true);
         break;
       case 'start':
-        try {
-          await startWorkOrder(wo.id);
-          setToast({ show: true, message: 'Work Order dimulai', variant: 'success' });
-          refreshData();
-        } catch (err) {
-          setToast({ show: true, message: 'Error: ' + err.message, variant: 'danger' });
-        }
-        break;
       case 'complete':
-        setShowCompleteModal(true);
+        setModalAction(action);
+        setShowActionModal(true);
         break;
       default:
         break;
     }
   };
 
-  const handleCloseAssign = () => {
+  const handleCloseAssign = useCallback(() => {
     setShowAssignModal(false);
     setSelectedWorkOrder(null);
-  };
+  }, []);
 
-  const handleCloseComplete = () => {
-    setShowCompleteModal(false);
+  const handleCloseAction = useCallback(() => {
+    setShowActionModal(false);
+    setModalAction(null);
     setSelectedWorkOrder(null);
-  };
+  }, []);
+
+  const handleStartWorkOrder = useCallback(
+    async (payload = {}) => {
+      const workOrderId = selectedWorkOrder?.id || selectedWorkOrder?.wo_id;
+      if (!workOrderId) {
+        setToast({ show: true, message: 'Tidak ada work order terpilih', variant: 'warning' });
+        handleCloseAction();
+        return;
+      }
+
+      try {
+        await startWorkOrder(workOrderId, payload);
+        setToast({ show: true, message: 'Work Order dimulai', variant: 'success' });
+        refreshData();
+      } catch (err) {
+        setToast({ show: true, message: 'Error: ' + err.message, variant: 'danger' });
+      } finally {
+        handleCloseAction();
+      }
+    },
+    [startWorkOrder, selectedWorkOrder, refreshData, handleCloseAction],
+  );
+
+  const handleCompleteWorkOrder = useCallback(
+    async (payload = {}) => {
+      const workOrderId = selectedWorkOrder?.id || selectedWorkOrder?.wo_id;
+      if (!workOrderId) {
+        setToast({ show: true, message: 'Tidak ada work order terpilih', variant: 'warning' });
+        handleCloseAction();
+        return;
+      }
+
+      try {
+        await completeWorkOrder(workOrderId, payload);
+        setToast({ show: true, message: 'Work Order selesai', variant: 'success' });
+        refreshData();
+      } catch (err) {
+        setToast({ show: true, message: 'Error: ' + err.message, variant: 'danger' });
+      } finally {
+        handleCloseAction();
+      }
+    },
+    [completeWorkOrder, selectedWorkOrder, refreshData, handleCloseAction],
+  );
 
   if (error) {
     return (
@@ -174,10 +216,10 @@ const WorkOrderScreen = () => {
               </h1>
               <p className='text-muted mb-0'>Manage maintenance work orders and assignments</p>
             </div>
-            <div className='stats-badge-group d-flex flex-wrap gap-2'>
-              <Badge bg='info' className='py-2 px-3'>
-                Total: {stats.total || 0}
-              </Badge>
+          <div className='stats-badge-group d-flex flex-wrap gap-2'>
+            <Badge bg='info' className='py-2 px-3'>
+              Total: {stats.total || 0}
+            </Badge>
               <Badge bg='warning' className='py-2 px-3'>
                 Open: {stats.open || 0}
               </Badge>
@@ -188,9 +230,16 @@ const WorkOrderScreen = () => {
                 Completed: {stats.completed || 0}
               </Badge>
             </div>
+            <Button
+              variant='outline-secondary'
+              size='sm'
+              onClick={() => setShowChecklistBuilder(true)}
+            >
+              Kelola Checksheet
+            </Button>
           </div>
 
-          <Row className='g-3 mb-4'>
+      <Row className='g-3 mb-4'>
             {[
               { label: 'Average Assign Time', value: stats.assignAvg || '-', variant: 'outline-primary' },
               { label: 'Average Close Time', value: stats.closeAvg || '-', variant: 'outline-success' },
@@ -247,9 +296,16 @@ const WorkOrderScreen = () => {
         showAssign={showAssignModal}
         onCloseAssign={handleCloseAssign}
         selectedWorkOrder={selectedWorkOrder}
-        showComplete={showCompleteModal}
-        onCloseComplete={handleCloseComplete}
+        actionMode={modalAction}
+        showAction={showActionModal}
+        onCloseAction={handleCloseAction}
+        onStartConfirm={handleStartWorkOrder}
+        onCompleteConfirm={handleCompleteWorkOrder}
         onShowToast={(msg, variant) => setToast({ show: true, message: msg, variant })}
+      />
+      <ChecksheetBuilder
+        show={showChecklistBuilder}
+        onHide={() => setShowChecklistBuilder(false)}
       />
       <ToastContainer position='top-end' className='p-3'>
         <Toast

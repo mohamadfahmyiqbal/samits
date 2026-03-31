@@ -517,32 +517,34 @@ export default function useAssetPage({
     const requireSub = !isAllMainTab && currentSubTabs.length > 0 && requireSubCategorySelection;
     if (requireSub && !activeSubTab) return [];
 
-    const data = assets.filter((item) => {
-      const itemType = String(item?.type || '');
-      const itemAssetGroup = normalize(item?.assetGroup);
-      const selectedAssetGroup = normalize(activeAssetGroup);
-      const shouldApplyAssetGroupFilter =
-        enableAssetGroupTabs &&
-        selectedAssetGroup &&
-        selectedAssetGroup !== 'all' &&
-        selectedAssetGroup !== normalize(activeMainType);
-      const matchAssetGroup = !shouldApplyAssetGroupFilter || itemAssetGroup === selectedAssetGroup;
-      const itemMainTypeKey = normalizeMainTypeKey(item?.assetGroup);
-      const itemMainTypeId = Number(item?.asset_main_type_id || 0) || null;
-      const matchMainType =
-        isAllMainType ||
-        !selectedMainTypeKey ||
-        (activeMainTypeId && itemMainTypeId && Number(activeMainTypeId) === itemMainTypeId) ||
-        itemMainTypeKey === selectedMainTypeKey;
+      const data = assets.filter((item) => {
+        const itemType = String(item?.type || '');
+        const itemAssetGroup = normalize(item?.assetGroup);
+        const selectedAssetGroup = normalize(activeAssetGroup);
+        const shouldApplyAssetGroupFilter =
+          enableAssetGroupTabs &&
+          selectedAssetGroup &&
+          selectedAssetGroup !== 'all' &&
+          selectedAssetGroup !== normalize(activeMainType);
+        const matchAssetGroup = !shouldApplyAssetGroupFilter || itemAssetGroup === selectedAssetGroup;
+        const itemMainTypeKey = normalizeMainTypeKey(item?.assetGroup);
+        const itemMainTypeId = Number(item?.asset_main_type_id || 0) || null;
+        const matchMainType =
+          isAllMainType ||
+          !selectedMainTypeKey ||
+          (activeMainTypeId && itemMainTypeId && Number(activeMainTypeId) === itemMainTypeId) ||
+          itemMainTypeKey === selectedMainTypeKey;
 
-      let matchMainTab = true;
-      if (mainFilterMode === 'type-group') {
-        matchMainTab =
-          isAllMainTab ||
-          currentSubTabs.filter((value) => normalize(value) !== 'all').includes(itemType);
-      } else {
-        matchMainTab = isAllMainTab || normalize(item?.category) === normalize(activeMainTab);
-      }
+        const itemCategoryName = item?.category_name || item?.category || '';
+
+        let matchMainTab = true;
+        if (mainFilterMode === 'type-group') {
+          matchMainTab =
+            isAllMainTab ||
+            currentSubTabs.filter((value) => normalize(value) !== 'all').includes(itemType);
+        } else {
+          matchMainTab = isAllMainTab || normalize(itemCategoryName) === normalize(activeMainTab);
+        }
 
       let matchSubTab = true;
       if (!isAllMainTab && currentSubTabs.length > 0) {

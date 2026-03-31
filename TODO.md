@@ -1,27 +1,21 @@
-# ✅ FIXED: Main Type Select Now Working!
+# TODO SAMIT EAM Development Plan
+Status: IMPLEMENTASI MaintenanceChecksheet (Duplikasi AssetManagement Pattern) - 70% Complete
 
-**Root Cause:** `newAsset.asset_main_type_id = [object Object]` setelah select → `String(value)` jadi "[object Object]"
+## ✅ DONE
+- [x] Update MaintenanceChecksheet.jsx (duplicate AssetManagementPage structure)
+- [x] Create components/: ErrorBoundary.jsx, ChecksheetPrimaryTabs.jsx, ChecksheetManagementTabs.jsx, ChecksheetManagementModals.jsx, ChecksheetTable.jsx
+- [x] Create context/ChecksheetManagementContext.jsx
+- [x] Create fe/services/MaintenanceChecklistService.js
 
-**Fix Applied:**
-```
-✅ useAssetForm.js: Enhanced logging + fallback options + fieldName inference  
-✅ AssetFormModal.jsx: Force String() di getSelectValue
-✅ FormComponents.jsx: Pass full option object ke onChange
-```
+## 🔄 IN PROGRESS - Step 2-4
+1. [ ] Create ChecklistBuilder.jsx (item builder form)
+2. [ ] Create hooks/useChecksheetManagementPage.js (data fetching)
+3. [ ] Integrate service ke context (fetch real data)
+4. [ ] ChecklistBuilder component full
+5. [ ] npm run lint:fix & test UI
 
-## Test Results Expected:
-```
-1. Pilih CLIENT → Label ✅ "CLIENT" muncul
-2. Kategori options ✅ Load otomatis (4 options)
-3. Console: "MAIN TYPE SYNC OK: '2' matched"
-4. No more "[object Object]" errors
-```
+## ⏳ PENDING Backend
+- [ ] be/services/maintenanceChecklist.service.js
+- [ ] Routes/controllers
 
-## Final Steps:
-```
-✅ [DONE] 1-3: Core fixes applied
-❌ [PENDING] 4. Test confirmation → npm start & verify
-✅ [DONE] 5. Cleanup debug logs (after user confirm)
-```
-
-**Status: WAITING USER TEST → npm start → Pilih Main Type → Confirm fixed!**
+Next: Complete FE structure → Backend sync → Test

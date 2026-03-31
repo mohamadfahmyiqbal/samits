@@ -19,7 +19,10 @@ import { createAsset } from "../controllers/asset/CreateAsset.js";
 import { updateAsset } from "../controllers/asset/updateAssetController.js";
 import { deleteAsset } from "../controllers/asset/deleteAssetController.js";
 import { deleteAssetDocument } from "../controllers/asset/deleteAssetDocumentController.js";
-import { importAssets } from "../controllers/asset/importAssetsController.js";
+import {
+  importAssets,
+  importAssetsFromExcel,
+} from "../controllers/asset/importAssetsController.js";
 
 const router = express.Router();
 
@@ -59,7 +62,12 @@ router.put(
 router.delete("/:id", authMiddleware, deleteAsset);
 router.delete("/:id/documents/:docId", authMiddleware, deleteAssetDocument);
 
-// Asset Import
-router.post("/import", authMiddleware, upload.single("file"), importAssets);
+// Asset Import (public UX for Excel uploads)
+router.post("/import", upload.single("file"), importAssets);
+router.post(
+  "/import-excel",
+  upload.single("file"),
+  importAssetsFromExcel,
+);
 
 export default router;

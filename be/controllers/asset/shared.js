@@ -1087,7 +1087,7 @@ export const loadAssetByNo = async (assetNo, transaction) => {
     classification_id: item.classification_id,
     asset_group_id: item.asset_group_id,
     asset_main_type_id: item.asset_main_type_id,
-    asset_id: item.asset_id,
+    asset_id: item.it_item_id,
 
     // Additional IT-specific fields
     po_date_period: item.po_date_period,

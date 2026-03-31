@@ -5,10 +5,10 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 
-console.log('🏗️ MainLayout.jsx loaded!');
+//
 
 export default function MainLayout() {
-  console.log('🏗️ MainLayout component rendering');
+//
 
   const [side, setSide] = useState(false);
   const closeSidebar = () => setSide(false);

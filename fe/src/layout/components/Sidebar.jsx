@@ -82,14 +82,7 @@ export default function Sidebar({ onNavigate }) {
 
   const goTo = useCallback(
     (path) => {
-      // Debug logging
-      if (process.env.NODE_ENV === 'development') {
-        console.log('Sidebar Navigation Debug:');
-        console.log('- Clicked path:', path);
-        console.log('- Encrypted path map:', Array.from(encryptedPathMap.entries()));
-        console.log('- Target path from map:', encryptedPathMap.get(path));
-        console.log('- Current location:', location.pathname);
-      }
+  // Production clean - debug removed
 
       const targetPath = encryptedPathMap.get(path);
       if (targetPath) {
@@ -151,8 +144,9 @@ export default function Sidebar({ onNavigate }) {
                   }
 
                   const active = isPathActive(item.path);
+                  const uniqueKey = item.path ? `${item.path}-${item.label}` : item.id;
                   return (
-                    <DropdownItem key={item.path} item={item} isActive={active} onClick={goTo} />
+                    <DropdownItem key={uniqueKey} item={item} isActive={active} onClick={goTo} />
                   );
                 })}
               </NavDropdown>
