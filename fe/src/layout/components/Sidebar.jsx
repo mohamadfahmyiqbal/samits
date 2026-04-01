@@ -1,3 +1,4 @@
+
 import React, { useReducer, useCallback, useMemo } from 'react';
 import { Navbar, Nav, NavDropdown, Container, Spinner } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -80,19 +81,19 @@ export default function Sidebar({ onNavigate }) {
     [isPathActive, isNestedActive]
   );
 
-  const goTo = useCallback(
+const goTo = useCallback(
     (path) => {
-  // Production clean - debug removed
-
       const targetPath = encryptedPathMap.get(path);
+      
       if (targetPath) {
-        navigate(targetPath);
+        navigate(targetPath, { replace: true });
         onNavigate?.();
       } else {
-        toast.error(`Route "${path}" tidak ditemukan`);
+        console.warn(`⚠️ Navigation path "${path}" not found in map`);
+        toast.error(`Navigasi "${path}" tidak tersedia`);
       }
     },
-    [encryptedPathMap, navigate, onNavigate, location.pathname]
+    [encryptedPathMap, navigate, onNavigate]
   );
 
   // Show loading state while user role is being determined

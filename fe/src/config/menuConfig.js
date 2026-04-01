@@ -51,29 +51,29 @@ export const menuGroups = [
         path: 'inspection-reports',
         allowedRoles: ['SUPERADMIN', 'MAINTENANCE'],
       },
+      {
+        type: 'nested',
+        label: 'Preventive',
+        id: 'preventive-nested',
+        allowedRoles: ['SUPERADMIN', 'MAINTENANCE'],
+        items: [
           {
-            type: 'nested',
-            label: 'Preventive',
-            id: 'preventive-nested',
+            label: 'Maintenance Schedule',
+            path: 'maintenance-schedule',
             allowedRoles: ['SUPERADMIN', 'MAINTENANCE'],
-            items: [
-              {
-                label: 'Maintenance Schedule',
-                path: 'maintenance-schedule',
-                allowedRoles: ['SUPERADMIN', 'MAINTENANCE'],
-              },
-              {
-                label: 'Preventive Reports',
-                path: 'maintenance2',
-                allowedRoles: ['SUPERADMIN', 'MAINTENANCE'],
-              },
-              {
-                label: 'Checksheet',
-                path: 'preventive-checksheet',
-                allowedRoles: ['SUPERADMIN', 'MAINTENANCE'],
-              },
-            ],
           },
+          {
+            label: 'Preventive Reports',
+            path: 'maintenance2',
+            allowedRoles: ['SUPERADMIN', 'MAINTENANCE'],
+          },
+          {
+            label: 'Checksheet',
+            path: 'preventive-checksheet',
+            allowedRoles: ['SUPERADMIN', 'MAINTENANCE'],
+          },
+        ],
+      },
       {
         type: 'nested',
         label: 'Corrective',
@@ -108,34 +108,62 @@ export const menuGroups = [
     allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
     items: [
       {
-        label: 'Stock List',
-        path: 'stock-list',
-        allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
-      },
-      {
-        label: 'Part Category',
-        path: 'part-category',
-        allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
-      },
-      {
-        label: 'Minimum Stock',
-        path: 'minimum-stock',
-        allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
-      },
-      {
-        label: 'Add Stock',
-        path: 'add-stock',
-        allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
-      },
-      {
-        label: 'Stok Kontrol',
-        path: 'stok-kontrol',
+        label: 'Dashboard',
+        path: 'stock-control',
         allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
       },
       {
         type: 'nested',
-        label: 'Parts & Vendors',
-        id: 'parts-vendors-nested',
+        label: 'Inventory',
+        id: 'inventory-nested',
+        allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+        items: [
+          {
+            label: 'Stock List',
+            path: 'add-stock',
+            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+          },
+
+          {
+            label: 'Stock Movement',
+            path: 'stock-movement',
+            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+          },
+          {
+            label: 'Stock Opname',
+            path: 'stock-opname',
+            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+          },
+        ],
+      },
+      {
+        type: 'nested',
+        label: 'Master Data',
+        id: 'master-data-nested',
+        allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+        items: [
+          {
+            label: 'Part Category',
+            path: 'part-category',
+            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+          },
+          {
+            label: 'Vendors',
+            path: 'vendors',
+            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+          },
+          {
+            label: 'Minimum Stock Rules',
+            path: 'minimum-stock',
+            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+          },
+        ],
+      },
+      
+      {
+        type: 'nested',
+        label: 'Requests',
+        id: 'requests-nested',
         allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER', 'MAINTENANCE'],
         items: [
           {
@@ -144,9 +172,32 @@ export const menuGroups = [
             allowedRoles: ['SUPERADMIN', 'MAINTENANCE'],
           },
           {
-            label: 'Vendor Assignments',
-            path: 'vendor-assignments',
-            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER', 'MAINTENANCE'],
+            label: 'Reorder / Purchase',
+            path: 'reorder-request',
+            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+          },
+        ],
+      },
+      {
+        type: 'nested',
+        label: 'Reports',
+        id: 'reports-nested',
+        allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+        items: [
+          {
+            label: 'Summary Stock',
+            path: 'summary-stock',
+            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+          },
+          {
+            label: 'Usage Report',
+            path: 'usage-report',
+            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
+          },
+          {
+            label: 'Dead Stock Report',
+            path: 'dead-stock-report',
+            allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER'],
           },
         ],
       },
@@ -162,11 +213,29 @@ export const menuGroups = [
     path: 'user-management',
     allowedRoles: ['SUPERADMIN'],
   },
-  // Summary - semua role
+  // Summary - semua role (dengan submenus)
   {
-    type: 'link',
+    type: 'dropdown',
     label: 'Summary',
-    path: 'summary',
+    id: 'summary-dropdown',
     allowedRoles: ['SUPERADMIN', 'USER', 'ASSET_CONTROLLER', 'MAINTENANCE', 'APPROVER'],
+    items: [
+      {
+        label: 'Summary Asset',
+        path: 'summary-asset',
+        allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER']
+      },
+      {
+        label: 'Summary Maintenance', 
+        path: 'summary-maintenance',
+        allowedRoles: ['SUPERADMIN', 'MAINTENANCE']
+      },
+      {
+        label: 'Summary Stock',
+        path: 'summary-stock',
+        allowedRoles: ['SUPERADMIN', 'ASSET_CONTROLLER']
+      }
+    ]
   },
 ];
+

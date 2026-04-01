@@ -67,14 +67,49 @@ export const maintenanceRoutes = [
     path: 'preventive-checksheet',
     component: lazy(() => import('../pages/MaintenanceChecksheet/MaintenanceChecksheet.jsx')),
   },
+  {
+    path: 'maintenance2',
+    component: lazy(() => import('../pages/PreventiveReports/PreventiveReports')),
+  },
+  {
+    path: 'preventive-reports',
+    component: lazy(() => import('../pages/Maintenance2/Maintenance2')),
+  },
 ];
+
 
 // Stock management routes - ONLY WORKING ONES
 export const stockRoutes = [
   {
-    path: 'stok-kontrol',
-    component: lazy(() => import('../pages/StokKontrol')),
+    path: 'stock-control',
+    component: lazy(() => import('../pages/StockControl/StockControl')),
   },
+  {
+    path: 'stock-list',
+    component: lazy(() => import('../pages/StockList/StockList')),
+  },
+  {
+    path: 'add-stock',
+    component: lazy(() => import('../pages/AddStock/AddStock')),
+  },
+  {
+    path: 'stock-movement',
+    component: lazy(() => import('../pages/AddStock/StockMovement')),
+  },
+  {
+    path: 'stock-opname',
+    component: lazy(() => import('../pages/AddStock/StockOpname')),
+  },
+  {
+    path: 'part-category',
+    component: lazy(() => import('../pages/PartCategory/PartCategory')),
+  },
+
+  {
+    path: 'minimum-stock',
+    component: lazy(() => import('../pages/MinimumStock/MinimumStock')),
+  },
+
 ];
 
 // User management routes - ONLY WORKING ONES
@@ -107,9 +142,26 @@ export const userRoutes = [
 
 // Combine all working routes
 export const allRoutes = [
+  {
+    path: 'usage-report',
+    component: lazy(() => import('../pages/UsageReport')),
+  },
   ...coreRoutes,
   ...assetRoutes,
   ...maintenanceRoutes,
   ...stockRoutes,
   ...userRoutes,
+  {
+    path: 'summary-asset',
+    component: lazy(() => import('../pages/SummaryAsset')),
+  },
+  {
+    path: 'summary-maintenance',
+    component: lazy(() => import('../pages/SummaryMaintenance')),
+  },
+  {
+    path: 'summary-stock',
+    component: lazy(() => import('../pages/SummaryStock')),
+  },
 ];
+

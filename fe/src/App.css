@@ -168,7 +168,7 @@ body {
 .layout-shell {
   padding-top: 60px;
   padding-bottom: 44px;
-  height: 100vh;
+  min-height: 100vh;
   box-sizing: border-box;
 }
 
@@ -2418,6 +2418,155 @@ code {
   font-size: 0.9rem;
 }
 
+/* Gantt Chart Dashboard */
+.gantt-chart-container {
+  padding: 1rem;
+  background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(7, 55, 99, 0.1);
+  box-shadow: 0 4px 16px rgba(7, 55, 99, 0.08);
+}
+
+.gantt-wrapper {
+  overflow-x: auto;
+  max-height: 200px;
+}
+
+.gantt-header {
+  display: flex;
+  background: linear-gradient(135deg, #073763, #0b6bcb);
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  border-radius: 8px 8px 0 0;
+}
+
+.gantt-cell {
+  flex: 1 0 55px;
+  padding: 0.6rem 0.3rem;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+  font-variant-numeric: tabular-nums;
+  position: relative;
+}
+
+.gantt-cell:last-child {
+  border-right: none;
+}
+
+.gantt-cell::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.gantt-row {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 0.125rem;
+  height: 36px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.gantt-row:last-child {
+  border-bottom: none;
+}
+
+.gantt-row:hover {
+  background: rgba(7, 55, 99, 0.02);
+}
+
+.critical-row {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.gantt-label {
+  min-width: 100px;
+  padding: 0 0.75rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: #374151;
+  border-right: 1px solid #e5e7eb;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gantt-bar {
+  flex: 1;
+  height: 20px;
+  margin: 0 0.25rem;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.gantt-bar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.success-bar {
+  background: linear-gradient(90deg, #10b981, #059669);
+  color: white;
+}
+
+.info-bar {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: white;
+}
+
+.warning-bar {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+  color: white;
+}
+
+.danger-bar {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  color: white;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.two-days {
+  width: 40%;
+}
+
+.three-days {
+  width: 60%;
+}
+
+.single-day {
+  width: 20%;
+}
+
+.overdue::after {
+  content: '🚨';
+  margin-left: 0.25rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
 /* Tabel utama */
 .table-custom {
   width: 100%;
@@ -3792,6 +3941,22 @@ button:hover {
   opacity: 0.9;
 }
 
+.maintenance-schedule-modal .ant-modal-wrap {
+  padding-bottom: 90px;
+}
+.maintenance-schedule-modal .ant-modal {
+  margin-bottom: 90px;
+}
+.maintenance-schedule-modal .ant-modal-content {
+  box-shadow: 0 0 45px rgba(0, 0, 0, 0.25);
+}
+.maintenance-schedule-modal .ant-modal {
+  max-height: calc(100vh - 120px);
+}
+.maintenance-schedule-modal .ant-modal-body {
+  padding-bottom: 110px;
+}
+
 /* ==========================================================================
    PAGES/MEETINGMINUTES/MEETINGMINUTES.CSS
    ========================================================================== */
@@ -4348,4 +4513,133 @@ button:hover {
 
 .checksheet-template-table tbody tr:hover {
   background: rgba(7, 55, 99, 0.04);
+}
+
+
+
+/* Dashboard-style gantt mimicking .gantt-wrapper layout */
+.dashboard-gantt {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  padding: 24px;
+}
+
+.dashboard-gantt .gantt-wrapper {
+  background: #f8fafc;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+}
+
+.dashboard-gantt .gantt-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+.dashboard-gantt .gantt-row:last-child {
+  border-bottom: none;
+}
+
+.dashboard-gantt .gantt-label {
+  min-width: 150px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.dashboard-gantt .gantt-bar {
+  flex: 1;
+  border-radius: 12px;
+  background: #e2e8f0;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.dashboard-gantt .gantt-bar-progress {
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #22c55e, #0ea5e9);
+  position: absolute;
+  top: 0;
+}
+.gantt-chart-weekly {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+  padding: 20px;
+}
+
+.gantt-weekly-header {
+  display: grid;
+  grid-template-columns: 200px repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 16px;
+}
+
+.gantt-weekly-label {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.gantt-weekly-label.header {
+  font-size: 1rem;
+}
+
+.gantt-weekly-date {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.gantt-weekly-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gantt-weekly-row {
+  display: grid;
+  grid-template-columns: 200px repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  align-items: center;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.gantt-weekly-cell {
+  min-height: 40px;
+}
+
+.gantt-weekly-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  border-radius: 40px;
+  padding: 0 12px;
+  color: #fff;
+  font-size: 0.9rem;
+  box-shadow: 0 5px 15px rgba(15, 23, 42, 0.2);
+}
+
+.gantt-weekly-bar-label {
+  font-size: 0.8rem;
+}
+
+.gantt-weekly-empty {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.95rem;
+  color: #64748b;
 }

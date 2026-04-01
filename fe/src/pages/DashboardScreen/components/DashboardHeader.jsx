@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export default function DashboardHeader({ socket, isConnected }) {
   return (
     <div className="d-flex justify-content-between align-items-center mb-3">
-      <h4>Dashboard Maintenance</h4>
+      <h4>Dashboard</h4>
       <div>
         <Badge bg={isConnected ? "success" : "danger"} className="me-2">
           Socket: {isConnected ? "Connected" : "Disconnected"}

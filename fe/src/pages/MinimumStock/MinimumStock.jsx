@@ -14,8 +14,8 @@ import {
   Modal,
   Alert,
 } from 'antd';
-import { ReloadOutlined, PlusOutlined, WarningOutlined } from '@ant-design/icons';
-import './MinimumStock.css';
+import { ReloadOutlined, PlusOutlined, WarningOutlined, CheckCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import '../../App.css';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -348,7 +348,7 @@ export default function MinimumStock() {
       </div>
 
       <Alert
-        message='Stock Alert'
+        title='Stock Alert'
         description={`Terdapat ${criticalItems} item dengan stock kritis dan ${lowItems} item dengan stock rendah yang perlu segera ditangani.`}
         type='warning'
         showIcon

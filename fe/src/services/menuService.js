@@ -35,19 +35,19 @@ const MOCK_USER_MENUS = [
     id: 'maintenance-dropdown',
     icon: 'wrench',
     badgeKey: 'unreadWorkorders',
-    items: [
+items: [
       {
         type: 'dropdown',
-        label: 'Preventive',
-        id: 'preventive-dropdown',
+        label: 'Preventive Maintenance',
+        id: 'preventive-maintenance-dropdown',
         items: [
           { label: 'Schedule', path: 'schedule', icon: 'calendar' },
-          {
-            label: 'Work Order',
-            path: 'workorder',
-            icon: 'clipboard-check',
-            badgeKey: 'pendingWO',
-          },
+          { label: 'Work Order', path: 'workorder', icon: 'clipboard-check' },
+          { label: 'PM Schedule', path: 'pm-schedule', icon: 'calendar-check' },
+          { label: 'PM Task / Checklist', path: 'pm-task', icon: 'checklist' },
+          { label: 'PM Calendar', path: 'pm-calendar', icon: 'calendar' },
+          { label: 'PM History', path: 'pm-history', icon: 'history' },
+          { label: 'Preventive Reports', path: 'preventive-reports', icon: 'file-text' }
         ],
       },
     ],

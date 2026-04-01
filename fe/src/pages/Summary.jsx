@@ -1,6 +1,6 @@
 
 import React, { useContext, useState } from "react";
-import { Table, ButtonGroup, Button } from "react-bootstrap";
+import { Table, ButtonGroup, Button, Badge } from "react-bootstrap";
 import { MaintenanceContext } from "../context/MaintenanceContext";
 import { format } from "date-fns";
 

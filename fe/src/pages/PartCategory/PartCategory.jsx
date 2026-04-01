@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   Form,
   Card,
@@ -14,168 +14,113 @@ import {
   Modal,
 } from 'antd';
 import { ReloadOutlined, PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import './PartCategory.css';
+import { partCategoryService } from '../../services';
+import '../../App.css';
 
 const { Option } = Select;
 const { Search } = Input;
 
-export default function PartCategory() {
+const statusColor = {
+  active: 'green',
+  inactive: 'red',
+  maintenance: 'orange',
+};
+
+const PartCategory = () => {
   const [categoryData, setCategoryData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
-  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [editModalVisible, setEditModalVisible] = useState(false);
   const [form] = Form.useForm();
 
-  const mockCategoryData = [
-    {
-      id: 1,
-      category_code: 'CPU',
-      category_name: 'CPU (Central Processing Unit)',
-      description: 'Processors for desktop and server computers',
-      total_items: 15,
-      low_stock_items: 3,
-      critical_stock_items: 1,
-      total_value: 82500000,
-      average_price: 5500000,
-      last_updated: '2024-03-25',
-      status: 'active',
-      created_date: '2024-01-15',
-    },
-    {
-      id: 2,
-      category_code: 'RAM',
-      category_name: 'Memory (RAM)',
-      description: 'Random Access Memory modules for computers',
-      total_items: 25,
-      low_stock_items: 8,
-      critical_stock_items: 2,
-      total_value: 30000000,
-      average_price: 1200000,
-      last_updated: '2024-03-25',
-      status: 'active',
-      created_date: '2024-01-15',
-    },
-    {
-      id: 3,
-      category_code: 'STORAGE',
-      category_name: 'Storage Devices',
-      description: 'SSD, HDD, and other storage solutions',
-      total_items: 35,
-      low_stock_items: 5,
-      critical_stock_items: 0,
-      total_value: 63000000,
-      average_price: 1800000,
-      last_updated: '2024-03-25',
-      status: 'active',
-      created_date: '2024-01-15',
-    },
-    {
-      id: 4,
-      category_code: 'PSU',
-      category_name: 'Power Supply Unit',
-      description: 'Power supplies for computers and servers',
-      total_items: 20,
-      low_stock_items: 7,
-      critical_stock_items: 3,
-      total_value: 44000000,
-      average_price: 2200000,
-      last_updated: '2024-03-25',
-      status: 'active',
-      created_date: '2024-01-15',
-    },
-    {
-      id: 5,
-      category_code: 'GPU',
-      category_name: 'Graphics Card',
-      description: 'Video cards and graphics processing units',
-      total_items: 18,
-      low_stock_items: 2,
-      critical_stock_items: 0,
-      total_value: 153000000,
-      average_price: 8500000,
-      last_updated: '2024-03-25',
-      status: 'active',
-      created_date: '2024-01-15',
-    },
-    {
-      id: 6,
-      category_code: 'MB',
-      category_name: 'Motherboard',
-      description: 'Main circuit boards for computers',
-      total_items: 12,
-      low_stock_items: 4,
-      critical_stock_items: 1,
-      total_value: 38400000,
-      average_price: 3200000,
-      last_updated: '2024-03-25',
-      status: 'active',
-      created_date: '2024-01-15',
-    },
-    {
-      id: 7,
-      category_code: 'COOLING',
-      category_name: 'Cooling Solutions',
-      description: 'Fans, coolers, and thermal management',
-      total_items: 30,
-      low_stock_items: 10,
-      critical_stock_items: 4,
-      total_value: 10500000,
-      average_price: 350000,
-      last_updated: '2024-03-25',
-      status: 'active',
-      created_date: '2024-01-15',
-    },
-    {
-      id: 8,
-      category_code: 'ACC',
-      category_name: 'Accessories',
-      description: 'Cables, adapters, and other accessories',
-      total_items: 45,
-      low_stock_items: 15,
-      critical_stock_items: 6,
-      total_value: 5625000,
-      average_price: 125000,
-      last_updated: '2024-03-25',
-      status: 'active',
-      created_date: '2024-01-15',
-    },
-  ];
-
-  useEffect(() => {
-    setCategoryData(mockCategoryData);
-    setFilteredData(mockCategoryData);
+  const loadCategories = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await partCategoryService.list();
+      setCategoryData(res.data || []);
+    } catch (error) {
+      console.error('Gagal mengambil kategori:', error);
+      message.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          'Tidak dapat mengambil data kategori saat ini.',
+      );
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
-    let filtered = categoryData.filter(
-      (item) =>
-        item.category_name.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.category_code.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setFilteredData(filtered);
-  }, [searchText, categoryData]);
+    loadCategories();
+  }, [loadCategories]);
 
-  const handleEdit = (category) => {
-    setSelectedCategory(category);
-    form.setFieldsValue(category);
+  useEffect(() => {
+    const text = searchText.toLowerCase();
+    const filtered = categoryData.filter((item) => {
+      const searchable = `${item.category_name ?? ''} ${item.category_code ?? ''} ${item.description ??
+        ''}`.toLowerCase();
+      const matchesSearch = searchable.includes(text);
+      const matchesCategory = categoryFilter === 'all' || item.category_code === categoryFilter;
+      return matchesSearch && matchesCategory;
+    });
+    setFilteredData(filtered);
+  }, [searchText, categoryData, categoryFilter]);
+
+  const totalCategories = filteredData.length;
+  const totalItems = useMemo(
+    () => filteredData.reduce((sum, item) => sum + (Number(item.total_items) || 0), 0),
+    [filteredData],
+  );
+  const totalLowStock = useMemo(
+    () => filteredData.reduce((sum, item) => sum + (Number(item.low_stock_items) || 0), 0),
+    [filteredData],
+  );
+  const totalCritical = useMemo(
+    () => filteredData.reduce((sum, item) => sum + (Number(item.critical_stock_items) || 0), 0),
+    [filteredData],
+  );
+  const totalValue = useMemo(
+    () => filteredData.reduce((sum, item) => sum + (Number(item.total_value) || 0), 0),
+    [filteredData],
+  );
+
+  const categoryOptions = useMemo(() => {
+    const categories = Array.from(
+      new Set(categoryData.map((item) => item.category_code).filter(Boolean)),
+    );
+    return [
+      { value: 'all', label: 'Semua Kategori' },
+      ...categories.map((entry) => ({ value: entry, label: entry })),
+    ];
+  }, [categoryData]);
+
+  const handleEdit = (record) => {
+    setSelectedCategory(record);
+    form.setFieldsValue({
+      category_code: record.category_code,
+      category_name: record.category_name,
+      description: record.description,
+      status: record.status,
+    });
     setEditModalVisible(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (record) => {
     Modal.confirm({
       title: 'Hapus Kategori',
-      content:
-        'Apakah Anda yakin ingin menghapus kategori ini? Semua item dalam kategori ini akan terpengaruh.',
-      okText: 'Ya',
-      cancelText: 'Tidak',
+      content: 'Semua stok yang terkait tidak akan terhapus, hanya kategori yang dihapus.',
+      okText: 'Hapus',
+      cancelText: 'Batal',
       onOk: async () => {
         try {
-          setCategoryData((prev) => prev.filter((item) => item.id !== id));
+          await partCategoryService.remove(record.id);
           message.success('Kategori berhasil dihapus');
+          loadCategories();
         } catch (error) {
+          console.error('Gagal menghapus kategori:', error);
           message.error('Gagal menghapus kategori');
         }
       },
@@ -185,82 +130,44 @@ export default function PartCategory() {
   const handleSave = async (values) => {
     setLoading(true);
     try {
+      const payload = {
+        category_code: values.category_code.trim(),
+        category_name: values.category_name.trim(),
+        description: values.description?.trim() || '',
+        status: values.status,
+        minimum_threshold: Number(values.minimum_stock ?? 20),
+      };
       if (selectedCategory) {
-        // Update existing category
-        setCategoryData((prev) =>
-          prev.map((item) =>
-            item.id === selectedCategory.id
-              ? { ...item, ...values, last_updated: new Date().toISOString().split('T')[0] }
-              : item
-          )
-        );
+        await partCategoryService.update(selectedCategory.id, payload);
         message.success('Kategori berhasil diperbarui');
       } else {
-        // Add new category
-        const newCategory = {
-          ...values,
-          id: Date.now(),
-          total_items: 0,
-          low_stock_items: 0,
-          critical_stock_items: 0,
-          total_value: 0,
-          average_price: 0,
-          last_updated: new Date().toISOString().split('T')[0],
-          created_date: new Date().toISOString().split('T')[0],
-        };
-        setCategoryData((prev) => [newCategory, ...prev]);
+        await partCategoryService.create(payload);
         message.success('Kategori berhasil ditambahkan');
       }
       setEditModalVisible(false);
       setSelectedCategory(null);
       form.resetFields();
+      loadCategories();
     } catch (error) {
-      message.error('Gagal menyimpan kategori');
+      console.error('Gagal menyimpan kategori:', error);
+      message.error(
+        error?.response?.data?.message || error?.message || 'Gagal menyimpan kategori.',
+      );
     } finally {
       setLoading(false);
     }
   };
 
   const handleRefresh = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setCategoryData(mockCategoryData);
-      setLoading(false);
-      message.success('Data berhasil di-refresh');
-    }, 1000);
+    loadCategories();
   };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'active':
-        return 'green';
-      case 'inactive':
-        return 'red';
-      case 'maintenance':
-        return 'orange';
-      default:
-        return 'default';
-    }
-  };
-
-  const getStockHealth = (low, critical) => {
-    if (critical > 0) return { status: 'critical', color: 'red', icon: '🚨' };
-    if (low > 0) return { status: 'warning', color: 'orange', icon: '⚠️' };
-    return { status: 'good', color: 'green', icon: '✅' };
-  };
-
-  const totalCategories = filteredData.length;
-  const totalItems = filteredData.reduce((sum, item) => sum + item.total_items, 0);
-  const totalLowStock = filteredData.reduce((sum, item) => sum + item.low_stock_items, 0);
-  const totalCritical = filteredData.reduce((sum, item) => sum + item.critical_stock_items, 0);
-  const totalValue = filteredData.reduce((sum, item) => sum + item.total_value, 0);
 
   const columns = [
     {
       title: 'Category Code',
       dataIndex: 'category_code',
       key: 'category_code',
-      render: (text) => <strong>{text}</strong>,
+      render: (value) => <strong>{value}</strong>,
     },
     {
       title: 'Category Name',
@@ -280,45 +187,35 @@ export default function PartCategory() {
       render: (_, record) => (
         <div>
           <div>
-            <strong>Total:</strong> {record.total_items} items
+            <strong>Total Items:</strong> {record.total_items ?? 0}
           </div>
           <div style={{ fontSize: '12px', color: '#8c8c8c' }}>
-            Low: <span style={{ color: '#faad14' }}>{record.low_stock_items}</span> | Critical:{' '}
-            <span style={{ color: '#ff4d4f' }}>{record.critical_stock_items}</span>
+            Low: <span style={{ color: '#faad14' }}>{record.low_stock_items ?? 0}</span> | Critical:{' '}
+            <span style={{ color: '#ff4d4f' }}>{record.critical_stock_items ?? 0}</span>
           </div>
         </div>
       ),
     },
     {
-      title: 'Stock Health',
-      key: 'stock_health',
-      render: (_, record) => {
-        const health = getStockHealth(record.low_stock_items, record.critical_stock_items);
-        return (
-          <Tag color={health.color}>
-            {health.icon} {health.status.toUpperCase()}
-          </Tag>
-        );
-      },
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => (
+        <Tag color={statusColor[status] || 'default'}>{(status || 'unknown').toUpperCase()}</Tag>
+      ),
     },
     {
       title: 'Total Value',
       dataIndex: 'total_value',
       key: 'total_value',
-      render: (value) => `Rp ${value.toLocaleString('id-ID')}`,
-      sorter: (a, b) => a.total_value - b.total_value,
+      render: (value) => `Rp ${Number(value || 0).toLocaleString('id-ID')}`,
+      sorter: (a, b) => Number(a.total_value || 0) - Number(b.total_value || 0),
     },
     {
-      title: 'Avg Price',
-      dataIndex: 'average_price',
-      key: 'average_price',
-      render: (price) => `Rp ${price.toLocaleString('id-ID')}`,
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status) => <Tag color={getStatusColor(status)}>{status.toUpperCase()}</Tag>,
+      title: 'Last Updated',
+      dataIndex: 'updated_at',
+      key: 'updated_at',
+      render: (value) => (value ? new Date(value).toLocaleDateString('id-ID') : '-'),
     },
     {
       title: 'Action',
@@ -333,13 +230,7 @@ export default function PartCategory() {
           >
             Edit
           </Button>
-          <Button
-            type='primary'
-            danger
-            size='small'
-            icon={<DeleteOutlined />}
-            onClick={() => handleDelete(record.id)}
-          >
+          <Button type='primary' danger size='small' icon={<DeleteOutlined />} onClick={() => handleDelete(record)}>
             Delete
           </Button>
         </Space>
@@ -383,7 +274,12 @@ export default function PartCategory() {
               <div className='statistic-icon warning'>⚠️</div>
               <div className='statistic-content'>
                 <div className='statistic-title'>Low Stock Items</div>
-                <div className='statistic-value'>{totalLowStock}</div>
+                <div className='statistic-value'>
+                  {totalLowStock}
+                  <div style={{ fontSize: '12px', color: '#ff4d4f' }}>
+                    Critical: {totalCritical}
+                  </div>
+                </div>
               </div>
             </div>
           </Card>
@@ -418,20 +314,31 @@ export default function PartCategory() {
                 >
                   Tambah Kategori
                 </Button>
-              </Space>
-            }
-          >
-            <div className='table-controls'>
-              <Space>
-                <Search
-                  placeholder='Cari kategori...'
-                  allowClear
-                  style={{ width: 300 }}
-                  onChange={(e) => setSearchText(e.target.value)}
-                />
                 <Button icon={<ReloadOutlined />} onClick={handleRefresh} loading={loading}>
                   Refresh
                 </Button>
+              </Space>
+            }
+          >
+            <div className='table-controls' style={{ marginBottom: 12 }}>
+              <Space wrap>
+                <Search
+                  placeholder='Cari kategori...'
+                  allowClear
+                  style={{ width: 260 }}
+                  onChange={(e) => setSearchText(e.target.value)}
+                />
+                <Select
+                  value={categoryFilter}
+                  style={{ width: 220 }}
+                  onChange={(value) => setCategoryFilter(value)}
+                >
+                  {categoryOptions.map((option) => (
+                    <Option key={option.value} value={option.value}>
+                      {option.label}
+                    </Option>
+                  ))}
+                </Select>
               </Space>
             </div>
 
@@ -512,15 +419,6 @@ export default function PartCategory() {
                 </Select>
               </Form.Item>
             </Col>
-            <Col span={12}>
-              <Form.Item
-                name='minimum_threshold'
-                label='Minimum Threshold (%)'
-                rules={[{ required: true, message: 'Minimum threshold harus diisi!' }]}
-              >
-                <Input type='number' placeholder='20' min='1' max='100' />
-              </Form.Item>
-            </Col>
           </Row>
 
           <Form.Item>
@@ -528,11 +426,21 @@ export default function PartCategory() {
               <Button type='primary' htmlType='submit' loading={loading}>
                 {selectedCategory ? 'Update' : 'Tambah'}
               </Button>
-              <Button onClick={() => setEditModalVisible(false)}>Batal</Button>
+              <Button
+                onClick={() => {
+                  setEditModalVisible(false);
+                  setSelectedCategory(null);
+                  form.resetFields();
+                }}
+              >
+                Batal
+              </Button>
             </Space>
           </Form.Item>
         </Form>
       </Modal>
     </div>
   );
-}
+};
+
+export default PartCategory;

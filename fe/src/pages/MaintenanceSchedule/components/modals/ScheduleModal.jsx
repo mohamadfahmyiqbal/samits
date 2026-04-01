@@ -14,8 +14,11 @@ import {
   Divider,
 } from 'antd';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 
 const { Option } = Select;
+
+dayjs.extend(utc);
 
 const STATUS_OPTIONS = [
   { value: 'pending', label: 'Pending' },
@@ -46,10 +49,28 @@ const RECURRENCE_OPTIONS = [
   { value: 'yearly', label: 'Tahunan' },
 ];
 
+const WIB_OFFSET = 7;
+const DAILY_START_HOUR = 8;
+const DAILY_END_HOUR = 17;
+
 const parseTime = (value) => {
   if (!value) return null;
-  return dayjs(value, 'HH:mm');
+  return dayjs.utc(value).utcOffset(WIB_OFFSET);
 };
+
+const disabledTimeRange = () => ({
+  disabledHours: () => {
+    const hours = [];
+    for (let hour = 0; hour < 24; hour += 1) {
+      if (hour < DAILY_START_HOUR || hour > DAILY_END_HOUR) {
+        hours.push(hour);
+      }
+    }
+    return hours;
+  },
+  disabledMinutes: () => [],
+  disabledSeconds: () => [],
+});
 
 const parseDate = (value) => {
   if (!value) return null;
@@ -103,6 +124,46 @@ export default function ScheduleModal({
         initialValues.assets
           ?.map((asset) => asset.hostname || asset.assetTag)
           .filter(Boolean) || [];
+      const mainTypeId =
+        initialValues.asset_main_type_id ?? initialValues.assetMainTypeId ?? initialValues.assetTypeId;
+      const categoryId =
+        initialValues.category_id ?? initialValues.categoryId ?? initialValues.cat;
+      const subCategoryId =
+        initialValues.sub_category_id ?? initialValues.subCategoryId ?? initialValues.sub_cat;
+
+      if (mainTypeId && typeof onMainTypeChange === 'function') {
+        onMainTypeChange(mainTypeId);
+      }
+
+      if (categoryId && typeof onCategoryChange === 'function') {
+        onCategoryChange(categoryId);
+      }
+
+      if (subCategoryId && typeof onSubCategoryChange === 'function') {
+        onSubCategoryChange(subCategoryId);
+      }
+
+      if (
+        initialValues?.asset_main_type_id ||
+        initialValues?.category_id ||
+        initialValues?.sub_category_id
+      ) {
+        fetchCategoriesByMainTypeLocal(mainTypeId);
+        fetchSubCategoriesByCategoryLocal(categoryId);
+        fetchITItems(categoryId, subCategoryId, mainTypeId);
+
+        const fallbackItems = (initialValues.assets || []).map((asset) => ({
+          it_item_id: asset.itItemId,
+          hostname: asset.hostname,
+          asset_tag: asset.assetTag,
+          item_name: asset.hostname || asset.assetTag,
+          status: 'active',
+        }));
+        if (fallbackItems.length > 0) {
+          setItItems(fallbackItems);
+        }
+      }
+
       form.setFieldsValue({
         asset_main_type_id:
           initialValues.asset_main_type_id ?? initialValues.assetMainTypeId,
@@ -217,7 +278,7 @@ export default function ScheduleModal({
 
     return (
       <>
-        <Divider orientation='left'>Pilih Asset</Divider>
+        <Divider titlePlacement='start'>Pilih Asset</Divider>
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
@@ -338,6 +399,19 @@ export default function ScheduleModal({
       onCancel={onCancel}
       footer={footerButtons}
       width={1000}
+      destroyOnHidden
+      forceRender
+      styles={{
+        body: {
+          maxHeight: 'calc(70vh - 44px)',
+          overflowY: 'auto',
+          paddingRight: 8,
+          paddingBottom: 90,
+        },
+      }}
+      style={{ top: 80, zIndex: 2000 }}
+      wrapClassName='maintenance-schedule-modal'
+      getContainer={() => document.body}
     >
       <Form form={form} layout='vertical'>
         <Row gutter={[16, 16]}>
@@ -368,7 +442,12 @@ export default function ScheduleModal({
               label='Waktu Mulai'
               rules={[{ required: true, message: 'Waktu mulai wajib diisi!' }]}
             >
-              <TimePicker style={{ width: '100%' }} format='HH:mm' placeholder='Pilih jam' />
+              <TimePicker
+                style={{ width: '100%' }}
+                format='HH:mm'
+                placeholder='Pilih jam'
+                disabledTime={disabledTimeRange}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -377,7 +456,12 @@ export default function ScheduleModal({
               label='Waktu Selesai'
               rules={[{ required: true, message: 'Waktu selesai wajib diisi!' }]}
             >
-              <TimePicker style={{ width: '100%' }} format='HH:mm' placeholder='Pilih jam' />
+              <TimePicker
+                style={{ width: '100%' }}
+                format='HH:mm'
+                placeholder='Pilih jam'
+                disabledTime={disabledTimeRange}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -418,50 +502,6 @@ export default function ScheduleModal({
                 max={168}
                 step={0.5}
                 placeholder='Masukkan estimasi durasi'
-                style={{ width: '100%' }}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={[16, 16]}>
-          <Col span={12}>
-            <Form.Item name='recurrence' label='Pengulangan'>
-              <Select placeholder='Pilih pengulangan (opsional)'>
-                {RECURRENCE_OPTIONS.map((option) => (
-                  <Option key={option.value} value={option.value}>
-                    {option.label}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item name='recurrence_interval' label='Interval Pengulangan'>
-              <Input
-                type='number'
-                min={1}
-                max={365}
-                placeholder='Contoh: 2 (setiap 2 hari)'
-                style={{ width: '100%' }}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={[16, 16]}>
-          <Col span={12}>
-            <Form.Item name='recurrence_end_date' label='Tanggal Akhir Pengulangan'>
-              <DatePicker style={{ width: '100%' }} placeholder='Opsional' />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item name='recurrence_count' label='Jumlah Pengulangan'>
-              <Input
-                type='number'
-                min={1}
-                max={1000}
-                placeholder='Contoh: 10'
                 style={{ width: '100%' }}
               />
             </Form.Item>

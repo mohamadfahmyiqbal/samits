@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import clsx from 'clsx';
 import { MenuProvider } from '../context/MenuContext';
+import { useAuth } from '../context/AuthContext';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
-
-//
+import ErrorBoundary from '../components/ErrorBoundary';
+import Loader from '../components/Loader';
+import Overlay from './components/Overlay';
 
 export default function MainLayout() {
-//
 
   const [side, setSide] = useState(false);
-  const closeSidebar = () => setSide(false);
-
-  const userPermissions = ['user.basic', 'asset.view', 'maintenance.view'];
+  const closeSidebar = useCallback(() => setSide(false), []);
+  
+  const { userPermissions = [] } = useAuth();
 
   return (
     <MenuProvider userPermissions={userPermissions}>
@@ -22,26 +24,21 @@ export default function MainLayout() {
 
         <div className='layout-shell flex-1 flex flex-col overflow-hidden'>
           {/* Sidebar Area */}
-          <aside className={`layout-sidebar flex-shrink-0 ${side ? 'sidebar-open' : ''}`}>
+          <aside className={clsx('layout-sidebar flex-shrink-0', {
+            'sidebar-open': side
+          })}>
             <Sidebar onNavigate={closeSidebar} />
           </aside>
 
           <div className='layout-body flex-1 flex flex-col overflow-hidden'>
-            {side && (
-              <button
-                className='fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden'
-                onClick={closeSidebar}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    closeSidebar();
-                  }
-                }}
-                aria-label='Tutup sidebar'
-              />
-            )}
+            {side && <Overlay onClose={closeSidebar} />}
 
             <main className='layout-content flex-1 overflow-y-auto'>
-              <Outlet />
+              <Suspense fallback={<Loader tip="Loading page..." />}>
+                <ErrorBoundary>
+                  <Outlet />
+                </ErrorBoundary>
+              </Suspense>
             </main>
           </div>
         </div>

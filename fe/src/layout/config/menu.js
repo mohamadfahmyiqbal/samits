@@ -23,11 +23,13 @@ export const menuGroups = [
           { label: "PM Schedule", path: "pm-schedule" },
           { label: "PM Task / Checklist", path: "pm-task" },
           { label: "PM Calendar", path: "pm-calendar" },
-          { label: "PM History", path: "pm-history" }
+{ label: "PM History", path: "pm-history" },
+          { label: "Preventive Reports", path: "preventive-reports" }
         ],
       },
     ],
   },
+
   { type: "link", label: "Stok Kontrol", path: "stok kontrol" },
   { type: "link", label: "Summary", path: "summary" },
 ];

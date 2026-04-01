@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   Form,
   Card,
@@ -12,326 +12,309 @@ import {
   Input,
   Select,
   Modal,
+  InputNumber,
 } from 'antd';
-import { ReloadOutlined, EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import './StockList.css';
+import { ReloadOutlined, EditOutlined, ExclamationCircleOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { inventoryService } from '../../services';
+import '../../App.css';
 
-const { Option } = Select;
 const { Search } = Input;
+const { Option } = Select;
 
-export default function StockList() {
+const determineStatus = (current, minimum) => {
+  if (minimum === null || minimum === undefined) return 'unknown';
+  if (current < minimum * 0.5) return 'critical';
+  if (current <= minimum) return 'low';
+  return 'normal';
+};
+
+const getStatusColor = (status) => {
+  switch (status) {
+    case 'normal':
+      return 'green';
+    case 'low':
+      return 'orange';
+    case 'critical':
+      return 'red';
+    default:
+      return 'default';
+  }
+};
+
+const getStatusIcon = (status) => {
+  switch (status) {
+    case 'normal':
+      return <CheckCircleOutlined />;
+    case 'low':
+    case 'critical':
+      return <ExclamationCircleOutlined />;
+    default:
+      return null;
+  }
+};
+
+const renderNumber = (value) =>
+  value === null || value === undefined ? '—' : value.toLocaleString('id-ID');
+
+const getMonthlyForecast = (record) => {
+  if (record.monthly_usage !== null && record.monthly_usage !== undefined) {
+    return record.monthly_usage;
+  }
+  if (record.minimum_stock !== null && record.minimum_stock !== undefined) {
+    return Math.max(1, Math.round(record.minimum_stock * 2));
+  }
+  return null;
+};
+
+const getYearlyForecast = (record) => {
+  if (record.yearly_usage !== null && record.yearly_usage !== undefined) {
+    return record.yearly_usage;
+  }
+  const monthly = getMonthlyForecast(record);
+  if (monthly !== null && monthly !== undefined) {
+    return monthly * 12;
+  }
+  return null;
+};
+
+const getRequirement = (record) => {
+  const minimum = record.minimum_stock ?? 0;
+  const current = record.current_stock ?? 0;
+  return Math.max(0, minimum - current);
+};
+
+const StockList = () => {
   const [stockData, setStockData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [editModalVisible, setEditModalVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [adjustModalVisible, setAdjustModalVisible] = useState(false);
+  const [selectedStock, setSelectedStock] = useState(null);
+  const [operationLoading, setOperationLoading] = useState(false);
   const [form] = Form.useForm();
 
-  const mockStockData = [
-    {
-      id: 1,
-      part_code: 'CPU-001',
-      part_name: 'Intel Core i7-12700K Processor',
-      category: 'CPU',
-      current_stock: 15,
-      minimum_stock: 10,
-      maximum_stock: 50,
-      unit: 'pcs',
-      location: 'Warehouse A - Rack 1',
-      supplier: 'PT. Intel Indonesia',
-      last_restock: '2024-03-20',
-      next_restock: '2024-04-20',
-      status: 'normal',
-      price: 5500000,
-      total_value: 82500000,
-    },
-    {
-      id: 2,
-      part_code: 'RAM-002',
-      part_name: 'DDR4 16GB 3200MHz RAM',
-      category: 'Memory',
-      current_stock: 8,
-      minimum_stock: 15,
-      maximum_stock: 40,
-      unit: 'pcs',
-      location: 'Warehouse A - Rack 2',
-      supplier: 'PT. Kingston Indonesia',
-      last_restock: '2024-03-15',
-      next_restock: '2024-04-15',
-      status: 'low',
-      price: 1200000,
-      total_value: 9600000,
-    },
-    {
-      id: 3,
-      part_code: 'SSD-003',
-      part_name: 'SSD 1TB NVMe M.2',
-      category: 'Storage',
-      current_stock: 25,
-      minimum_stock: 20,
-      maximum_stock: 60,
-      unit: 'pcs',
-      location: 'Warehouse B - Rack 1',
-      supplier: 'PT. Samsung Indonesia',
-      last_restock: '2024-03-18',
-      next_restock: '2024-04-18',
-      status: 'normal',
-      price: 1800000,
-      total_value: 45000000,
-    },
-    {
-      id: 4,
-      part_code: 'PSU-004',
-      part_name: 'Power Supply 750W 80+ Gold',
-      category: 'Power Supply',
-      current_stock: 5,
-      minimum_stock: 12,
-      maximum_stock: 30,
-      unit: 'pcs',
-      location: 'Warehouse A - Rack 3',
-      supplier: 'PT. Corsair Indonesia',
-      last_restock: '2024-03-10',
-      next_restock: '2024-04-10',
-      status: 'critical',
-      price: 2200000,
-      total_value: 11000000,
-    },
-    {
-      id: 5,
-      part_code: 'GPU-005',
-      part_name: 'NVIDIA RTX 3060 12GB',
-      category: 'Graphics Card',
-      current_stock: 18,
-      minimum_stock: 8,
-      maximum_stock: 25,
-      unit: 'pcs',
-      location: 'Warehouse B - Rack 2',
-      supplier: 'PT. NVIDIA Indonesia',
-      last_restock: '2024-03-22',
-      next_restock: '2024-04-22',
-      status: 'normal',
-      price: 8500000,
-      total_value: 153000000,
-    },
-  ];
-
-  const categories = [
-    { value: 'all', label: 'All Categories' },
-    { value: 'CPU', label: 'CPU' },
-    { value: 'Memory', label: 'Memory' },
-    { value: 'Storage', label: 'Storage' },
-    { value: 'Power Supply', label: 'Power Supply' },
-    { value: 'Graphics Card', label: 'Graphics Card' },
-    { value: 'Motherboard', label: 'Motherboard' },
-    { value: 'Cooling', label: 'Cooling' },
-  ];
-
-  useEffect(() => {
-    setStockData(mockStockData);
-    setFilteredData(mockStockData);
+  const loadStockData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await inventoryService.listParts({ limit: 200 });
+      const stocks = response.data?.data || [];
+      setStockData(stocks);
+    } catch (error) {
+      console.error('Gagal memuat data stok:', error);
+      message.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          'Tidak dapat mengambil data inventory saat ini.',
+      );
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
-    let filtered = stockData.filter((item) => {
-      const matchesSearch =
-        item.part_name.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.part_code.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.supplier.toLowerCase().includes(searchText.toLowerCase());
+    loadStockData();
+  }, [loadStockData]);
+
+  useEffect(() => {
+    const text = searchText.toLowerCase();
+    const filtered = stockData.filter((item) => {
+      const searchable = `${item.part_name ?? ''} ${item.part_code ?? ''}`.toLowerCase();
+      const matchesSearch = searchable.includes(text);
       const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
     setFilteredData(filtered);
   }, [searchText, selectedCategory, stockData]);
 
-  const handleEdit = (item) => {
-    setSelectedItem(item);
-    form.setFieldsValue(item);
-    setEditModalVisible(true);
+  const categoryOptions = useMemo(() => {
+    const categories = Array.from(new Set(stockData.map((item) => item.category).filter(Boolean)));
+    return [{ value: 'all', label: 'Semua Kategori' }, ...categories.map((category) => ({ value: category, label: category }))];
+  }, [stockData]);
+
+  const totalItems = useMemo(
+    () => stockData.reduce((sum, item) => sum + (item.current_stock || 0), 0),
+    [stockData],
+  );
+  const totalValue = useMemo(
+    () => stockData.reduce((sum, item) => sum + (item.price || 0) * (item.current_stock || 0), 0),
+    [stockData],
+  );
+  const lowStockItems = useMemo(
+    () =>
+      stockData.filter(
+        (item) =>
+          item.minimum_stock !== null &&
+          item.minimum_stock !== undefined &&
+          item.current_stock <= item.minimum_stock,
+      ).length,
+    [stockData],
+  );
+  const alerts = useMemo(
+    () =>
+      stockData.filter(
+        (item) =>
+          item.minimum_stock !== null &&
+          item.minimum_stock !== undefined &&
+          item.current_stock <= item.minimum_stock,
+      ),
+    [stockData],
+  );
+
+  const handleAdjustmentModal = (stock = null) => {
+    form.resetFields();
+    setSelectedStock(stock);
+    setAdjustModalVisible(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleStockSelect = (stockId) => {
+    const stock = stockData.find((item) => item.id === stockId);
+    setSelectedStock(stock || null);
+  };
+
+  const handleRefresh = useCallback(() => {
+    loadStockData();
+  }, [loadStockData]);
+
+  const handleSubmitAdjustment = async (values) => {
+    if (!selectedStock) {
+      message.warning('Pilih item stok terlebih dahulu sebelum menyimpan penyesuaian.');
+      return;
+    }
+
+    setOperationLoading(true);
+    try {
+      await inventoryService.createTransaction({
+        stock_id: selectedStock.id,
+        type: values.adjustmentType,
+        quantity: Number(values.quantity),
+        notes: values.notes || 'Penyesuaian stok manual',
+      });
+      message.success('Penyesuaian stok berhasil');
+      setAdjustModalVisible(false);
+      setSelectedStock(null);
+      form.resetFields();
+      loadStockData();
+    } catch (error) {
+      console.error('Gagal menyesuaikan stok:', error);
+      message.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          'Terjadi kesalahan saat menyimpan penyesuaian stok.',
+      );
+    } finally {
+      setOperationLoading(false);
+    }
+  };
+
+  const handleDelete = (record) => {
     Modal.confirm({
-      title: 'Hapus Item Stock',
-      content: 'Apakah Anda yakin ingin menghapus item ini dari stock list?',
-      okText: 'Ya',
-      cancelText: 'Tidak',
+      title: 'Set stok menjadi 0?',
+      content: `Mengatur stok part ${record.part_name} menjadi nol akan mencatat transaksi keluar penuh.`,
+      okText: 'Set Zero',
+      cancelText: 'Batal',
       onOk: async () => {
         try {
-          setStockData((prev) => prev.filter((item) => item.id !== id));
-          message.success('Item berhasil dihapus');
+          await inventoryService.createTransaction({
+            stock_id: record.id,
+            type: 'out',
+            quantity: record.current_stock || 0,
+            notes: 'Reset stok melalui UI',
+          });
+          message.success('Stok di-reset menjadi 0.');
+          loadStockData();
         } catch (error) {
-          message.error('Gagal menghapus item');
+          console.error('Gagal reset stok:', error);
+          message.error('Gagal mereset stok bagian ini.');
         }
       },
     });
   };
 
-  const handleSave = async (values) => {
-    setLoading(true);
-    try {
-      if (selectedItem) {
-        // Update existing item
-        setStockData((prev) =>
-          prev.map((item) =>
-            item.id === selectedItem.id
-              ? { ...item, ...values, total_value: values.current_stock * values.price }
-              : item
-          )
-        );
-        message.success('Item berhasil diperbarui');
-      } else {
-        // Add new item
-        const newItem = {
-          ...values,
-          id: Date.now(),
-          total_value: values.current_stock * values.price,
-          status:
-            values.current_stock <= values.minimum_stock / 2
-              ? 'critical'
-              : values.current_stock <= values.minimum_stock
-                ? 'low'
-                : 'normal',
-        };
-        setStockData((prev) => [newItem, ...prev]);
-        message.success('Item berhasil ditambahkan');
-      }
-      setEditModalVisible(false);
-      setSelectedItem(null);
-      form.resetFields();
-    } catch (error) {
-      message.error('Gagal menyimpan item');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRefresh = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setStockData(mockStockData);
-      setLoading(false);
-      message.success('Data berhasil di-refresh');
-    }, 1000);
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'normal':
-        return 'green';
-      case 'low':
-        return 'orange';
-      case 'critical':
-        return 'red';
-      default:
-        return 'default';
-    }
-  };
-
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'normal':
-        return <CheckCircleOutlined />;
-      case 'low':
-        return <ExclamationCircleOutlined />;
-      case 'critical':
-        return <ExclamationCircleOutlined />;
-      default:
-        return null;
-    }
-  };
-
-  const totalItems = filteredData.reduce((sum, item) => sum + item.current_stock, 0);
-  const totalValue = filteredData.reduce((sum, item) => sum + item.total_value, 0);
-  const lowStockItems = filteredData.filter(
-    (item) => item.status === 'low' || item.status === 'critical'
-  ).length;
-
   const columns = [
     {
-      title: 'Part Code',
-      dataIndex: 'part_code',
-      key: 'part_code',
-      render: (text) => <strong>{text}</strong>,
+      title: 'No Keranjang',
+      key: 'basket_number',
+      ellipsis: true,
+      render: (_, record) => record.part_code || `#${record.part_id ?? record.id}`,
     },
     {
-      title: 'Part Name',
+      title: 'Kategori',
+      dataIndex: 'category',
+      key: 'category',
+      render: (value) => <Tag color='blue'>{value || '—'}</Tag>,
+    },
+    {
+      title: 'Nama Perangkat',
       dataIndex: 'part_name',
       key: 'part_name',
       ellipsis: true,
     },
     {
-      title: 'Category',
-      dataIndex: 'category',
-      key: 'category',
-      render: (category) => <Tag color='blue'>{category}</Tag>,
+      title: 'Satuan',
+      dataIndex: 'unit',
+      key: 'unit',
+      render: (value) => value || 'Unit',
     },
     {
-      title: 'Current Stock',
-      dataIndex: 'current_stock',
-      key: 'current_stock',
-      render: (stock, record) => (
-        <div>
-          <strong>
-            {stock} {record.unit}
-          </strong>
-          <div style={{ fontSize: '12px', color: '#8c8c8c' }}>
-            Min: {record.minimum_stock} | Max: {record.maximum_stock}
-          </div>
-        </div>
+      title: 'Standar Stok',
+      key: 'standard_stock',
+      children: [
+        {
+          title: 'Qty',
+          key: 'standard_qty',
+          align: 'right',
+          render: (_, record) => renderNumber(record.minimum_stock),
+        },
+        {
+          title: 'Monthly',
+          key: 'standard_monthly',
+          align: 'right',
+          render: (_, record) => renderNumber(getMonthlyForecast(record)),
+        },
+        {
+          title: 'Yearly',
+          key: 'standard_yearly',
+          align: 'right',
+          render: (_, record) => renderNumber(getYearlyForecast(record)),
+        },
+      ],
+    },
+    {
+      title: 'Act Stock',
+      key: 'actual_stock',
+      align: 'right',
+      render: (_, record) => (
+        <strong>
+          {renderNumber(record.current_stock)} {record.unit || 'unit'}
+        </strong>
       ),
     },
     {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status) => (
-        <Tag color={getStatusColor(status)} icon={getStatusIcon(status)}>
-          {status.toUpperCase()}
-        </Tag>
-      ),
-    },
-    {
-      title: 'Location',
-      dataIndex: 'location',
-      key: 'location',
-    },
-    {
-      title: 'Unit Price',
-      dataIndex: 'price',
-      key: 'price',
-      render: (price) => `Rp ${price.toLocaleString('id-ID')}`,
-      sorter: (a, b) => a.price - b.price,
-    },
-    {
-      title: 'Total Value',
-      dataIndex: 'total_value',
-      key: 'total_value',
-      render: (value) => `Rp ${value.toLocaleString('id-ID')}`,
-      sorter: (a, b) => a.total_value - b.total_value,
+      title: 'Kebutuhan',
+      key: 'need',
+      align: 'right',
+      render: (_, record) => {
+        const need = getRequirement(record);
+        if (!need) return '—';
+        return `${need.toLocaleString('id-ID')} ${record.unit || 'unit'}`;
+      },
     },
     {
       title: 'Action',
       key: 'action',
+      width: 190,
       render: (_, record) => (
         <Space>
           <Button
             type='primary'
-            size='small'
             icon={<EditOutlined />}
-            onClick={() => handleEdit(record)}
+            onClick={() => handleAdjustmentModal(record)}
           >
-            Edit
+            Adjust
           </Button>
-          <Button
-            type='primary'
-            danger
-            size='small'
-            icon={<DeleteOutlined />}
-            onClick={() => handleDelete(record.id)}
-          >
-            Delete
+          <Button danger onClick={() => handleDelete(record)}>
+            Reset
           </Button>
         </Space>
       ),
@@ -342,7 +325,7 @@ export default function StockList() {
     <div className='stock-list'>
       <div className='page-header'>
         <h1>Stock List</h1>
-        <p>Kelola daftar stock parts dan monitoring ketersediaan</p>
+        <p>Kelola daftar stok parts dan monitoring ketersediaan.</p>
       </div>
 
       <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
@@ -381,6 +364,18 @@ export default function StockList() {
         </Col>
       </Row>
 
+      {alerts.length > 0 && (
+        <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+          <Col span={24}>
+            <Card type='inner'>
+            <Tag color='orange'>
+              Terdapat {alerts.length} item stok rendah/critical (≤ minimum stock).
+            </Tag>
+            </Card>
+          </Col>
+        </Row>
+      )}
+
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Card
@@ -388,41 +383,38 @@ export default function StockList() {
             extra={
               <Space>
                 <Button
-                  type='primary'
-                  icon={<PlusOutlined />}
-                  onClick={() => {
-                    setSelectedItem(null);
-                    form.resetFields();
-                    setEditModalVisible(true);
-                  }}
+                  icon={<ReloadOutlined />}
+                  onClick={handleRefresh}
+                  loading={loading}
+                  disabled={loading}
                 >
-                  Tambah Item
+                  Refresh
+                </Button>
+                <Button type='primary' onClick={() => handleAdjustmentModal()}>
+                  Adjust Stock
                 </Button>
               </Space>
             }
           >
-            <div className='table-controls'>
-              <Space>
+            <div className='table-controls' style={{ marginBottom: 16 }}>
+              <Space wrap>
                 <Search
                   placeholder='Cari parts...'
                   allowClear
-                  style={{ width: 300 }}
+                  style={{ width: 260 }}
                   onChange={(e) => setSearchText(e.target.value)}
                 />
                 <Select
                   value={selectedCategory}
-                  onChange={setSelectedCategory}
-                  style={{ width: 200 }}
+                  onChange={(value) => setSelectedCategory(value)}
+                  style={{ width: 220 }}
                 >
-                  {categories.map((cat) => (
+                  {categoryOptions.map((cat) => (
                     <Option key={cat.value} value={cat.value}>
                       {cat.label}
                     </Option>
                   ))}
                 </Select>
-                <Button icon={<ReloadOutlined />} onClick={handleRefresh} loading={loading}>
-                  Refresh
-                </Button>
               </Space>
             </div>
 
@@ -431,16 +423,11 @@ export default function StockList() {
               dataSource={filteredData}
               rowKey='id'
               loading={loading}
-              pagination={{
-                total: filteredData.length,
-                pageSize: 10,
-                showSizeChanger: true,
-                showQuickJumper: true,
-                showTotal: (total, range) => `${range[0]}-${range[1]} dari ${total} items`,
-              }}
+              pagination={{ pageSize: 10 }}
               rowClassName={(record) => {
-                if (record.status === 'critical') return 'row-critical';
-                if (record.status === 'low') return 'row-low';
+                const status = determineStatus(record.current_stock ?? 0, record.minimum_stock);
+                if (status === 'critical') return 'row-critical';
+                if (status === 'low') return 'row-low';
                 return '';
               }}
             />
@@ -449,142 +436,84 @@ export default function StockList() {
       </Row>
 
       <Modal
-        title={selectedItem ? 'Edit Stock Item' : 'Tambah Stock Item'}
-        open={editModalVisible}
+        title={selectedStock ? `Penyesuaian ${selectedStock.part_name}` : 'Penyesuaian Stok'}
+        open={adjustModalVisible}
         onCancel={() => {
-          setEditModalVisible(false);
-          setSelectedItem(null);
-          form.resetFields();
+          setAdjustModalVisible(false);
+          setSelectedStock(null);
         }}
         footer={null}
-        width={800}
+        width={600}
       >
-        <Form form={form} layout='vertical' onFinish={handleSave}>
-          <Row gutter={[16, 16]}>
-            <Col span={12}>
-              <Form.Item
-                name='part_code'
-                label='Part Code'
-                rules={[{ required: true, message: 'Part code harus diisi!' }]}
+        <Form form={form} layout='vertical' onFinish={handleSubmitAdjustment}>
+          {!selectedStock && (
+            <Form.Item
+              name='stockId'
+              label='Pilih Part'
+              rules={[{ required: true, message: 'Harap pilih part terlebih dahulu' }]}
+            >
+              <Select
+                placeholder='Cari part untuk disesuaikan'
+                showSearch
+                optionFilterProp='children'
+                onChange={handleStockSelect}
               >
-                <Input placeholder='Contoh: CPU-001' />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name='part_name'
-                label='Part Name'
-                rules={[{ required: true, message: 'Part name harus diisi!' }]}
-              >
-                <Input placeholder='Contoh: Intel Core i7-12700K' />
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Row gutter={[16, 16]}>
-            <Col span={8}>
-              <Form.Item
-                name='category'
-                label='Category'
-                rules={[{ required: true, message: 'Category harus diisi!' }]}
-              >
-                <Select placeholder='Pilih category'>
-                  {categories
-                    .filter((cat) => cat.value !== 'all')
-                    .map((cat) => (
-                      <Option key={cat.value} value={cat.value}>
-                        {cat.label}
-                      </Option>
-                    ))}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                name='unit'
-                label='Unit'
-                rules={[{ required: true, message: 'Unit harus diisi!' }]}
-              >
-                <Select placeholder='Pilih unit'>
-                  <Option value='pcs'>pcs</Option>
-                  <Option value='box'>box</Option>
-                  <Option value='set'>set</Option>
-                  <Option value='meter'>meter</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                name='price'
-                label='Unit Price (Rp)'
-                rules={[{ required: true, message: 'Price harus diisi!' }]}
-              >
-                <Input type='number' placeholder='0' />
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Row gutter={[16, 16]}>
-            <Col span={8}>
-              <Form.Item
-                name='current_stock'
-                label='Current Stock'
-                rules={[{ required: true, message: 'Current stock harus diisi!' }]}
-              >
-                <Input type='number' placeholder='0' />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                name='minimum_stock'
-                label='Minimum Stock'
-                rules={[{ required: true, message: 'Minimum stock harus diisi!' }]}
-              >
-                <Input type='number' placeholder='0' />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                name='maximum_stock'
-                label='Maximum Stock'
-                rules={[{ required: true, message: 'Maximum stock harus diisi!' }]}
-              >
-                <Input type='number' placeholder='0' />
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Row gutter={[16, 16]}>
-            <Col span={12}>
-              <Form.Item
-                name='location'
-                label='Location'
-                rules={[{ required: true, message: 'Location harus diisi!' }]}
-              >
-                <Input placeholder='Contoh: Warehouse A - Rack 1' />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name='supplier'
-                label='Supplier'
-                rules={[{ required: true, message: 'Supplier harus diisi!' }]}
-              >
-                <Input placeholder='Contoh: PT. Intel Indonesia' />
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Form.Item>
+                {stockData.map((stock) => (
+                  <Option key={stock.id} value={stock.id}>
+                    {stock.part_name} (Gudang {stock.warehouse_id ?? '-'})
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          )}
+          {selectedStock && (
+            <Form.Item label='Current Stock'>
+              <Input value={`${selectedStock.current_stock ?? 0}`} disabled />
+            </Form.Item>
+          )}
+          <Form.Item
+            name='adjustmentType'
+            label='Tipe Penyesuaian'
+            initialValue='in'
+            rules={[{ required: true, message: 'Pilih tipe penyesuaian' }]}
+          >
+            <Select>
+              <Option value='in'>Stok Masuk</Option>
+              <Option value='out'>Stok Keluar</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name='quantity'
+            label='Jumlah'
+            rules={[
+              { required: true, message: 'Masukkan jumlah penyesuaian' },
+              { type: 'number', min: 1, message: 'Jumlah harus lebih dari 0' },
+            ]}
+          >
+            <InputNumber style={{ width: '100%' }} min={1} />
+          </Form.Item>
+          <Form.Item name='notes' label='Catatan'>
+            <Input.TextArea rows={3} placeholder='Opsional: alasan penyesuaian' />
+          </Form.Item>
+          <Form.Item className='text-right'>
             <Space>
-              <Button type='primary' htmlType='submit' loading={loading}>
-                {selectedItem ? 'Update' : 'Tambah'}
+              <Button
+                onClick={() => {
+                  setAdjustModalVisible(false);
+                  setSelectedStock(null);
+                }}
+              >
+                Batal
               </Button>
-              <Button onClick={() => setEditModalVisible(false)}>Batal</Button>
+              <Button type='primary' htmlType='submit' loading={operationLoading}>
+                Simpan Penyesuaian
+              </Button>
             </Space>
           </Form.Item>
         </Form>
       </Modal>
     </div>
   );
-}
+};
+
+export default StockList;

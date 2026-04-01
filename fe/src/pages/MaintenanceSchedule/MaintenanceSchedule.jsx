@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Card,
   Row,
@@ -18,13 +18,14 @@ import StatisticsCards from './components/StatisticsCards';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   format,
-  differenceInDays,
   addDays,
   subDays,
   startOfWeek,
   endOfWeek,
   startOfMonth,
   endOfMonth,
+  startOfYear,
+  endOfYear,
 } from 'date-fns';
 import {
   fetchActiveLogs,
@@ -52,7 +53,7 @@ export default function MaintenanceSchedule() {
   const [scheduleModalVisible, setScheduleModalVisible] = useState(false);
   const [scheduleModalMode, setScheduleModalMode] = useState('add');
   const [modalInitialValues, setModalInitialValues] = useState(null);
-  const [ganttViewType, setGanttViewType] = useState('weekly'); // 'daily', 'weekly', 'monthly'
+  const [ganttViewType, setGanttViewType] = useState('weekly'); // 'daily', 'weekly', 'monthly', 'yearly'
   const [selectedDateRange, setSelectedDateRange] = useState(null);
   const [form] = Form.useForm();
   const [modalLoading, setModalLoading] = useState(false);
@@ -161,7 +162,7 @@ export default function MaintenanceSchedule() {
     { nik: '11111', name: 'Mike Johnson', display_name: 'Mike Johnson (11111)' },
   ];
 
-  const fetchMaintenanceTeam = async () => {
+  const fetchMaintenanceTeam = useCallback(async () => {
     setTeamLoading(true);
     try {
       const response = await userService.fetchMaintenanceUsers();
@@ -177,10 +178,10 @@ export default function MaintenanceSchedule() {
     } finally {
       setTeamLoading(false);
     }
-  };
+  }, []);
 
   // Fetch categories from API
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     try {
       const response = await fetchMainTypes();
       if (response.data) {
@@ -198,7 +199,7 @@ export default function MaintenanceSchedule() {
         { asset_main_type_id: 6, main_type_name: 'Facility' },
       ]);
     }
-  };
+  }, []);
 
   // Fetch categories by main type
   const fetchCategoriesByMainTypeLocal = async (mainTypeId) => {
@@ -258,7 +259,12 @@ export default function MaintenanceSchedule() {
   };
 
   // Fetch IT items by category/subcategory
-  const fetchITItems = async (categoryId, subCategoryId, mainTypeId = null) => {
+  const fetchITItems = async (
+    categoryId,
+    subCategoryId,
+    mainTypeId = null,
+    fallbackItems = [],
+  ) => {
     if (!categoryId || !subCategoryId) {
       setItItems([]);
       return;
@@ -267,11 +273,19 @@ export default function MaintenanceSchedule() {
     try {
       const response = await fetchITItemsByCategory(categoryId, subCategoryId, mainTypeId);
       if (response.data) {
-        setItItems(response.data || []);
+        if (response.data.length === 0 && fallbackItems.length > 0) {
+          setItItems(fallbackItems);
+        } else {
+          setItItems(response.data || []);
+        }
       }
     } catch (error) {
       console.error('Failed to fetch IT items:', error);
-      setItItems([]);
+      if (fallbackItems.length > 0) {
+        setItItems(fallbackItems);
+      } else {
+        setItItems([]);
+      }
     } finally {
       setItItemsLoading(false);
     }
@@ -309,7 +323,7 @@ export default function MaintenanceSchedule() {
     form.setFieldsValue({ hostname: undefined });
     fetchITItems(selectedCategory, value, selectedMainType);
   };
-  const fetchSchedules = async () => {
+  const fetchSchedules = useCallback(async () => {
     try {
       const response = await fetchActiveLogs();
       if (response.success) {
@@ -322,7 +336,62 @@ export default function MaintenanceSchedule() {
       // Fallback to mock data if API fails
       setScheduleData([]);
     }
-  };
+  }, []);
+
+  // Create schedule from wizard data
+  const createScheduleFromWizard = useCallback(
+    async (scheduleData) => {
+      try {
+        const payload = {
+          hostname: Array.isArray(scheduleData.hostname)
+            ? scheduleData.hostname[0]
+            : scheduleData.hostname,
+          asset_main_type_id: scheduleData.asset_main_type_id,
+          category_id: scheduleData.category_id,
+          sub_category_id: scheduleData.sub_category_id,
+          start_date: scheduleData.start_date?.format
+            ? scheduleData.start_date.format('YYYY-MM-DD')
+            : scheduleData.start_date,
+          end_date: scheduleData.end_date?.format
+            ? scheduleData.end_date.format('YYYY-MM-DD')
+            : scheduleData.end_date,
+          start_time: scheduleData.start_time?.format
+            ? scheduleData.start_time.format('HH:mm')
+            : scheduleData.start_time,
+          end_time: scheduleData.end_time?.format
+            ? scheduleData.end_time.format('HH:mm')
+            : scheduleData.end_time,
+          team: scheduleData.team,
+          description: scheduleData.notes,
+          notes: scheduleData.notes,
+          priority: scheduleData.priority || 'medium',
+          estimated_duration: scheduleData.estimated_duration || 2.0,
+          recurrence: scheduleData.recurrence,
+          recurrence_interval: scheduleData.recurrence_interval,
+          recurrence_end_date: scheduleData.recurrence_end_date?.format
+            ? scheduleData.recurrence_end_date.format('YYYY-MM-DD')
+            : scheduleData.recurrence_end_date,
+          recurrence_count: scheduleData.recurrence_count,
+          selected_assets: scheduleData.selected_assets,
+        };
+
+        const response = await createLog(payload);
+        if (response.success) {
+          message.success('Jadwal maintenance berhasil dibuat!');
+          fetchSchedules(); // Refresh data
+          return true; // Success - modal can close
+        }
+
+        message.error(response.message || 'Gagal membuat jadwal');
+        return false;
+      } catch (error) {
+        console.error('Failed to create schedule:', error);
+        message.error('Gagal membuat jadwal');
+        return false;
+      }
+    },
+    [fetchSchedules],
+  );
 
   useEffect(() => {
     fetchSchedules();
@@ -355,61 +424,16 @@ export default function MaintenanceSchedule() {
       // Create schedule via API
       createScheduleFromWizard(newSchedule);
     }
-  }, [category, subcategory, schedule, selectedDate]);
-
-  // Create schedule from wizard data
-  const createScheduleFromWizard = async (scheduleData) => {
-    console.log('[DEBUG Frontend] scheduleData from form:', JSON.stringify(scheduleData, null, 2));
-    try {
-      const payload = {
-        hostname: Array.isArray(scheduleData.hostname)
-          ? scheduleData.hostname[0]
-          : scheduleData.hostname,
-        asset_main_type_id: scheduleData.asset_main_type_id,
-        category_id: scheduleData.category_id,
-        sub_category_id: scheduleData.sub_category_id,
-        start_date: scheduleData.start_date?.format
-          ? scheduleData.start_date.format('YYYY-MM-DD')
-          : scheduleData.start_date,
-        end_date: scheduleData.end_date?.format
-          ? scheduleData.end_date.format('YYYY-MM-DD')
-          : scheduleData.end_date,
-        start_time: scheduleData.start_time?.format
-          ? scheduleData.start_time.format('HH:mm')
-          : scheduleData.start_time,
-        end_time: scheduleData.end_time?.format
-          ? scheduleData.end_time.format('HH:mm')
-          : scheduleData.end_time,
-        team: scheduleData.team,
-        description: scheduleData.notes,
-        notes: scheduleData.notes,
-        priority: scheduleData.priority || 'medium',
-        estimated_duration: scheduleData.estimated_duration || 2.0,
-        recurrence: scheduleData.recurrence,
-        recurrence_interval: scheduleData.recurrence_interval,
-        recurrence_end_date: scheduleData.recurrence_end_date?.format
-          ? scheduleData.recurrence_end_date.format('YYYY-MM-DD')
-          : scheduleData.recurrence_end_date,
-        recurrence_count: scheduleData.recurrence_count,
-        selected_assets: scheduleData.selected_assets,
-      };
-      console.log('[DEBUG Frontend] payload to be sent:', JSON.stringify(payload, null, 2));
-
-      const response = await createLog(payload);
-      if (response.success) {
-        message.success('Jadwal maintenance berhasil dibuat!');
-        fetchSchedules(); // Refresh data
-        return true; // Success - modal can close
-      } else {
-        message.error(response.message || 'Gagal membuat jadwal');
-        return false; // Failed - keep modal open
-      }
-    } catch (error) {
-      console.error('Failed to create schedule:', error);
-      message.error('Gagal membuat jadwal');
-      return false; // Failed - keep modal open
-    }
-  };
+  }, [
+    category,
+    subcategory,
+    schedule,
+    selectedDate,
+    fetchSchedules,
+    fetchCategories,
+    fetchMaintenanceTeam,
+    createScheduleFromWizard,
+  ]);
 
   const handleViewDetail = (schedule) => {
     navigate('/dashboard-maintenance', {
@@ -425,8 +449,41 @@ export default function MaintenanceSchedule() {
     setModalLoading(true);
     try {
       const response = await fetchSchedule(schedule.id);
+      console.log('fetchSchedule response:', response);
       if (response.success && response.data) {
         setModalInitialValues(response.data);
+        const mainTypeId =
+          response.data.assetMainTypeId ?? response.data.asset_main_type_id;
+        const categoryId =
+          response.data.categoryId ?? response.data.category_id;
+        const subCategoryId =
+          response.data.subCategoryId ?? response.data.sub_category_id;
+
+        if (mainTypeId) {
+          setSelectedMainType(mainTypeId);
+          fetchCategoriesByMainTypeLocal(mainTypeId);
+        }
+
+        if (categoryId) {
+          setSelectedCategory(categoryId);
+          fetchSubCategoriesByCategoryLocal(categoryId);
+        }
+
+        const fallbackItems = (response.data.assets || []).map((asset) => ({
+          it_item_id: asset.itItemId,
+          hostname: asset.hostname,
+          asset_tag: asset.assetTag,
+          item_name: asset.hostname || asset.assetTag,
+          status: 'active',
+        }));
+
+        if (fallbackItems.length > 0) {
+          setItItems(fallbackItems);
+        }
+
+        if (categoryId && subCategoryId) {
+          fetchITItems(categoryId, subCategoryId, mainTypeId, fallbackItems);
+        }
         setScheduleModalVisible(true);
       } else {
         message.error(response.message || 'Gagal memuat data jadwal');
@@ -547,20 +604,22 @@ export default function MaintenanceSchedule() {
       return { start: selectedDateRange[0], end: selectedDateRange[1] };
     }
 
-    switch (ganttViewType) {
-      case 'daily':
-        return { start: now, end: addDays(now, 0) }; // Today only
-      case 'weekly':
-        return {
-          start: startOfWeek(now, { weekStartsOn: 1 }),
-          end: endOfWeek(now, { weekStartsOn: 1 }),
-        };
-      case 'monthly':
-        return { start: startOfMonth(now), end: endOfMonth(now) };
-      default:
-        return { start: subDays(now, 7), end: addDays(now, 30) };
-    }
-  };
+      switch (ganttViewType) {
+        case 'daily':
+          return { start: now, end: addDays(now, 0) }; // Today only
+        case 'weekly':
+          return {
+            start: startOfWeek(now, { weekStartsOn: 1 }),
+            end: endOfWeek(now, { weekStartsOn: 1 }),
+          };
+        case 'monthly':
+          return { start: startOfMonth(now), end: endOfMonth(now) };
+        case 'yearly':
+          return { start: startOfYear(now), end: endOfYear(now) };
+        default:
+          return { start: subDays(now, 7), end: addDays(now, 30) };
+      }
+    };
 
   return (
     <div className='maintenance-schedule'>
@@ -577,10 +636,11 @@ export default function MaintenanceSchedule() {
             title='Daftar Jadwal Maintenance'
             extra={
               <Space>
-                <Select value={ganttViewType} onChange={setGanttViewType} style={{ width: 120 }}>
+                <Select value={ganttViewType} onChange={setGanttViewType} style={{ width: 140 }}>
                   <Option value='daily'>Daily</Option>
                   <Option value='weekly'>Weekly</Option>
                   <Option value='monthly'>Monthly</Option>
+                  <Option value='yearly'>Yearly</Option>
                 </Select>
                 <DatePicker.RangePicker
                   value={selectedDateRange}
@@ -595,12 +655,8 @@ export default function MaintenanceSchedule() {
           >
             <GanttChart
               scheduleData={scheduleData}
-              ganttViewType={ganttViewType}
-              selectedDateRange={selectedDateRange}
-              getDateRange={getDateRange}
+              dateRange={getDateRange()}
               onEdit={handleEdit}
-              onDelete={handleDelete}
-              onViewDetail={handleViewDetail}
             />
           </Card>
         </Col>
