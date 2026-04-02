@@ -12,11 +12,26 @@ export default (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        part_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        qty: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+        },
         // Tambahkan field lain sesuai kebutuhan
     }, {
-        tableName: 'warehouse_stocks',
-        timestamps: true,
+        tableName: 'warehouse_stock',
+        freezeTableName: true,
+        timestamps: false,
     });
+
+    WarehouseStock.associate = (db) => {
+      if (db.Part) {
+        WarehouseStock.belongsTo(db.Part, { foreignKey: 'part_id', as: 'part' });
+      }
+    };
 
     return WarehouseStock;
 };

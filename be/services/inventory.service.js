@@ -1,327 +1,441 @@
-// Inventory Service
-import { Op } from 'sequelize';
-import winston from 'winston';
-import {
-  Stock,
-  Part,
-  PartCategory,
-  MinimumStock,
-  StockMovement,
-  Location
-} from '../models/index.js';
+import { db } from '../models/index.js';
+import { Op, fn, col, QueryTypes } from 'sequelize';
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.errors({ stack: true }),
-    winston.format.json()
-  ),
-  transports: [
-    new winston.transports.File({ filename: 'logs/inventory.log' }),
-    new winston.transports.Console({ format: winston.format.simple() })
-  ]
-});
+const formatStockRow = (stock) => {
+  const part = stock.part;
+  const partId = part?.part_id ?? stock.part_id;
+  return {
+    id: stock.id,
+    warehouse_id: stock.warehouse_id,
+    part_id: partId,
+    part_name: part?.part_name ?? null,
+    category: part?.part_category ?? null,
+    unit: part?.unit ?? null,
+    minimum_stock: part?.minimum_stock ?? null,
+    maximum_stock: part?.maximum_stock ?? null,
+    price: part?.price ?? null,
+    part_code: part?.part_code ?? null,
+    current_stock: stock.qty ?? 0,
+  };
+};
 
-export class InventoryService {
-  // Get all stock items
-  static async getAllStocks(filters = {}) {
-    try {
-      const where = {};
-      
-      if (filters.partId) where.partId = filters.partId;
-      if (filters.locationId) where.locationId = filters.locationId;
-      if (filters.minQuantity) where.quantity = { [Op.gte]: filters.minQuantity };
-      if (filters.maxQuantity) where.quantity = { [Op.lte]: filters.maxQuantity };
+const assertModelsReady = () => {
+  const { WarehouseStock, InventoryTransaction, Part } = db;
+  const missing = [];
+  if (!WarehouseStock) missing.push('WarehouseStock');
+  if (!InventoryTransaction) missing.push('InventoryTransaction');
+  if (!Part) missing.push('Part');
+  if (missing.length) {
+    throw new Error(`Database models not initialized: ${missing.join(', ')}`);
+  }
+  return { WarehouseStock, InventoryTransaction, Part };
+};
 
-      const stocks = await Stock.findAll({
-        where,
-        include: [
-          {
-            model: Part,
-            include: [{ model: PartCategory }]
-          },
-          { model: Location }
-        ],
-        order: [['updatedAt', 'DESC']]
-      });
+const aggregateUsageByWindow = async (InventoryTransaction, partIds = [], startDate) => {
+  if (!partIds.length || !startDate) return {};
+  const now = new Date();
+  const usageRows = await InventoryTransaction.findAll({
+    attributes: [
+      'part_id',
+      [fn('SUM', fn('ABS', col('qty'))), 'usage'],
+    ],
+    where: {
+      part_id: partIds,
+      trans_date: {
+        [Op.gte]: startDate,
+        [Op.lte]: now,
+      },
+    },
+    group: ['part_id'],
+    raw: true,
+  });
 
+  return usageRows.reduce((acc, row) => {
+    acc[row.part_id] = Number(row.usage) || 0;
+    return acc;
+  }, {});
+};
+
+const normalizeDateRange = (value) => {
+  const values = Array.isArray(value) ? value : value ? [value] : [];
+  const dates = values
+    .map((item) => {
+      if (!item) return null;
+      if (item instanceof Date) return item;
+      const parsed = new Date(item);
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    })
+    .filter(Boolean);
+  if (!dates.length) return {};
+  const [first, second] = dates;
+  const startDate = first;
+  let endDate = second;
+  if (startDate && !endDate) {
+    endDate = startDate;
+  }
+  if (endDate) {
+    endDate = new Date(endDate);
+    endDate.setHours(23, 59, 59, 999);
+  }
+  return { startDate, endDate };
+};
+
+const formatTransactionRow = (row) => {
+  const part = row.part;
+  const qty = Number(row.qty || row.quantity || 0);
+  const type = row.type || (qty < 0 ? 'out' : 'in');
+  return {
+    id: row.trans_id,
+    part_code: part?.part_code ?? null,
+    part_name: part?.part_name ?? null,
+    part_id: row.part_id,
+    quantity: Math.abs(qty),
+    unit: part?.unit ?? 'unit',
+    type,
+    stock_before: row.stock_before ?? null,
+    stock_after: row.stock_after ?? null,
+    status: row.status || 'completed',
+    notes: row.notes ?? null,
+    warehouse_id: row.warehouse_id ?? null,
+    value: row.value ?? 0,
+    created_at: row.trans_date ?? row.created_at ?? new Date(),
+    created_by_name: row.created_by_name || null,
+  };
+};
+
+const InventoryService = class {
+  async listParts(params = {}) {
+    const { WarehouseStock, InventoryTransaction, Part } = assertModelsReady();
+
+    const stockWhere = {};
+    if (params.warehouse_id) stockWhere.warehouse_id = params.warehouse_id;
+    if (params.part_id) stockWhere.part_id = params.part_id;
+
+    const partWhere = {};
+    if (params.category) partWhere.part_category = params.category;
+
+    const partInclude = {
+      model: Part,
+      as: 'part',
+      attributes: ['part_id', 'part_name', 'part_category', 'unit', 'minimum_stock'],
+      where: Object.keys(partWhere).length ? partWhere : undefined,
+      required: Object.keys(partWhere).length > 0,
+    };
+
+    const limit = Math.min(100, Number(params.limit) || 50);
+    const page = Math.max(1, Number(params.page) || 1);
+    const offset = (page - 1) * limit;
+
+    const { count, rows } = await WarehouseStock.findAndCountAll({
+      where: stockWhere,
+      include: [partInclude],
+      order: [['qty', 'DESC']],
+      limit,
+      offset,
+      attributes: ['id', 'warehouse_id', 'part_id', 'qty'],
+    });
+
+    const partIds = Array.from(
+      new Set(rows.map((row) => row.part_id).filter((id) => id !== null && id !== undefined)),
+    );
+    const now = new Date();
+    const monthlyStart = new Date(now);
+    monthlyStart.setMonth(monthlyStart.getMonth() - 1);
+    const yearlyStart = new Date(now);
+    yearlyStart.setFullYear(yearlyStart.getFullYear() - 1);
+
+    const [monthlyUsageMap, yearlyUsageMap] = await Promise.all([
+      aggregateUsageByWindow(InventoryTransaction, partIds, monthlyStart),
+      aggregateUsageByWindow(InventoryTransaction, partIds, yearlyStart),
+    ]);
+
+    const enrichedData = rows.map((row) => {
+      const formatted = formatStockRow(row);
+      const partId = formatted.part_id;
       return {
-        success: true,
-        data: stocks,
-        total: stocks.length
+        ...formatted,
+        monthly_usage: monthlyUsageMap[partId] ?? 0,
+        yearly_usage: yearlyUsageMap[partId] ?? 0,
       };
-    } catch (error) {
-      logger.error('Error getting stocks:', error);
-      return {
-        success: false,
-        error: error.message
-      };
-    }
+    });
+
+    return {
+      success: true,
+      data: enrichedData,
+      pagination: {
+        total: count,
+        page,
+        limit,
+        pages: Math.ceil(count / limit),
+      },
+    };
   }
 
-  // Get minimum stock alerts
-  static async getMinimumStockAlerts() {
-    try {
-      const alerts = await MinimumStock.findAll({
-        include: [
+  async listTools(params = {}) {
+    return this.listParts({ ...params, category: 'tools' });
+  }
+
+  async createTransaction(payload) {
+    const { InventoryTransaction, WarehouseStock, Part } = assertModelsReady();
+
+    let { stock_id, type, quantity } = payload;
+
+    const result = await db.sequelize.transaction(async (t) => {
+      let stock = null;
+      if (stock_id) {
+        stock = await WarehouseStock.findByPk(stock_id, { transaction: t });
+      }
+      if (!stock) {
+        // Buat part/stock baru jika belum ada
+        const partCode = payload.part_code?.trim();
+        const partName = payload.part_name?.trim();
+        if (!partCode && !partName) {
+          throw new Error('Stock not found');
+        }
+        let part = null;
+        if (partCode) {
+          part = await Part.findOne({ where: { part_code: partCode }, transaction: t });
+        }
+        if (!part && partName) {
+          part = await Part.findOne({ where: { part_name: partName }, transaction: t });
+        }
+        if (!part) {
+        part = await Part.create(
           {
-            model: Part,
-            include: [{ model: PartCategory }]
+            part_code: partCode || null,
+            part_name: partName,
+            part_category: payload.category,
+            unit: payload.unit,
+            minimum_stock: payload.minimum_stock,
+            status: payload.status || 'normal',
+            purchase_period: payload.purchase_period,
           },
-          { model: Location }
-        ],
-        where: {
-          currentStock: {
-            [Op.lte]: sequelize.col('minimumQuantity')
+          {
+            transaction: t,
+            fields: [
+              'part_code',
+              'part_name',
+              'part_category',
+              'unit',
+              'minimum_stock',
+              'status',
+              'purchase_period',
+            ],
+          },
+        );
+        }
+        stock = await WarehouseStock.create(
+          {
+            part_id: part.part_id,
+            warehouse_id: payload.warehouse_id || 1,
+            qty: 0,
+          },
+          { transaction: t },
+        );
+        stock_id = stock.id;
+      }
+
+      const newStock =
+        type === 'in' ? (stock.qty || 0) + quantity : (stock.qty || 0) - quantity;
+      if (newStock < 0) throw new Error('Insufficient stock');
+
+      await stock.update({ qty: newStock }, { transaction: t });
+
+      if (Part && stock.part_id) {
+        const part = await Part.findByPk(stock.part_id, { transaction: t });
+        if (part) {
+          const partUpdates = {};
+          if (payload.part_name) partUpdates.part_name = payload.part_name;
+          if (payload.category) partUpdates.part_category = payload.category;
+          if (payload.unit) partUpdates.unit = payload.unit;
+          if (payload.minimum_stock !== undefined) partUpdates.minimum_stock = payload.minimum_stock;
+          if (payload.status) partUpdates.status = payload.status;
+          if (payload.purchase_period) partUpdates.purchase_period = payload.purchase_period;
+          if (Object.keys(partUpdates).length) {
+            await part.update(partUpdates, { transaction: t });
           }
+        }
+      }
+
+      if (Part && stock.part_id) {
+        const part = await Part.findByPk(stock.part_id, { transaction: t });
+        if (part) {
+          const partUpdates = {};
+          if (payload.part_name) partUpdates.part_name = payload.part_name;
+          if (payload.category && payload.category !== part.part_category) partUpdates.part_category = payload.category;
+          if (payload.unit) partUpdates.unit = payload.unit;
+          if (payload.minimum_stock !== undefined) partUpdates.minimum_stock = payload.minimum_stock;
+          if (payload.status) partUpdates.status = payload.status;
+          if (payload.purchase_period) partUpdates.purchase_period = payload.purchase_period;
+          if (payload.part_code) partUpdates.part_code = payload.part_code;
+          if (Object.keys(partUpdates).length) {
+            await part.update(partUpdates, { transaction: t });
+          }
+        }
+      }
+
+      const storedQty = type === 'out' ? -Math.abs(quantity) : Math.abs(quantity);
+      await InventoryTransaction.create(
+        {
+          stock_id,
+          part_id: stock.part_id,
+          type,
+          qty: storedQty,
+          quantity,
+          notes: payload.notes,
+          user_id: payload.user_id || 1,
         },
-        order: [['currentStock', 'ASC']]
-      });
+        { transaction: t },
+      );
 
-      return {
-        success: true,
-        data: alerts,
-        total: alerts.length
-      };
-    } catch (error) {
-      logger.error('Error getting minimum stock alerts:', error);
-      return {
-        success: false,
-        error: error.message
-      };
-    }
+      return { success: true, data: { stock_id, new_stock: newStock } };
+    });
+
+    return result;
   }
 
-  // Add stock movement
-  static async addStockMovement(movementData) {
-    try {
-      const { partId, locationId, quantity, movementType, reference, notes } = movementData;
+  async listTransactions(params = {}) {
+    const { InventoryTransaction, Part } = assertModelsReady();
 
-      // Validate movement type
-      if (!['IN', 'OUT', 'TRANSFER', 'ADJUSTMENT'].includes(movementType)) {
-        return {
-          success: false,
-          error: 'Invalid movement type'
-        };
-      }
+    const where = {};
+    if (params.type) where.type = params.type;
 
-      // Get current stock
-      const currentStock = await Stock.findOne({
-        where: { partId, locationId }
-      });
-
-      if (!currentStock) {
-        return {
-          success: false,
-          error: 'Stock not found for this part and location'
-        };
-      }
-
-      // Calculate new quantity
-      let newQuantity = currentStock.quantity;
-      switch (movementType) {
-        case 'IN':
-          newQuantity += quantity;
-          break;
-        case 'OUT':
-          if (newQuantity < quantity) {
-            return {
-              success: false,
-              error: 'Insufficient stock'
-            };
-          }
-          newQuantity -= quantity;
-          break;
-        case 'TRANSFER':
-          // Handle transfer logic
-          if (!movementData.targetLocationId) {
-            return {
-              success: false,
-              error: 'Target location required for transfer'
-            };
-          }
-          break;
-        case 'ADJUSTMENT':
-          newQuantity = quantity;
-          break;
-      }
-
-      // Create stock movement record
-      const movement = await StockMovement.create({
-        partId,
-        locationId,
-        quantity,
-        movementType,
-        previousQuantity: currentStock.quantity,
-        newQuantity,
-        reference,
-        notes,
-        userId: movementData.userId
-      });
-
-      // Update stock quantity
-      await currentStock.update({ quantity: newQuantity });
-
-      // Handle transfer if applicable
-      if (movementType === 'TRANSFER') {
-        const targetStock = await Stock.findOne({
-          where: { 
-            partId, 
-            locationId: movementData.targetLocationId 
-          }
-        });
-
-        if (targetStock) {
-          await targetStock.update({
-            quantity: targetStock.quantity + quantity
-          });
-        } else {
-          await Stock.create({
-            partId,
-            locationId: movementData.targetLocationId,
-            quantity
-          });
-        }
-      }
-
-      // Update minimum stock if exists
-      const minStock = await MinimumStock.findOne({
-        where: { partId, locationId }
-      });
-
-      if (minStock) {
-        await minStock.update({ currentStock: newQuantity });
-      }
-
-      return {
-        success: true,
-        data: movement,
-        message: 'Stock movement recorded successfully'
-      };
-    } catch (error) {
-      logger.error('Error adding stock movement:', error);
-      return {
-        success: false,
-        error: error.message
-      };
+    const { startDate, endDate } = normalizeDateRange(params.dateRange || params.date_range || params.range);
+    if (startDate || endDate) {
+      where.trans_date = {};
+      if (startDate) where.trans_date[Op.gte] = startDate;
+      if (endDate) where.trans_date[Op.lte] = endDate;
     }
-  }
 
-  // Get stock movements
-  static async getStockMovements(filters = {}) {
-    try {
-      const where = {};
-      
-      if (filters.partId) where.partId = filters.partId;
-      if (filters.locationId) where.locationId = filters.locationId;
-      if (filters.movementType) where.movementType = filters.movementType;
-      if (filters.startDate) {
-        where.createdAt = {
-          [Op.gte]: new Date(filters.startDate)
-        };
-      }
-      if (filters.endDate) {
-        where.createdAt = {
-          ...where.createdAt,
-          [Op.lte]: new Date(filters.endDate)
-        };
-      }
-
-      const movements = await StockMovement.findAll({
-        where,
-        include: [
-          {
-            model: Part,
-            include: [{ model: PartCategory }]
-          },
-          { model: Location }
-        ],
-        order: [['createdAt', 'DESC']],
-        limit: filters.limit || 100
-      });
-
-      return {
-        success: true,
-        data: movements,
-        total: movements.length
-      };
-    } catch (error) {
-      logger.error('Error getting stock movements:', error);
-      return {
-        success: false,
-        error: error.message
-      };
-    }
-  }
-
-  // Set minimum stock
-  static async setMinimumStock(minStockData) {
-    try {
-      const { partId, locationId, minimumQuantity } = minStockData;
-
-      const [minStock, created] = await MinimumStock.findOrCreate({
-        where: { partId, locationId },
-        defaults: {
-          minimumQuantity,
-          currentStock: 0
-        }
-      });
-
-      if (!created) {
-        await minStock.update({ minimumQuantity });
-      }
-
-      return {
-        success: true,
-        data: minStock,
-        message: 'Minimum stock set successfully'
-      };
-    } catch (error) {
-      logger.error('Error setting minimum stock:', error);
-      return {
-        success: false,
-        error: error.message
-      };
-    }
-  }
-
-  // Get inventory summary
-  static async getInventorySummary() {
-    try {
-      const summary = await Stock.findAll({
-        attributes: [
-          [sequelize.fn('COUNT', sequelize.col('id')), 'totalItems'],
-          [sequelize.fn('SUM', sequelize.col('quantity')), 'totalQuantity'],
-          [sequelize.fn('AVG', sequelize.col('quantity')), 'avgQuantity']
-        ]
-      });
-
-      const lowStockCount = await MinimumStock.count({
+    const search = (params.search || params.query || '').trim();
+    if (search) {
+      const matchedParts = await Part.findAll({
+        attributes: ['part_id'],
         where: {
-          currentStock: {
-            [Op.lte]: sequelize.col('minimumQuantity')
-          }
-        }
+          [Op.or]: [
+            { part_name: { [Op.like]: `%${search}%` } },
+            { part_code: { [Op.like]: `%${search}%` } },
+          ],
+        },
       });
+      const partIds = matchedParts.map((entry) => entry.part_id);
+      if (partIds.length) {
+        where.part_id = { [Op.in]: partIds };
+      } else {
+        where.part_id = -1;
+      }
+    }
 
-      return {
+    const limit = Math.max(1, Math.min(200, Number(params.limit) || 20));
+    const page = Math.max(1, Number(params.page) || 1);
+    const offset = (page - 1) * limit;
+
+    const { count, rows } = await InventoryTransaction.findAndCountAll({
+      where,
+      include: [
+        {
+          model: Part,
+          as: 'part',
+          attributes: ['part_id', 'part_code', 'part_name', 'unit'],
+        },
+      ],
+      order: [['trans_date', 'DESC']],
+      limit,
+      offset,
+    });
+
+    const items = rows.map((row) => formatTransactionRow(row));
+    const stats = items.reduce(
+      (acc, row) => {
+        const qty = Number(row.quantity || 0);
+        if (row.type === 'out') acc.totalOut += Math.abs(qty);
+        else acc.totalIn += Math.abs(qty);
+        acc.totalValue += Number(row.value || 0);
+        return acc;
+      },
+      { totalIn: 0, totalOut: 0, totalValue: 0 },
+    );
+
+    return {
+      items,
+      page,
+      limit,
+      total: count,
+      stats,
+    };
+  }
+
+  async getTransactionsSummary(params = {}) {
+    try {
+      const { InventoryTransaction } = assertModelsReady();
+      const { startDate, endDate } = normalizeDateRange(params.dateRange || params.date_range || params.range);
+      const where = {};
+      if (startDate || endDate) {
+        where.trans_date = {};
+        if (startDate) where.trans_date[Op.gte] = startDate;
+        if (endDate) where.trans_date[Op.lte] = endDate;
+      }
+
+      const whereClauses = [];
+      const replacements = {};
+      if (startDate) {
+        whereClauses.push('[trans_date] >= :startDate');
+        replacements.startDate = startDate;
+      }
+      if (endDate) {
+        whereClauses.push('[trans_date] <= :endDate');
+        replacements.endDate = endDate;
+      }
+      const whereClause = whereClauses.length ? `WHERE ${whereClauses.join(' AND ')}` : '';
+
+      const [summaryRow] = await db.sequelize.query(
+        `
+          SELECT
+            SUM(CASE WHEN [qty] >= 0 THEN [qty] ELSE 0 END) AS total_in,
+            SUM(CASE WHEN [qty] < 0 THEN -[qty] ELSE 0 END) AS total_out
+          FROM [inventory_transactions]
+          ${whereClause}
+        `,
+        {
+          type: QueryTypes.SELECT,
+          replacements,
+          plain: true,
+        },
+      );
+
+      const totalIn = Number(summaryRow?.total_in) || 0;
+      const totalOut = Number(summaryRow?.total_out) || 0;
+      return { 
         success: true,
-        data: {
-          totalItems: summary[0].dataValues.totalItems || 0,
-          totalQuantity: summary[0].dataValues.totalQuantity || 0,
-          avgQuantity: Math.round(summary[0].dataValues.avgQuantity || 0),
-          lowStockAlerts: lowStockCount
-        }
+        data: { totalIn, totalOut, totalValue: 0 } 
       };
     } catch (error) {
-      logger.error('Error getting inventory summary:', error);
-      return {
-        success: false,
-        error: error.message
-      };
+      console.error('getTransactionsSummary error:', error);
+      return { success: false, message: error.message };
     }
   }
-}
 
-export default InventoryService;
+  async exportTransactions(params = {}) {
+    const { items } = await this.listTransactions({ ...params, page: 1, limit: Number(params.limit) || 500 });
+    const csvHeader = ['ID', 'Part Code', 'Part Name', 'Type', 'Quantity', 'Status', 'Date', 'Warehouse'];
+    const rows = items.map((item) =>
+      [
+        item.id,
+        item.part_code,
+        item.part_name,
+        item.type,
+        item.quantity,
+        item.status,
+        item.created_at,
+        item.warehouse_id,
+      ]
+        .map((value) => `"${String(value ?? '').replace(/"/g, '""')}"`)
+        .join(','),
+    );
+    const csv = [csvHeader.join(','), ...rows].join('\n');
+    const fileName = `stock-movement-${new Date().toISOString().slice(0, 10)}.csv`;
+    return { csv, fileName };
+  }
+};
+
+export default new InventoryService();

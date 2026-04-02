@@ -12,6 +12,8 @@ import maintenanceRoutes from "./maintenance.routes.js";
 import pushRoutes from "./push.routes.js";
 import workorderRoutes from "./workorder.routes.js";
 import approvalRoutes from "./approval.routes.js";
+import masterRoutes from "./master.routes.js";
+import inventoryRoutes from "./inventory.routes.js";
 
 const router = express.Router();
 
@@ -29,5 +31,7 @@ router.use("/maintenance", maintenanceRoutes);
 router.use("/push", pushRoutes);
 router.use("/workorder", workorderRoutes);
 router.use("/approval", approvalRoutes);
+router.use("/master", masterRoutes);
+router.use("/inventory", inventoryRoutes);
 
 export default router;

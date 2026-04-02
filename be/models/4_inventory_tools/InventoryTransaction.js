@@ -34,5 +34,11 @@ export default (sequelize) => {
         timestamps: false,
     });
 
+    InventoryTransaction.associate = (db) => {
+        if (db.Part) {
+            InventoryTransaction.belongsTo(db.Part, { foreignKey: 'part_id', as: 'part' });
+        }
+    };
+
     return InventoryTransaction;
 };

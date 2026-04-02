@@ -3175,3 +3175,560 @@ Error: Transaction cannot be rolled back because it has been finished with state
 2026-03-31 16:53:59 [INFO]: Socket disconnect [JdAmWWnYHNo5vaoXAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
 2026-03-31 16:54:11 [INFO]: Updating maintenance checklist {"service":"samit-backend","checklistId":"1","payload":{"item_description":"Cek Kondisi Bracket & Housing CCTV","item_range":"Bracket & Housing  Tidak Rusak Dan Harus  Menutupi kamera  CCTV","result":"Bracket Rusak/ Tidak Rusak\nBracket Rusak/ Tidak Rusak","notes":null,"status":"pending"},"user":"system"}
 2026-03-31 16:54:11 [INFO]: Checklist update saved {"service":"samit-backend","checklistId":"1","templateLabel":"Maintenance CCTV","status":"pending"}
+2026-04-01 07:56:37 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 07:56:37 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 07:56:37 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 07:56:37 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:07:28 [INFO]: Socket disconnect [zgXMSwiVAHrUuOZ5AAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:08:39 [INFO]: Socket disconnect [eBwKUQRLDTT8rFBvAAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:09:14 [INFO]: Socket disconnect [-ZP4oF56Y6kxfKDIAAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:13:45 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:13:45 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:13:45 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:13:45 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:13:51 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:13:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:13:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:13:51 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:18:11 [INFO]: Socket disconnect [bYl9x_uncMes89sRAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:19:04 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:19:04 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:19:04 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:19:04 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:19:22 [INFO]: Socket disconnect [FkLNtqclW3sUbMBpAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:24:01 [INFO]: Socket disconnect [Cg8ipnEaD0aC8OI0AAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:24:37 [INFO]: Socket disconnect [VRLuAe3cRTiA0-W2AAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:26:14 [INFO]: Socket disconnect [U4eHgo-S5zK5EycRAAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:27:03 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:27:03 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:27:03 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:27:03 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:27:07 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:27:07 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:27:07 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:27:07 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:28:12 [INFO]: Socket disconnect [ncGIWnwdBBueIC0xAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:34:47 [INFO]: Socket disconnect [Xy1OLUVFHR2q0TuJAAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:34:56 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:34:56 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:34:56 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:34:56 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:34:57 [INFO]: Socket disconnect [Ll_vh5MEPLyquF0oAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:37:01 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:37:01 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:37:01 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:37:01 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:38:05 [INFO]: Socket disconnect [6eBglGNi3Q97O5YfAAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:44:41 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:44:41 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:41 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:41 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:44:45 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:44:45 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:45 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:45 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:44:48 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:44:48 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:48 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:48 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:44:51 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:44:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:52 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:44:55 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:44:55 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:55 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:56 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:44:58 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:44:58 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:58 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:44:59 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:01 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:01 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:01 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:02 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:04 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:04 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:04 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:05 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:07 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:07 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:07 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:08 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:10 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:10 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:10 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:10 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:14 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:14 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:14 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:14 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:16 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:16 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:16 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:17 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:20 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:20 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:20 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:20 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:23 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:23 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:23 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:23 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:26 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:26 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:26 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:26 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:30 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:30 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:30 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:30 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:33 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:33 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:33 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:33 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:36 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:36 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:36 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:38 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:38 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:38 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:39 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:45:43 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:45:43 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:43 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:45:44 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:01 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:01 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:01 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:01 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:08 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:08 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:08 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:08 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:13 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:13 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:13 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:13 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:24 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:24 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:24 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:24 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:28 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:28 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:28 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:28 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:34 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:34 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:34 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:36 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:36 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:36 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:36 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:39 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:39 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:39 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:39 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:41 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:41 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:41 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:41 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:46 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:46 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:46 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:48 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:48 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:48 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:49 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:51 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:51 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:54 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:54 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:54 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:54 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:46:58 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:46:58 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:58 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:46:58 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:47:00 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:00 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:00 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:03 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:03 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:03 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:05 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:05 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:05 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:05 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:47:14 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:14 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:14 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:14 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:47:33 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:33 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:33 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:33 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:47:38 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:38 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:38 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:38 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:47:42 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:42 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:42 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:42 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:47:46 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:46 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:46 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:46 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:47:50 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:50 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:50 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:50 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:47:53 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:53 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:53 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:53 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:47:57 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:57 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:57 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:57 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:47:59 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:47:59 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:59 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:47:59 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:03 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:03 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:03 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:03 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:06 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:06 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:06 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:07 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:10 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:10 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:10 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:10 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:14 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:14 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:14 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:14 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:20 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:20 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:20 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:20 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:23 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:23 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:23 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:23 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:27 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:27 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:27 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:27 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:30 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:30 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:30 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:31 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:34 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:34 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:34 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:35 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:38 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:38 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:38 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:38 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:45 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:45 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:45 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:45 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:48 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:48 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:48 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:48 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:53 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:53 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:53 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:53 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:48:55 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:48:55 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:55 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:48:56 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:49:01 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:49:01 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:49:01 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:49:01 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:49:16 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:49:16 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:49:16 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:49:16 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:49:24 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:49:24 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:49:24 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:49:24 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:49:31 [INFO]: Socket disconnect [P9zw3jKG06WbYrk7AAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:49:49 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:49:49 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:49:49 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:49:49 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:50:02 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:50:02 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:50:02 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:50:02 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:51:00 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:51:00 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:51:00 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:51:00 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:51:03 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:51:03 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:51:03 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:51:03 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:51:29 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:51:29 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:51:29 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:51:29 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:51:41 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 08:51:41 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 08:51:41 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 08:51:41 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 08:52:41 [INFO]: Socket disconnect [S97GErYpNTr-YYEWAAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:53:44 [INFO]: Socket disconnect [2sH0Ks8HJqNvZUZuAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 08:54:51 [INFO]: Socket disconnect [RJxUHNL-74oKF9q3AAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 09:03:39 [INFO]: Socket disconnect [q1jzbk8JJqDDplFWAAAF] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-04-01 09:06:00 [INFO]: Socket disconnect [wf6i_TOUjxjvEJQuAAAJ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 09:07:36 [INFO]: Socket disconnect [3zm44KFb7yyLucrYAAAN] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 09:08:11 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 09:08:11 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 09:08:11 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 09:08:11 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 09:08:20 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 09:08:20 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 09:08:20 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 09:08:20 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 09:08:29 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 09:08:29 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 09:08:29 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 09:08:29 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 09:08:39 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 09:08:39 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 09:08:39 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 09:08:39 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 09:19:39 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 09:19:39 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 09:19:39 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 09:19:39 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 09:19:41 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 09:19:41 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 09:19:41 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 09:19:41 [ERROR]: Server error: listen EADDRINUSE: address already in use 0.0.0.0:5002 {"service":"samit-backend","code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1939:16)
+    at listenInCluster (node:net:1996:12)
+    at node:net:2205:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2026-04-01 09:21:02 [INFO]: Socket disconnect [LpYQGZIlocbvF0v5AAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 09:21:39 [INFO]: Socket disconnect [XmmU_bZ4zRM0ixwHAAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 09:22:09 [ERROR]: Conversion failed when converting date and/or time from character string. {"name":"SequelizeDatabaseError","parent":{"code":"EREQUEST","number":241,"state":1,"class":16,"serverName":"PIK1SVR009","procName":"","lineNumber":1,"sql":"INSERT INTO [part_categories] ([category_code],[category_name],[description],[status],[minimum_threshold],[average_price],[total_value],[created_at],[updated_at]) OUTPUT INSERTED.[part_category_id],INSERTED.[category_code],INSERTED.[category_name],INSERTED.[description],INSERTED.[status],INSERTED.[minimum_threshold],INSERTED.[average_price],INSERTED.[total_value],INSERTED.[created_at],INSERTED.[updated_at] VALUES (@0,@1,@2,@3,@4,@5,@6,@7,@8);","parameters":{"0":"TL","1":"TOOLING","2":"TOOLING","3":"active","4":50,"5":0,"6":0,"7":"2026-04-01 09:22:09.702 +07:00","8":"2026-04-01 09:22:09.702 +07:00"}},"original":{"code":"EREQUEST","number":241,"state":1,"class":16,"serverName":"PIK1SVR009","procName":"","lineNumber":1,"sql":"INSERT INTO [part_categories] ([category_code],[category_name],[description],[status],[minimum_threshold],[average_price],[total_value],[created_at],[updated_at]) OUTPUT INSERTED.[part_category_id],INSERTED.[category_code],INSERTED.[category_name],INSERTED.[description],INSERTED.[status],INSERTED.[minimum_threshold],INSERTED.[average_price],INSERTED.[total_value],INSERTED.[created_at],INSERTED.[updated_at] VALUES (@0,@1,@2,@3,@4,@5,@6,@7,@8);","parameters":{"0":"TL","1":"TOOLING","2":"TOOLING","3":"active","4":50,"5":0,"6":0,"7":"2026-04-01 09:22:09.702 +07:00","8":"2026-04-01 09:22:09.702 +07:00"}},"sql":"INSERT INTO [part_categories] ([category_code],[category_name],[description],[status],[minimum_threshold],[average_price],[total_value],[created_at],[updated_at]) OUTPUT INSERTED.[part_category_id],INSERTED.[category_code],INSERTED.[category_name],INSERTED.[description],INSERTED.[status],INSERTED.[minimum_threshold],INSERTED.[average_price],INSERTED.[total_value],INSERTED.[created_at],INSERTED.[updated_at] VALUES (@0,@1,@2,@3,@4,@5,@6,@7,@8);","parameters":{"0":"TL","1":"TOOLING","2":"TOOLING","3":"active","4":50,"5":0,"6":0,"7":"2026-04-01 09:22:09.702 +07:00","8":"2026-04-01 09:22:09.702 +07:00"},"service":"samit-backend"}
+Error
+    at Query.run (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\mssql\query.js:107:25)
+    at D:\DEV\REACT\samit\be\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async MSSqlQueryInterface.insert (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\abstract\query-interface.js:308:21)
+    at async model.save (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:2490:35)
+    at async PartCategory.create (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1362:12)
+    at async PartCategoryService.createPartCategory (file:///D:/DEV/REACT/samit/be/services/partCategory.service.js:70:21)
+    at async file:///D:/DEV/REACT/samit/be/routes/master.routes.js:97:21
+2026-04-01 09:23:48 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 09:23:48 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 09:23:48 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 09:23:48 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 09:23:51 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 09:23:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 09:23:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 09:23:51 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 09:23:57 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 09:23:57 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 09:23:57 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 09:23:58 [INFO]: HTTPS Server running at https://localhost:6001  {"service":"samit-backend"}
+2026-04-01 09:30:44 [INFO]: Socket disconnect [l95Ko8Df6ARyiRESAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 09:40:44 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 09:40:44 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 09:40:44 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 09:40:44 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 09:55:52 [INFO]: Socket disconnect [iiD80Qvmx18Rq2lIAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 09:59:15 [INFO]: Socket disconnect [-RJDdpD6hLPTDXFWAAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:02:58 [INFO]: Socket disconnect [uyKSQ9w2CjgHoPb0AAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:03:52 [INFO]: Socket disconnect [HFWAcQKD2ONcPUuoAAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:23:40 [INFO]: Socket disconnect [TbllUPTJMQ6LYq_9AAAL] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:24:11 [INFO]: Socket disconnect [xSdm_iMd3scjrlfYAAAN] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:24:29 [INFO]: Socket disconnect [GH60C5tj80Oxgqa7AAAP] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:26:40 [INFO]: Socket disconnect [ztrMF0MXrBvo_GysAAAR] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:26:52 [INFO]: Socket disconnect [S-1Hf8Vl65JPY5iUAAAT] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:27:39 [INFO]: Socket disconnect [ZvYF7z-4ZBIUiSm3AAAJ] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-04-01 10:27:51 [INFO]: Socket disconnect [vi1NoRka-MfP7bRXAAAX] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:28:49 [INFO]: Socket disconnect [TlpFiCleUtRDQd-HAAAZ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:32:59 [INFO]: Socket disconnect [V49iTB-AswyNkxYVAAAb] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-04-01 10:33:04 [INFO]: Socket disconnect [brskqdgS-N5caakCAAAd] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-04-01 10:33:25 [INFO]: Socket disconnect [61hWFio9fXY9ABDdAAAf] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:35:50 [INFO]: Socket disconnect [8CADGfvLiFXqwerLAAAV] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-04-01 10:36:57 [INFO]: Socket disconnect [6PPsA2i8yYXSSRyXAAAh] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-04-01 10:38:39 [INFO]: Socket disconnect [qwrlSjaEneShR8mBAAAl] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-04-01 10:38:52 [INFO]: Socket disconnect [Dgsf7VHhdqN957EAAAAn] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:45:06 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 10:45:06 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 10:45:06 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 10:45:06 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 10:48:59 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 10:48:59 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 10:48:59 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 10:48:59 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 10:54:19 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 10:54:19 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 10:54:19 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 10:54:19 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 10:54:27 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 10:54:27 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 10:54:27 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 10:54:27 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 10:56:09 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 10:56:09 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 10:56:09 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 10:56:09 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 10:56:20 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 10:56:20 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 10:56:20 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 10:56:20 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 10:57:03 [INFO]: Socket disconnect [M5MYhD3t9z-oX9tKAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 10:58:17 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 10:58:17 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 10:58:17 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 10:58:17 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 10:59:36 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 10:59:36 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 10:59:36 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 10:59:36 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 11:01:42 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 11:01:42 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 11:01:42 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 11:01:42 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 11:01:54 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 11:01:54 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 11:01:54 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 11:01:55 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 11:02:24 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 11:02:24 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 11:02:24 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 11:02:24 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 11:02:55 [INFO]: Socket disconnect [jWRnMEel_xkULuT9AAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 11:03:35 [INFO]: Socket disconnect [nZGArOBAADrv1h2UAAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 11:10:19 [INFO]: Socket disconnect [sQl9d8UmuITAx_zeAAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 11:12:36 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 11:12:36 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 11:12:36 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 11:12:37 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 11:12:54 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 11:12:54 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 11:12:54 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 11:12:54 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 11:12:57 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 11:12:57 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 11:12:57 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 11:12:57 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 11:21:24 [INFO]: Socket disconnect [sacBeFBOc3c9vYDOAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 11:21:30 [INFO]: Socket disconnect [xYD8ybEBWqJ7AyI5AAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 11:21:50 [INFO]: Socket disconnect [hCSmyLMLJqF0sExbAAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 11:22:21 [INFO]: Socket disconnect [Zg3pnuXi454CfLcgAAAJ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 11:47:37 [INFO]: Socket disconnect [-2lkd8VnVrkYFe3mAAAL] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-04-01 11:50:41 [INFO]: Socket disconnect [yFal2dJaeFA9DpUhAAAN] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-04-01 11:59:28 [INFO]: Socket disconnect [GQ_dB3FL5u4DVPrdAAAP] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 12:02:46 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 12:02:46 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 12:02:46 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 12:02:46 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 12:02:57 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 12:02:57 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 12:02:57 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 12:02:57 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 12:03:03 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 12:03:03 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 12:03:03 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 12:03:03 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 12:07:51 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 12:07:51 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 12:07:51 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 12:07:51 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 13:02:46 [INFO]: Socket disconnect [mUH4bxSjQrEheKeMAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:03:38 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 13:03:38 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 13:03:38 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 13:03:38 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 13:03:51 [INFO]: Socket disconnect [Xbx5LrBz_KoYSv0-AAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:06:20 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 13:06:20 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 13:06:20 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 13:06:20 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 13:06:35 [INFO]: Socket disconnect [IP6Qs2UG8aJE54_LAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:10:46 [INFO]: Socket disconnect [6Pd5iMAb45NgZ6tMAAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:10:56 [INFO]: Menutup server dengan aman... {"service":"samit-backend"}
+2026-04-01 13:10:56 [INFO]: Socket disconnect [18URxyU0xLnzZ6I-AAAF] nik=1803070 reason=server shutting down {"service":"samit-backend"}
+2026-04-01 13:11:09 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 13:11:09 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 13:11:09 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 13:11:09 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 13:12:09 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-01 13:12:09 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-01 13:12:09 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-01 13:12:09 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-01 13:12:12 [INFO]: Socket disconnect [cMW4x57We4O0PFEkAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:17:53 [INFO]: Socket disconnect [U1Pg0PK8IXEe0uZ0AAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:18:03 [INFO]: Socket disconnect [5ORV77Or9Suw1_zFAAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:19:24 [INFO]: Socket disconnect [cibXhAiMk1dAfo2iAAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:20:10 [INFO]: Socket disconnect [iTFm7UOh8NIiAEafAAAJ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:21:45 [INFO]: Socket disconnect [F_YhtBPJy73QzdloAAAL] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:22:46 [INFO]: Socket disconnect [53KLg86omBk2DU_6AAAN] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:38:20 [INFO]: Socket disconnect [9mG72LwqVNfm0NHtAAAP] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 13:48:53 [INFO]: Socket disconnect [guPLOtMMBH0scYRiAAAR] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:01:04 [INFO]: Socket disconnect [YfPtPf_2XbMb1JAeAAAT] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:02:57 [INFO]: Socket disconnect [NtNla31vx2K_ezWfAAAV] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:08:40 [INFO]: Socket disconnect [gH7l480Z6jmgmJ56AAAX] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:15:05 [INFO]: Socket disconnect [VtUzCr8ehgK_uyAWAAAZ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:16:31 [INFO]: Socket disconnect [s2Gu4jtg0nWKbcsxAAAb] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:34:00 [INFO]: Socket disconnect [yIxvuCyKUTmOXFxMAAAd] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:34:02 [INFO]: Socket disconnect [qZIt8t8d9IqlQQXlAAAf] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:34:03 [INFO]: Socket disconnect [dD5bBVA7ZirsFenHAAAh] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:34:56 [INFO]: Socket disconnect [XntZMuK4Qk1219laAAAj] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:35:47 [INFO]: Socket disconnect [Jub75dUQWjxUdFsWAAAl] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:36:26 [INFO]: Socket disconnect [MHX35-CsPvwE0zj7AAAn] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 14:36:46 [INFO]: Socket disconnect [rYjDtc76n44AiVZ2AAAp] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 15:02:01 [INFO]: Socket disconnect [xkUsHHFwFCqtxD1IAAAr] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 15:41:57 [INFO]: Socket disconnect [d57OxtXBgEVWyBw4AAAu] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 15:49:14 [INFO]: Socket disconnect [Sa6kPrtoxJShq-FjAAAw] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 15:51:12 [INFO]: Socket disconnect [iMJ22_aLhJWX5bTOAAA0] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 15:51:34 [INFO]: Socket disconnect [xB9Q0_W-Vxl6V0SHAAA2] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 15:52:10 [INFO]: Socket disconnect [TUUZ0-8lmykEQgCHAAA4] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 15:58:35 [INFO]: Socket disconnect [TwZzunitEbahUZr2AAA6] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 15:59:16 [INFO]: Socket disconnect [tQQ1lLNEXe9kG2POAAA8] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:00:07 [INFO]: Socket disconnect [SvDr9iFTLkDCTNRdAAA-] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:00:30 [INFO]: Socket disconnect [HvhSTMkx_ywcOI__AABA] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:01:03 [INFO]: Socket disconnect [RPz6BxJ6G5w_X9j_AABC] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:02:23 [INFO]: Socket disconnect [CP7arM7TOjaY1OBlAABE] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:03:25 [INFO]: Socket disconnect [Y7kajDcdQZmLGFcxAABG] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:03:35 [INFO]: Socket disconnect [JzQLoocWy-fm7RJPAABI] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:07:24 [INFO]: Socket disconnect [zJAAccnrALrsnWJ6AABK] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:09:24 [INFO]: Socket disconnect [3cz0GbWjd0mABuogAABM] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:13:18 [INFO]: Socket disconnect [wvn_sT-meRoLuPlnAABO] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:35:11 [INFO]: Socket disconnect [vJvnjYxgl-QGgQQPAABQ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:36:52 [INFO]: Socket disconnect [kU1hiGjLnk8TJ-1aAABS] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:37:34 [INFO]: Socket disconnect [W6YRDp6vUngUaKJYAABU] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:38:14 [INFO]: Socket disconnect [bItb6Fb1XVs0GRTVAAAy] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:46:07 [INFO]: Socket disconnect [D0kks1Aps9akSGCXAABW] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:50:35 [INFO]: Socket disconnect [VmYJ0eSn_Ypd6G9QAABY] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:52:44 [INFO]: Socket disconnect [Xo1mnRCck-yGUJLGAABa] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:52:45 [INFO]: Socket disconnect [ZaftARnK-bIrkPqfAABc] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:53:39 [INFO]: Socket disconnect [ETMlB5N7WCvdkrBDAABe] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:53:56 [INFO]: Socket disconnect [XeJaXPHucCD9HMw2AABg] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:53:57 [INFO]: Socket disconnect [HtDYOfLP_rNerJjQAABi] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:56:34 [INFO]: Socket disconnect [l71phvuFN6xEG6d7AABk] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:57:02 [INFO]: Socket disconnect [x_NamKjMdI_flggiAABm] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 16:57:51 [INFO]: Socket disconnect [SyNUpqa5z1YM6iJmAABo] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-01 17:00:57 [INFO]: Socket disconnect [RAGSR1R4AKvtNExXAABq] nik=1803070 reason=transport error {"service":"samit-backend"}

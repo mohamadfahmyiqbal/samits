@@ -656,6 +656,7 @@ export default function MaintenanceSchedule() {
             <GanttChart
               scheduleData={scheduleData}
               dateRange={getDateRange()}
+              viewType={ganttViewType}
               onEdit={handleEdit}
             />
           </Card>

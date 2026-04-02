@@ -1,7 +1,7 @@
 // config/database.js
 
-// Import Class Sequelize dari library
-import { Sequelize } from "sequelize";
+// Import Class Sequelize dan DataTypes dari library
+import { Sequelize, DataTypes } from "sequelize";
 import config from "./config.js";
 
 // Tentukan environment, default ke 'development'
@@ -33,6 +33,25 @@ const sequelize = new Sequelize(
     timezone: false,
   },
 );
+
+const formatDateForMsSql = (date) => {
+  const pad = (value, length = 2) => value.toString().padStart(length, "0");
+  const padMilliseconds = (value) => value.toString().padStart(3, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+    date.getDate(),
+  )} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(
+    date.getSeconds(),
+  )}.${padMilliseconds(date.getMilliseconds())}`;
+};
+
+if (sequelize.getDialect() === "mssql") {
+  DataTypes.DATE.prototype._stringify = function (date, options) {
+    if (!date) {
+      return null;
+    }
+    return formatDateForMsSql(typeof date === "number" ? new Date(date) : date);
+  };
+}
 
 // 2. Export Class Sequelize dan instance koneksi
 // models/index.js mengimpor: import sequelize, { Sequelize } from '../config/database.js';

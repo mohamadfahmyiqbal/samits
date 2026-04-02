@@ -1,21 +1,25 @@
-# TODO SAMIT EAM Development Plan
-Status: IMPLEMENTASI MaintenanceChecksheet (Duplikasi AssetManagement Pattern) - 70% Complete
+# Optimasi MainLayout - Approved Plan
+Status: **IN PROGRESS** (Plan disetujui, implementasi dimulai)
 
-## ✅ DONE
-- [x] Update MaintenanceChecksheet.jsx (duplicate AssetManagementPage structure)
-- [x] Create components/: ErrorBoundary.jsx, ChecksheetPrimaryTabs.jsx, ChecksheetManagementTabs.jsx, ChecksheetManagementModals.jsx, ChecksheetTable.jsx
-- [x] Create context/ChecksheetManagementContext.jsx
-- [x] Create fe/services/MaintenanceChecklistService.js
+## 1. Preparation [TODO: IN PROGRESS]
+- [ ] Update TODO.md (current)
+- [ ] Check/Create AuthContext.jsx untuk dynamic permissions
+- [ ] Create ErrorBoundary.jsx & Loader.jsx jika belum ada
 
-## 🔄 IN PROGRESS - Step 2-4
-1. [ ] Create ChecklistBuilder.jsx (item builder form)
-2. [ ] Create hooks/useChecksheetManagementPage.js (data fetching)
-3. [ ] Integrate service ke context (fetch real data)
-4. [ ] ChecklistBuilder component full
-5. [ ] npm run lint:fix & test UI
+## 2. Core Implementation [TODO]
+- [ ] Create Overlay.jsx (reusable mobile sidebar overlay)
+- [ ] Edit fe/src/layout/MainLayout.jsx (memoization, dynamic perms, Suspense/ErrorBoundary)
+- [ ] Update MenuContext.jsx jika perlu adaptasi permissions
 
-## ⏳ PENDING Backend
-- [ ] be/services/maintenanceChecklist.service.js
-- [ ] Routes/controllers
+## 3. Testing & Polish [TODO]
+- [ ] Install deps: clsx (jika belum)
+- [ ] npm run lint && npm run build
+- [ ] Test: sidebar toggle, mobile overlay, permissions, dark mode
+- [ ] Update routes/App.jsx untuk wrap AuthProvider
 
-Next: Complete FE structure → Backend sync → Test
+## 4. Completion
+- [ ] Remove from TODO setelah verified
+- Command demo: `cd fe && npm start`
+
+**Progress Notes:** Mulai dari AuthContext check. Edit satu per satu, confirm sebelum next.
+

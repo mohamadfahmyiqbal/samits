@@ -59,3 +59,19 @@ Error: Transaction cannot be rolled back because it has been finished with state
     at Transaction.rollback (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\transaction.js:59:13)
     at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/importAssetsController.js:668:21)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-01 09:19:41 [ERROR]: Server error: listen EADDRINUSE: address already in use 0.0.0.0:5002 {"service":"samit-backend","code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1939:16)
+    at listenInCluster (node:net:1996:12)
+    at node:net:2205:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2026-04-01 09:22:09 [ERROR]: Conversion failed when converting date and/or time from character string. {"name":"SequelizeDatabaseError","parent":{"code":"EREQUEST","number":241,"state":1,"class":16,"serverName":"PIK1SVR009","procName":"","lineNumber":1,"sql":"INSERT INTO [part_categories] ([category_code],[category_name],[description],[status],[minimum_threshold],[average_price],[total_value],[created_at],[updated_at]) OUTPUT INSERTED.[part_category_id],INSERTED.[category_code],INSERTED.[category_name],INSERTED.[description],INSERTED.[status],INSERTED.[minimum_threshold],INSERTED.[average_price],INSERTED.[total_value],INSERTED.[created_at],INSERTED.[updated_at] VALUES (@0,@1,@2,@3,@4,@5,@6,@7,@8);","parameters":{"0":"TL","1":"TOOLING","2":"TOOLING","3":"active","4":50,"5":0,"6":0,"7":"2026-04-01 09:22:09.702 +07:00","8":"2026-04-01 09:22:09.702 +07:00"}},"original":{"code":"EREQUEST","number":241,"state":1,"class":16,"serverName":"PIK1SVR009","procName":"","lineNumber":1,"sql":"INSERT INTO [part_categories] ([category_code],[category_name],[description],[status],[minimum_threshold],[average_price],[total_value],[created_at],[updated_at]) OUTPUT INSERTED.[part_category_id],INSERTED.[category_code],INSERTED.[category_name],INSERTED.[description],INSERTED.[status],INSERTED.[minimum_threshold],INSERTED.[average_price],INSERTED.[total_value],INSERTED.[created_at],INSERTED.[updated_at] VALUES (@0,@1,@2,@3,@4,@5,@6,@7,@8);","parameters":{"0":"TL","1":"TOOLING","2":"TOOLING","3":"active","4":50,"5":0,"6":0,"7":"2026-04-01 09:22:09.702 +07:00","8":"2026-04-01 09:22:09.702 +07:00"}},"sql":"INSERT INTO [part_categories] ([category_code],[category_name],[description],[status],[minimum_threshold],[average_price],[total_value],[created_at],[updated_at]) OUTPUT INSERTED.[part_category_id],INSERTED.[category_code],INSERTED.[category_name],INSERTED.[description],INSERTED.[status],INSERTED.[minimum_threshold],INSERTED.[average_price],INSERTED.[total_value],INSERTED.[created_at],INSERTED.[updated_at] VALUES (@0,@1,@2,@3,@4,@5,@6,@7,@8);","parameters":{"0":"TL","1":"TOOLING","2":"TOOLING","3":"active","4":50,"5":0,"6":0,"7":"2026-04-01 09:22:09.702 +07:00","8":"2026-04-01 09:22:09.702 +07:00"},"service":"samit-backend"}
+Error
+    at Query.run (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\mssql\query.js:107:25)
+    at D:\DEV\REACT\samit\be\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async MSSqlQueryInterface.insert (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\abstract\query-interface.js:308:21)
+    at async model.save (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:2490:35)
+    at async PartCategory.create (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1362:12)
+    at async PartCategoryService.createPartCategory (file:///D:/DEV/REACT/samit/be/services/partCategory.service.js:70:21)
+    at async file:///D:/DEV/REACT/samit/be/routes/master.routes.js:97:21
