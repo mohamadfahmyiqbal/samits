@@ -1,0 +1,105 @@
+/* Responsive DashboardScreen untuk semua device */
+
+.page-wrapper {
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .page-wrapper {
+    padding: 2rem;
+  }
+}
+
+/* Metrics Cards Responsive */
+.metric-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.metric-card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 767.98px) {
+  .metric-card h2 {
+    font-size: 1.5rem;
+  }
+  
+  .metric-card h5 {
+    font-size: 0.9rem;
+  }
+}
+
+/* Charts Responsive */
+.chart-card {
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.chart-card .chart-canvas {
+  height: 250px !important;
+  max-height: 300px;
+}
+
+@media (max-width: 991.98px) {
+  .chart-card .chart-canvas {
+    height: 200px !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .chart-card {
+    margin-bottom: 1rem;
+  }
+  
+  .chart-card .chart-canvas {
+    height: 180px !important;
+  }
+}
+
+/* Table Responsive */
+@media (max-width: 575.98px) {
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+  
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 0.5rem 0.25rem !important;
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 575.98px) {
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .page-header p {
+    font-size: 0.9rem;
+  }
+  
+  .metric-card {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Dark mode support removed per user request */
+
+/* Print styles */
+@media print {
+  .metric-card,
+  .chart-card {
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+}
+

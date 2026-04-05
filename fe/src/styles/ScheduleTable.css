@@ -1,0 +1,68 @@
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 8px 10px;
+  vertical-align: middle;
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.schedule-table thead th {
+  background-color: #d4e3fc;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.schedule-table tbody tr.table-danger {
+  background-color: #f8d7da !important;
+}
+
+
+/* Kolom Action lebih ramping */
+.schedule-table th:last-child,
+.schedule-table td.action-cell {
+  width: 140px; /* Sesuaikan, cukup untuk 2 tombol */
+  white-space: nowrap;
+}
+
+
+
+/* Kolom Action */
+.schedule-table th:last-child,
+.schedule-table td.action-cell {
+  width: 200px; /* Lebar cukup untuk 2 tombol + jarak */
+  white-space: nowrap;
+  padding: 8px 16px; /* Tambah ruang kiri-kanan */
+}
+
+/* Container tombol */
+.action-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* Jarak antar tombol lebih lega */
+}
+
+/* Tombol Action */
+.action-cell .action-btn {
+  min-width: 70px; /* Ukuran tombol tetap proporsional */
+  height: 32px;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
+
+
+/* Status Badge */
+.status-badge {
+  padding: 0.25em 0.5em;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}

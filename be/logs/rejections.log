@@ -1,0 +1,32 @@
+2026-03-28 18:54:13 [ERROR]: unhandledRejection: Vapid public key should be 65 bytes long when decoded.
+Error: Vapid public key should be 65 bytes long when decoded.
+    at Object.validatePublicKey (D:\coding\react\samit\be\node_modules\web-push\src\vapid-helper.js:111:11)
+    at WebPushLib.setVapidDetails (D:\coding\react\samit\be\node_modules\web-push\src\web-push-lib.js:60:17)
+    at configureWebPush (file:///D:/coding/react/samit/be/services/webPush.service.js:21:11)
+    at isWebPushConfigured (file:///D:/coding/react/samit/be/services/webPush.service.js:27:42)
+    at getPushPublicKey (file:///D:/coding/react/samit/be/controllers/push/push.controller.js:88:17)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at D:\coding\react\samit\be\node_modules\express\lib\router\index.js:284:15 {"error":{},"rejection":true,"date":"Sat Mar 28 2026 18:54:13 GMT+0700 (Indochina Time)","process":{"pid":11140,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":122482688,"heapTotal":82132992,"heapUsed":54176528,"external":5720497,"arrayBuffers":3212731}},"os":{"loadavg":[0,0,0],"uptime":5438.546},"trace":[{"column":11,"file":"D:\\coding\\react\\samit\\be\\node_modules\\web-push\\src\\vapid-helper.js","function":"Object.validatePublicKey","line":111,"method":"validatePublicKey","native":false},{"column":17,"file":"D:\\coding\\react\\samit\\be\\node_modules\\web-push\\src\\web-push-lib.js","function":"WebPushLib.setVapidDetails","line":60,"method":"setVapidDetails","native":false},{"column":11,"file":"file:///D:/coding/react/samit/be/services/webPush.service.js","function":"configureWebPush","line":21,"method":null,"native":false},{"column":42,"file":"file:///D:/coding/react/samit/be/services/webPush.service.js","function":"isWebPushConfigured","line":27,"method":null,"native":false},{"column":17,"file":"file:///D:/coding/react/samit/be/controllers/push/push.controller.js","function":"getPushPublicKey","line":88,"method":null,"native":false},{"column":5,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\layer.js","function":"Layer.handle [as handle_request]","line":95,"method":"handle [as handle_request]","native":false},{"column":13,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"next","line":149,"method":null,"native":false},{"column":3,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.dispatch","line":119,"method":"dispatch","native":false},{"column":5,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\layer.js","function":"Layer.handle [as handle_request]","line":95,"method":"handle [as handle_request]","native":false},{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":null,"line":284,"method":null,"native":false}],"service":"samit-backend"}
+Error: Vapid public key should be 65 bytes long when decoded.
+    at Object.validatePublicKey (D:\coding\react\samit\be\node_modules\web-push\src\vapid-helper.js:111:11)
+    at WebPushLib.setVapidDetails (D:\coding\react\samit\be\node_modules\web-push\src\web-push-lib.js:60:17)
+    at configureWebPush (file:///D:/coding/react/samit/be/services/webPush.service.js:21:11)
+    at isWebPushConfigured (file:///D:/coding/react/samit/be/services/webPush.service.js:27:42)
+    at getPushPublicKey (file:///D:/coding/react/samit/be/controllers/push/push.controller.js:88:17)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\coding\react\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at D:\coding\react\samit\be\node_modules\express\lib\router\index.js:284:15
+2026-03-31 08:00:43 [ERROR]: unhandledRejection: Transaction cannot be rolled back because it has been finished with state: rollback
+Error: Transaction cannot be rolled back because it has been finished with state: rollback
+    at Transaction.rollback (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\transaction.js:59:13)
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/importAssetsController.js:668:21)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {"error":{},"rejection":true,"date":"Tue Mar 31 2026 08:00:43 GMT+0700 (Western Indonesia Time)","process":{"pid":19908,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":179597312,"heapTotal":105070592,"heapUsed":68329992,"external":14758212,"arrayBuffers":12162711}},"os":{"loadavg":[0,0,0],"uptime":1297132.218},"trace":[{"column":13,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\transaction.js","function":"Transaction.rollback","line":59,"method":"rollback","native":false},{"column":21,"file":"file:///D:/DEV/REACT/samit/be/controllers/asset/importAssetsController.js","function":"importAssetsFromExcel","line":668,"method":null,"native":false},{"column":5,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":105,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: Transaction cannot be rolled back because it has been finished with state: rollback
+    at Transaction.rollback (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\transaction.js:59:13)
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/importAssetsController.js:668:21)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)

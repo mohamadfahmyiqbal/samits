@@ -1,0 +1,221 @@
+import React from 'react';
+import { Card, Row, Col, Form } from 'react-bootstrap';
+import { FaCalendarAlt, FaMicrochip, FaMemory, FaHdd, FaDesktop } from 'react-icons/fa';
+import { formatRupiah } from '../constants/assetConstants';
+// SectionHeader inline
+const SectionHeader = ({ icon: Icon, title }) => (
+  <div className='d-flex align-items-center mb-3'>
+    <Icon className='me-2 fs-4' />
+    <h5 className='mb-0 fw-bold'>{title}</h5>
+  </div>
+);
+const formatDateForInput = (dateString) => {
+  if (!dateString) return '';
+  try {
+    let formattedDate = '';
+    if (typeof dateString === 'string') {
+      if (dateString.length === 4) formattedDate = `${dateString}-01-01`;
+      else if (dateString.length === 6)
+        formattedDate = `${dateString.slice(0, 4)}-${dateString.slice(4, 6)}-01`;
+      else if (dateString.length === 8)
+        formattedDate = `${dateString.slice(0, 4)}-${dateString.slice(4, 6)}-${dateString.slice(6, 8)}`;
+      else formattedDate = dateString;
+    } else {
+      formattedDate = new Date(dateString).toISOString().split('T')[0];
+    }
+    return /^\d{4}-\d{2}-\d{2}$/.test(formattedDate) ? formattedDate : '';
+  } catch {
+    return '';
+  }
+};
+
+const SpecSection = ({ newAsset, onInputChange, isPC }) => {
+  return (
+    <Card className='mb-4 border-0 shadow-sm'>
+      <Card.Body>
+        <SectionHeader icon={FaCalendarAlt} title='Spesifikasi Teknis & Pembelian' />
+        <Row className='g-3'>
+          {/* PC Hardware Specs - hanya muncul jika PC */}
+          {isPC && (
+            <>
+              <Col md={12}>
+                <SectionHeader icon={FaDesktop} title='Spesifikasi PC/Desktop' />
+              </Col>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label>Model</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='model'
+                    value={newAsset.model || ''}
+                    onChange={onInputChange}
+                    placeholder='Contoh: Prodesk 400 G7'
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label>Processor</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='processor'
+                    value={newAsset.processor || ''}
+                    onChange={onInputChange}
+                    placeholder='Contoh: Intel Core i7-10700'
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label>RAM</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='ram'
+                    value={newAsset.ram || ''}
+                    onChange={onInputChange}
+                    placeholder='Contoh: 16GB DDR4'
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label>Harddisk/Storage</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='harddisk'
+                    value={newAsset.harddisk || ''}
+                    onChange={onInputChange}
+                    placeholder='Contoh: 512GB SSD'
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label>VGA/Graphics</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='vga'
+                    value={newAsset.vga || ''}
+                    onChange={onInputChange}
+                    placeholder='Contoh: Intel UHD Graphics 630'
+                  />
+                </Form.Group>
+              </Col>
+            </>
+          )}
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>Tahun Beli</Form.Label>
+              <Form.Control
+                type='date'
+                name='tahunBeli'
+                value={formatDateForInput(newAsset.tahunBeli)}
+                onChange={onInputChange}
+              />
+              <Form.Text className='text-muted small'>Pilih tanggal pembelian</Form.Text>
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>
+                Tahun Depresiasi <span className='text-muted small'>(1-30 tahun)</span>
+              </Form.Label>
+              <Form.Control
+                type='number'
+                name='tahunDepreciation'
+                min='1'
+                max='30'
+                value={newAsset.tahunDepreciation || ''}
+                onChange={onInputChange}
+                placeholder='5'
+              />
+              <Form.Text className='text-muted'>
+                Masukkan jumlah tahun masa manfaat aset (1-30 tahun)
+              </Form.Text>
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>No. PO</Form.Label>
+              <Form.Control
+                type='text'
+                name='po_number'
+                value={newAsset.po_number || ''}
+                onChange={onInputChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>No. Invoice</Form.Label>
+              <Form.Control
+                type='text'
+                name='invoice_number'
+                value={newAsset.invoice_number || ''}
+                onChange={onInputChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>Harga Beli Aktual</Form.Label>
+              <Form.Control
+                type='text'
+                name='purchase_price_actual'
+                value={
+                  newAsset.purchase_price_actual ? formatRupiah(newAsset.purchase_price_actual) : ''
+                }
+                onChange={onInputChange}
+                placeholder='Rp 0'
+              />
+              <Form.Text className='text-muted small'>Format: Rp 1.000.000</Form.Text>
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>Harga Rencana (Plan)</Form.Label>
+              <Form.Control
+                type='text'
+                name='purchase_price_plan'
+                value={
+                  newAsset.purchase_price_plan ? formatRupiah(newAsset.purchase_price_plan) : ''
+                }
+                onChange={onInputChange}
+                placeholder='Rp 0'
+              />
+              <Form.Text className='text-muted small'>Budget/Plan</Form.Text>
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>Periode Inspeksi</Form.Label>
+              <Form.Control
+                type='text'
+                name='inspection_date_period'
+                value={newAsset.inspection_date_period || ''}
+                onChange={onInputChange}
+                placeholder='YYYYMM'
+                maxLength='6'
+              />
+              <Form.Text className='text-muted small'>Format: YYYYMM (contoh: 202401)</Form.Text>
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group>
+              <Form.Label>Perpanjangan Garansi</Form.Label>
+              <Form.Control
+                type='date'
+                name='extend_warranty_date'
+                value={formatDateForInput(newAsset.extend_warranty_date)}
+                onChange={onInputChange}
+              />
+              <Form.Text className='text-muted small'>Tanggal akhir garansi</Form.Text>
+            </Form.Group>
+          </Col>
+        </Row>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default React.memo(SpecSection);

@@ -1,0 +1,286 @@
+{
+  "info": {
+    "_postman_id": "samit-import-collection",
+    "name": "SAMIT Import Assets",
+    "description": "Postman collection for importing assets from Excel file",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Import Assets from Excel",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Test script for response validation",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response has required fields\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('message');",
+              "    pm.expect(jsonData).to.have.property('results');",
+              "    pm.expect(jsonData.results).to.have.property('total');",
+              "    pm.expect(jsonData.results).to.have.property('created');",
+              "    pm.expect(jsonData.results).to.have.property('updated');",
+              "    pm.expect(jsonData.results).to.have.property('failed');",
+              "});",
+              "",
+              "pm.test(\"Import completed successfully\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    console.log('Import Results:', jsonData.results);",
+              "    pm.globals.set(\"lastImportResults\", JSON.stringify(jsonData.results));",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "UPDATE ASET FEB 2026 Rev01.xlsx",
+              "description": "Excel file containing asset data to import"
+            },
+            {
+              "key": "debug",
+              "value": "1",
+              "type": "text",
+              "description": "Enable debug logging (optional)"
+            },
+            {
+              "key": "sheetNames",
+              "value": "",
+              "type": "text",
+              "description": "Comma-separated sheet names to import (optional, defaults to first sheet)"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/assets/import-excel",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "assets", "import-excel"]
+        },
+        "description": "Import assets from Excel file. The Excel file should contain asset data with the following structure:\n\n**Expected Excel Format:**\n- Rows 1-4: Headers (skipped)\n- Row 5+: Actual data\n\n**Required Columns:**\n- Column B: NO.ASSET (Asset Number)\n- Column C: TYPE (Asset Type)\n\n**Optional Columns:**\n- Column G: NIK (Employee ID)\n- Column J: HOSTNAME\n- Column K: Purchase Year\n- Column V: PO Number\n- Column Y: Status\n\n**Response:**\n```json\n{\n  \"message\": \"Import selesai. Created: X, Updated: Y, Failed: Z\",\n  \"results\": {\n    \"total\": 100,\n    \"created\": 50,\n    \"updated\": 30,\n    \"failed\": 20,\n    \"errors\": [],\n    \"notFoundCategories\": []\n  }\n}\n```"
+      },
+      "response": []
+    },
+    {
+      "name": "Import Assets (JSON Array)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response has message and results\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('message');",
+              "    pm.expect(jsonData).to.have.property('results');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\n  {\n    \"noAsset\": \"IT001\",\n    \"type\": \"Laptop\",\n    \"nik\": \"12345\",\n    \"hostname\": \"LAPTOP-001\",\n    \"tahunBeli\": \"2023\",\n    \"noPO\": \"PO001\",\n    \"status\": \"Active\"\n  },\n  {\n    \"noAsset\": \"IT002\",\n    \"type\": \"Monitor\",\n    \"nik\": \"67890\",\n    \"hostname\": \"MON-002\",\n    \"tahunBeli\": \"2023\",\n    \"noPO\": \"PO002\",\n    \"status\": \"Active\"\n  }\n]"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/assets/import",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "assets", "import"]
+        },
+        "description": "Import assets using JSON array format. This endpoint accepts an array of asset objects.\n\n**Required Fields:**\n- `noAsset`: Asset number (string)\n- `type`: Asset type (string)\n\n**Optional Fields:**\n- `nik`: Employee ID (string)\n- `hostname`: Device hostname (string)\n- `tahunBeli`: Purchase year (string/year)\n- `noPO`: PO number (string)\n- `status`: Asset status (string, default: \"Active\")"
+      },
+      "response": []
+    },
+    {
+      "name": "List Imported Assets",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is array\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/assets?limit=50&sortBy=created_at&sortOrder=desc",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "assets"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "50",
+              "description": "Limit number of results"
+            },
+            {
+              "key": "sortBy",
+              "value": "created_at",
+              "description": "Sort field"
+            },
+            {
+              "key": "sortOrder",
+              "value": "desc",
+              "description": "Sort order (asc/desc)"
+            }
+          ]
+        },
+        "description": "List all assets to verify import results. This endpoint requires authentication token."
+      },
+      "response": []
+    },
+    {
+      "name": "Get Asset Categories",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is array of categories\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/assets/categories",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "assets", "categories"]
+        },
+        "description": "Get list of available asset categories. Useful for validating category names before import."
+      },
+      "response": []
+    },
+    {
+      "name": "Get Asset Sub-Categories",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is array of sub-categories\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/assets/sub-categories",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "assets", "sub-categories"]
+        },
+        "description": "Get list of available asset sub-categories (types). This helps validate the TYPE column in Excel import."
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Pre-request script",
+          "console.log('Running SAMIT Import Collection');"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global test script",
+          "if (pm.response.code >= 400) {",
+          "    console.log('Error Response:', pm.response.json());",
+          "}"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:5002",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

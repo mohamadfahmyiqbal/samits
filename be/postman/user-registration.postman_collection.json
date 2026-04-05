@@ -1,0 +1,40 @@
+{
+  "info": {
+    "_postman_id": "bbefef55-7c24-4e89-9f77-6db15525d19c",
+    "name": "User Registration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Collection with registration request for the new `POST /api/users/register` endpoint."
+  },
+  "item": [
+    {
+      "name": "Register Karyawan",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nik\": \"1999123456\",\n  \"nama\": \"Ani Putri\",\n  \"password\": \"Password!23\",\n  \"email\": \"ani.putri@example.com\",\n  \"phone\": \"081234567890\",\n  \"position\": \"Finance\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/users/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "users",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

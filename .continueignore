@@ -1,0 +1,8 @@
+node_modules
+fe/node_modules
+be/node_modules
+build
+dist
+.git
+logs
+uploads

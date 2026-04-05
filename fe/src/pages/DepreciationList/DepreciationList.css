@@ -1,0 +1,151 @@
+.depreciation-list {
+  padding: 24px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin: 0;
+  color: #666;
+}
+
+.stats-cards {
+  margin-bottom: 24px;
+}
+
+.stats-card {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.stats-card .stats-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+.stats-card .stats-value {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.stats-card .stats-label {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filter-section {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.depreciation-progress {
+  margin-bottom: 8px;
+}
+
+.depreciation-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.asset-status {
+  font-weight: 500;
+}
+
+.status-active {
+  color: #52c41a;
+}
+
+.status-disposed {
+  color: #ff4d4f;
+}
+
+.status-fully-depreciated {
+  color: #faad14;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-form .form-row {
+  margin-bottom: 16px;
+}
+
+.calculation-summary {
+  background: #f0f7ff;
+  border: 1px solid #d6e4ff;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.calculation-summary h4 {
+  margin: 0 0 12px 0;
+  color: #1890ff;
+}
+
+.calculation-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.calculation-item .label {
+  color: #666;
+}
+
+.calculation-item .value {
+  font-weight: 500;
+}
+
+.calculation-total {
+  border-top: 1px solid #d6e4ff;
+  padding-top: 8px;
+  margin-top: 8px;
+  font-weight: 600;
+  color: #1890ff;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .stats-cards .ant-col {
+    margin-bottom: 16px;
+  }
+}

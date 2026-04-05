@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Authentication</title>
+</head>
+<body>
+    <h1>Authentication Debug</h1>
+    <button onclick="checkAuth()">Check Authentication Status</button>
+    <div id="result"></div>
+
+    <script>
+        function checkAuth() {
+            const result = document.getElementById('result');
+            
+            // Check token
+            const token = localStorage.getItem('token');
+            result.innerHTML += `<p>Token: ${token ? 'EXISTS' : 'MISSING'}</p>`;
+            
+            // Check user data
+            const userData = localStorage.getItem('userData');
+            if (userData) {
+                try {
+                    const user = JSON.parse(userData);
+                    result.innerHTML += `<p>User Data: ${JSON.stringify(user, null, 2)}</p>`;
+                    result.innerHTML += `<p>User Role: ${user.roles?.[0]?.role_name || 'NO ROLE'}</p>`;
+                } catch (e) {
+                    result.innerHTML += `<p>User Data: INVALID JSON</p>`;
+                }
+            } else {
+                result.innerHTML += `<p>User Data: MISSING</p>`;
+            }
+            
+            // Check session storage
+            const sessionToken = sessionStorage.getItem('token');
+            result.innerHTML += `<p>Session Token: ${sessionToken ? 'EXISTS' : 'MISSING'}</p>`;
+        }
+    </script>
+</body>
+</html>

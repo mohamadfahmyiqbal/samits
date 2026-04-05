@@ -1,0 +1,435 @@
+2026-03-28 18:03:08 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:03:08 GMT+0700 (Indochina Time)","process":{"pid":4876,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":95555584,"heapTotal":65810432,"heapUsed":34591784,"external":2519040,"arrayBuffers":28576}},"os":{"loadavg":[0,0,0],"uptime":2373.75},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:03:16 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:03:16 GMT+0700 (Indochina Time)","process":{"pid":18104,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":95174656,"heapTotal":65077248,"heapUsed":34954984,"external":2519040,"arrayBuffers":28576}},"os":{"loadavg":[0,0,0],"uptime":2380.875},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:03:21 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:03:21 GMT+0700 (Indochina Time)","process":{"pid":8212,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":95305728,"heapTotal":64552960,"heapUsed":35004264,"external":2493534,"arrayBuffers":28400}},"os":{"loadavg":[0,0,0],"uptime":2386.046},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:03:26 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:03:26 GMT+0700 (Indochina Time)","process":{"pid":6788,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":95907840,"heapTotal":65548288,"heapUsed":35186384,"external":2493534,"arrayBuffers":28400}},"os":{"loadavg":[0,0,0],"uptime":2391.593},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:05:49 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:05:49 GMT+0700 (Indochina Time)","process":{"pid":11944,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":95698944,"heapTotal":65286144,"heapUsed":35256240,"external":2519040,"arrayBuffers":28576}},"os":{"loadavg":[0,0,0],"uptime":2534.609},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:06:41 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 18:06:41 GMT+0700 (Indochina Time)","process":{"pid":17460,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":96604160,"heapTotal":65966080,"heapUsed":37599072,"external":2494821,"arrayBuffers":28400}},"os":{"loadavg":[0,0,0],"uptime":2586.312},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":12,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:12:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 18:11:56 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5002
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002},"exception":true,"date":"Sat Mar 28 2026 18:11:56 GMT+0700 (Indochina Time)","process":{"pid":6636,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":121090048,"heapTotal":81715200,"heapUsed":48882400,"external":5591364,"arrayBuffers":3108928}},"os":{"loadavg":[0,0,0],"uptime":2901.64},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1908,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1965,"method":null,"native":false},{"column":7,"file":"node:net","function":"doListen","line":2139,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":83,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-03-28 20:06:40 [ERROR]: uncaughtException: Route.get() requires a callback function but got a [object Undefined]
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:13:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sat Mar 28 2026 20:06:40 GMT+0700 (Indochina Time)","process":{"pid":2412,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":96358400,"heapTotal":64815104,"heapUsed":35219560,"external":2519040,"arrayBuffers":28576}},"os":{"loadavg":[0,0,0],"uptime":9785.437},"trace":[{"column":15,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"Route.<computed> [as get]","line":216,"method":"<computed> [as get]","native":false},{"column":19,"file":"D:\\coding\\react\\samit\\be\\node_modules\\express\\lib\\router\\index.js","function":"proto.<computed> [as get]","line":521,"method":"<computed> [as get]","native":false},{"column":8,"file":"file:///D:/coding/react/samit/be/routes/dashboard.routes.js","function":null,"line":13,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: Route.get() requires a callback function but got a [object Undefined]
+    at Route.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\route.js:216:15)
+    at proto.<computed> [as get] (D:\coding\react\samit\be\node_modules\express\lib\router\index.js:521:19)
+    at file:///D:/coding/react/samit/be/routes/dashboard.routes.js:13:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-03-28 20:17:34 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5002
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002},"exception":true,"date":"Sat Mar 28 2026 20:17:34 GMT+0700 (Indochina Time)","process":{"pid":5068,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":121606144,"heapTotal":81453056,"heapUsed":48773816,"external":5591364,"arrayBuffers":3097728}},"os":{"loadavg":[0,0,0],"uptime":10439.093},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1908,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1965,"method":null,"native":false},{"column":7,"file":"node:net","function":"doListen","line":2139,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":83,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-03-28 20:17:58 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5002
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002},"exception":true,"date":"Sat Mar 28 2026 20:17:58 GMT+0700 (Indochina Time)","process":{"pid":19320,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":120193024,"heapTotal":81453056,"heapUsed":48835856,"external":5591364,"arrayBuffers":3108928}},"os":{"loadavg":[0,0,0],"uptime":10463.453},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1908,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1965,"method":null,"native":false},{"column":7,"file":"node:net","function":"doListen","line":2139,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":83,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-03-28 20:18:13 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5002
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002},"exception":true,"date":"Sat Mar 28 2026 20:18:13 GMT+0700 (Indochina Time)","process":{"pid":20112,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":121479168,"heapTotal":81190912,"heapUsed":48891016,"external":5591364,"arrayBuffers":3108928}},"os":{"loadavg":[0,0,0],"uptime":10478.39},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1908,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1965,"method":null,"native":false},{"column":7,"file":"node:net","function":"doListen","line":2139,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":83,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-03-28 20:18:21 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use 0.0.0.0:5002
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"0.0.0.0","port":5002},"exception":true,"date":"Sat Mar 28 2026 20:18:21 GMT+0700 (Indochina Time)","process":{"pid":5084,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":121487360,"heapTotal":81190912,"heapUsed":48748480,"external":5591364,"arrayBuffers":3097728}},"os":{"loadavg":[0,0,0],"uptime":10485.859},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1908,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1965,"method":null,"native":false},{"column":7,"file":"node:net","function":"doListen","line":2139,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":83,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+Error: listen EADDRINUSE: address already in use 0.0.0.0:5002
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at doListen (node:net:2139:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+2026-04-01 09:15:28 [ERROR]: uncaughtException: body is not defined
+ReferenceError: body is not defined
+    at file:///D:/DEV/REACT/samit/be/routes/master.routes.js:74:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5) {"error":{},"exception":true,"date":"Wed Apr 01 2026 09:15:28 GMT+0700 (Western Indonesia Time)","process":{"pid":42388,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":141975552,"heapTotal":91168768,"heapUsed":60683784,"external":5608149,"arrayBuffers":3033518}},"os":{"loadavg":[0,0,0],"uptime":1388015.89},"trace":[{"column":3,"file":"file:///D:/DEV/REACT/samit/be/routes/master.routes.js","function":null,"line":74,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":303,"method":"run","native":false},{"column":26,"file":"node:internal/modules/esm/loader","function":"async onImport.tracePromise.__proto__","line":663,"method":"__proto__","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":99,"method":null,"native":false}],"service":"samit-backend"}
+ReferenceError: body is not defined
+    at file:///D:/DEV/REACT/samit/be/routes/master.routes.js:74:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5)
+2026-04-01 09:15:47 [ERROR]: uncaughtException: body is not defined
+ReferenceError: body is not defined
+    at file:///D:/DEV/REACT/samit/be/routes/master.routes.js:74:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5) {"error":{},"exception":true,"date":"Wed Apr 01 2026 09:15:47 GMT+0700 (Western Indonesia Time)","process":{"pid":41860,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":142295040,"heapTotal":90382336,"heapUsed":60742952,"external":5608149,"arrayBuffers":3033518}},"os":{"loadavg":[0,0,0],"uptime":1388034.968},"trace":[{"column":3,"file":"file:///D:/DEV/REACT/samit/be/routes/master.routes.js","function":null,"line":74,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":303,"method":"run","native":false},{"column":26,"file":"node:internal/modules/esm/loader","function":"async onImport.tracePromise.__proto__","line":663,"method":"__proto__","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":99,"method":null,"native":false}],"service":"samit-backend"}
+ReferenceError: body is not defined
+    at file:///D:/DEV/REACT/samit/be/routes/master.routes.js:74:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5)
+2026-04-01 09:15:59 [ERROR]: uncaughtException: body is not defined
+ReferenceError: body is not defined
+    at file:///D:/DEV/REACT/samit/be/routes/master.routes.js:74:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5) {"error":{},"exception":true,"date":"Wed Apr 01 2026 09:15:59 GMT+0700 (Western Indonesia Time)","process":{"pid":37300,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":147263488,"heapTotal":86712320,"heapUsed":63564744,"external":5581818,"arrayBuffers":3033342}},"os":{"loadavg":[0,0,0],"uptime":1388046.546},"trace":[{"column":3,"file":"file:///D:/DEV/REACT/samit/be/routes/master.routes.js","function":null,"line":74,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":303,"method":"run","native":false},{"column":26,"file":"node:internal/modules/esm/loader","function":"async onImport.tracePromise.__proto__","line":663,"method":"__proto__","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":99,"method":null,"native":false}],"service":"samit-backend"}
+ReferenceError: body is not defined
+    at file:///D:/DEV/REACT/samit/be/routes/master.routes.js:74:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5)
+2026-04-01 09:16:05 [ERROR]: uncaughtException: body is not defined
+ReferenceError: body is not defined
+    at file:///D:/DEV/REACT/samit/be/routes/master.routes.js:74:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5) {"error":{},"exception":true,"date":"Wed Apr 01 2026 09:16:05 GMT+0700 (Western Indonesia Time)","process":{"pid":33304,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":147292160,"heapTotal":86712320,"heapUsed":63557168,"external":5581818,"arrayBuffers":3033342}},"os":{"loadavg":[0,0,0],"uptime":1388052.984},"trace":[{"column":3,"file":"file:///D:/DEV/REACT/samit/be/routes/master.routes.js","function":null,"line":74,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":303,"method":"run","native":false},{"column":26,"file":"node:internal/modules/esm/loader","function":"async onImport.tracePromise.__proto__","line":663,"method":"__proto__","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":99,"method":null,"native":false}],"service":"samit-backend"}
+ReferenceError: body is not defined
+    at file:///D:/DEV/REACT/samit/be/routes/master.routes.js:74:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5)
+2026-04-01 09:18:13 [ERROR]: uncaughtException: body is not defined
+ReferenceError: body is not defined
+    at file:///D:/DEV/REACT/samit/be/routes/master.routes.js:74:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5) {"error":{},"exception":true,"date":"Wed Apr 01 2026 09:18:13 GMT+0700 (Western Indonesia Time)","process":{"pid":45700,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":147341312,"heapTotal":87236608,"heapUsed":63508160,"external":5581818,"arrayBuffers":3033342}},"os":{"loadavg":[0,0,0],"uptime":1388181.015},"trace":[{"column":3,"file":"file:///D:/DEV/REACT/samit/be/routes/master.routes.js","function":null,"line":74,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":303,"method":"run","native":false},{"column":26,"file":"node:internal/modules/esm/loader","function":"async onImport.tracePromise.__proto__","line":663,"method":"__proto__","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":99,"method":null,"native":false}],"service":"samit-backend"}
+ReferenceError: body is not defined
+    at file:///D:/DEV/REACT/samit/be/routes/master.routes.js:74:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5)
+2026-04-01 09:37:34 [ERROR]: uncaughtException: Cannot destructure property 'Op' of 'Sequelize' as it is undefined.
+TypeError: Cannot destructure property 'Op' of 'Sequelize' as it is undefined.
+    at file:///D:/DEV/REACT/samit/be/services/inventory.service.js:4:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5) {"error":{},"exception":true,"date":"Wed Apr 01 2026 09:37:34 GMT+0700 (Western Indonesia Time)","process":{"pid":46664,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":140402688,"heapTotal":89595904,"heapUsed":62360928,"external":5608149,"arrayBuffers":3033518}},"os":{"loadavg":[0,0,0],"uptime":1389342.109},"trace":[{"column":9,"file":"file:///D:/DEV/REACT/samit/be/services/inventory.service.js","function":null,"line":4,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":303,"method":"run","native":false},{"column":26,"file":"node:internal/modules/esm/loader","function":"async onImport.tracePromise.__proto__","line":663,"method":"__proto__","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":99,"method":null,"native":false}],"service":"samit-backend"}
+TypeError: Cannot destructure property 'Op' of 'Sequelize' as it is undefined.
+    at file:///D:/DEV/REACT/samit/be/services/inventory.service.js:4:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5)
+2026-04-01 09:37:42 [ERROR]: uncaughtException: Cannot destructure property 'Op' of 'Sequelize' as it is undefined.
+TypeError: Cannot destructure property 'Op' of 'Sequelize' as it is undefined.
+    at file:///D:/DEV/REACT/samit/be/services/inventory.service.js:4:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5) {"error":{},"exception":true,"date":"Wed Apr 01 2026 09:37:42 GMT+0700 (Western Indonesia Time)","process":{"pid":44708,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":142426112,"heapTotal":91168768,"heapUsed":62115120,"external":5608149,"arrayBuffers":3033518}},"os":{"loadavg":[0,0,0],"uptime":1389349.531},"trace":[{"column":9,"file":"file:///D:/DEV/REACT/samit/be/services/inventory.service.js","function":null,"line":4,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":303,"method":"run","native":false},{"column":26,"file":"node:internal/modules/esm/loader","function":"async onImport.tracePromise.__proto__","line":663,"method":"__proto__","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":99,"method":null,"native":false}],"service":"samit-backend"}
+TypeError: Cannot destructure property 'Op' of 'Sequelize' as it is undefined.
+    at file:///D:/DEV/REACT/samit/be/services/inventory.service.js:4:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:303:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:663:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:99:5)
+2026-04-05 12:18:25 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:18:25 GMT+0700 (Indochina Time)","process":{"pid":25264,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":82112512,"heapTotal":62566400,"heapUsed":37024360,"external":2518199,"arrayBuffers":29576}},"os":{"loadavg":[0,0,0],"uptime":29178.359},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:19:52 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:19:52 GMT+0700 (Indochina Time)","process":{"pid":3724,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":92725248,"heapTotal":63614976,"heapUsed":37790200,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29265.468},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:20:38 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:20:38 GMT+0700 (Indochina Time)","process":{"pid":25380,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":92930048,"heapTotal":64139264,"heapUsed":37925664,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29310.875},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:21:01 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:21:01 GMT+0700 (Indochina Time)","process":{"pid":22636,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":89550848,"heapTotal":63877120,"heapUsed":37697512,"external":2520040,"arrayBuffers":29576}},"os":{"loadavg":[0,0,0],"uptime":29333.906},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:21:07 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:21:07 GMT+0700 (Indochina Time)","process":{"pid":25064,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":92377088,"heapTotal":63877120,"heapUsed":37939200,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29340.437},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:21:20 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:21:20 GMT+0700 (Indochina Time)","process":{"pid":22128,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":90124288,"heapTotal":64139264,"heapUsed":37996816,"external":2520040,"arrayBuffers":29576}},"os":{"loadavg":[0,0,0],"uptime":29353.031},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:21:27 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:21:27 GMT+0700 (Indochina Time)","process":{"pid":10468,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":90206208,"heapTotal":63614976,"heapUsed":37874448,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29359.843},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:21:40 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:21:40 GMT+0700 (Indochina Time)","process":{"pid":22588,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":92114944,"heapTotal":63877120,"heapUsed":37974648,"external":2520040,"arrayBuffers":29576}},"os":{"loadavg":[0,0,0],"uptime":29372.906},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:21:46 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:21:46 GMT+0700 (Indochina Time)","process":{"pid":23068,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":91078656,"heapTotal":64139264,"heapUsed":37826880,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29378.984},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:22:10 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:22:10 GMT+0700 (Indochina Time)","process":{"pid":25268,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":90603520,"heapTotal":64139264,"heapUsed":38059168,"external":2520040,"arrayBuffers":29576}},"os":{"loadavg":[0,0,0],"uptime":29403.125},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:22:18 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:22:18 GMT+0700 (Indochina Time)","process":{"pid":21020,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":90046464,"heapTotal":63877120,"heapUsed":37824768,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29411.203},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:22:47 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:22:47 GMT+0700 (Indochina Time)","process":{"pid":18860,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":91406336,"heapTotal":63877120,"heapUsed":38119888,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29440.812},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:23:07 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:23:07 GMT+0700 (Indochina Time)","process":{"pid":20344,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":90050560,"heapTotal":63877120,"heapUsed":37853032,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29460.812},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:23:42 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:23:42 GMT+0700 (Indochina Time)","process":{"pid":17916,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":89227264,"heapTotal":63877120,"heapUsed":38081128,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29495.062},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:24:11 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:24:11 GMT+0700 (Indochina Time)","process":{"pid":22416,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":89280512,"heapTotal":64139264,"heapUsed":37748520,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29524.39},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:24:41 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:24:41 GMT+0700 (Indochina Time)","process":{"pid":24668,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":90275840,"heapTotal":63877120,"heapUsed":36873472,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29554.812},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 12:26:06 [ERROR]: uncaughtException: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 12:26:06 GMT+0700 (Indochina Time)","process":{"pid":15624,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit","execPath":"C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","version":"v20.20.2","argv":["C:\\Users\\iqbal\\AppData\\Local\\nvm\\v20.20.2\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":88371200,"heapTotal":63877120,"heapUsed":38196608,"external":2494534,"arrayBuffers":29400}},"os":{"loadavg":[0,0,0],"uptime":29639.187},"trace":[{"column":9,"file":"file:///D:/coding/react/samit/be/config/HRGA.js","function":null,"line":22,"method":null,"native":false},{"column":25,"file":"node:internal/modules/esm/module_job","function":"ModuleJob.run","line":325,"method":"run","native":false},{"column":24,"file":"node:internal/modules/esm/loader","function":"async ModuleLoader.import","line":606,"method":"import","native":false},{"column":5,"file":"node:internal/modules/run_main","function":"async asyncRunEntryPointWithESMLoader","line":117,"method":null,"native":false}],"service":"samit-backend"}
+Error: HRGA DB config belum lengkap. Set env: HRGA_DB_USER/DB_USER, HRGA_DB_PASSWORD/DB_PASSWORD, HRGA_DB_HOST/DB_HOST
+    at file:///D:/coding/react/samit/be/config/HRGA.js:22:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2026-04-05 14:27:21 [ERROR]: uncaughtException: Cannot read properties of undefined (reading 'length')
+TypeError: Cannot read properties of undefined (reading 'length')
+    at NTLMResponsePayload.createResponse (D:\coding\react\samit\be\node_modules\tedious\lib\ntlm-payload.js:30:60)
+    at new NTLMResponsePayload (D:\coding\react\samit\be\node_modules\tedious\lib\ntlm-payload.js:15:22)
+    at D:\coding\react\samit\be\node_modules\tedious\lib\connection.js:2414:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {"error":{},"exception":true,"date":"Sun Apr 05 2026 14:27:21 GMT+0700 (Indochina Time)","process":{"pid":20504,"uid":null,"gid":null,"cwd":"D:\\coding\\react\\samit\\be","execPath":"C:\\nvm4w\\nodejs\\node.exe","version":"v20.20.2","argv":["C:\\nvm4w\\nodejs\\node.exe","D:\\coding\\react\\samit\\be\\samit.js"],"memoryUsage":{"rss":88899584,"heapTotal":45805568,"heapUsed":42926192,"external":5530255,"arrayBuffers":3023894}},"os":{"loadavg":[0,0,0],"uptime":36914.25},"trace":[{"column":60,"file":"D:\\coding\\react\\samit\\be\\node_modules\\tedious\\lib\\ntlm-payload.js","function":"NTLMResponsePayload.createResponse","line":30,"method":"createResponse","native":false},{"column":22,"file":"D:\\coding\\react\\samit\\be\\node_modules\\tedious\\lib\\ntlm-payload.js","function":"new NTLMResponsePayload","line":15,"method":null,"native":false},{"column":29,"file":"D:\\coding\\react\\samit\\be\\node_modules\\tedious\\lib\\connection.js","function":null,"line":2414,"method":null,"native":false},{"column":5,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":95,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+TypeError: Cannot read properties of undefined (reading 'length')
+    at NTLMResponsePayload.createResponse (D:\coding\react\samit\be\node_modules\tedious\lib\ntlm-payload.js:30:60)
+    at new NTLMResponsePayload (D:\coding\react\samit\be\node_modules\tedious\lib\ntlm-payload.js:15:22)
+    at D:\coding\react\samit\be\node_modules\tedious\lib\connection.js:2414:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)

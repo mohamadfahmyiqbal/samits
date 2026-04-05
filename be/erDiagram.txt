@@ -1,0 +1,457 @@
+erDiagram
+
+    USERS ||--o{ USER_ROLES : has
+    ROLES ||--o{ USER_ROLES : assigned
+    DEPARTMENTS ||--o{ USERS : belongs_to
+
+    LOCATIONS ||--o{ ASSETS : placed_at
+    CATEGORIES ||--o{ ASSETS : classified_as
+    VENDORS ||--o{ ASSETS : supplied_by
+
+    ASSETS ||--o{ MAINTENANCE_PLANS : planned_for
+    MAINTENANCE_PLANS ||--o{ PLAN_TASKS : defines
+    MAINTENANCE_PLANS ||--o{ WORK_ORDERS : generates
+    ASSETS ||--o{ WORK_ORDERS : involves
+    USERS ||--o{ WORK_ORDERS : requested_by
+
+    WORK_ORDERS ||--o{ WO_ASSIGNMENTS : has_techs
+    USERS ||--o{ WO_ASSIGNMENTS : assigned
+
+    WORK_ORDERS ||--o{ WO_TIMELINE : tracked_by
+    USERS ||--o{ WO_TIMELINE : performed_by
+
+    WORK_ORDERS ||--o{ WO_TASK_RESULTS : records
+    PLAN_TASKS ||--o{ WO_TASK_RESULTS : evaluates
+
+    WORK_ORDERS ||--o{ WO_SIGNATURES : signed
+    USERS ||--o{ WO_SIGNATURES : signer
+
+    ASSETS ||--o{ BREAKDOWNS : experiences
+    BREAKDOWNS ||--|| WORK_ORDERS : triggers
+
+    ASSETS ||--o{ METER_READINGS : has
+    WORK_ORDERS ||--o{ METER_READINGS : captured
+
+    WAREHOUSES ||--o{ SPARE_PARTS : stored
+    WAREHOUSES ||--o{ WAREHOUSE_STOCK : holds
+    SPARE_PARTS ||--o{ WAREHOUSE_STOCK : quantity
+
+    SPARE_PARTS ||--o{ INVENTORY_TRANSACTIONS : moved_by
+    WORK_ORDERS ||--o{ INVENTORY_TRANSACTIONS : referenced
+    ADJUSTMENT_REASONS ||--o{ INVENTORY_TRANSACTIONS : explains
+
+    WORK_ORDERS ||--o{ PARTS_USAGE : consumes
+    SPARE_PARTS ||--o{ PARTS_USAGE : used_in
+
+    TOOLS ||--o{ TOOL_TRANSACTIONS : moved_by
+    WAREHOUSES ||--o{ TOOLS : stored_in
+    WORK_ORDERS ||--o{ TOOL_TRANSACTIONS : reference
+
+    TOOLS ||--o{ TOOL_ASSIGNMENTS : checked_out
+    USERS ||--o{ TOOL_ASSIGNMENTS : checked_to
+    WORK_ORDERS ||--o{ TOOL_ASSIGNMENTS : activity
+
+    IT_CATEGORIES ||--o{ IT_ITEMS : categorized
+    LOCATIONS ||--o{ IT_ITEMS : placed
+    VENDORS ||--o{ IT_ITEMS : supplied
+
+    USERS ||--o{ IT_ITEM_ASSIGNMENTS : receives
+    IT_ITEMS ||--o{ IT_ITEM_ASSIGNMENTS : assigned
+
+    IT_ITEMS ||--o{ IT_ITEM_STATUS_HISTORY : status_changes
+    IT_ITEMS ||--o{ IT_ITEM_ATTRIBUTES : has_attributes
+
+    SOFTWARE_LICENSES ||--o{ LICENSE_ALLOCATIONS : allocated_to
+    USERS ||--o{ LICENSE_ALLOCATIONS : user_allocation
+    IT_ITEMS ||--o{ LICENSE_ALLOCATIONS : device_allocation
+    VENDORS ||--o{ SOFTWARE_LICENSES : provided
+
+    IT_ITEMS ||--o{ SECURITY_EVENTS : affected
+    USERS ||--o{ SECURITY_EVENTS : reported_by
+
+
+    %% ==============================
+    %% TABEL DETAIL
+    %% ==============================
+
+    USERS {
+        int nik PK
+        string nama
+        string password_hash
+        string email
+        string phone
+        int department_id FK
+        boolean is_active
+        datetime created_at
+        string level_name
+        string token
+    }
+
+    USER_ROLES {
+        int nik FK
+        int role_id FK
+    }
+
+    ROLES {
+        int role_id PK
+        string role_name
+        string description
+    }
+
+    DEPARTMENTS {
+        int department_id PK
+        string name
+        string code
+    }
+
+    ATTACHMENTS {
+        int attachment_id PK
+        string target_type
+        int target_id
+        string file_name
+        string file_path
+        string mime_type
+        datetime uploaded_at
+        int uploaded_by FK
+        string note
+    }
+
+    AUDIT_LOG {
+        int log_id PK
+        string entity
+        int entity_id
+        string action
+        string old_value
+        string new_value
+        datetime created_at
+        int created_by FK
+    }
+
+    LOCATIONS {
+        int location_id PK
+        string name
+        string code
+        int parent_location_id FK
+    }
+
+    CATEGORIES {
+        int category_id PK
+        string name
+        string code
+        string description
+    }
+
+    VENDORS {
+        int vendor_id PK
+        string name
+        string phone
+        string email
+        string contact
+    }
+
+    ASSETS {
+        int asset_id PK
+        string asset_code
+        string asset_name
+        int category_id FK
+        int location_id FK
+        int vendor_id FK
+        string model
+        string serial_number
+        datetime commissioning_date
+        boolean is_active
+        float purchase_cost
+        string asset_group
+        datetime warranty_expiration
+    }
+
+    ASSET_LIFECYCLE {
+        int lifecycle_id PK
+        int asset_id FK
+        string status
+        datetime changed_at
+        int changed_by FK
+        string note
+    }
+
+    MAINTENANCE_PLANS {
+        int plan_id PK
+        int asset_id FK
+        string plan_name
+        string frequency
+        int interval_value
+        string trigger_type
+        string meter_type
+        float meter_interval
+        float last_meter
+        boolean is_active
+        datetime next_due
+    }
+
+    PLAN_TASKS {
+        int plan_task_id PK
+        int plan_id FK
+        int sequence_no
+        string task_name
+        string instruction
+        string checklist_type
+        string spec
+    }
+
+    WORK_ORDERS {
+        int wo_id PK
+        string wo_number
+        int asset_id FK
+        int plan_id FK
+        int breakdown_id FK
+        string wo_type
+        string priority
+        string status
+        int requested_by FK
+        datetime requested_at
+        datetime start_time
+        datetime end_time
+        float labor_cost
+        float material_cost
+        float other_cost
+        string symptom
+        string root_cause
+        string action_taken
+        string location_note
+    }
+
+    WO_ASSIGNMENTS {
+        int assignment_id PK
+        int wo_id FK
+        int nik FK
+        datetime assigned_at
+        datetime acknowledged_at
+    }
+
+    WO_TIMELINE {
+        int timeline_id PK
+        int wo_id FK
+        int performed_by FK
+        string event_type
+        datetime event_time
+        string comment
+    }
+
+    WO_TASK_RESULTS {
+        int result_id PK
+        int wo_id FK
+        int plan_task_id FK
+        string result_type
+        string value_text
+        float value_number
+        boolean pass_fail
+        string note
+        datetime completed_at
+    }
+
+    WO_SIGNATURES {
+        int signature_id PK
+        int wo_id FK
+        int signer_id FK
+        string role
+        datetime signed_at
+        string image_path
+    }
+
+    BREAKDOWNS {
+        int bd_id PK
+        int asset_id FK
+        datetime occur_time
+        datetime restore_time
+        string severity
+        string symptom
+        string cause
+        float downtime_minutes
+        string category
+    }
+
+    METER_READINGS {
+        int reading_id PK
+        int asset_id FK
+        int wo_id FK
+        string meter_type
+        float meter_value
+        datetime reading_at
+        int recorded_by FK
+        string note
+    }
+
+    WAREHOUSES {
+        int warehouse_id PK
+        string name
+        string code
+        int location_id FK
+    }
+
+    SPARE_PARTS {
+        int part_id PK
+        string part_code
+        string part_name
+        string uom
+        int min_stock
+        int warehouse_id FK
+        float unit_cost
+        boolean is_active
+        string part_type
+    }
+
+    WAREHOUSE_STOCK {
+        int stock_id PK
+        int warehouse_id FK
+        int part_id FK
+        float qty_on_hand
+        float qty_reserved
+    }
+
+    INVENTORY_TRANSACTIONS {
+        int trx_id PK
+        int part_id FK
+        int warehouse_id FK
+        string trx_type
+        float qty
+        float unit_cost
+        datetime trx_date
+        int wo_id FK
+        int reason_id FK
+        string reference_no
+        string note
+        int created_by FK
+    }
+
+    ADJUSTMENT_REASONS {
+        int reason_id PK
+        string reason_code
+        string description
+        boolean require_approval
+    }
+
+    PARTS_USAGE {
+        int usage_id PK
+        int wo_id FK
+        int part_id FK
+        float qty
+        float unit_cost_snapshot
+    }
+
+    TOOLS {
+        int tool_id PK
+        string tool_code
+        string tool_name
+        string uom
+        int warehouse_id FK
+        float unit_cost
+        boolean is_active
+    }
+
+    TOOL_TRANSACTIONS {
+        int tool_trx_id PK
+        int tool_id FK
+        string trx_type
+        float qty
+        datetime trx_date
+        int warehouse_id FK
+        int wo_id FK
+        string reference_no
+        string note
+        int created_by FK
+    }
+
+    TOOL_ASSIGNMENTS {
+        int assignment_id PK
+        int tool_id FK
+        int nik FK
+        int wo_id FK
+        datetime checkout_time
+        datetime return_time
+        string note
+    }
+
+    IT_CATEGORIES {
+        int it_category_id PK
+        string name
+        string code
+        string group
+    }
+
+    IT_ITEMS {
+        int it_item_id PK
+        string asset_tag
+        string item_name
+        int it_category_id FK
+        int location_id FK
+        int vendor_id FK
+        string item_type
+        string serial_number
+        string status
+        datetime acquired_at
+        float purchase_cost
+        datetime warranty_expiration
+        string ip_address
+        string mac_address
+        string os_version
+    }
+
+    IT_ITEM_ASSIGNMENTS {
+        int assignment_id PK
+        int it_item_id FK
+        int nik FK
+        int department_id FK
+        datetime assigned_at
+        datetime returned_at
+        string note
+    }
+
+    IT_ITEM_STATUS_HISTORY {
+        int status_id PK
+        int it_item_id FK
+        string status
+        datetime changed_at
+        int changed_by FK
+        string note
+    }
+
+    IT_ITEM_ATTRIBUTES {
+        int attribute_id PK
+        int it_item_id FK
+        string key
+        string value
+    }
+
+    SOFTWARE_LICENSES {
+        int license_id PK
+        string product_name
+        string license_key
+        string license_type
+        int seats
+        datetime start_date
+        datetime end_date
+        string subscription_type
+        boolean auto_renew
+        int vendor_id FK
+    }
+
+    LICENSE_ALLOCATIONS {
+        int allocation_id PK
+        int license_id FK
+        int nik FK
+        int it_item_id FK
+        datetime allocated_at
+        datetime released_at
+        string note
+    }
+
+    SECURITY_EVENTS {
+        int event_id PK
+        int it_item_id FK
+        string event_type
+        string severity
+        datetime occurred_at
+        int nik FK
+        string description
+        string status
+    }
