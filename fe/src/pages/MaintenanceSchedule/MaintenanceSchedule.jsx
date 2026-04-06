@@ -152,6 +152,10 @@ export default function MaintenanceSchedule() {
       notes: item.description || item.notes || 'No notes',
       // Keep original data for API calls
       originalData: item,
+      start_date: item.scheduledDate,
+      end_date: item.scheduledEndDate || item.scheduledDate,
+      scheduledDate: item.scheduledDate,
+      scheduledEndDate: item.scheduledEndDate || item.scheduledDate,
     }));
   };
 

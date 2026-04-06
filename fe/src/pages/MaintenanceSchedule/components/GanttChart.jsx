@@ -1,5 +1,4 @@
 import React, { memo, useMemo } from 'react';
-import { FaUsers, FaIdCardAlt, FaBuilding, FaUserAlt } from 'react-icons/fa';
 import {
  format,
  parseISO,
@@ -10,52 +9,13 @@ import {
  eachDayOfInterval,
  eachMonthOfInterval,
  isWithinInterval,
+ addDays,
 } from 'date-fns';
 import './GanttChart.css';
-
-const BookingBar = memo(({ data, onClick }) => {
- const startHour = typeof data.min === 'number' ? data.min : 1;
- const endHour = typeof data.max === 'number' ? data.max + 1 : startHour + 1;
- return (
-  <li
-   className={`booking-item-card ${data.bookStatus || 'available'}`}
-   style={{
-    gridColumn: `${startHour} / ${endHour}`,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    position: 'relative',
-   }}
-   onClick={() => onClick && onClick(data.originalData || data)}
-  >
-   <div className="booking-inner-content h-100 d-flex flex-column">
-    <div className="booking-title text-truncate fw-bold mb-auto" style={{ fontSize: '11px' }}>
-     {data.subject || 'No Subject'}
-    </div>
-    <div className="booking-details-grid mt-1">
-     <div className="booking-meta text-truncate">
-      <FaUserAlt size={9} className="me-1 opacity-75" />
-      <span>{data.userName || data.team || 'Unknown PIC'}</span>
-      <span className="mx-1 opacity-50">|</span>
-      <span>{data.userDept || data.team || '-'}</span>
-     </div>
-     <div className="booking-meta text-truncate">
-      <FaUsers size={10} className="me-1 opacity-75" />
-      <span>{data.attendee || '0'} Attendees</span>
-     </div>
-     <div className="booking-meta text-truncate">
-      <FaIdCardAlt size={10} className="me-1 opacity-75" />
-      <span>{data.visitorName || 'No Visitor'}</span>
-     </div>
-     <div className="booking-meta text-truncate">
-      <FaBuilding size={9} className="me-1 opacity-75" />
-      <span>{data.location || data.subject}</span>
-     </div>
-    </div>
-   </div>
-  </li>
- );
-});
+import DailyGanttChart from './gantt/DailyGanttChart';
+import WeeklyGanttChart from './gantt/WeeklyGanttChart';
+import MonthlyGanttChart from './gantt/MonthlyGanttChart';
+import YearlyGanttChart from './gantt/YearlyGanttChart';
 
 const buildTimeSlots = () =>
  Array.from({ length: 10 }, (_, idx) => {
@@ -88,6 +48,11 @@ const parseHourFromValue = (value) => {
 
 const workdayStartMinutes = 8 * 60;
 const workdayEndMinutes = 17 * 60;
+const minuteInterval = 10;
+const intervalsPerHour = 60 / minuteInterval;
+const weeklyIntervalCount = Math.max(1, Math.ceil((workdayEndMinutes - workdayStartMinutes) / minuteInterval));
+const weeklyFirstIntervalColumn = 2;
+const weeklyLastIntervalLine = weeklyFirstIntervalColumn + weeklyIntervalCount;
 
 const parseTimeToDate = (value) => {
  if (!value) return null;
@@ -129,6 +94,33 @@ const formatDateKey = (value) => {
  return null;
 };
 
+ const getDateKeysForItem = (item) => {
+  const startKey =
+   formatDateKey(item.start_date) ||
+   formatDateKey(item.scheduledDate) ||
+   formatDateKey(item.scheduled_date) ||
+   formatDateKey(item.date) ||
+   null;
+  if (!startKey) return [];
+  const endKey =
+   formatDateKey(item.end_date) ||
+   formatDateKey(item.scheduledEndDate) ||
+   formatDateKey(item.scheduled_end_date) ||
+   startKey;
+  const startDate = parseISO(startKey);
+  const endDate = parseISO(endKey);
+  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+   return [startKey];
+  }
+  const keys = [];
+  let cursor = startDate;
+  while (cursor <= endDate) {
+   keys.push(format(cursor, 'yyyy-MM-dd'));
+   cursor = addDays(cursor, 1);
+  }
+  return keys;
+ };
+
 const createBookingSlot = (item) => {
  const startTime = item.start_time || item.scheduledStartTime;
  const endTime = item.end_time || item.scheduledEndTime;
@@ -139,17 +131,21 @@ const createBookingSlot = (item) => {
  const endDate = parseTimeToDate(endTime);
  const rawStartMinute = startDate ? startDate.getHours() * 60 + startDate.getMinutes() : workdayStartMinutes;
  const rawEndMinute = endDate ? endDate.getHours() * 60 + endDate.getMinutes() : rawStartMinute + 60;
- const normalizedStartMinute = Math.min(workdayEndMinutes - 10, Math.max(workdayStartMinutes, rawStartMinute));
- const normalizedEndMinute = Math.max(normalizedStartMinute + 10, Math.min(workdayEndMinutes, rawEndMinute));
- const startRow = Math.floor((normalizedStartMinute - workdayStartMinutes) / 10) + 1;
- const spanRows = Math.max(1, Math.ceil((normalizedEndMinute - normalizedStartMinute) / 10));
- const startColumn = startHour - 7 + 1;
- const endColumn = startColumn + duration;
-  const dateKey =
-   formatDateKey(item.date) ||
-   formatDateKey(item.scheduledDate) ||
-   formatDateKey(item.start_date) ||
-   null;
+ const normalizedStartMinute = Math.min(workdayEndMinutes - minuteInterval, Math.max(workdayStartMinutes, rawStartMinute));
+ const normalizedEndMinute = Math.max(normalizedStartMinute + minuteInterval, Math.min(workdayEndMinutes, rawEndMinute));
+ const intervalIndex = Math.floor((normalizedStartMinute - workdayStartMinutes) / minuteInterval);
+ const verticalSpanMinutes = normalizedEndMinute - normalizedStartMinute;
+ const horizontalSpanIntervals = Math.max(1, Math.ceil(verticalSpanMinutes / minuteInterval));
+ const startRow = Math.floor((normalizedStartMinute - workdayStartMinutes) / minuteInterval) + 1;
+ const spanRows = Math.max(1, Math.ceil(verticalSpanMinutes / minuteInterval));
+ const startColumn = weeklyFirstIntervalColumn + intervalIndex;
+ const rawEndColumn = startColumn + horizontalSpanIntervals;
+ const endColumn = Math.max(startColumn + 1, Math.min(weeklyLastIntervalLine, rawEndColumn));
+ const dateKey =
+  formatDateKey(item.date) ||
+  formatDateKey(item.scheduledDate) ||
+  formatDateKey(item.start_date) ||
+  null;
  return {
   ...item,
   startHour,
@@ -176,20 +172,25 @@ const createBookingSlot = (item) => {
 const groupByDate = (scheduleData) => {
  const grouped = {};
  (scheduleData || []).forEach((item) => {
-  const dateKey =
-   formatDateKey(item.date) ||
-   formatDateKey(item.scheduledDate) ||
-   formatDateKey(item.start_date) ||
-   null;
-  if (!dateKey) return;
-  if (!grouped[dateKey]) {
-   grouped[dateKey] = {
-    bookStatus: item.status,
-    data: [],
-    key: dateKey,
-   };
-  }
-  grouped[dateKey].data.push(createBookingSlot(item));
+  const dateKeys = getDateKeysForItem(item);
+  if (!dateKeys.length) return;
+  dateKeys.forEach((dateKey) => {
+   if (!grouped[dateKey]) {
+    grouped[dateKey] = {
+     bookStatus: item.status,
+     data: [],
+     key: dateKey,
+    };
+   }
+   grouped[dateKey].data.push(
+    createBookingSlot({
+     ...item,
+     date: dateKey,
+     scheduledDate: dateKey,
+     start_date: dateKey,
+    }),
+   );
+  });
  });
  return grouped;
 };
@@ -247,134 +248,83 @@ export default function GanttChart({ scheduleData = [], onEdit, viewType = 'week
   key: dailyDateKey,
  };
  const dateSlots = useMemo(() => buildDateSlots(dateRange, viewType), [dateRange, viewType]);
-const slotCount = isDaily ? 1 : isWeekly ? timeSlots.length : Math.max(dateSlots.length, 1);
-const lineSlots = Array.from({ length: slotCount }, (_, idx) => idx);
-const filteredEntries = isDaily
- ? []
- : scheduleEntries.filter(([dateKey]) => isDateInRange(dateKey, dateRange));
-const weeklySlots = isWeekly ? buildDateSlots(dateRange, 'weekly') : [];
-const rowsForView = isDaily
- ? []
- : isWeekly
-  ? weeklySlots.map((slot) => ({
-     dateKey: slot.key,
-     bookingObj: groupedSchedule[slot.key] || {
-      data: [],
-      bookStatus: 'available',
-      key: slot.key,
-     },
-    }))
-  : filteredEntries.map(([tanggal, bookingObj]) => ({
-     dateKey: tanggal,
-     bookingObj,
-    }));
-const headerColumns = isDaily
- ? [{ key: 'task', label: 'TUGAS' }]
- : isWeekly
-  ? timeSlots
-  : dateSlots.length
-   ? dateSlots
-   : lineSlots.map((slot) => ({ key: `slot-${slot}`, label: '-' }));
+ const slotCount = isDaily ? 1 : isWeekly ? timeSlots.length - 1: Math.max(dateSlots.length, 1);
+ const nonDailyColumnTemplate = `8% 10% repeat(${slotCount}, 1fr)`;
+ const columnTemplate = isDaily
+  ? '8% repeat(1, minmax(0, 1fr))'
+  : nonDailyColumnTemplate;
+ const rowColumnTemplate = columnTemplate;
+ const lineSlots = Array.from({ length: slotCount }, (_, idx) => idx);
+ const filteredEntries = isDaily
+  ? []
+  : scheduleEntries.filter(([dateKey]) => isDateInRange(dateKey, dateRange));
+ const weeklySlots = isWeekly ? buildDateSlots(dateRange, 'weekly') : [];
+ const rowsForView = isDaily
+  ? []
+  : isWeekly
+   ? weeklySlots.map((slot) => ({
+    dateKey: slot.key,
+    bookingObj: groupedSchedule[slot.key] || {
+     data: [],
+     bookStatus: 'available',
+     key: slot.key,
+    },
+   }))
+   : filteredEntries.map(([tanggal, bookingObj]) => ({
+    dateKey: tanggal,
+    bookingObj,
+   }));
+ const renderBody = () => {
+  if (isDaily) {
+   return (
+    <DailyGanttChart
+     dailyEntry={dailyEntry}
+     workingHours={workingHours}
+     columnTemplate={columnTemplate}
+     onEdit={onEdit}
+    />
+   );
+  }
 
-return (
- <div className="gantt-master-container">
-  <div className="gantt-wrapper">
-   <div className="gantt" style={{ '--slot-count': slotCount }}>
-    <div className={`gantt__row gantt__row--months${isDaily ? ' gantt__row--daily-header' : ''}`}>
-     <span className="gantt__cell">{isDaily ? 'JAM' : 'TANGGAL'}</span>
-     {headerColumns.map((slot) => (
-      <span key={slot.key} className="gantt__cell">
-       {slot.label}
-      </span>
-     ))}
+  if (viewType === 'weekly') {
+   return (
+    <WeeklyGanttChart
+     rowsForView={rowsForView}
+     lineSlots={lineSlots}
+     rowColumnTemplate={rowColumnTemplate}
+     onEdit={onEdit}
+    />
+   );
+  }
+
+  if (viewType === 'monthly') {
+   return (
+    <MonthlyGanttChart
+     rowsForView={rowsForView}
+     lineSlots={lineSlots}
+     rowColumnTemplate={rowColumnTemplate}
+     onEdit={onEdit}
+    />
+   );
+  }
+
+  return (
+   <YearlyGanttChart
+    rowsForView={rowsForView}
+    lineSlots={lineSlots}
+    rowColumnTemplate={rowColumnTemplate}
+    onEdit={onEdit}
+   />
+  );
+ };
+
+ return (
+  <div className="gantt-master-container">
+   <div className="gantt-wrapper">
+    <div className="gantt" style={{ '--slot-count': slotCount }}>
+     {renderBody()}
     </div>
-
-    {isDaily ? (
-     <div className="gantt__row gantt__row--daily">
-      <div className="daily-hour-axis">
-       {workingHours.map((hour, idx) => (
-        <div
-         key={`hour-${hour}`}
-         className="daily-hour-label"
-         style={{ gridRow: `${idx * 6 + 1} / span 6` }}
-        >
-         {`${String(hour).padStart(2, '0')}:00`}
-        </div>
-       ))}
-      </div>
-      <div className="daily-task-grid">
-       {dailyEntry.data.length === 0 ? (
-        <div className="daily-empty">Tidak ada jadwal pada jam ini</div>
-       ) : (
-        dailyEntry.data.map((task) => {
-         const rowStart = task.startRow || 1;
-         const spanHours = Math.max(1, task.spanRows || 1);
-         return (
-          <div
-           key={`${task.id || task.subject}-${task.rangeLabel}`}
-           className="daily-task-card daily-task-card--grid"
-           style={{
-            gridRow: `${rowStart} / span ${spanHours}`,
-           }}
-           onClick={() => onEdit && onEdit(task.originalData || task)}
-          >
-           <div className="daily-task-title">{task.subject || task.equipment}</div>
-           <div className="daily-task-time">{task.rangeLabel}</div>
-           <div className="daily-task-meta">
-            <span>{task.team || task.userName || 'Unknown PIC'}</span>
-            <span>{task.location || 'Lokasi belum tersedia'}</span>
-           </div>
-          </div>
-         );
-        })
-       )}
-      </div>
-     </div>
-    ) : rowsForView.length === 0 ? (
-     <div className="p-5 text-center text-muted">Tidak ada jadwal tersedia.</div>
-    ) : (
-     rowsForView.map((row) => {
-      const bookingObj = row.bookingObj;
-      const dateKey = bookingObj.key || row.dateKey;
-      const parsedDate = parseISO(dateKey);
-      const dayNumber = format(parsedDate, 'dd');
-      const monthLabel = format(parsedDate, 'MMM');
-      const isLocked = ['expired', 'locked', 'cancelled'].includes(bookingObj.bookStatus);
-
-      return (
-       <div key={dateKey} className="gantt__row">
-        <span className="gantt__cell">
-         <div className="date-display">
-          <div className="fw-bold">{dayNumber}</div>
-          <div className="small text-muted">{monthLabel}</div>
-         </div>
-         <span className="text-muted mt-2 d-inline-block">
-          {isLocked ? 'Locked' : 'Tersedia'}
-         </span>
-        </span>
-
-        <div className="gantt__row--lines">
-         <span></span>
-         {lineSlots.map((slot) => (
-          <span key={`line-${slot}`}></span>
-         ))}
-        </div>
-
-        <ul className="gantt__row-bars">
-         {bookingObj.data.map((data, i) => (
-          <BookingBar
-           key={data.id || `${dateKey}-${i}`}
-           data={data}
-           onClick={(item) => onEdit && onEdit(item)}
-          />
-         ))}
-        </ul>
-       </div>
-      );
-     })
-    )}
    </div>
   </div>
- </div>
-);
+ );
 }

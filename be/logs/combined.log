@@ -3732,3 +3732,125 @@ Error
 2026-04-01 16:57:02 [INFO]: Socket disconnect [x_NamKjMdI_flggiAABm] nik=1803070 reason=transport error {"service":"samit-backend"}
 2026-04-01 16:57:51 [INFO]: Socket disconnect [SyNUpqa5z1YM6iJmAABo] nik=1803070 reason=transport error {"service":"samit-backend"}
 2026-04-01 17:00:57 [INFO]: Socket disconnect [RAGSR1R4AKvtNExXAABq] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 07:56:40 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-02 07:56:40 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-02 07:56:40 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-02 07:56:41 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-02 08:08:34 [INFO]: Socket disconnect [YvqV2h8kQO5Q0bbqAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 08:12:38 [INFO]: Socket disconnect [9iAOxXtEncPWme1YAAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 08:18:33 [INFO]: Socket disconnect [VDHOcolfpz2M8pB9AAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 08:28:26 [INFO]: Socket disconnect [bd3DILzdXNgWCSDBAAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 08:30:03 [INFO]: Socket disconnect [DJXvIO21pS99AywfAAAJ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 08:44:13 [INFO]: Socket disconnect [qR4Dvpa0BdrBn8r7AAAL] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 08:53:33 [INFO]: Socket disconnect [ib4xJzqM41WTK_SyAAAN] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 09:00:18 [INFO]: Socket disconnect [hmHnN8A7OclCBj5AAAAP] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 09:22:11 [INFO]: Socket disconnect [FOgrLA73BqnwHTSZAAAR] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 09:27:44 [INFO]: Socket disconnect [yK8nrqd4U9pp48W2AAAT] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 09:35:12 [INFO]: Socket disconnect [Jwc4xbNNDyMzG7eAAAAV] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 09:39:35 [INFO]: Socket disconnect [fA1yKUbJ09SwTnPwAAAX] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 09:44:58 [INFO]: Socket disconnect [FBfiIG4fR_ba6IIKAAAZ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 09:52:49 [INFO]: Socket disconnect [j1vN0eo4DfgCh02DAAAb] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 09:56:08 [INFO]: Socket disconnect [rvbpZ4KjRJZo0FEkAAAd] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 09:56:45 [INFO]: Socket disconnect [PHCwPLoLmhpRzonUAAAf] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 10:01:33 [INFO]: Socket disconnect [ISp1mCd4MFdCxPw3AAAh] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 10:02:16 [INFO]: Socket disconnect [FyT-CAzqMpqtwxuUAAAj] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 10:24:49 [INFO]: Socket disconnect [ZH1oPPr6eWmr4ivWAAAl] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 10:27:43 [INFO]: Socket disconnect [j-oT-SSqsrADBd0eAAAn] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 10:28:18 [INFO]: Socket disconnect [63Hs2IXIKmKIeMBEAAAp] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 10:44:52 [INFO]: Socket disconnect [S_K2dwpR3SkGDu_SAAAr] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 10:53:53 [INFO]: Socket disconnect [0T75WZHHLTr2stekAAAt] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 10:59:19 [INFO]: Socket disconnect [VnBrjo4j_bZQ83KVAAAx] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:03:10 [INFO]: Socket disconnect [OP0ngbhNPwkcMTE4AAAz] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:05:14 [INFO]: Socket disconnect [H2hoEIZO38VCRfYIAAA1] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:16:32 [INFO]: Socket disconnect [UdCpv74RK8jyFOVWAAA3] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:19:05 [INFO]: Socket disconnect [Lyp_BlR6oxf3hqJMAAA5] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:20:23 [INFO]: Socket disconnect [1wnZdPE620cT-L6FAAA7] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:24:59 [INFO]: Socket disconnect [xseYv6tVEQVVXc-oAAA9] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:25:56 [INFO]: Socket disconnect [xmpgiMIn9TjnZy9kAAA_] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:28:38 [INFO]: Socket disconnect [Eh0jXYSSngqHQM-oAABB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:31:45 [INFO]: Socket disconnect [GJIVj5ttWJyviJaFAABD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:36:52 [INFO]: Socket disconnect [ej5W9mEvd3q2Rjp3AABF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:42:22 [INFO]: Socket disconnect [tFNa-OaJrrexVxYxAABH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:43:33 [INFO]: Socket disconnect [bXRR-Om0UxVjbWehAABJ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:43:37 [INFO]: Socket disconnect [D9T0Zwd-YYUdlx1VAABL] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:43:37 [INFO]: Socket disconnect [KvIrqnuXDNpD5rU3AABN] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:48:57 [INFO]: Socket disconnect [WtsX80wMQMwjj6tMAABP] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:51:09 [INFO]: Socket disconnect [0zLXT5jBLbOtInmUAABR] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:53:00 [INFO]: Socket disconnect [_500pm8niKwW0LyOAABT] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:53:19 [INFO]: Socket disconnect [YpNas-Wa_G9wPF6GAABV] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:54:04 [INFO]: Socket disconnect [9pq18AodvOnzjqh3AABX] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:54:09 [INFO]: Socket disconnect [IAU9JqVAUjA4J_hEAABZ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:55:08 [INFO]: Socket disconnect [zFUva4pj7Z5b4uVdAABb] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:55:10 [INFO]: Socket disconnect [oz9HHBA652elw-nVAABd] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:55:15 [INFO]: Socket disconnect [-cxYBWYRAr2HxXSRAABf] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:55:15 [INFO]: Socket disconnect [-sRuWpAJbUmTLdTQAAAv] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:58:50 [INFO]: Socket disconnect [5fMxH5i-BHYsF_ceAABh] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 11:59:33 [INFO]: Socket disconnect [IcB3ETfaO9iCxlSaAABj] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 12:02:29 [INFO]: Socket disconnect [NhnMFESCiTI0vlejAABl] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 12:28:22 [INFO]: Socket disconnect [umcCgNIIGavAE6MmAABn] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 12:58:40 [INFO]: Socket disconnect [vhQPeaGyq56C1IgnAABq] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 12:58:42 [INFO]: Socket disconnect [2-nJaOhXy1lt2zFUAABs] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:07:12 [INFO]: Socket disconnect [KbdhOPKO223VljD2AABw] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:20:55 [INFO]: Socket disconnect [hg2Vp4-css4r4PM1AABy] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:22:23 [INFO]: Socket disconnect [usW5f6dHhyiv5jaPAAB0] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:25:14 [INFO]: Socket disconnect [bPekqQzfjYD0ZDwxAAB2] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:29:51 [INFO]: Socket disconnect [toyyfzV6Ekc8dkw5AAB4] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:32:47 [INFO]: Socket disconnect [jIImdKL54E-AYbABAAB6] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:38:52 [INFO]: Socket disconnect [KwvaMnum0w1d54dbAAB8] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:42:29 [INFO]: Socket disconnect [6FrcN60KMTT8u_hcAAB-] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:48:49 [INFO]: Socket disconnect [mloe0LFlo11A0yWzAACA] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:49:16 [INFO]: Socket disconnect [nWeS5MtuNjnZoKniAACC] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:54:55 [INFO]: Socket disconnect [3BECxYmdJUe10CqSAACE] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 13:58:48 [INFO]: Socket disconnect [8PVKz7r63ZtGAncHAACG] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 14:06:33 [INFO]: Socket disconnect [p6AUTACvPSVApYJ5AACI] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 14:07:50 [INFO]: Socket disconnect [Qg0ZEQ37cQ4MNsNJAACK] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 14:12:12 [INFO]: Socket disconnect [QuizWVABbOVcaU4yAACM] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 14:18:07 [INFO]: Socket disconnect [kmyOeZ0Olwm8gbDiAACO] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 14:25:14 [INFO]: Socket disconnect [ratJl7PvroDaplGsAACQ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 14:45:06 [INFO]: Socket disconnect [u8hbq-lPAXMEHutVAACS] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 14:46:29 [INFO]: Socket disconnect [TwebvlBHVSQfddikAACU] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 14:52:10 [INFO]: Socket disconnect [NoQQ86Z5P1DayCLgAACW] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 14:52:17 [INFO]: Socket disconnect [VnbynUxcPiiF7EEnAACY] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 14:52:31 [INFO]: Socket disconnect [H8JfOMHemGwMYLYCAACa] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 15:17:42 [INFO]: Socket disconnect [JP6Lko2nqvlDnEu0AACc] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 15:17:42 [INFO]: Socket disconnect [nXNIu4q4sxXdxO4LAABu] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 16:11:08 [INFO]: Socket disconnect [oUu52Jej1VJPU-n7AACk] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 16:23:21 [INFO]: Socket disconnect [3hXaJzT3rnBcMMkbAACm] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 16:30:54 [INFO]: Socket disconnect [7R3MoWVWVoCBsVHqAACo] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-02 17:00:51 [INFO]: Socket disconnect [62OxoHiiWGovM1FrAACq] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 07:49:53 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-06 07:49:53 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-06 07:49:53 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-06 07:49:53 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-06 07:59:56 [INFO]: Socket disconnect [HBkKrMNrbgwW8iJ6AAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 12:54:05 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-06 12:54:05 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-06 12:54:05 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-06 12:54:05 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-06 12:59:44 [INFO]: Socket disconnect [51FB1UIlmQaZNRvjAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 13:00:18 [INFO]: Socket disconnect [dehCOQabDC18UtvrAAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 13:01:11 [INFO]: Socket disconnect [v7r2dBPq1-W1_JPOAAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 13:20:57 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-06 13:20:57 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-06 13:20:57 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-06 13:20:57 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-06 13:22:34 [INFO]: Socket disconnect [VwiFBUJke-GV8ayDAAAB] nik=1803070 reason=client namespace disconnect {"service":"samit-backend"}
+2026-04-06 13:30:13 [INFO]: Socket disconnect [DxRK6wrC-uuwbCG_AAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 14:23:06 [INFO]: CA certificate found and will be used {"service":"samit-backend"}
+2026-04-06 14:23:06 [INFO]: SSL options loaded successfully {"service":"samit-backend"}
+2026-04-06 14:23:06 [INFO]: SSL certificates loaded successfully {"service":"samit-backend"}
+2026-04-06 14:23:06 [INFO]: HTTPS Server running at https://localhost:5002 {"service":"samit-backend"}
+2026-04-06 14:39:33 [INFO]: Socket disconnect [bXiS27QFDW5Zr6fgAAAB] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 14:41:50 [INFO]: Socket disconnect [8trQqZePAmd_ljFJAAAD] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 14:46:02 [INFO]: Socket disconnect [Dn_GTmQrrdHVKHudAAAF] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 14:47:26 [INFO]: Socket disconnect [uKdp9KqO5JuXMlRZAAAH] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 14:47:43 [INFO]: Socket disconnect [rmnJoIBaQYl5F805AAAJ] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 14:50:26 [INFO]: Socket disconnect [SwdlBjdTIDKqu7rjAAAL] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 14:59:59 [INFO]: Socket disconnect [r0adYkNUtqxbAi07AAAN] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 15:01:53 [INFO]: Socket disconnect [8rbrHydyWnX7aTJRAAAP] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 15:02:59 [INFO]: Socket disconnect [nyQl4hCXnMFvNXAJAAAR] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 15:34:40 [INFO]: Socket disconnect [DkN_eNhE9SwWOiZJAAAT] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 15:53:01 [INFO]: Socket disconnect [PIxENAu_7Nh8WUbmAAAW] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 16:00:13 [INFO]: Socket disconnect [s0_lZBF6p12utjN7AAAY] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 16:03:07 [INFO]: Socket disconnect [iYeNEwDlnY_Ltk-JAAAa] nik=1803070 reason=transport error {"service":"samit-backend"}
+2026-04-06 16:18:45 [INFO]: Socket disconnect [5XYOtN3yyUOGf5iIAAAc] nik=1803070 reason=transport error {"service":"samit-backend"}
