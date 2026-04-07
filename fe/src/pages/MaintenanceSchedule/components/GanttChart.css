@@ -1,10 +1,28 @@
-.gantt-wrapper {
+/* Scrollbar horizontal di atas */
+.scrollbar-top {
   overflow-x: auto;
   overflow-y: hidden;
+  height: 16px;
+}
+
+.scrollbar-inner {
+  height: 1px;
+  min-width: 800px;
+}
+
+/* Gaya umum sel */
+.gantt__cell {
+  font-size: small;
+}
+
+/* Wrapper Gantt */
+.gantt-wrapper {
+  overflow: auto;
   max-height: 70vh;
   position: relative;
 }
 
+/* Grid utama Gantt */
 .gantt {
   display: grid;
   border: none;
@@ -16,23 +34,48 @@
   min-width: 800px;
 }
 
-.gantt__row {
+/* Kolom grid untuk elemen yang bisa di-drop */
+.Droppable {
+  grid-template-columns: repeat(10, 1fr);
+  z-index: 1;
+}
+
+/* Baris Gantt - Adjusted Column Widths */
+.gantt__row,
+.gantt__row--months {
   display: grid;
-  grid-template-columns: 8% 10% repeat(var(--slot-count, 1), 1fr);
-  white-space: nowrap;
+  grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
+  position: relative;
+  min-height: 110px;
+}
+
+.gantt__row-wrapper {
+  display: grid;
+  grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
+  grid-template-rows: repeat(var(--gantt-row-count, 1), minmax(110px, 1fr));
+  gap: 0;
+}
+
+.gantt__row-wrapper > .gantt__row {
+  grid-column: 1 / -1;
+}
+
+.gantt__row-body {
+  position: relative;
 }
 
 .gantt__row--months {
   position: sticky;
   top: 0;
-  z-index: 12;
+  z-index: 12; /* Pastikan lebih tinggi dari baris konten */
   background-color: #0a3444 !important;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   color: white !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-template-columns: 8% 10% repeat(var(--slot-count, 1), 1fr);
-  white-space: nowrap;
+}
+
+.gantt__row--months2 {
+  grid-template-columns: 80px repeat(10, minmax(120px, 1fr));
 }
 
 .gantt__row--months span {
@@ -41,7 +84,16 @@
   font-weight: bold;
   padding: 20px 0;
   align-self: center;
-  color: white;
+  color: white; /* Warna teks default untuk slot waktu */
+}
+
+/* FIX: Meningkatkan spesifisitas dengan menempelkan class agar tidak tertimpa nth-child */
+.gantt__row.gantt__row--months .gantt__row-first {
+  background-color: #0a3444 !important;
+  color: #fff !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  border-top: none !important;
+  z-index: 13;
 }
 
 .gantt__row-first {
@@ -56,18 +108,29 @@
   text-align: center;
 }
 
+/* FIX: Mengecualikan header dari pewarnaan baris ganjil */
 .gantt__row:not(.gantt__row--months):nth-child(odd) {
   background-color: #f5f5f5;
 }
 
+.gantt__row:not(.gantt__row--months):nth-child(odd) .gantt__row-first {
+  background-color: #f5f5f5;
+}
+
+.gantt__row:nth-child(3) .gantt__row-first,
+.gantt__row:nth-child(3) .gantt__row-bars {
+  border-top: none;
+}
+
+/* Garis vertikal - Adjusted Column Widths */
 .gantt__row--lines {
   position: absolute;
+  inset: 0;
+  display: grid;
   height: 100%;
-  width: 100%;
-  background-color: transparent;
-  grid-template-columns: 8% 10% repeat(var(--slot-count, 1), 1fr);
-  z-index: 1;
   pointer-events: none;
+  grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
+  z-index: 1;
 }
 
 .gantt__row--lines span {
@@ -75,18 +138,22 @@
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* Bar progress - Adjusted Column Widths */
 .gantt__row-bars {
   list-style: none;
-  display: grid;
-  padding: 9px 0;
   margin: 0;
-  grid-template-columns: 8% 10% repeat(var(--slot-count, 1), 1fr);
-  grid-gap: 8px 0;
-  border-top: 1px solid rgba(221, 221, 221, 0.8);
+  padding: 8px 0;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
+  grid-gap: 0 12px;
   z-index: 2;
+  align-items: center;
+  pointer-events: none;
 }
 
-.booking-item-card {
+.gantt__row-bars li {
   font-weight: 500;
   text-align: left;
   font-size: xx-small;
@@ -98,332 +165,188 @@
   position: relative;
   cursor: pointer;
   border-radius: 20px;
+  /* Memastikan bar dimulai setelah kolom tanggal */
+  grid-column-start: 2;
+  pointer-events: auto;
 }
 
-.booking-item-card.completed {
-  background: linear-gradient(to right, #28a745, #4cd964);
-}
-
-.booking-item-card.locked {
-  background: linear-gradient(to right, #ed213a, #93291e);
-}
-
-.booking-meta {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.booking-title {
-  margin-bottom: 4px;
-}
-
-.gantt__row.daily {
-  background: #f6f7fb;
-}
-
-.gantt__row--daily {
-  grid-template-columns: minmax(120px, 180px) 1fr;
-  grid-template-rows: repeat(54, minmax(18px, 1fr));
-  align-items: stretch;
-  background-color: transparent;
-}
-
-.gantt__row--months.daily-header {
-  grid-template-columns: 8% repeat(1, minmax(0, 1fr));
-}
-
-.gantt__row--daily .gantt__cell {
-  padding: 0;
-}
-
-.daily-hour-axis {
-  display: grid;
-  grid-template-rows: repeat(54, minmax(18px, 1fr));
-}
-
-.daily-hour-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  color: #0f172a;
-  border-radius: 8px;
-  background: rgba(15, 23, 42, 0.04);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  grid-column: 1;
-}
-
-.daily-task-grid {
-  position: relative;
-  display: grid;
-  grid-template-rows: repeat(54, minmax(18px, 1fr));
-  border-radius: 16px;
-  background: #f8fafc;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-}
-
-.daily-task-card {
-  position: relative;
-  background: #dfe6ff;
-  border-radius: 12px;
-  padding: 12px;
-  border: 1px solid rgba(59, 130, 246, 0.4);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
-}
-
-.daily-task-card--grid {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.daily-task-title {
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.daily-task-time {
-  font-size: 0.75rem;
-  color: #475569;
-}
-
-.daily-task-meta {
-  font-size: 0.7rem;
-  color: #475569;
-  display: flex;
-  justify-content: space-between;
-}
-
-.daily-empty {
-  justify-self: center;
-  align-self: center;
-  padding: 12px 16px;
-  border-radius: 10px;
-  background: #e2e8f0;
-  color: #475569;
-  font-size: 0.85rem;
-}
-
-.weekly-gantt-table {
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 20px;
-  background: #ffffff;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-}
-
-.weekly-gantt-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 12px;
-  gap: 12px;
-}
-
-.weekly-gantt-headline {
-  font-weight: 700;
-  font-size: 16px;
-  color: #0f172a;
-}
-
-.weekly-gantt-range {
-  font-size: 13px;
-  color: #475569;
-}
-
-.weekly-gantt-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.weekly-grid-header,
-.weekly-grid-row {
-  display: grid;
-  grid-template-columns: 180px repeat(7, minmax(0, 1fr));
-  align-items: center;
-  gap: 4px;
-}
-
-.weekly-grid-header {
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid #e2e8f0;
-  padding-bottom: 8px;
-}
-
-.weekly-grid-header span {
-  text-align: center;
-}
-
-.weekly-grid-day {
-  font-size: 12px;
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.weekly-grid-date {
-  font-size: 12px;
-  color: #64748b;
-}
-
-.weekly-grid-row {
-  min-height: 56px;
-  border-bottom: 1px solid #f1f3f4;
-  padding-bottom: 4px;
-}
-
-.weekly-task-name {
-  font-weight: 600;
-  color: #0f172a;
-  padding-left: 8px;
-}
-
-.weekly-task-name {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.weekly-task-hour-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.weekly-task-placeholder {
-  width: 100%;
-}
-
-.weekly-grid-cell {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  color: #475569;
-  padding: 6px;
-  min-height: 56px;
-  background: #f8fafc;
-  border-radius: 10px;
-  border: 1px dashed transparent;
-}
-
-.weekly-grid-cell--filled {
-  border-color: #3b82f6;
-  background: #e0e7ff;
-}
-
-.weekly-task-block {
-  display: block;
-  width: 80%;
-  height: 14px;
-  border-radius: 4px;
-  background: linear-gradient(90deg, #0ea5e9, #22d3ee);
-  margin-bottom: 4px;
-}
-
-.weekly-task-label {
-  font-weight: 600;
-  color: #0b1c2c;
-}
-
-.weekly-task-empty {
-  color: #94a3b8;
-}
-
-.weekly-gantt-legend {
-  margin-top: 16px;
-  font-size: 12px;
-  color: #475569;
-}
-
-.monthly-gantt-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.monthly-gantt-row {
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 16px;
-  background: #fff;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-}
-
-.monthly-gantt-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.monthly-gantt-date {
-  font-weight: 600;
-  font-size: 14px;
-  color: #0f172a;
-}
-
-.monthly-gantt-status {
-  font-size: 12px;
-  color: #64748b;
-}
-
-.monthly-gantt-bars {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 8px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.monthly-gantt-task {
-  border: none;
-  background: linear-gradient(90deg, #0ea5e9, #22d3ee);
+.gantt__row-bars li.expired {
+  background: linear-gradient(to right, #2c3e50, #bdc3c7);
   color: #fff;
-  border-radius: 12px;
-  padding: 12px;
-  text-align: left;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-height: 70px;
-  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.2);
-}
-
-.monthly-gantt-task-title {
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.monthly-gantt-task-info {
-  font-size: 0.8rem;
   opacity: 0.8;
 }
 
-.monthly-gantt-task-additional {
-  font-size: 0.75rem;
-  color: #475569;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: #f8fafc;
-  grid-column: 1 / -1;
+.gantt__row-bars li.locked {
+  background: linear-gradient(to right, #ED213A, #93291E);
+  color: #fff;
+  opacity: 0.8;
 }
 
-.monthly-gantt-empty-slot {
-  font-size: 12px;
-  color: #64748b;
-  padding: 12px;
-  border-radius: 10px;
-  background: #f8fafc;
+.gantt__row-bars--overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
+  grid-template-rows: repeat(var(--gantt-row-count, 1), minmax(110px, 1fr));
+  grid-gap: 0 12px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.gantt__row-bars--overlay li {
+  pointer-events: auto;
+}
+
+.gantt__no-schedule {
   text-align: center;
+  padding: 28px 12px;
+  color: #6b7280;
+  font-weight: 600;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.03);
+  grid-column: 2 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Baris kosong */
+.gantt__row--empty ul {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Carousel */
+.carousel-root {
+  margin-bottom: -3rem;
+}
+
+/* View-specific wrappers */
+.daily-gantt-wrapper {
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+  padding: 0;
+}
+
+.daily-gantt-wrapper .gantt {
+  min-height: 360px;
+}
+
+.weekly-gantt-wrapper {
+  border-radius: 16px;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35);
+}
+
+.weekly-gantt-wrapper .gantt {
+  background: #fff;
+  border-radius: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.weekly-gantt-container {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  min-width: max-content;
+}
+
+.gantt__grid {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, minmax(110px, 1fr));
+}
+
+
+.monthly-gantt-wrapper,
+.yearly-gantt-wrapper {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.monthly-gantt-wrapper .monthly-gantt-row,
+.yearly-gantt-wrapper .monthly-gantt-row {
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.monthly-gantt-wrapper .monthly-gantt-row:last-child,
+.yearly-gantt-wrapper .monthly-gantt-row:last-child {
+  margin-bottom: 0;
+}
+
+.gantt__header-cell {
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  padding: 16px 8px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gantt__slot-cell {
+  min-height: 72px;
+  padding: 6px;
+  border-left: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.booking-item-card {
+  font-family: inherit;
+  font-size: 0.8rem;
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: linear-gradient(120deg, #1d4ed8, #0ea5e9);
+  color: #fff;
+  min-height: 72px;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+}
+
+.booking-item-card.available {
+  background: linear-gradient(120deg, #38bdf8, #0ea5e9);
+
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  gap: 4px;
+}
+
+.booking-item-card.completed {
+  background: linear-gradient(120deg, #059669, #10b981);
+}
+
+.booking-item-card.locked {
+  background: linear-gradient(120deg, #dc2626, #b91c1c);
+}
+
+.booking-item-card .booking-meta-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+.booking-item-card .booking-details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.booking-item-card .booking-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
 }

@@ -126,37 +126,45 @@ export default function MaintenanceSchedule() {
 
   // Transform backend data to frontend format
   const transformBackendData = (backendData) => {
-    return backendData.map((item) => ({
-      id: item.id,
-      schedule_code: `MS-${item.id}`,
-      category: item.category || 'Preventive Maintenance',
-      subcategory: item.type || 'General Check',
-      equipment: item.assetName || item.hostname || 'Unknown Equipment',
-      location: item.location || 'To be determined',
-      team: item.pic || 'To be assigned',
-      date: item.scheduledDate,
-      start_time: item.scheduledStartTime || '09:00',
-      end_time: item.scheduledEndTime || '11:00',
-      status:
-        item.status === 'done'
-          ? 'completed'
-          : item.status === 'abnormal'
-            ? 'cancelled'
-            : item.status,
-      priority: item.priority || 'medium',
-      criticality: item.criticality || 'medium',
-      required_skills: item.requiredSkills || [],
-      estimated_duration: item.estimatedDuration || 2,
-      created_by: item.createdBy,
-      created_date: item.createdAt?.split('T')[0] || new Date().toISOString().split('T')[0],
-      notes: item.description || item.notes || 'No notes',
-      // Keep original data for API calls
-      originalData: item,
-      start_date: item.scheduledDate,
-      end_date: item.scheduledEndDate || item.scheduledDate,
-      scheduledDate: item.scheduledDate,
-      scheduledEndDate: item.scheduledEndDate || item.scheduledDate,
-    }));
+    return backendData.map((item) => {
+      const scheduledDate = item.scheduledDate || item.date || item.start_date;
+      const scheduledEndDate = item.scheduledEndDate || item.end_date || scheduledDate;
+      const scheduledStartTime = item.scheduledStartTime || item.start_time || '09:00';
+      const scheduledEndTime = item.scheduledEndTime || item.end_time || '11:00';
+      return {
+        id: item.id,
+        schedule_code: `MS-${item.id}`,
+        category: item.category || 'Preventive Maintenance',
+        subcategory: item.type || 'General Check',
+        equipment: item.assetName || item.hostname || 'Unknown Equipment',
+        location: item.location || 'To be determined',
+        team: item.pic || 'To be assigned',
+        date: scheduledDate,
+        start_time: scheduledStartTime,
+        end_time: scheduledEndTime,
+        scheduledDate,
+        scheduledEndDate,
+        scheduledStartTime,
+        scheduledEndTime,
+        start_date: item.start_date,
+        end_date: item.end_date,
+        status:
+          item.status === 'done'
+            ? 'completed'
+            : item.status === 'abnormal'
+              ? 'cancelled'
+              : item.status,
+        priority: item.priority || 'medium',
+        criticality: item.criticality || 'medium',
+        required_skills: item.requiredSkills || [],
+        estimated_duration: item.estimatedDuration || 2,
+        created_by: item.createdBy,
+        created_date: item.createdAt?.split('T')[0] || new Date().toISOString().split('T')[0],
+        notes: item.description || item.notes || 'No notes',
+        // Keep original data for API calls
+        originalData: item,
+      };
+    });
   };
 
   // Fetch maintenance team from API

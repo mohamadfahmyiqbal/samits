@@ -1,0 +1,223 @@
+.gantt-wrapper {
+  position: relative;
+  /* keep header outside scrollable area */
+}
+
+.gantt {
+  display: grid;
+  border: none;
+  border-radius: 12px;
+  position: relative;
+  box-sizing: border-box;
+  box-shadow: 0 75px 125px -57px #7e8f94;
+  min-height: 400px;
+  overflow-x: auto;
+}
+
+.gantt__row {
+  display: grid;
+  grid-template-columns: 8% 10% 82%;
+}
+
+.gantt__row--months {
+  position: sticky;
+  top: 0;
+  z-index: 12;
+  background-color: #0a3444 !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: white !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 8% 10% repeat(10, 1fr);
+}
+
+.gantt__row--months span {
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 20px 0;
+  align-self: center;
+  color: white;
+}
+
+.gantt-scrollable {
+  position: relative;
+  max-height: 70vh;
+  min-width: calc(var(--slot-count, 1) * 140px + 180px);
+}
+
+.gantt__row--lines.gantt__row--lines--global {
+  inset: 0;
+}
+
+.gantt__row-first {
+  position: sticky;
+  left: 0;
+  background-color: #fff;
+  z-index: 11;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.gantt__row:not(.gantt__row--months):nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+.gantt__row--lines {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  display: grid;
+  grid-template-columns: 8% 10% repeat(10, 1fr);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.gantt__row--lines span {
+  display: block;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.gantt__row-bars {
+  list-style: none;
+  display: grid;
+  padding: 9px 0;
+  margin: 0;
+  grid-template-columns: 8% 10% repeat(10, 1fr);
+  grid-gap: 8px 0;
+  border-top: 1px solid rgba(221, 221, 221, 0.8);
+  z-index: 2;
+}
+
+.weekly-empty-slot {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #475569;
+  font-size: 0.8rem;
+  justify-self: center;
+  align-self: center;
+  padding: 8px 0;
+}
+
+.booking-item-card {
+  font-weight: 500;
+  text-align: left;
+  font-size: xx-small;
+  min-height: 15px;
+  background: linear-gradient(to right, #0178bc 0%, #00bdda 100%);
+  padding: 5px 12px;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.booking-item-card.completed {
+  background: linear-gradient(to right, #28a745, #4cd964);
+}
+
+.booking-item-card.locked {
+  background: linear-gradient(to right, #ed213a, #93291e);
+}
+
+.booking-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.booking-title {
+  margin-bottom: 4px;
+}
+
+.gantt__row.daily {
+  background: #f6f7fb;
+}
+
+.gantt__row--daily {
+  grid-template-columns: minmax(120px, 180px) 1fr;
+  grid-template-rows: repeat(54, minmax(18px, 1fr));
+  align-items: stretch;
+  background-color: transparent;
+}
+
+.gantt__row--months.daily-header {
+  grid-template-columns: 8% repeat(1, minmax(0, 1fr));
+}
+
+.gantt__row--daily .gantt__cell {
+  padding: 0;
+}
+
+.daily-hour-axis {
+  display: grid;
+  grid-template-rows: repeat(54, minmax(18px, 1fr));
+}
+
+.daily-hour-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #0f172a;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  grid-column: 1;
+}
+
+.daily-task-grid {
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(54, minmax(18px, 1fr));
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.daily-task-card {
+  position: relative;
+  background: #dfe6ff;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
+}
+
+.daily-task-card--grid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.daily-task-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.daily-task-time {
+  font-size: 0.75rem;
+  color: #475569;
+}
+
+.daily-task-meta {
+  font-size: 0.7rem;
+  color: #475569;
+  display: flex;
+  justify-content: space-between;
+}
+
+.daily-empty {
+  justify-self: center;
+  align-self: center;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #e2e8f0;
+  color: #475569;
+  font-size: 0.85rem;
+}

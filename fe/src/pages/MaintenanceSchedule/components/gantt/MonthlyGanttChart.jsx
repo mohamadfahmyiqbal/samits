@@ -1,71 +1,98 @@
-import React from 'react';
-import { format, isValid, parseISO } from 'date-fns';
+import React, { useMemo } from 'react';
+import BookingBar from './BookingBar';
 
-const STATUS_LABELS = {
-  available: 'Tersedia',
-  running: 'Berlangsung',
-  completed: 'Selesai',
-  locked: 'Terkunci',
-  cancelled: 'Dibatalkan',
-};
+const WEEK_COLUMNS = [
+  { key: 'w1', label: 'W1' },
+  { key: 'w2', label: 'W2' },
+  { key: 'w3', label: 'W3' },
+  { key: 'w4', label: 'W4' },
+];
 
-const parseDateValue = (value) => {
-  if (value instanceof Date && !Number.isNaN(value.getTime())) {
-    return value;
-  }
+const MonthlyGanttChart = ({ rowsForView = [], overlayBookings = [], onEdit }) => {
+  const slotCount = WEEK_COLUMNS.length;
+  const columnTemplate = `80px repeat(${slotCount}, minmax(100px, 1fr))`;
+  const rowCount = rowsForView.length;
+  const rowCountStyle = useMemo(
+    () => ({
+      '--gantt-row-count': rowCount,
+    }),
+    [rowCount],
+  );
 
-  if (typeof value === 'string') {
-    const parsed = parseISO(value);
-    return isValid(parsed) ? parsed : null;
-  }
-
-  return null;
-};
-
-const MonthlyGanttChart = ({ rowsForView = [], onEdit }) => {
   if (!rowsForView.length) {
     return <div className="monthly-gantt-empty-slot">Belum ada jadwal bulanan.</div>;
   }
 
   return (
-    <div className="monthly-gantt-list">
-      {rowsForView.map((row) => {
-        const parsedDate = parseDateValue(row.dateKey);
-        const label = parsedDate ? format(parsedDate, 'dd MMM yyyy') : row.dateKey;
-        const bookingObj = row.bookingObj || {};
-        const bookings = bookingObj.data || [];
-        const statusLabel = STATUS_LABELS[bookingObj.bookStatus] || STATUS_LABELS.available;
+    <div className="monthly-gantt-chart">
+      <div className="gantt__grid" style={{ '--gantt-column-template': columnTemplate }}>
+        <div className="gantt__row gantt__row--months">
+          <div className="gantt__row-first">
+            <div className="date-display">
+              <div className="fw-bold">TANGGAL</div>
+              <div className="small">&nbsp;</div>
+            </div>
+          </div>
 
-        return (
-          <article key={row.dateKey} className="monthly-gantt-row">
-            <div className="monthly-gantt-header">
-              <div className="monthly-gantt-date">{label}</div>
-              <div className="monthly-gantt-status">{statusLabel}</div>
+          {WEEK_COLUMNS.map((column) => (
+            <div key={column.key} className="gantt__header-cell">
+              {column.label}
             </div>
-            <div className="monthly-gantt-bars">
-              {bookings.length ? (
-                bookings.map((booking, index) => (
-                  <button
-                    key={`${row.dateKey}-${booking.id || index}`}
-                    type="button"
-                    className="monthly-gantt-task"
-                    onClick={() => onEdit && onEdit(booking.originalData || booking)}
-                  >
-                    <span className="monthly-gantt-task-title">
-                      {booking.subject || booking.equipment || 'Jadwal maintenance'}
-                    </span>
-                    <span className="monthly-gantt-task-info">
-                      {booking.rangeLabel || booking.date || 'Waktu belum tersedia'}
-                    </span>
-                  </button>
-                ))
-              ) : (
-                <div className="monthly-gantt-empty-slot">Belum ada agenda untuk tanggal ini.</div>
-              )}
-            </div>
-          </article>
-        );
-      })}
+          ))}
+        </div>
+        <div className="gantt__row-body">
+          <div className="gantt__row-wrapper" style={rowCountStyle}>
+            {rowsForView.map((row) => {
+              const bookingObj = row.bookingObj || { data: [], bookStatus: 'available' };
+              const bookings = Array.isArray(bookingObj.data) ? bookingObj.data : [];
+              const dayLabel = row.dayNumber || '--';
+              const monthLabel = row.monthLabel || '';
+
+              return (
+                <div key={row.dateKey} className="gantt__row">
+                  <div className="gantt__row-first">
+                    <div className="date-display">
+                      <div className="fw-bold">{dayLabel}</div>
+                      <div className="small">{monthLabel}</div>
+                    </div>
+                  </div>
+
+                  <div className="gantt__row--lines">
+                    {WEEK_COLUMNS.map((column) => (
+                      <span key={`line-${row.dateKey}-${column.key}`} />
+                    ))}
+                  </div>
+
+                  {!bookings.length && (
+                    <div
+                      className="gantt__no-schedule"
+                      style={{ gridColumn: `2 / span ${slotCount}` }}
+                    >
+                      Tidak ada jadwal untuk hari ini.
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          {overlayBookings.length > 0 && (
+            <ul
+              className="gantt__row-bars gantt__row-bars--overlay"
+              style={rowCountStyle}
+            >
+              {overlayBookings.map((booking, index) => (
+                <BookingBar
+                  key={`${booking.id ?? ''}-${index}`}
+                  data={booking}
+                  onClick={() => onEdit?.(booking.originalData || booking)}
+                  gridRowStart={booking.rowStart}
+                  gridRowEnd={booking.rowEnd}
+                />
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

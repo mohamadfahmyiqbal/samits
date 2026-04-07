@@ -1,158 +1,181 @@
-import React from 'react';
-import { format, parseISO, isValid } from 'date-fns';
-
-const STATUS_COLORS = {
- available: 'linear-gradient(90deg, #0178bc 0%, #00bdda 100%)',
- running: 'linear-gradient(90deg, #f59e0b 0%, #f97316 100%)',
- completed: 'linear-gradient(90deg, #28a745 0%, #4cd964 100%)',
- locked: 'linear-gradient(90deg, #ed213a 0%, #93291e 100%)',
- cancelled: 'linear-gradient(90deg, #f43f5e 0%, #fb7185 100%)',
-};
-
-const WORKING_HOURS = Array.from({ length: 10 }, (_, idx) => `${String(8 + idx).padStart(2, '0')}:00`);
-
-const parseDateValue = (value) => {
- if (value instanceof Date && !Number.isNaN(value.getTime())) {
-  return value;
- }
-
- if (typeof value === 'string') {
-  const parsed = parseISO(value);
-  return isValid(parsed) ? parsed : null;
- }
-
- return null;
-};
-
-const buildRangeLabel = (dateRange = {}, rows = []) => {
- const startFromRange = parseDateValue(dateRange.start);
- const endFromRange = parseDateValue(dateRange.end);
- const fallbackStart = rows[0] ? parseDateValue(rows[0].dateKey) : null;
- const fallbackEnd = rows[rows.length - 1] ? parseDateValue(rows[rows.length - 1].dateKey) : null;
- const start = startFromRange || fallbackStart;
- const end = endFromRange || fallbackEnd;
-
- if (start && end) {
-  return `${format(start, 'dd MMM yyyy')} - ${format(end, 'dd MMM yyyy')}`;
- }
-
- if (start) {
-  return format(start, 'dd MMM yyyy');
- }
-
- if (end) {
-  return format(end, 'dd MMM yyyy');
- }
-
- return 'Rentang tidak tersedia';
-};
+import React, { useMemo } from 'react';
+import { FaBuilding, FaUserAlt } from 'react-icons/fa';
 
 const WeeklyGanttChart = ({
- rowsForView = [],
- dateSlots = [],
- dateRange = {},
- onEdit,
+  headerColumns = [],
+  rowsForView = [],
+  lineSlots = [],
+  onEdit,
+  overlayBookings = [],
 }) => {
- if (!rowsForView.length) {
-  return <div className="p-5 text-center text-muted">Tidak ada jadwal tersedia.</div>;
- }
+  const slotCount = Math.max(headerColumns.length, 1);
+  const columnTemplate = `80px repeat(${slotCount}, minmax(100px, 1fr))`;
 
- const columns =
-  dateSlots.length > 0
-   ? dateSlots.map((slot) => ({
-    ...slot,
-    date: parseDateValue(slot.start),
-   }))
-   : rowsForView.map((row) => ({
-    key: row.dateKey,
-    label: row.dateKey,
-    date: parseDateValue(row.dateKey),
-   }));
+  const normalizedLineSlots =
+    Array.isArray(lineSlots) && lineSlots.length
+      ? lineSlots
+      : [...Array(slotCount).keys()];
 
- const rangeLabel = buildRangeLabel(dateRange, rowsForView);
+  const rowCount = rowsForView.length;
+  const overlayStyle = useMemo(
+    () => ({
+      '--gantt-row-count': rowCount,
+    }),
+    [rowCount],
+  );
+  const wrapperStyle = useMemo(
+    () => ({
+      '--gantt-row-count': rowCount,
+      '--gantt-slot-count': slotCount,
+    }),
+    [rowCount, slotCount],
+  );
 
- const renderBookingBlocks = (bookings = []) =>
-  bookings.map((booking, idx) => {
-   const key = booking.id || `${booking.date || 'row'}-${idx}`;
-   const gradient = STATUS_COLORS[booking.bookStatus] || STATUS_COLORS.available;
-
-   return (
-    <span
-     key={key}
-     className="weekly-task-block"
-     title={`${booking.subject || 'Jadwal maintenance'}${booking.rangeLabel ? ` • ${booking.rangeLabel}` : ''
-      }`}
-     style={{ background: gradient, cursor: onEdit ? 'pointer' : 'default' }}
-     onClick={() => onEdit && onEdit(booking.originalData || booking)}
-    />
-   );
-  });
-
- return (
-  <div className="weekly-gantt-table">
-   <div className="weekly-gantt-title">
-    <div className="weekly-gantt-headline">Weekly Schedule</div>
-    <div className="weekly-gantt-range">{rangeLabel}</div>
-   </div>
-
-   <div className="weekly-gantt-grid">
-    <div className="weekly-grid-header">
-          <span>TASK</span>
-     {columns.map((slot) => {
-      const date = slot.date && isValid(slot.date) ? slot.date : null;
-      return (
-       <span key={slot.key || slot.label}>
-        <div className="weekly-grid-day">{date ? format(date, 'EEE') : slot.label}</div>
-        <div className="weekly-grid-date">{date ? format(date, 'dd MMM') : slot.label}</div>
-       </span>
-      );
-     })}
-    </div>
-
-        {rowsForView.map((row, rowIndex) => {
-          const bookingObj = row.bookingObj || {};
-          const dayBookings = bookingObj.data || [];
-          const hasBookings = dayBookings.length > 0;
-
-          return (
-           <div key={row.dateKey} className="weekly-grid-row">
-             <span className="weekly-task-name">
-               <span className="weekly-task-hour-label">
-                {WORKING_HOURS[rowIndex % WORKING_HOURS.length]}
-               </span>
-             </span>
-
-       {columns.map((slot) => {
-        const isCurrentSlot = slot.key === row.dateKey || slot.label === row.dateKey;
-        const cellKey = `${row.dateKey}-${slot.key || slot.label}`;
-        const cellClass = `weekly-grid-cell ${isCurrentSlot && hasBookings ? 'weekly-grid-cell--filled' : ''
-         }`;
-
-        return (
-         <span key={cellKey} className={cellClass}>
-          {isCurrentSlot ? (
-           hasBookings ? (
-            renderBookingBlocks(dayBookings)
-           ) : (
-            <span className="weekly-task-empty">Belum ada jadwal</span>
-           )
-          ) : (
-           <span className="weekly-task-empty">&nbsp;</span>
-          )}
-         </span>
-        );
-       })}
+  if (!rowsForView.length) {
+    return (
+      <div className="p-5 text-center text-muted">
+        Tidak ada jadwal tersedia.
       </div>
-     );
-    })}
-   </div>
+    );
+  }
 
-   <div className="weekly-gantt-legend">
-    Jadwal ditampilkan sebagai blok warna; klik untuk membuka detail.
-   </div>
-  </div>
- );
+  return (
+    <div className="weekly-gantt-container">
+      <div className="gantt__grid" style={{ '--gantt-column-template': columnTemplate }}>
+        <div className="gantt__row gantt__row--months">
+          <div className="gantt__row-first">
+            <div className="date-display">
+              <div className="fw-bold">TANGGAL</div>
+              <div className="small">&nbsp;</div>
+            </div>
+          </div>
+
+          {headerColumns.map((slot, idx) => (
+            <div key={`slot-${slot.key ?? idx}`} className="gantt__header-cell">
+              {slot.label}
+            </div>
+          ))}
+        </div>
+        <div className="gantt__row-body">
+          <div className="gantt__row-wrapper" style={wrapperStyle}>
+            {rowsForView.map((row) => {
+              const bookingObj = row.bookingObj || {
+                data: [],
+                bookStatus: 'available',
+              };
+
+              const bookings = Array.isArray(bookingObj.data) ? bookingObj.data : [];
+
+              const dayLabel = row.dayNumber || '--';
+              const monthLabel = row.monthLabel || '';
+
+              return (
+                <div key={row.dateKey} className="gantt__row">
+                  <div className="gantt__row-first">
+                    <div className="date-display">
+                      <div className="fw-bold">{dayLabel}</div>
+                      <div className="small">{monthLabel}</div>
+                    </div>
+                  </div>
+
+                  <div className="gantt__row--lines" aria-hidden="true">
+                    {normalizedLineSlots.map((slotIndex) => (
+                      <span key={`slot-${row.dateKey}-${slotIndex}`} />
+                    ))}
+                  </div>
+
+                  {!bookings.length && (
+                    <div
+                      className="gantt__no-schedule"
+                      style={{ gridColumn: `2 / span ${slotCount}` }}
+                    >
+                      Tidak ada jadwal untuk hari ini.
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            {overlayBookings.length > 0 && (
+              <ul className="gantt__row-bars gantt__row-bars--overlay" style={overlayStyle}>
+                {overlayBookings.map((booking, index) => {
+                  const columnStart = booking.min ?? 2;
+                  const columnEnd =
+                    booking.max ??
+                    (columnStart +
+                      Math.max(1, typeof booking.duration === 'number' ? booking.duration : 1));
+                  const title =
+                    booking.planName ||
+                    booking.maintenanceType ||
+                    booking.workOrderType ||
+                    booking.subject ||
+                    'Jadwal maintenance';
+                  const technician =
+                    booking.pic ||
+                    booking.technician ||
+                    booking.userName ||
+                    booking.team ||
+                    'PIC belum ditentukan';
+                  const asset =
+                    booking.hostname ||
+                    booking.assetName ||
+                    booking.equipment ||
+                    booking.location ||
+                    'Asset belum tersedia';
+                  const schedule = booking.rangeLabel || booking.date || 'Waktu belum tersedia';
+
+                  return (
+                    <li
+                      key={`${booking.id ?? ''}-${index}`}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`${title} ${schedule}`}
+                      className={`booking-item-card ${booking.bookStatus || 'available'}`}
+                      style={{
+                        gridRow: `${booking.rowStart} / ${booking.rowEnd}`,
+                        gridColumn: `${columnStart} / ${columnEnd}`,
+                      }}
+                      onClick={() => onEdit?.(booking.originalData || booking)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          onEdit?.(booking.originalData || booking);
+                        }
+                      }}
+                    >
+                      <div className="booking-inner-content h-100 d-flex flex-column">
+                        <div className="booking-title text-truncate fw-bold mb-1" style={{ fontSize: '11px' }}>
+                          {title}
+                        </div>
+                        <div className="booking-meta-line d-flex justify-content-between align-items-center">
+                          <span className="fst-italic" style={{ fontSize: '10px' }}>
+                            {schedule}
+                          </span>
+                          <span className="text-muted" style={{ fontSize: '9px' }}>
+                            {booking.bookStatus || 'Tersedia'}
+                          </span>
+                        </div>
+                        <div className="booking-details-grid mt-2">
+                          <div className="booking-meta text-truncate">
+                            <FaUserAlt size={9} className="me-1 opacity-75" />
+                            <span>{technician}</span>
+                          </div>
+                          <div className="booking-meta text-truncate">
+                            <FaBuilding size={9} className="me-1 opacity-75" />
+                            <span>{asset}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-WeeklyGanttChart.displayName = 'WeeklyGanttChart';
 export default WeeklyGanttChart;
