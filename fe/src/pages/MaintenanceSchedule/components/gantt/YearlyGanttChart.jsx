@@ -1,117 +1,157 @@
 import React, { useMemo } from 'react';
-import { format, isValid, parseISO } from 'date-fns';
+import { FaBuilding, FaUserAlt } from 'react-icons/fa';
+import { MONTH_COLUMNS } from './MONTHS';
 
-const STATUS_LABELS = {
-  available: 'Tersedia',
-  running: 'Berlangsung',
-  completed: 'Selesai',
-  locked: 'Terkunci',
-  cancelled: 'Dibatalkan',
-};
+const YearlyGanttChart = ({
+ headerColumns = MONTH_COLUMNS,
+ rowsForView = [],
+ lineSlots = [],
+ onEdit,
+ overlayBookings = [],
+}) => {
+ const slotCount = Math.max(headerColumns.length, 1);
+ const columnTemplate = `100px repeat(${slotCount}, minmax(90px, 1fr))`;
 
-const STATUS_PRIORITY = ['locked', 'cancelled', 'running', 'completed', 'available'];
+ const normalizedLineSlots =
+  Array.isArray(lineSlots) && lineSlots.length
+   ? lineSlots
+   : [...Array(slotCount).keys()];
 
-const parseDateValue = (value) => {
-  if (value instanceof Date && !Number.isNaN(value.getTime())) {
-    return value;
-  }
+ const rowCount = rowsForView.length;
 
-  if (typeof value === 'string') {
-    const parsed = parseISO(value);
-    return isValid(parsed) ? parsed : null;
-  }
+ const wrapperStyle = useMemo(
+  () => ({
+   '--gantt-row-count': rowCount,
+   '--gantt-slot-count': slotCount,
+  }),
+  [rowCount, slotCount],
+ );
 
-  return null;
-};
+ const overlayStyle = useMemo(
+  () => ({
+   '--gantt-row-count': rowCount,
+  }),
+  [rowCount],
+ );
 
-const pickPriorityStatus = (statuses) => {
-  for (const status of STATUS_PRIORITY) {
-    if (statuses.has(status)) {
-      return status;
-    }
-  }
-  return 'available';
-};
-
-const YearlyGanttChart = ({ rowsForView = [], onEdit }) => {
-  const monthlySummaries = useMemo(() => {
-    const buckets = {};
-
-    rowsForView.forEach((row) => {
-      const parsedDate = parseDateValue(row.dateKey);
-      const bucketKey = parsedDate ? format(parsedDate, 'yyyy-MM') : row.dateKey;
-
-      if (!buckets[bucketKey]) {
-        buckets[bucketKey] = {
-          label: parsedDate ? format(parsedDate, 'MMMM yyyy') : row.dateKey,
-          bookings: [],
-          statuses: new Set(),
-        };
-      }
-
-      const bookingList = row.bookingObj?.data || [];
-      buckets[bucketKey].bookings.push(...bookingList);
-      if (row.bookingObj?.bookStatus) {
-        buckets[bucketKey].statuses.add(row.bookingObj.bookStatus);
-      }
-    });
-
-    return Object.entries(buckets)
-      .map(([key, value]) => ({
-        key,
-        ...value,
-      }))
-      .sort((a, b) => a.key.localeCompare(b.key));
-  }, [rowsForView]);
-
-  if (!monthlySummaries.length) {
-    return <div className="monthly-gantt-empty-slot">Tidak ada data tahunan.</div>;
-  }
-
+ if (!rowsForView.length) {
   return (
-    <div className="monthly-gantt-list">
-      {monthlySummaries.map((bucket) => {
-        const status = pickPriorityStatus(bucket.statuses);
-        const statusLabel = STATUS_LABELS[status] || STATUS_LABELS.available;
-        const bookings = bucket.bookings || [];
-        return (
-          <article key={bucket.key} className="monthly-gantt-row">
-            <div className="monthly-gantt-header">
-              <div className="monthly-gantt-date">{bucket.label}</div>
-              <div className="monthly-gantt-status">{statusLabel}</div>
-            </div>
-            <div className="monthly-gantt-bars">
-              {bookings.length ? (
-                bookings.slice(0, 3).map((booking, index) => (
-                  <button
-                    key={`${bucket.key}-${booking.id || index}`}
-                    type="button"
-                    className="monthly-gantt-task"
-                    onClick={() => onEdit && onEdit(booking.originalData || booking)}
-                  >
-                    <span className="monthly-gantt-task-title">
-                      {booking.subject || booking.equipment || 'Jadwal maintenance'}
-                    </span>
-                    <span className="monthly-gantt-task-info">
-                      {booking.rangeLabel || booking.date || 'Waktu belum tersedia'}
-                    </span>
-                  </button>
-                ))
-              ) : (
-                <div className="monthly-gantt-empty-slot">Tidak ada agenda untuk bulan ini.</div>
-              )}
-              {bookings.length > 3 && (
-                <div className="monthly-gantt-task-additional">
-                  Menampilkan 3 dari {bookings.length} agenda untuk bulan ini.
-                </div>
-              )}
-            </div>
-          </article>
-        );
-      })}
-    </div>
+   <div className="p-5 text-center text-muted">
+    Tidak ada jadwal tahunan tersedia.
+   </div>
   );
+ }
+
+ return (
+  <div className="yearly-gantt-container">
+   <div
+    className="gantt__grid"
+    style={{ '--gantt-column-template': columnTemplate }}
+   >
+    <div className="gantt__row gantt__row--months">
+     <div className="gantt__row-first">
+      <div className="date-display">
+       <div className="fw-bold">WEEK</div>
+      </div>
+     </div>
+
+     {headerColumns.map((month, idx) => (
+      <div
+       key={`month-${month.key ?? idx}`}
+       className="gantt__header-cell"
+      >
+       {month.label}
+      </div>
+     ))}
+    </div>
+
+    <div className="gantt__row-body">
+     <div className="gantt__row-wrapper" style={wrapperStyle}>
+      {rowsForView.map((row) => {
+       const bookings = Array.isArray(row.bookingObj?.data)
+        ? row.bookingObj.data
+        : [];
+
+       return (
+        <div
+         key={row.weekKey || row.dateKey}
+         className="gantt__row"
+        >
+         <div className="gantt__row-first">
+          <div className="date-display">
+           <div className="fw-bold">
+            {row.weekLabel || '--'}
+           </div>
+          </div>
+         </div>
+
+         <div
+          className="gantt__row--lines"
+          aria-hidden="true"
+         >
+          {normalizedLineSlots.map((slotIndex) => (
+           <span
+            key={`slot-${row.weekKey}-${slotIndex}`}
+           />
+          ))}
+         </div>
+        </div>
+       );
+      })}
+
+      {overlayBookings.length > 0 && (
+       <ul
+        className="gantt__row-bars gantt__row-bars--overlay"
+        style={overlayStyle}
+       >
+        {overlayBookings.map((booking, index) => {
+         const columnStart = booking.min ?? 2;
+         const columnEnd =
+          booking.max ??
+          columnStart + 1;
+
+         return (
+          <li
+           key={`${booking.id ?? ''}-${index}`}
+           className={`booking-item-card ${booking.bookStatus || 'available'
+            }`}
+           style={{
+            gridRow: `${booking.rowStart} / ${booking.rowEnd}`,
+            gridColumn: `${columnStart} / ${columnEnd}`,
+           }}
+           onClick={() =>
+            onEdit?.(
+             booking.originalData || booking
+            )
+           }
+          >
+           <div className="booking-inner-content h-100 d-flex flex-column">
+            <div className="booking-title text-truncate fw-bold mb-1">
+             {booking.planName ||
+              booking.subject ||
+              'Maintenance'}
+            </div>
+
+            <div className="booking-meta text-truncate">
+             <FaUserAlt size={9} className="me-1" />
+             {booking.pic || booking.team}
+            </div>
+
+            <div className="booking-meta text-truncate">
+             <FaBuilding size={9} className="me-1" />
+             {booking.hostname || booking.assetName}
+            </div>
+           </div>
+          </li>
+         );
+        })}
+       </ul>
+      )}
+     </div>
+    </div>
+   </div>
+  </div>
+ );
 };
 
-YearlyGanttChart.displayName = 'YearlyGanttChart';
 export default YearlyGanttChart;

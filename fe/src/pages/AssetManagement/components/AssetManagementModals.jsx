@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useAssetManagement } from '../context/AssetManagementContext';
 import AssetFormModal from '../../../comp/asset/modal/AddAssetModal/page/AssetFormModal';
 import ModalDetail from '../../../comp/ModalDetail';
@@ -18,19 +18,37 @@ const AssetManagementModals = () => {
     handleDelete,
   } = useAssetManagement();
 
+  const closeAddModal = useCallback(() => {
+    setModalAdd(false);
+  }, [setModalAdd]);
+
+  const closeDetailModal = useCallback(() => {
+    setModalDetail(false);
+  }, [setModalDetail]);
+
+  const closeUpdateModal = useCallback(() => {
+    setModalUpdate(false);
+  }, [setModalUpdate]);
+
   return (
     <>
-      <AssetFormModal show={modalAdd} onHide={() => setModalAdd(false)} onSave={saveAdd} />
+      <AssetFormModal
+        show={modalAdd}
+        onHide={closeAddModal}
+        onSave={saveAdd}
+      />
+
       <ModalDetail
         show={modalDetail}
-        onHide={() => setModalDetail(false)}
+        onHide={closeDetailModal}
         asset={selectedAsset}
         onEdit={handleUpdate}
         onDelete={handleDelete}
       />
+
       <AssetFormModal
         show={modalUpdate}
-        onHide={() => setModalUpdate(false)}
+        onHide={closeUpdateModal}
         asset={selectedAsset}
         onSave={saveUpdate}
       />

@@ -1,352 +1,536 @@
+:root {
+ --daily-row-height: 5px;
+ --daily-grid-rows: 60;
+ --daily-grid-height: calc(var(--daily-row-height) * var(--daily-grid-rows));
+}
+
 /* Scrollbar horizontal di atas */
 .scrollbar-top {
-  overflow-x: auto;
-  overflow-y: hidden;
-  height: 16px;
+ overflow-x: auto;
+ overflow-y: hidden;
+ height: 16px;
 }
 
 .scrollbar-inner {
-  height: 1px;
-  min-width: 800px;
+ height: 1px;
+ min-width: 800px;
 }
 
 /* Gaya umum sel */
 .gantt__cell {
-  font-size: small;
+ font-size: small;
 }
 
 /* Wrapper Gantt */
 .gantt-wrapper {
-  overflow: auto;
-  max-height: 70vh;
-  position: relative;
+ overflow-x: auto;
+ overflow-y: auto;
+ max-height: 70vh;
+ position: relative;
 }
 
 /* Grid utama Gantt */
 .gantt {
-  display: grid;
-  border: none;
-  border-radius: 12px;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
-  box-shadow: 0 75px 125px -57px #7e8f94;
-  min-width: 800px;
+ display: grid;
+ border: none;
+ border-radius: 12px;
+ position: relative;
+ overflow: hidden;
+ box-sizing: border-box;
+ box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+ min-width: 800px;
 }
 
 /* Kolom grid untuk elemen yang bisa di-drop */
 .Droppable {
-  grid-template-columns: repeat(10, 1fr);
-  z-index: 1;
+ grid-template-columns: repeat(10, 1fr);
+ z-index: 1;
 }
 
 /* Baris Gantt - Adjusted Column Widths */
 .gantt__row,
 .gantt__row--months {
-  display: grid;
-  grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
-  position: relative;
-  min-height: 110px;
+ display: grid;
+ grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
+ position: relative;
+ min-height: 72px;
 }
 
 .gantt__row-wrapper {
-  display: grid;
-  grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
-  grid-template-rows: repeat(var(--gantt-row-count, 1), minmax(110px, 1fr));
-  gap: 0;
+ display: grid;
+ grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
+ grid-template-rows: repeat(var(--gantt-row-count, 1), minmax(110px, 1fr));
+ gap: 0;
 }
 
-.gantt__row-wrapper > .gantt__row {
-  grid-column: 1 / -1;
+.gantt__row-wrapper>.gantt__row {
+ grid-column: 1 / -1;
 }
 
 .gantt__row-body {
-  position: relative;
+ position: relative;
 }
 
 .gantt__row--months {
-  position: sticky;
-  top: 0;
-  z-index: 12; /* Pastikan lebih tinggi dari baris konten */
-  background-color: #0a3444 !important;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  color: white !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+ position: sticky;
+ top: 0;
+ z-index: 12;
+ /* Pastikan lebih tinggi dari baris konten */
+ background-color: #0a3444 !important;
+ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ color: white !important;
+ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .gantt__row--months2 {
-  grid-template-columns: 80px repeat(10, minmax(120px, 1fr));
+ grid-template-columns: 80px repeat(10, minmax(120px, 1fr));
 }
 
 .gantt__row--months span {
-  text-align: center;
-  font-size: 13px;
-  font-weight: bold;
-  padding: 20px 0;
-  align-self: center;
-  color: white; /* Warna teks default untuk slot waktu */
+ text-align: center;
+ font-size: 13px;
+ font-weight: bold;
+ padding: 6px 0;
+ align-self: center;
+ color: white;
+ /* Warna teks default untuk slot waktu */
 }
 
 /* FIX: Meningkatkan spesifisitas dengan menempelkan class agar tidak tertimpa nth-child */
 .gantt__row.gantt__row--months .gantt__row-first {
-  background-color: #0a3444 !important;
-  color: #fff !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.5);
-  border-top: none !important;
-  z-index: 13;
+ background-color: #0a3444 !important;
+ color: #fff !important;
+ border-right: 1px solid rgba(255, 255, 255, 0.5);
+ border-top: none !important;
+ z-index: 13;
 }
 
 .gantt__row-first {
-  position: sticky;
-  left: 0;
-  background-color: #fff;
-  z-index: 11;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 15px 0;
-  font-size: 13px;
-  font-weight: bold;
-  text-align: center;
+ position: sticky;
+ left: 0;
+ background-color: #fff;
+ z-index: 11;
+ border-top: 1px solid rgba(0, 0, 0, 0.1);
+ padding: 15px 0;
+ font-size: 13px;
+ font-weight: bold;
+ text-align: center;
 }
 
 /* FIX: Mengecualikan header dari pewarnaan baris ganjil */
 .gantt__row:not(.gantt__row--months):nth-child(odd) {
-  background-color: #f5f5f5;
+ background-color: #f5f5f5;
 }
 
 .gantt__row:not(.gantt__row--months):nth-child(odd) .gantt__row-first {
-  background-color: #f5f5f5;
+ background-color: #f5f5f5;
 }
 
 .gantt__row:nth-child(3) .gantt__row-first,
 .gantt__row:nth-child(3) .gantt__row-bars {
-  border-top: none;
+ border-top: none;
 }
 
 /* Garis vertikal - Adjusted Column Widths */
 .gantt__row--lines {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  height: 100%;
-  pointer-events: none;
-  grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
-  z-index: 1;
+ position: absolute;
+ inset: 0;
+ display: grid;
+ height: 100%;
+ pointer-events: none;
+ grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
+ z-index: 1;
 }
 
 .gantt__row--lines span {
-  display: block;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+ display: block;
+ border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Bar progress - Adjusted Column Widths */
 .gantt__row-bars {
-  list-style: none;
-  margin: 0;
-  padding: 8px 0;
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
-  grid-gap: 0 12px;
-  z-index: 2;
-  align-items: center;
-  pointer-events: none;
+ list-style: none;
+ margin: 0;
+ padding: 8px 0;
+ position: absolute;
+ inset: 0;
+ display: grid;
+ grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
+ grid-gap: 0 12px;
+ z-index: 2;
+ align-items: center;
+ pointer-events: none;
 }
 
 .gantt__row-bars li {
-  font-weight: 500;
-  text-align: left;
-  font-size: xx-small;
-  min-height: 15px;
-  background: linear-gradient(to right, #0178bc 0%, #00bdda 100%);
-  padding: 5px 12px;
-  color: #fff;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  border-radius: 20px;
-  /* Memastikan bar dimulai setelah kolom tanggal */
-  grid-column-start: 2;
-  pointer-events: auto;
+ font-weight: 500;
+ text-align: left;
+ font-size: xx-small;
+ min-height: 15px;
+ background: linear-gradient(to right, #0178bc 0%, #00bdda 100%);
+ padding: 5px 12px;
+ color: #fff;
+ overflow: hidden;
+ position: relative;
+ cursor: pointer;
+ border-radius: 20px;
+ /* Memastikan bar dimulai setelah kolom tanggal */
+ grid-column-start: 2;
+ pointer-events: auto;
 }
 
 .gantt__row-bars li.expired {
-  background: linear-gradient(to right, #2c3e50, #bdc3c7);
-  color: #fff;
-  opacity: 0.8;
+ background: linear-gradient(to right, #2c3e50, #bdc3c7);
+ color: #fff;
+ opacity: 0.8;
 }
 
 .gantt__row-bars li.locked {
-  background: linear-gradient(to right, #ED213A, #93291E);
-  color: #fff;
-  opacity: 0.8;
+ background: linear-gradient(to right, #ED213A, #93291E);
+ color: #fff;
+ opacity: 0.8;
 }
 
 .gantt__row-bars--overlay {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
-  grid-template-rows: repeat(var(--gantt-row-count, 1), minmax(110px, 1fr));
-  grid-gap: 0 12px;
-  z-index: 4;
-  pointer-events: none;
+ position: absolute;
+ inset: 0;
+ display: grid;
+ grid-template-columns: var(--gantt-column-template, 80px repeat(10, minmax(120px, 1fr)));
+ grid-template-rows: repeat(var(--gantt-row-count, 1), minmax(110px, 1fr));
+ grid-gap: 0 12px;
+ z-index: 4;
+ pointer-events: none;
 }
 
 .gantt__row-bars--overlay li {
-  pointer-events: auto;
+ pointer-events: auto;
 }
 
 .gantt__no-schedule {
-  text-align: center;
-  padding: 28px 12px;
-  color: #6b7280;
-  font-weight: 600;
-  border-radius: 12px;
-  background: rgba(15, 23, 42, 0.03);
-  grid-column: 2 / -1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+ text-align: center;
+ padding: 28px 12px;
+ color: #6b7280;
+ font-weight: 600;
+ border-radius: 12px;
+ background: rgba(15, 23, 42, 0.03);
+ grid-column: 2 / -1;
+ display: flex;
+ align-items: center;
+ justify-content: center;
 }
 
 
 /* Baris kosong */
 .gantt__row--empty ul {
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+ border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Carousel */
 .carousel-root {
-  margin-bottom: -3rem;
+ margin-bottom: -3rem;
 }
 
 /* View-specific wrappers */
 .daily-gantt-wrapper {
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
-  padding: 0;
+ border-radius: 16px;
+ background: #fff;
+ box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+ padding: 0;
 }
 
 .daily-gantt-wrapper .gantt {
-  min-height: 360px;
+ min-height: 360px;
 }
 
 .weekly-gantt-wrapper {
-  border-radius: 16px;
-  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35);
+ border-radius: 16px;
+ box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35);
 }
 
 .weekly-gantt-wrapper .gantt {
-  background: #fff;
-  border-radius: 12px;
-  overflow-x: auto;
-  overflow-y: hidden;
+ background: #fff;
+ border-radius: 12px;
+ overflow-x: auto;
+ overflow-y: hidden;
 }
 
 .weekly-gantt-container {
-  width: 100%;
-  overflow-x: auto;
-  padding-bottom: 0.25rem;
-  min-width: max-content;
+ width: 100%;
+ overflow-x: auto;
+ padding-bottom: 0.25rem;
+ min-width: max-content;
 }
 
 .gantt__grid {
-  display: grid;
-  grid-template-rows: repeat(auto-fill, minmax(110px, 1fr));
+ display: grid;
+ grid-template-rows: repeat(auto-fill, minmax(110px, 1fr));
 }
 
 
 .monthly-gantt-wrapper,
 .yearly-gantt-wrapper {
-  margin-top: 16px;
-  padding: 12px;
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+ margin-top: 16px;
+ padding: 12px;
+ border-radius: 16px;
+ background: #fff;
+ box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
 }
 
 .monthly-gantt-wrapper .monthly-gantt-row,
 .yearly-gantt-wrapper .monthly-gantt-row {
-  border-radius: 12px;
-  margin-bottom: 12px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+ border-radius: 12px;
+ margin-bottom: 12px;
+ border: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 .monthly-gantt-wrapper .monthly-gantt-row:last-child,
 .yearly-gantt-wrapper .monthly-gantt-row:last-child {
-  margin-bottom: 0;
+ margin-bottom: 0;
 }
 
 .gantt__header-cell {
-  text-align: center;
-  font-size: 13px;
-  font-weight: bold;
-  color: #fff;
-  padding: 16px 8px;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+ text-align: center;
+ font-size: 13px;
+ font-weight: bold;
+ color: #fff;
+ padding: 16px 8px;
+ border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .gantt__slot-cell {
-  min-height: 72px;
-  padding: 6px;
-  border-left: 1px solid #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+ min-height: 72px;
+ padding: 6px;
+ border-left: 1px solid #e5e7eb;
+ display: flex;
+ align-items: center;
+ justify-content: center;
 }
 
 .booking-item-card {
-  font-family: inherit;
-  font-size: 0.8rem;
-  border-radius: 14px;
-  padding: 10px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: linear-gradient(120deg, #1d4ed8, #0ea5e9);
-  color: #fff;
-  min-height: 72px;
-  border: 1px solid transparent;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+ font-family: inherit;
+ font-size: 0.8rem;
+ border-radius: 14px;
+ padding: 10px 12px;
+ display: flex;
+ flex-direction: column;
+ gap: 6px;
+ background: linear-gradient(120deg, #1d4ed8, #0ea5e9);
+ color: #fff;
+ min-height: 72px;
+ border: 1px solid transparent;
+ position: relative;
+ overflow: hidden;
+ box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
 }
 
 .booking-item-card.available {
-  background: linear-gradient(120deg, #38bdf8, #0ea5e9);
+ background: linear-gradient(120deg, #38bdf8, #0ea5e9);
 
-  display: grid;
-  grid-template-rows: repeat(3, auto);
-  gap: 4px;
+ display: grid;
+ grid-template-rows: repeat(3, auto);
+ gap: 4px;
 }
 
 .booking-item-card.completed {
-  background: linear-gradient(120deg, #059669, #10b981);
+ background: linear-gradient(120deg, #059669, #10b981);
 }
 
 .booking-item-card.locked {
-  background: linear-gradient(120deg, #dc2626, #b91c1c);
+ background: linear-gradient(120deg, #dc2626, #b91c1c);
 }
 
 .booking-item-card .booking-meta-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.75rem;
-  opacity: 0.85;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ font-size: 0.75rem;
+ opacity: 0.85;
 }
 
 .booking-item-card .booking-details-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+ display: flex;
+ flex-direction: column;
+ gap: 4px;
 }
 
 .booking-item-card .booking-meta {
+ display: flex;
+ align-items: center;
+ gap: 0.35rem;
+ font-size: 0.75rem;
+}
+
+
+.daily-gantt-wrapper .gantt__row--daily,
+.daily-task-grid {
+ min-height: var(--daily-grid-height);
+}
+
+.daily-gantt-wrapper .gantt__row--daily {
+ display: grid;
+ background: #fff;
+}
+
+.daily-hour-axis,
+.daily-task-grid {
+ display: grid;
+ grid-template-rows: repeat(var(--daily-grid-rows),
+   minmax(var(--daily-row-height), 1fr));
+}
+
+.daily-hour-axis {
+ border-right: 1px solid rgba(15, 23, 42, 0.08);
+ background: #f8fafc;
+ position: relative;
+ z-index: 1;
+}
+
+.daily-hour-label {
+ display: flex;
+ align-items: flex-start;
+ justify-content: center;
+ font-size: 14px;
+ font-weight: 700;
+ padding-top: 2px;
+ color: #0f172a;
+ border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.daily-task-grid {
+ position: relative;
+ padding: 4px 6px;
+ background: #fff;
+ background-size: 100% calc(var(--daily-row-height) * 6);
+ background-image: repeating-linear-gradient(to bottom,
+   transparent,
+   transparent calc(var(--daily-row-height) * 6 - 1px),
+   rgba(15, 23, 42, 0.08) calc(var(--daily-row-height) * 6));
+}
+
+.daily-task-card {
+ display: flex;
+ flex-direction: column;
+ justify-content: flex-start;
+ padding: 14px 14px 10px;
+ border-radius: 12px;
+ background: linear-gradient(120deg,
+   #38bdf8,
+   #0ea5e9);
+ color: #fff;
+ box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+ cursor: pointer;
+ overflow: hidden;
+ z-index: 2;
+ min-width: 0;
+ transition: transform 0.18s ease, box-shadow 0.18s ease;
+ will-change: transform;
+}
+
+.daily-task-card:hover {
+ transform: translateY(-1px) scale(1.005);
+ box-shadow: 0 14px 28px rgba(15, 23, 42, 0.22);
+}
+
+.daily-task-card--grid {
+ align-self: stretch;
+}
+
+.daily-task-title {
+ font-size: 15px;
+ font-weight: 700;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+.daily-task-time {
+ font-size: 12px;
+ opacity: 0.9;
+ margin-top: 4px;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+.daily-task-meta {
+ display: flex;
+ flex-direction: column;
+ gap: 2px;
+ font-size: 11px;
+ margin-top: 6px;
+ opacity: 0.85;
+}
+
+.daily-task-meta span {
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+.daily-empty {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ grid-row: 1 / -1;
+ color: #64748b;
+ font-weight: 600;
+ z-index: 2;
+ position: relative;
+}
+
+.daily-task-card.completed {
+ background: linear-gradient(120deg, #059669, #10b981);
+}
+
+.daily-task-card.running {
+ background: linear-gradient(120deg, #f59e0b, #f97316);
+}
+
+.daily-task-card.locked {
+ background: linear-gradient(120deg, #dc2626, #b91c1c);
+}
+
+.daily-task-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.daily-task-header {
   display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.75rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.daily-task-status {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 999px;
+  line-height: 1;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(4px);
+}
+
+.daily-task-status--planned {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.daily-task-status--in_progress {
+  background: rgba(245, 158, 11, 0.25);
+}
+
+.daily-task-status--completed {
+  background: rgba(16, 185, 129, 0.25);
+}
+
+.daily-task-status--cancelled {
+  background: rgba(239, 68, 68, 0.25);
 }

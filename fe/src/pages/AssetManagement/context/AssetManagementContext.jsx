@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { createContext, useContext } from 'react';
 import useAssetManagementPage from '../hooks/useAssetManagementPage';
 
-const AssetManagementContext = createContext();
+const AssetManagementContext = createContext(null);
 
 export const useAssetManagement = () => {
   const context = useContext(AssetManagementContext);

@@ -1,5 +1,6 @@
+// fe\src\pages\AssetManagement\hooks\useAssetPage.js
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { AssetContext } from '../../context/AssetContext';
+import { AssetContext } from '../../../context/AssetContext';
 import {
   createAsset,
   deleteAsset,
@@ -12,10 +13,10 @@ import {
   fetchMainTypes,
   updateAsset,
   getAssetDetails,
-} from '../../services/AssetService';
-import { showError, showSuccess, alertConfirm } from '../../comp/Notification';
-import { useDebounce } from '../../hooks/useDebounce';
-import socketService from '../../services/SocketService';
+} from '../../../services/AssetService';
+import { showError, showSuccess, alertConfirm } from '../../../comp/Notification';
+import { useDebounce } from '../../../hooks/useDebounce';
+import socketService from '../../../services/SocketService';
 
 function normalize(value) {
   return String(value || '')

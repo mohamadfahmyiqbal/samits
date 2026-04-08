@@ -1,4 +1,4 @@
-import useAssetPage from "../../hooks/useAssetPage";
+import useAssetPage from "./useAssetPage";
 
 export default function useAssetManagementPage() {
   return useAssetPage({

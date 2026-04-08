@@ -1,0 +1,73 @@
+/** * FIXED VERSION - Replace GanttChart.jsx content with this to resolve syntax error */
+import React, { useMemo } from 'react';
+import {
+  differenceInCalendarDays,
+  format,
+  parseISO,
+  startOfDay,
+  endOfDay,
+  startOfMonth,
+  endOfMonth,
+  eachDayOfInterval,
+  eachMonthOfInterval,
+  isWithinInterval,
+} from 'date-fns';
+import DailyGanttChart from './gantt/DailyGanttChart';
+import WeeklyGanttChart from './gantt/WeeklyGanttChart';
+import MonthlyGanttChart from './gantt/MonthlyGanttChart';
+import YearlyGanttChart from './gantt/YearlyGanttChart';
+import { MONTH_COLUMNS } from './gantt/MONTHS';
+import './GanttChart.css';
+
+[... rest of functions remain same ...]
+
+return (
+  <div className="gantt-wrapper">
+    {isDaily && (
+      <div className="gantt-wrapper daily-gantt-wrapper">
+        <div className="gantt daily-gantt" style={{ '--slot-count': slotCount }}>
+          <DailyGanttChart 
+            dailyEntry={dailyEntry} 
+            columnTemplate={dailyColumnTemplate}
+            onEdit={onEdit} 
+          />
+        </div>
+      </div>
+    )}
+    {isWeekly && (
+      <div className="gantt-wrapper weekly-gantt-wrapper">
+        <div className="gantt weekly-gantt" style={{ '--slot-count': slotCount }}>
+          <WeeklyGanttChart
+            headerColumns={timeSlots}
+            rowsForView={rowsForView}
+            lineSlots={lineSlots}
+            onEdit={onEdit}
+            overlayBookings={weeklyOverlayBookings}
+          />
+        </div>
+      </div>
+    )}
+    {isMonthly && (
+      <div className="monthly-gantt-wrapper">
+        <MonthlyGanttChart
+          rowsForView={monthlyRowsForView}
+          onEdit={onEdit}
+          overlayBookings={monthlyOverlayBookings}
+        />
+      </div>
+    )}
+    {isYearly && (
+      <div className="yearly-gantt-wrapper">
+        <YearlyGanttChart
+          headerColumns={MONTH_COLUMNS}
+          rowsForView={rowsForView}
+          lineSlots={lineSlots}
+          onEdit={onEdit}
+          overlayBookings={[]}
+        />
+      </div>
+    )}
+  </div>
+);
+
+**Copy-paste this JSX return section to replace line 516 corrupted text.**
