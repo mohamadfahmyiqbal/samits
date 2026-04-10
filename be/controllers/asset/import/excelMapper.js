@@ -6,7 +6,6 @@ const mainTypeMap = {
   CLIENT: 2,
   UTAMA: 1,
 };
-console.log(row[2]);
 
 export const mapExcelRowToAsset = (row, sheetName) => ({
   noAsset: String(row[1] || "").trim(),

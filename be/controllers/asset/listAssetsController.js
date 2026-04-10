@@ -1,18 +1,12 @@
 import { db } from "../../models/index.js";
-import { Op } from "sequelize";
-import { HRGAUser } from "../../models/hrga/index.js";
-
-const normalizeText = (value) =>
-  String(value || "")
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, " ");
 
 export const listItItems = async (req, res) => {
   try {
-    // Pagination parameters
-    const page = Math.max(1, parseInt(req.query.page) || 1);
-    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit) || 50));
+    const page = Math.max(1, Number.parseInt(req.query.page, 10) || 1);
+    const limit = Math.min(
+      100,
+      Math.max(1, Number.parseInt(req.query.limit, 10) || 50)
+    );
     const offset = (page - 1) * limit;
 
     const categoryId = req.query.category_id
@@ -27,26 +21,44 @@ export const listItItems = async (req, res) => {
     const assetGroupId = req.query.asset_group_id
       ? Number(req.query.asset_group_id)
       : null;
-    const groupParam = req.query.group ? String(req.query.group).trim() : null;
+
+    const groupParam = req.query.group
+      ? String(req.query.group).trim()
+      : null;
+
     const targetGroup = String(groupParam || "").trim();
 
-    // Build where clause
+    const groupMap = {
+      utama: 1,
+      client: 2,
+    };
+
+    const mappedMainTypeId = targetGroup
+      ? groupMap[targetGroup.toLowerCase()]
+      : null;
+
     const whereClause = {};
 
-    if (mainTypeIdParam && !isNaN(mainTypeIdParam)) {
+    if (mainTypeIdParam && !Number.isNaN(mainTypeIdParam)) {
       whereClause.asset_main_type_id = mainTypeIdParam;
     }
-    if (categoryId && !isNaN(categoryId)) {
+
+    if (mappedMainTypeId && !whereClause.asset_main_type_id) {
+      whereClause.asset_main_type_id = mappedMainTypeId;
+    }
+
+    if (categoryId && !Number.isNaN(categoryId)) {
       whereClause.category_id = categoryId;
     }
-    if (subCategoryId && !isNaN(subCategoryId)) {
+
+    if (subCategoryId && !Number.isNaN(subCategoryId)) {
       whereClause.sub_category_id = subCategoryId;
     }
-    if (assetGroupId && !isNaN(assetGroupId)) {
+
+    if (assetGroupId && !Number.isNaN(assetGroupId)) {
       whereClause.asset_group_id = assetGroupId;
     }
 
-    // Query database
     const { count, rows } = await db.ITItem.findAndCountAll({
       where: whereClause,
       include: [
@@ -79,12 +91,16 @@ export const listItItems = async (req, res) => {
           as: "assignments",
           attributes: ["nik", "assigned_at"],
           required: false,
-          // HRGAUser include removed temporarily due to column mismatch
         },
         {
           model: db.ITItemNetwork,
           as: "networks",
-          attributes: ["hostname", "ip_address", "mac_address", "is_primary"],
+          attributes: [
+            "hostname",
+            "ip_address",
+            "mac_address",
+            "is_primary",
+          ],
           required: false,
         },
         {
@@ -98,36 +114,44 @@ export const listItItems = async (req, res) => {
       limit,
       offset,
       distinct: true,
+      col: "it_item_id",
     });
 
-    // Transform data untuk frontend
     const data = rows.map((item) => {
       const category = item.directCategory;
       const subCategory = item.subCategory;
       const assetGroup = item.assetGroup;
       const mainType = item.mainType;
       const assignment = item.assignments?.[0];
-      const networkMain =
-        item.networks?.find((n) => n.is_primary) || item.networks?.[0];
-      const networkBackup = item.networks?.find((n) => !n.is_primary);
 
-      // Parse tahunBeli dari po_date_period (format YYYYMM -> YYYY)
-      let tahunBeli = null;
-      if (item.po_date_period && item.po_date_period.length >= 4) {
-        tahunBeli = item.po_date_period.substring(0, 4);
-      }
+      const networkMain =
+        item.networks?.find((n) => n.is_primary) ||
+        item.networks?.[0] ||
+        null;
+
+      const networkBackup =
+        item.networks?.find((n) => !n.is_primary) || null;
+
+      const namaAttr = item.attributes?.find(
+        (attr) => attr.attr_name === "nama"
+      );
+
+      const tahunBeli =
+        item.po_date_period?.length >= 4
+          ? item.po_date_period.substring(0, 4)
+          : null;
 
       return {
         it_item_id: item.it_item_id,
         noAsset: item.asset_tag,
-        nama:
-          item.attributes?.find((attr) => attr.attr_name === "nama")
-            ?.attr_value || null,
-        // Field names untuk AssetTable.jsx
-        type: subCategory?.sub_category_name || category?.category_name || null,
-        dept: null, // TODO: Fix HRGAUser
+        nama: namaAttr?.attr_value || null,
+        type:
+          subCategory?.sub_category_name ||
+          category?.category_name ||
+          null,
+        dept: null,
         nik: assignment?.nik || null,
-        tahunBeli: tahunBeli,
+        tahunBeli,
         tahunDepreciation: item.depreciation_end_date
           ? new Date(item.depreciation_end_date).getFullYear()
           : null,
@@ -135,7 +159,7 @@ export const listItItems = async (req, res) => {
         mainIpAdress: networkMain?.ip_address || null,
         backupIpAdress: networkBackup?.ip_address || null,
         status: item.current_status,
-        // Original fields untuk reference
+
         category_id: item.category_id,
         sub_category_id: item.sub_category_id,
         category_name: category?.category_name || null,
@@ -145,7 +169,7 @@ export const listItItems = async (req, res) => {
         asset_main_type_id: item.asset_main_type_id,
         main_type_name: mainType?.main_type_name || null,
         current_status: item.current_status,
-        assigned_to: null, // TODO: Fix HRGAUser
+        assigned_to: null,
         ip_address: networkMain?.ip_address || null,
         mac_address: networkMain?.mac_address || null,
         po_number: item.po_number,
@@ -157,22 +181,12 @@ export const listItItems = async (req, res) => {
         is_disposed: item.is_disposed,
       };
     });
-
-    // Filter by group jika diperlukan (legacy compatibility)
-    let filteredData = data;
-    if (targetGroup) {
-      const normalizedTargetGroup = normalizeText(targetGroup);
-      filteredData = data.filter(
-        (row) =>
-          normalizeText(row?.main_type_name) === normalizedTargetGroup ||
-          normalizeText(row?.asset_group_name) === normalizedTargetGroup,
-      );
-    }
+console.log(data);
 
     return res.status(200).json({
       success: true,
       message: "IT Items retrieved successfully",
-      data: filteredData,
+      data,
       pagination: {
         page,
         limit,
@@ -182,6 +196,7 @@ export const listItItems = async (req, res) => {
     });
   } catch (error) {
     console.error("List it_items error:", error);
+
     return res.status(500).json({
       success: false,
       message: "Gagal mengambil data it_item dari database.",

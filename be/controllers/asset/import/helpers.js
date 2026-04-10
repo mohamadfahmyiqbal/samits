@@ -5,7 +5,7 @@ export const debugLog = (...message) => {
     process.env.NODE_ENV !== "production" &&
     process.env.DEBUG_IMPORT === "true"
   ) {
-    logger.debug(message.join(" "));
+    logger.debug(...message);
   }
 };
 
@@ -17,3 +17,9 @@ export const normalizeLookupText = (value) =>
     .toLowerCase();
 
 export const safeTrim = (value) => String(value || "").trim();
+
+export const normalizeSpaces = (value) =>
+ String(value || "")
+  .replace(/\u00A0/g, " ")
+  .replace(/\s+/g, " ")
+  .trim();

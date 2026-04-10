@@ -75,3 +75,133 @@ Error
     at async PartCategory.create (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1362:12)
     at async PartCategoryService.createPartCategory (file:///D:/DEV/REACT/samit/be/services/partCategory.service.js:70:21)
     at async file:///D:/DEV/REACT/samit/be/routes/master.routes.js:97:21
+2026-04-09 16:47:11 [ERROR]: unhandledRejection: sequelize is not defined
+ReferenceError: sequelize is not defined
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js:2:23)
+    at Layer.handle [as handle_request] (D:\DEV\REACT\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\DEV\REACT\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at done (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:47:7)
+    at indicateDone (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:51:68)
+    at Multipart.<anonymous> (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:168:7)
+    at Multipart.emit (node:events:507:28)
+    at emitCloseNT (node:internal/streams/destroy:148:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {"error":{},"rejection":true,"date":"Thu Apr 09 2026 16:47:11 GMT+0700 (Western Indonesia Time)","process":{"pid":4160,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":120315904,"heapTotal":69955584,"heapUsed":44257936,"external":4895814,"arrayBuffers":2302052}},"os":{"loadavg":[0,0,0],"uptime":2106313.921},"trace":[{"column":23,"file":"file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js","function":"importAssetsFromExcel","line":2,"method":null,"native":false},{"column":5,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\express\\lib\\router\\layer.js","function":"Layer.handle [as handle_request]","line":95,"method":"handle [as handle_request]","native":false},{"column":13,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"next","line":149,"method":null,"native":false},{"column":7,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":"done","line":47,"method":null,"native":false},{"column":68,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":"indicateDone","line":51,"method":null,"native":false},{"column":7,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":null,"line":168,"method":null,"native":false},{"column":28,"file":"node:events","function":"Multipart.emit","line":507,"method":"emit","native":false},{"column":10,"file":"node:internal/streams/destroy","function":"emitCloseNT","line":148,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":89,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+ReferenceError: sequelize is not defined
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js:2:23)
+    at Layer.handle [as handle_request] (D:\DEV\REACT\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\DEV\REACT\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at done (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:47:7)
+    at indicateDone (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:51:68)
+    at Multipart.<anonymous> (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:168:7)
+    at Multipart.emit (node:events:507:28)
+    at emitCloseNT (node:internal/streams/destroy:148:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+2026-04-10 11:37:59 [ERROR]: unhandledRejection: sequelize is not defined
+ReferenceError: sequelize is not defined
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js:2:22)
+    at Layer.handle [as handle_request] (D:\DEV\REACT\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\DEV\REACT\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at done (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:47:7)
+    at indicateDone (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:51:68)
+    at Multipart.<anonymous> (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:168:7)
+    at Multipart.emit (node:events:507:28)
+    at emitCloseNT (node:internal/streams/destroy:148:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {"error":{},"rejection":true,"date":"Fri Apr 10 2026 11:37:59 GMT+0700 (Western Indonesia Time)","process":{"pid":5688,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":119758848,"heapTotal":69955584,"heapUsed":44278712,"external":4899553,"arrayBuffers":2305791}},"os":{"loadavg":[0,0,0],"uptime":2174162.484},"trace":[{"column":22,"file":"file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js","function":"importAssetsFromExcel","line":2,"method":null,"native":false},{"column":5,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\express\\lib\\router\\layer.js","function":"Layer.handle [as handle_request]","line":95,"method":"handle [as handle_request]","native":false},{"column":13,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"next","line":149,"method":null,"native":false},{"column":7,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":"done","line":47,"method":null,"native":false},{"column":68,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":"indicateDone","line":51,"method":null,"native":false},{"column":7,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":null,"line":168,"method":null,"native":false},{"column":28,"file":"node:events","function":"Multipart.emit","line":507,"method":"emit","native":false},{"column":10,"file":"node:internal/streams/destroy","function":"emitCloseNT","line":148,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":89,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+ReferenceError: sequelize is not defined
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js:2:22)
+    at Layer.handle [as handle_request] (D:\DEV\REACT\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\DEV\REACT\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at done (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:47:7)
+    at indicateDone (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:51:68)
+    at Multipart.<anonymous> (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:168:7)
+    at Multipart.emit (node:events:507:28)
+    at emitCloseNT (node:internal/streams/destroy:148:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+2026-04-10 11:38:18 [ERROR]: unhandledRejection: safeRollback is not defined
+ReferenceError: safeRollback is not defined
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js:222:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {"error":{},"rejection":true,"date":"Fri Apr 10 2026 11:38:18 GMT+0700 (Western Indonesia Time)","process":{"pid":43564,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":215461888,"heapTotal":136105984,"heapUsed":77877112,"external":14044675,"arrayBuffers":11449174}},"os":{"loadavg":[0,0,0],"uptime":2174181.796},"trace":[{"column":3,"file":"file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js","function":"importAssetsFromExcel","line":222,"method":null,"native":false},{"column":5,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":105,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+ReferenceError: safeRollback is not defined
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js:222:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2026-04-10 13:05:32 [ERROR]: unhandledRejection: sequelize is not defined
+ReferenceError: sequelize is not defined
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js:2:22)
+    at Layer.handle [as handle_request] (D:\DEV\REACT\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\DEV\REACT\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at done (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:47:7)
+    at indicateDone (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:51:68)
+    at Multipart.<anonymous> (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:168:7)
+    at Multipart.emit (node:events:507:28)
+    at emitCloseNT (node:internal/streams/destroy:148:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {"error":{},"rejection":true,"date":"Fri Apr 10 2026 13:05:32 GMT+0700 (Western Indonesia Time)","process":{"pid":6476,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":119431168,"heapTotal":71004160,"heapUsed":44512216,"external":4899553,"arrayBuffers":2305791}},"os":{"loadavg":[0,0,0],"uptime":2179415.203},"trace":[{"column":22,"file":"file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js","function":"importAssetsFromExcel","line":2,"method":null,"native":false},{"column":5,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\express\\lib\\router\\layer.js","function":"Layer.handle [as handle_request]","line":95,"method":"handle [as handle_request]","native":false},{"column":13,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"next","line":149,"method":null,"native":false},{"column":7,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":"done","line":47,"method":null,"native":false},{"column":68,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":"indicateDone","line":51,"method":null,"native":false},{"column":7,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":null,"line":168,"method":null,"native":false},{"column":28,"file":"node:events","function":"Multipart.emit","line":507,"method":"emit","native":false},{"column":10,"file":"node:internal/streams/destroy","function":"emitCloseNT","line":148,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":89,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+ReferenceError: sequelize is not defined
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js:2:22)
+    at Layer.handle [as handle_request] (D:\DEV\REACT\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\DEV\REACT\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at done (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:47:7)
+    at indicateDone (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:51:68)
+    at Multipart.<anonymous> (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:168:7)
+    at Multipart.emit (node:events:507:28)
+    at emitCloseNT (node:internal/streams/destroy:148:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+2026-04-10 13:05:59 [ERROR]: unhandledRejection: sequelize is not defined
+ReferenceError: sequelize is not defined
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js:19:22)
+    at Layer.handle [as handle_request] (D:\DEV\REACT\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\DEV\REACT\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at done (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:47:7)
+    at indicateDone (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:51:68)
+    at Multipart.<anonymous> (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:168:7)
+    at Multipart.emit (node:events:507:28)
+    at emitCloseNT (node:internal/streams/destroy:148:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {"error":{},"rejection":true,"date":"Fri Apr 10 2026 13:05:59 GMT+0700 (Western Indonesia Time)","process":{"pid":33264,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":118616064,"heapTotal":69955584,"heapUsed":43823256,"external":4895138,"arrayBuffers":2301376}},"os":{"loadavg":[0,0,0],"uptime":2179442.656},"trace":[{"column":22,"file":"file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js","function":"importAssetsFromExcel","line":19,"method":null,"native":false},{"column":5,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\express\\lib\\router\\layer.js","function":"Layer.handle [as handle_request]","line":95,"method":"handle [as handle_request]","native":false},{"column":13,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\express\\lib\\router\\route.js","function":"next","line":149,"method":null,"native":false},{"column":7,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":"done","line":47,"method":null,"native":false},{"column":68,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":"indicateDone","line":51,"method":null,"native":false},{"column":7,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\multer\\lib\\make-middleware.js","function":null,"line":168,"method":null,"native":false},{"column":28,"file":"node:events","function":"Multipart.emit","line":507,"method":"emit","native":false},{"column":10,"file":"node:internal/streams/destroy","function":"emitCloseNT","line":148,"method":null,"native":false},{"column":21,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":89,"method":"processTicksAndRejections","native":false}],"service":"samit-backend"}
+ReferenceError: sequelize is not defined
+    at importAssetsFromExcel (file:///D:/DEV/REACT/samit/be/controllers/asset/import/importAssetsController.js:19:22)
+    at Layer.handle [as handle_request] (D:\DEV\REACT\samit\be\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\DEV\REACT\samit\be\node_modules\express\lib\router\route.js:149:13)
+    at done (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:47:7)
+    at indicateDone (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:51:68)
+    at Multipart.<anonymous> (D:\DEV\REACT\samit\be\node_modules\multer\lib\make-middleware.js:168:7)
+    at Multipart.emit (node:events:507:28)
+    at emitCloseNT (node:internal/streams/destroy:148:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+2026-04-10 13:32:09 [ERROR]: unhandledRejection: Cannot read properties of undefined (reading 'queue')
+TypeError: Cannot read properties of undefined (reading 'queue')
+    at Query.run (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\mssql\query.js:108:28)
+    at D:\DEV\REACT\samit\be\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async MSSqlQueryInterface.select (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:12)
+    at async ITAssetGroup.findAll (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1140:21)
+    at async ITAssetGroup.findOne (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1240:12) {"error":{},"rejection":true,"date":"Fri Apr 10 2026 13:32:09 GMT+0700 (Western Indonesia Time)","process":{"pid":47528,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":197722112,"heapTotal":133795840,"heapUsed":64007016,"external":6739432,"arrayBuffers":4143931}},"os":{"loadavg":[0,0,0],"uptime":2181012.609},"trace":[{"column":28,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\dialects\\mssql\\query.js","function":"Query.run","line":108,"method":"run","native":false},{"column":28,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\sequelize.js","function":null,"line":315,"method":null,"native":false},{"column":5,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":105,"method":"processTicksAndRejections","native":false},{"column":12,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js","function":"async MSSqlQueryInterface.select","line":407,"method":"select","native":false},{"column":21,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\model.js","function":"async ITAssetGroup.findAll","line":1140,"method":"findAll","native":false},{"column":12,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\model.js","function":"async ITAssetGroup.findOne","line":1240,"method":"findOne","native":false}],"service":"samit-backend"}
+TypeError: Cannot read properties of undefined (reading 'queue')
+    at Query.run (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\mssql\query.js:108:28)
+    at D:\DEV\REACT\samit\be\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async MSSqlQueryInterface.select (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:12)
+    at async ITAssetGroup.findAll (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1140:21)
+    at async ITAssetGroup.findOne (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1240:12)
+2026-04-10 13:32:46 [ERROR]: unhandledRejection: Cannot read properties of undefined (reading 'queue')
+TypeError: Cannot read properties of undefined (reading 'queue')
+    at Query.run (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\mssql\query.js:108:28)
+    at D:\DEV\REACT\samit\be\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async MSSqlQueryInterface.select (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:12)
+    at async ITAssetGroup.findAll (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1140:21)
+    at async ITAssetGroup.findOne (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1240:12) {"error":{},"rejection":true,"date":"Fri Apr 10 2026 13:32:46 GMT+0700 (Western Indonesia Time)","process":{"pid":27768,"uid":null,"gid":null,"cwd":"D:\\DEV\\REACT\\samit\\be","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.0.2","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\DEV\\REACT\\samit\\be\\samit.js"],"memoryUsage":{"rss":197681152,"heapTotal":133795840,"heapUsed":63938248,"external":6739432,"arrayBuffers":4143931}},"os":{"loadavg":[0,0,0],"uptime":2181049.515},"trace":[{"column":28,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\dialects\\mssql\\query.js","function":"Query.run","line":108,"method":"run","native":false},{"column":28,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\sequelize.js","function":null,"line":315,"method":null,"native":false},{"column":5,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":105,"method":"processTicksAndRejections","native":false},{"column":12,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js","function":"async MSSqlQueryInterface.select","line":407,"method":"select","native":false},{"column":21,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\model.js","function":"async ITAssetGroup.findAll","line":1140,"method":"findAll","native":false},{"column":12,"file":"D:\\DEV\\REACT\\samit\\be\\node_modules\\sequelize\\lib\\model.js","function":"async ITAssetGroup.findOne","line":1240,"method":"findOne","native":false}],"service":"samit-backend"}
+TypeError: Cannot read properties of undefined (reading 'queue')
+    at Query.run (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\mssql\query.js:108:28)
+    at D:\DEV\REACT\samit\be\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async MSSqlQueryInterface.select (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:12)
+    at async ITAssetGroup.findAll (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1140:21)
+    at async ITAssetGroup.findOne (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\model.js:1240:12)
+2026-04-10 13:59:48 [ERROR]: Gagal menjalankan server atau inisialisasi DB: Unknown attribute "it_item_id" passed as targetKey, define this attribute on model "ITItem" first {"service":"samit-backend"}
+Error: Unknown attribute "it_item_id" passed as targetKey, define this attribute on model "ITItem" first
+    at new BelongsTo (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\associations\belongs-to.js:55:13)
+    at AssetAuditLog.<anonymous> (D:\DEV\REACT\samit\be\node_modules\sequelize\lib\associations\mixin.js:70:25)
+    at AssetAuditLog.associate (file:///D:/DEV/REACT/samit/be/models/2_eam_core/AssetAuditLog.js:68:21)
+    at file:///D:/DEV/REACT/samit/be/models/index.js:70:18
+    at Array.forEach (<anonymous>)
+    at initializeDB (file:///D:/DEV/REACT/samit/be/models/index.js:68:18)
+    at async startServer (file:///D:/DEV/REACT/samit/be/samit.js:180:5)
