@@ -5,7 +5,7 @@ import {
  fetchCategoriesByMainType,
  fetchSubCategoriesByCategory,
  fetchITItemsByCategory,
-} from '../../../services/CategoryService';
+} from '../../../../services/CategoryService';
 
 export default function useCategoryData() {
  const [mainTypes, setMainTypes] =

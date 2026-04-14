@@ -1,3 +1,30 @@
+:root {
+  --color-primary: #073763;
+  --color-secondary: #0b6bcb;
+  --color-accent: #22cad2;
+  --color-text: #334155;
+  --color-white: #ffffff;
+
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 100%
+  );
+
+  --gradient-hero: linear-gradient(
+    115deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 58%,
+    var(--color-accent) 100%
+  );
+
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
 .App {
  text-align: center;
 }
@@ -554,7 +581,7 @@ body {
  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
-.asset-utama-primary-tabs::-webkit-scrollbar {
+.primary-tabs-wrapper .asset-utama-primary-tabs::-webkit-scrollbar {
  height: 6px;
 }
 
@@ -641,7 +668,7 @@ body {
  width: 300px;
  height: 300px;
  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
- animation: pulse-glow 4s ease-in-out infinite;
+ animation: hero-pulse-glow 4s ease-in-out infinite;
 }
 
 .asset-utama-hero::after {
@@ -652,11 +679,10 @@ body {
  width: 200px;
  height: 200px;
  background: radial-gradient(circle, rgba(34, 202, 210, 0.2) 0%, transparent 70%);
- animation: pulse-glow 4s ease-in-out infinite 2s;
+ animation: hero-pulse-glow 4s ease-in-out infinite 2s;
 }
 
-@keyframes pulse-glow {
-
+@keyframes hero-pulse-glow {
  0%,
  100% {
   opacity: 0.5;
@@ -928,7 +954,7 @@ body {
 }
 
 /* Animation for page load */
-@keyframes fadeInUp {
+@keyframes page-fade-in-up {
  from {
   opacity: 0;
   transform: translateY(20px);
@@ -941,7 +967,7 @@ body {
 }
 
 .asset-utama-page>* {
- animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+ animation: modal-card-fade-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .asset-utama-page>*:nth-child(1) {
@@ -1175,7 +1201,7 @@ body {
  width: 200px;
  height: 200px;
  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
- animation: pulse-glow 3s ease-in-out infinite;
+ animation: modal-pulse-glow 3s ease-in-out infinite;
 }
 
 .futuristic-modal .modal-header-futuristic::after {
@@ -1186,11 +1212,10 @@ body {
  width: 150px;
  height: 150px;
  background: radial-gradient(circle, rgba(34, 202, 210, 0.3) 0%, transparent 70%);
- animation: pulse-glow 3s ease-in-out infinite 1.5s;
+ animation: modal-pulse-glow 3s ease-in-out infinite 1.5s;
 }
 
-@keyframes pulse-glow {
-
+@keyframes modal-pulse-glow {
  0%,
  100% {
   opacity: 0.5;
@@ -1517,7 +1542,7 @@ body {
 }
 
 /* Animation for cards appearing */
-@keyframes fadeInUp {
+@keyframes page-fade-in-up {
  from {
   opacity: 0;
   transform: translateY(10px);
@@ -1530,7 +1555,7 @@ body {
 }
 
 .futuristic-modal .detail-card {
- animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+ animation: modal-card-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
  opacity: 0;
 }
 
@@ -1700,7 +1725,7 @@ body {
  width: 100%;
 }
 
-.asset-utama-primary-tabs {
+.primary-tabs-wrapper .asset-utama-primary-tabs {
  display: flex;
  flex-wrap: nowrap;
  overflow-x: auto;
@@ -1733,8 +1758,8 @@ body {
  flex: 0 0 auto;
 }
 
-.asset-utama-primary-tabs .nav-link {
- padding: 0.65rem 1.25rem;
+.primary-tabs-wrapper .asset-utama-primary-tabs .nav-link {
+  padding: 0.65rem 1.25rem;
  border-radius: 10px;
  font-weight: 500;
  font-size: 0.9rem;
@@ -1771,7 +1796,7 @@ body {
 
 .asset-utama-primary-tabs .nav-link.active {
  color: #fff;
- background: linear-gradient(135deg, #073763 0%, #0b6bcb 100%);
+ background: var(--gradient-primary);
  font-weight: 600;
  box-shadow: 0 4px 12px rgba(7, 55, 99, 0.3);
 }
@@ -1787,7 +1812,7 @@ body {
 }
 
 /* Animation for tabs */
-.asset-utama-primary-tabs .nav-item {
+.primary-tabs-wrapper .asset-utama-primary-tabs .nav-item {
  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
  opacity: 0;
 }
@@ -2075,7 +2100,7 @@ body {
 
 /* Header */
 .modern-table .table-header {
- background: linear-gradient(135deg, #073763 0%, #0b6bcb 100%);
+ background: var(--gradient-primary);
  position: sticky;
  top: 0;
  z-index: 10;
@@ -2443,7 +2468,7 @@ code {
 
 /* Header Styling */
 .table-custom thead th {
- background: linear-gradient(135deg, #073763 0%, #0b6bcb 100%);
+ background: var(--gradient-primary);
  color: #fff;
  font-weight: 600;
  font-size: 0.85rem;

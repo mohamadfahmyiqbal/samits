@@ -2,8 +2,8 @@
 import React from 'react';
 import { Modal, Button, Row, Col, Timeline } from 'antd';
 import { PrinterOutlined } from '@ant-design/icons';
-import StatusTag from '../StatusTag';
-import PriorityTag from '../PriorityTag';
+import StatusTag from '../tags/StatusTag';
+import PriorityTag from '../tags/PriorityTag';
 
 export default function DetailModal({ visible, onClose, selectedSchedule, timelineItems }) {
   return (

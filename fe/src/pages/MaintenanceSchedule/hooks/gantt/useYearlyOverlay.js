@@ -3,13 +3,11 @@ import { useMemo } from 'react';
 import {
  collectDateKeys,
  createBookingSlot,
-} from '../utils/ganttBooking';
+} from '../../utils/ganttBooking';
 import {
  formatDateKey,
  parseDateKeyToDate,
-} from '../utils/ganttDate';
-import { getWeekRow } from '../utils/ganttView';
-import { MONTH_COLUMNS } from '../components/gantt/MONTHS';
+} from '../../utils/ganttDate';
 
 export default function useYearlyOverlay({
  isYearly,
@@ -18,14 +16,8 @@ export default function useYearlyOverlay({
  return useMemo(() => {
   if (!isYearly) return [];
 
-  const monthIndexMap =
-   MONTH_COLUMNS.reduce(
-    (acc, _, index) => {
-     acc[index] = index + 2;
-     return acc;
-    },
-    {}
-   );
+  const getMonthWeek = (date) =>
+   Math.min(4, Math.ceil(date.getDate() / 7));
 
   return (scheduleData || [])
    .map((item) => {
@@ -73,18 +65,10 @@ export default function useYearlyOverlay({
 
     return {
      ...bookingSlot,
-     rowStart:
-      getWeekRow(startDate),
-     rowEnd:
-      getWeekRow(endDate) + 1,
-     min:
-      monthIndexMap[
-      startDate.getMonth()
-      ],
-     max:
-      monthIndexMap[
-      endDate.getMonth()
-      ] + 1,
+     rowStart: getMonthWeek(startDate),
+     rowEnd: getMonthWeek(endDate) + 1,
+     min: startDate.getMonth() + 2,
+     max: endDate.getMonth() + 3,
      originalData: item,
     };
    })

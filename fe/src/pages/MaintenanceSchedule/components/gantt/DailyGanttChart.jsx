@@ -25,7 +25,6 @@ const DailyGanttChart = memo(
  ({
   dailyEntry = { data: [] },
   onEdit,
-  selectedDate,
   columnTemplate = 'minmax(120px, 180px) 1fr',
  }) => {
   const tasks = Array.isArray(

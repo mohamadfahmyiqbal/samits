@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 import Loading from './comp/Loading';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute.jsx';
 import { encryptPath } from './router/encryptPath';
 import MainLayout from './layout/MainLayout';
 import ErrorBoundary from './components/shared/ErrorBoundary';
@@ -32,10 +32,6 @@ const baseUrl = (() => {
   return trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
 })();
 
-const withBasePath = (path) => {
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  return `${baseUrl || ''}${normalizedPath}`;
-};
 
 const App = memo(function App() {
 
@@ -52,7 +48,7 @@ const App = memo(function App() {
          <Route path='/login' element={<LoginScreen />} />
          <Route path='/test' element={<TestRoute />} />
          <Route path='/debug-auth' element={<DebugAuth />} />
-         <Route path='/' element={<Navigate to={withBasePath('/login')} />} />
+         <Route path='/' element={<Navigate to='/login' replace />} />
 
          {/* Protected Routes */}
          <Route
@@ -68,13 +64,13 @@ const App = memo(function App() {
           <Route
            path='*'
            element={
-            <Navigate to={withBasePath(`/${encryptPath('dashboard')}`)} />
+            <Navigate to={`/${encryptPath('dashboard')}`} replace />
            }
           />
          </Route>
 
          {/* Fallback untuk public routes */}
-         <Route path='*' element={<Navigate to={withBasePath('/login')} />} />
+         <Route path='*' element={<Navigate to='/login' replace />} />
         </Routes>
        </Suspense>
       </Router>

@@ -5,7 +5,7 @@ import {
  fetchSchedule,
  updateLog,
  deleteLog,
-} from '../../../services/MaintenanceService';
+} from '../../../../services/MaintenanceService';
 
 export default function useScheduleActions({
  fetchSchedules,

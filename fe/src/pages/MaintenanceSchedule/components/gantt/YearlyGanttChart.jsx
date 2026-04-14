@@ -10,8 +10,7 @@ const YearlyGanttChart = ({
  overlayBookings = [],
 }) => {
  const slotCount = Math.max(headerColumns.length, 1);
- const columnTemplate = `100px repeat(${slotCount}, minmax(90px, 1fr))`;
-
+ const columnTemplate = `120px repeat(${slotCount}, minmax(90px, 1fr))`;
  const normalizedLineSlots =
   Array.isArray(lineSlots) && lineSlots.length
    ? lineSlots
@@ -68,10 +67,6 @@ const YearlyGanttChart = ({
     <div className="gantt__row-body">
      <div className="gantt__row-wrapper" style={wrapperStyle}>
       {rowsForView.map((row) => {
-       const bookings = Array.isArray(row.bookingObj?.data)
-        ? row.bookingObj.data
-        : [];
-
        return (
         <div
          key={row.weekKey || row.dateKey}
@@ -105,10 +100,21 @@ const YearlyGanttChart = ({
         style={overlayStyle}
        >
         {overlayBookings.map((booking, index) => {
-         const columnStart = booking.min ?? 2;
-         const columnEnd =
-          booking.max ??
-          columnStart + 1;
+         const rowStart = booking.rowStart ?? 1;
+         const rowEnd = booking.rowEnd ?? rowStart + 1;
+
+         const columnStart = Math.max(
+          2,
+          Math.min(slotCount + 1, booking.min ?? 2)
+         );
+
+         const columnEnd = Math.max(
+          columnStart + 1,
+          Math.min(
+           slotCount + 2,
+           booking.max ?? columnStart + 1
+          )
+         );
 
          return (
           <li
@@ -116,7 +122,7 @@ const YearlyGanttChart = ({
            className={`booking-item-card ${booking.bookStatus || 'available'
             }`}
            style={{
-            gridRow: `${booking.rowStart} / ${booking.rowEnd}`,
+            gridRow: `${rowStart} / ${rowEnd}`,
             gridColumn: `${columnStart} / ${columnEnd}`,
            }}
            onClick={() =>

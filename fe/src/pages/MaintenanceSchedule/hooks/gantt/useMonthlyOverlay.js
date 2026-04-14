@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 import {
   collectDateKeys,
   createBookingSlot,
-} from '../utils/ganttBooking';
+} from '../../utils/ganttBooking';
 import {
   formatDateKey,
   parseDateKeyToDate,
   getWeekColumn,
-} from '../utils/ganttDate';
+} from '../../utils/ganttDate';
 
 export default function useMonthlyOverlay({
   isMonthly,

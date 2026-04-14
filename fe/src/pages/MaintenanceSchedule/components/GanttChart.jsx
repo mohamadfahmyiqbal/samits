@@ -14,8 +14,8 @@ import {
  getScheduleDateRange,
 } from '../utils/ganttBooking';
 import { buildTimeSlots } from '../utils/ganttView';
-import useMonthlyOverlay from '../hooks/useMonthlyOverlay';
-import useYearlyOverlay from '../hooks/useYearlyOverlay';
+import useMonthlyOverlay from '../hooks/gantt/useMonthlyOverlay';
+import useYearlyOverlay from '../hooks/gantt/useYearlyOverlay';
 import {
  format,
  startOfDay,
@@ -29,7 +29,7 @@ import YearlyGanttChart from './gantt/YearlyGanttChart';
 import { MONTH_COLUMNS } from './gantt/MONTHS';
 import './GanttChart.css';
 
-export default function GanttChart({ scheduleData = [], onEdit, viewType = 'weekly', dateRange = {} }) {
+export default function GanttChart({ scheduleData = [], onEdit, viewType = 'yearly', dateRange = {} }) {
  const timeSlots = useMemo(buildTimeSlots, []);
  const groupedSchedule = useMemo(() => groupByDate(scheduleData), [scheduleData]);
  const scheduleEntries = Object.entries(groupedSchedule);
@@ -39,7 +39,6 @@ export default function GanttChart({ scheduleData = [], onEdit, viewType = 'week
  const isYearly = viewType === 'yearly';
  const dateSlots = useMemo(() => buildDateSlots(dateRange, viewType), [dateRange, viewType]);
  const scheduleDateRange = useMemo(() => getScheduleDateRange(scheduleData), [scheduleData]);
- const earliestScheduleKey = formatDateKey(scheduleDateRange.start);
 
  const selectedDailyKey =
   formatDateKey(dateRange?.start) ||
@@ -54,98 +53,122 @@ export default function GanttChart({ scheduleData = [], onEdit, viewType = 'week
  const slotCount = isDaily ? 1 : isWeekly ? timeSlots.length : Math.max(dateSlots.length, 1);
  const dailyColumnTemplate = 'minmax(120px, 180px) 1fr';
  const lineSlots = Array.from({ length: slotCount }, (_, idx) => idx);
- const filteredEntries = isDaily
-  ? []
-  : scheduleEntries.filter(([dateKey]) => isDateInRange(dateKey, dateRange));
 
- const monthlyViewAnchor =
-  scheduleDateRange.start || toDateObject(dateRange.start) || scheduleDateRange.end || new Date();
- const monthlyRange = monthlyViewAnchor
-  ? {
-   start: startOfMonth(monthlyViewAnchor),
-   end: endOfMonth(monthlyViewAnchor),
-  }
-  : null;
+ const filteredEntries = useMemo(() => {
+  if (isDaily) return [];
 
- const monthlySlots = isMonthly && monthlyRange ? buildDateSlots(monthlyRange, 'monthly') : [];
+  return scheduleEntries.filter(([dateKey]) =>
+   isDateInRange(dateKey, dateRange)
+  );
+ }, [isDaily, scheduleEntries, dateRange]);
+
+ const monthlySlots = useMemo(() => {
+  if (!isMonthly) return [];
+
+  const anchor =
+   scheduleDateRange.start ||
+   toDateObject(dateRange.start) ||
+   scheduleDateRange.end ||
+   new Date();
+
+  const range = {
+   start: startOfMonth(anchor),
+   end: endOfMonth(anchor),
+  };
+
+  return buildDateSlots(range, 'monthly');
+ }, [
+  isMonthly,
+  scheduleDateRange.start,
+  scheduleDateRange.end,
+  dateRange.start,
+ ]);
+
  const weeklyRange = useMemo(() => {
   if (!isWeekly) return null;
-  const normalizedBaseStart = toDateObject(dateRange.start);
-  const normalizedBaseEnd = toDateObject(dateRange.end);
-  const normalizedExtraStart = toDateObject(scheduleDateRange.start);
-  const normalizedExtraEnd = toDateObject(scheduleDateRange.end);
-  const startCandidates = [normalizedBaseStart, normalizedExtraStart].filter(Boolean);
-  const endCandidates = [normalizedBaseEnd, normalizedExtraEnd].filter(Boolean);
-  const start = startCandidates.reduce((acc, curr) => (!acc || curr < acc ? curr : acc), null);
-  const end = endCandidates.reduce((acc, curr) => (!acc || curr > acc ? curr : acc), null);
-  const fallbackStart = normalizedBaseStart || normalizedExtraStart;
-  const fallbackEnd = normalizedBaseEnd || normalizedExtraEnd;
-  const finalStart = start || normalizedExtraStart || normalizedBaseStart;
-  const finalEnd = end || normalizedExtraEnd || normalizedBaseEnd;
-  if (!finalStart || !finalEnd) {
-   return { start: fallbackStart, end: fallbackEnd };
-  }
-  if (finalStart > finalEnd) {
-   return { start: finalStart, end: finalStart };
-  }
-  return { start: finalStart, end: finalEnd };
- }, [isWeekly, dateRange.start, dateRange.end, scheduleDateRange.start, scheduleDateRange.end]);
- const weeklySlots = isWeekly ? buildDateSlots(weeklyRange || dateRange, 'weekly') : [];
+
+  const start = toDateObject(dateRange?.start);
+  const end = toDateObject(dateRange?.end);
+
+  if (!start || !end) return null;
+
+  return { start, end };
+ }, [isWeekly, dateRange?.start, dateRange?.end]);
+
+ const weeklySlots = useMemo(() => {
+  return isWeekly
+   ? buildDateSlots(weeklyRange || dateRange, 'weekly')
+   : [];
+ }, [isWeekly, weeklyRange, dateRange]);
+
  const weeklyRowKeys = useMemo(() => {
   if (!isWeekly) return [];
-  const slotKeys = weeklySlots.map((slot) => slot.key).filter(Boolean);
-  const scheduleKeys = Object.keys(groupedSchedule || {});
-  const merged = Array.from(new Set([...slotKeys, ...scheduleKeys]));
-  merged.sort((a, b) => {
-   const dateA = parseDateKeyToDate(a);
-   const dateB = parseDateKeyToDate(b);
-   if (dateA && dateB) {
-    return dateA - dateB;
-   }
-   return (a || '').localeCompare(b || '');
-  });
-  return merged;
- }, [isWeekly, weeklySlots, groupedSchedule]);
- const monthlyRowsForView = isMonthly
-  ? monthlySlots.map((slot) => {
+
+  return weeklySlots
+   .map((slot) => slot.key)
+   .filter(Boolean);
+ }, [isWeekly, weeklySlots]);
+
+ const monthlyRowsForView = useMemo(() => {
+  if (!isMonthly) return [];
+
+  return monthlySlots.map((slot) => {
    const bookingObj = groupedSchedule[slot.key] || {
     data: [],
     bookStatus: 'available',
     key: slot.key,
    };
-   const dayNumber = slot.start ? format(slot.start, 'dd') : '--';
-   const monthLabel = slot.start ? format(slot.start, 'MMM') : '';
+
    return {
     dateKey: slot.key,
     bookingObj,
-    dayNumber,
-    monthLabel,
+    dayNumber: slot.start ? format(slot.start, 'dd') : '--',
+    monthLabel: slot.start ? format(slot.start, 'MMM') : '',
    };
-  })
-  : [];
- const rowsForView = isDaily
-  ? []
-  : isWeekly
-   ? weeklyRowKeys.map((dateKey) => {
-    const slotEntry = weeklySlots.find((slot) => slot.key === dateKey);
+  });
+ }, [isMonthly, monthlySlots, groupedSchedule]);
+
+ const rowsForView = useMemo(() => {
+  if (isDaily) return [];
+
+  if (isWeekly) {
+   return weeklyRowKeys.map((dateKey) => {
+    const slotEntry = weeklySlots.find(
+     (slot) => slot.key === dateKey
+    );
+
     const bookingObj = groupedSchedule[dateKey] || {
      data: [],
      bookStatus: 'available',
      key: dateKey,
     };
-    const dayNumber = slotEntry?.start ? format(slotEntry.start, 'dd') : '--';
-    const monthLabel = slotEntry?.start ? format(slotEntry.start, 'MMM') : '';
+
     return {
      dateKey,
      bookingObj,
-     dayNumber,
-     monthLabel,
+     dayNumber: slotEntry?.start
+      ? format(slotEntry.start, 'dd')
+      : '--',
+     monthLabel: slotEntry?.start
+      ? format(slotEntry.start, 'MMM')
+      : '',
     };
-   })
-   : filteredEntries.map(([tanggal, bookingObj]) => ({
-    dateKey: tanggal,
-    bookingObj,
-   }));
+   });
+  }
+
+  return filteredEntries.map(([tanggal, bookingObj]) => ({
+   dateKey: tanggal,
+   bookingObj,
+  }));
+ }, [
+  isDaily,
+  isWeekly,
+  weeklyRowKeys,
+  weeklySlots,
+  groupedSchedule,
+  filteredEntries,
+ ]);
+
  const weeklyRowIndexMap = useMemo(
   () =>
    rowsForView.reduce((acc, row, index) => {
@@ -212,7 +235,7 @@ export default function GanttChart({ scheduleData = [], onEdit, viewType = 'week
  const yearlyRowsForView = useMemo(() => {
   if (!isYearly) return [];
 
-  return Array.from({ length: 52 }, (_, i) => ({
+  return Array.from({ length: 4 }, (_, i) => ({
    weekKey: `w${i + 1}`,
    weekLabel: `W${i + 1}`,
    bookingObj: {
@@ -222,9 +245,16 @@ export default function GanttChart({ scheduleData = [], onEdit, viewType = 'week
   }));
  }, [isYearly]);
 
- const yearlyLineSlots = useMemo(() =>
-  isYearly ? Array.from({ length: MONTH_COLUMNS.length || 12 }, (_, i) => i) : [],
-  [isYearly, MONTH_COLUMNS.length]);
+ const yearlyLineSlots = useMemo(
+  () =>
+   isYearly
+    ? Array.from(
+     { length: MONTH_COLUMNS.length || 12 },
+     (_, i) => i
+    )
+    : [],
+  [isYearly]
+ );
 
 
  const yearlyOverlayBookings =
