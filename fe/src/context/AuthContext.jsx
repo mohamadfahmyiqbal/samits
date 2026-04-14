@@ -1,17 +1,29 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+// fe\src\context\AuthContext.jsx
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext({
   userPermissions: [],
   isAuthenticated: false,
   user: null,
+  login: () => {},
+  logout: () => {},
 });
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+
   if (!context) {
     throw new Error('useAuth must be used within AuthProvider');
   }
+
   return context;
 };
 
@@ -23,9 +35,11 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+
     if (token) {
       try {
         const decoded = jwtDecode(token);
+
         setUser(decoded);
         setUserPermissions(decoded.permissions || []);
         setIsAuthenticated(true);
@@ -34,29 +48,46 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('token');
       }
     }
+
     setLoading(false);
   }, []);
 
-  const value = {
-    userPermissions,
-    isAuthenticated,
-    user,
-    login: (token) => {
-      localStorage.setItem('token', token);
-      const decoded = jwtDecode(token);
-      setUser(decoded);
-      setUserPermissions(decoded.permissions || []);
-      setIsAuthenticated(true);
-    },
-    logout: () => {
-      localStorage.removeItem('token');
-      setUser(null);
-      setUserPermissions([]);
-      setIsAuthenticated(false);
-    },
-  };
+  const login = useCallback((token) => {
+    localStorage.setItem('token', token);
 
-  if (loading) return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+    const decoded = jwtDecode(token);
+
+    setUser(decoded);
+    setUserPermissions(decoded.permissions || []);
+    setIsAuthenticated(true);
+  }, []);
+
+  const logout = useCallback(() => {
+    localStorage.removeItem('token');
+
+    setUser(null);
+    setUserPermissions([]);
+    setIsAuthenticated(false);
+  }, []);
+
+  const value = useMemo(
+    () => ({
+      userPermissions,
+      isAuthenticated,
+      user,
+      login,
+      logout,
+    }),
+    [userPermissions, isAuthenticated, user, login, logout]
+  );
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <AuthContext.Provider value={value}>
@@ -66,4 +97,3 @@ export const AuthProvider = ({ children }) => {
 };
 
 export default AuthContext;
-

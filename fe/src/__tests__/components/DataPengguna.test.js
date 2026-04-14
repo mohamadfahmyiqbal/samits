@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import DataPengguna from '../DataPengguna.refactored';
 
 // Mock dependencies
-jest.mock('../../hooks/useTableData', () => ({
+jest.mock('../../pages/DataPengguna/hooks/useTableData', () => ({
   __esModule: true,
   default: () => ({
     data: [
@@ -16,7 +16,7 @@ jest.mock('../../hooks/useTableData', () => ({
   })
 }));
 
-jest.mock('../../hooks/useModal', () => ({
+jest.mock('../../pages/DataPengguna/hooks/useModal', () => ({
   __esModule: true,
   default: () => ({
     visible: false,
@@ -69,7 +69,7 @@ describe('DataPengguna Component', () => {
 
   test('opens add user modal when button clicked', () => {
     const mockShowModal = jest.fn();
-    jest.doMock('../../hooks/useModal', () => ({
+    jest.doMock('../../pages/DataPengguna/hooks/useModal', () => ({
       __esModule: true,
       default: () => ({
         visible: false,

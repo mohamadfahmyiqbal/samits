@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Table, Tag, Button, Spin, Statistic, message, Space, Typography, Alert, Progress, Divider } from 'antd';
 import { ReloadOutlined, DownloadOutlined, WarningOutlined, BellOutlined } from '@ant-design/icons';
-import inventoryService from '../services/inventory.service';
+import inventoryService from '../services/InventoryService';
 import api from '../services/api';
 
 const { Title } = Typography;

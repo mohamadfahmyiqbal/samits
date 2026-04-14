@@ -1,5 +1,5 @@
 import { Form, Button, Spinner } from 'react-bootstrap';
-import Notifikasi from '../../../comp/Notification';
+import Notifikasi from '../../../components/shared/notification/Notification';
 
 export default function LoginForm({ fields, errors, loading, notif, onChange, onSubmit }) {
   return (

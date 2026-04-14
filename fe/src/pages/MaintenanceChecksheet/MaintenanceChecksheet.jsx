@@ -51,7 +51,14 @@ function MaintenanceChecksheetContent() {
 
 function MaintenanceChecksheet() {
   return (
-    <ErrorBoundary>
+    <ErrorBoundary
+      homePath='/dashboard'
+      title='Checksheet error'
+      description='The checksheet page could not be rendered. Try again or return to the dashboard.'
+      homeLabel='Dashboard'
+      refreshLabel='Reload Page'
+      resultStatus='500'
+    >
       <ChecksheetManagementProvider>
         <div className='asset-management-page checksheet-management-page'>
           <div className='asset-utama-page'>

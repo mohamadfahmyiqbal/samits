@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSocket } from '../../../context/SocketContext';
-import { encryptPath } from '../../../router/encryptPath';
+import { encryptPath } from '../../../routes/pathEncoding';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://localhost:5002/api';
 

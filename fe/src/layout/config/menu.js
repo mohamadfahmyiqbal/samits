@@ -1,3 +1,4 @@
+// fe\src\layout\config\menu.js
 export const menuGroups = [
   { type: "link", label: "Dashboard", path: "dashboard" },
   {

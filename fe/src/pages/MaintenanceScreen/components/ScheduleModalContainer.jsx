@@ -1,7 +1,7 @@
 import React from "react";
 import ScheduleForm from "./ScheduleForm";
 import { useSchedule } from "../context/ScheduleContext";
-import { showError, showSuccess } from "../../../comp/Notification";
+import { showError, showSuccess } from "../../../components/shared/notification/toast";
 
 const ScheduleModalContainer = () => {
   const { form, karyawanData, createLog, updateLog } = useSchedule();

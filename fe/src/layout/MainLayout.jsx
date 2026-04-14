@@ -1,13 +1,13 @@
 import React, { useState, useCallback, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import clsx from 'clsx';
-import { MenuProvider } from '../context/MenuContext';
+import { MenuProvider } from './context/MenuContext';
 import { useAuth } from '../context/AuthContext';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
-import ErrorBoundary from '../components/ErrorBoundary';
-import Loader from '../components/Loader';
+import ErrorBoundary from '../components/shared/ErrorBoundary';
+import Loader from '../components/shared/Loader';
 import Overlay from './components/Overlay';
 
 export default function MainLayout() {
@@ -35,7 +35,14 @@ export default function MainLayout() {
 
             <main className='layout-content flex-1 overflow-y-auto'>
               <Suspense fallback={<Loader tip="Loading page..." />}>
-                <ErrorBoundary>
+                <ErrorBoundary
+                  homePath='/dashboard'
+                  title='Page error'
+                  description='The current page could not be rendered. Try reloading or return to the dashboard.'
+                  homeLabel='Dashboard'
+                  refreshLabel='Reload Page'
+                  resultStatus='500'
+                >
                   <Outlet />
                 </ErrorBoundary>
               </Suspense>

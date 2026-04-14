@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import ChecksheetTemplateTable from './ChecksheetTemplateTable';
 import { useChecksheetManagement } from '../context/ChecksheetManagementContext';
-import maintenanceChecklistService from '../../../services/maintenanceChecklist.service.js';
+import maintenanceChecklistService from '../../../services/MaintenanceChecklistService';
 
 const ChecksheetManagementTabs = ({
   activeSubCategoryId,

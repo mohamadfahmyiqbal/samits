@@ -9,9 +9,9 @@ const TransactionModal = ({ visible, transaction, onClose }) => {
 
   const getTypeTag = (type) => {
     const config = {
-      in: { color: 'green', label: 'Stock In' },
-      out: { color: 'red', label: 'Stock Out' },
-      adjustment: { color: 'orange', label: 'Adjustment' },
+      in: { color: 'green', label: 'Stok Masuk' },
+      out: { color: 'red', label: 'Stok Keluar' },
+      adjustment: { color: 'orange', label: 'Penyesuaian' },
     };
     const info = config[type] || { color: 'default', label: type };
     return <Tag color={info.color}>{info.label}</Tag>;
@@ -20,7 +20,7 @@ const TransactionModal = ({ visible, transaction, onClose }) => {
   const getStatusTag = (status) => {
     const config = {
       completed: { color: 'green', label: 'Selesai' },
-      pending: { color: 'blue', label: 'Pending' },
+      pending: { color: 'blue', label: 'Menunggu' },
       cancelled: { color: 'red', label: 'Dibatalkan' },
     };
     const info = config[status] || { color: 'default', label: status };
@@ -41,10 +41,10 @@ const TransactionModal = ({ visible, transaction, onClose }) => {
       footer={null}
     >
       <Descriptions column={1} bordered size="small">
-        <Descriptions.Item label="Part Code">
+        <Descriptions.Item label="Kode Part">
           <strong>{transaction.part_code}</strong>
         </Descriptions.Item>
-        <Descriptions.Item label="Part Name">
+        <Descriptions.Item label="Nama Part">
           {transaction.part_name}
         </Descriptions.Item>
         <Descriptions.Item label="Kategori">
@@ -56,15 +56,15 @@ const TransactionModal = ({ visible, transaction, onClose }) => {
         <Descriptions.Item label="Status">
           {getStatusTag(transaction.status)}
         </Descriptions.Item>
-        <Descriptions.Item label="Quantity">
+        <Descriptions.Item label="Jumlah">
           <strong style={{ color: transaction.type === 'out' ? '#ff4d4f' : '#52c41a' }}>
             {transaction.quantity} {transaction.unit}
           </strong>
         </Descriptions.Item>
-        <Descriptions.Item label="Stock Sebelum">
+        <Descriptions.Item label="Stok Sebelum">
           {transaction.stock_before} {transaction.unit}
         </Descriptions.Item>
-        <Descriptions.Item label="Stock Sesudah">
+        <Descriptions.Item label="Stok Sesudah">
           {transaction.stock_after} {transaction.unit}
         </Descriptions.Item>
         <Descriptions.Item label="Nilai Transaksi">
@@ -88,7 +88,7 @@ const TransactionModal = ({ visible, transaction, onClose }) => {
             <p>
               <strong>{format(new Date(transaction.approved_at), 'dd MMM yyyy, HH:mm', { locale: id })}</strong>
             </p>
-            <p>Diapprove oleh {transaction.approved_by_name}</p>
+            <p>Disetujui oleh {transaction.approved_by_name}</p>
           </Timeline.Item>
         )}
         {transaction.executed_at && (
@@ -96,7 +96,7 @@ const TransactionModal = ({ visible, transaction, onClose }) => {
             <p>
               <strong>{format(new Date(transaction.executed_at), 'dd MMM yyyy, HH:mm', { locale: id })}</strong>
             </p>
-            <p>Dieksekusi - Stok sudah berubah</p>
+            <p>Dieksekusi, stok sudah diperbarui</p>
           </Timeline.Item>
         )}
       </Timeline>

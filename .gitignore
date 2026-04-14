@@ -1,3 +1,6 @@
 node_modules/
 nul
 be/nul
+build/
+dist/
+coverage/

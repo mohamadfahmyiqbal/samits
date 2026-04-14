@@ -194,10 +194,10 @@ const WorkOrderScreen = () => {
     return (
       <Container className='py-5'>
         <Alert variant='danger'>
-          <Alert.Heading>Error Loading Work Orders</Alert.Heading>
+        <Alert.Heading>Gagal memuat work order</Alert.Heading>
           <pre>{error}</pre>
           <Button onClick={handleRefresh} variant='outline-danger'>
-            Retry
+            Coba Lagi
           </Button>
         </Alert>
       </Container>
@@ -212,22 +212,22 @@ const WorkOrderScreen = () => {
             <div>
               <h1 className='fw-bold mb-1'>
                 <i className='bi bi-list-task text-primary me-3'></i>
-                Work Orders
+                Work Order
               </h1>
-              <p className='text-muted mb-0'>Manage maintenance work orders and assignments</p>
+              <p className='text-muted mb-0'>Kelola work order perawatan dan penugasannya.</p>
             </div>
           <div className='stats-badge-group d-flex flex-wrap gap-2'>
             <Badge bg='info' className='py-2 px-3'>
               Total: {stats.total || 0}
             </Badge>
               <Badge bg='warning' className='py-2 px-3'>
-                Open: {stats.open || 0}
+                Terbuka: {stats.open || 0}
               </Badge>
               <Badge bg='primary' className='py-2 px-3'>
-                In Progress: {stats.inProgress || 0}
+                Berjalan: {stats.inProgress || 0}
               </Badge>
               <Badge bg='success' className='py-2 px-3'>
-                Completed: {stats.completed || 0}
+                Selesai: {stats.completed || 0}
               </Badge>
             </div>
             <Button
@@ -241,9 +241,9 @@ const WorkOrderScreen = () => {
 
       <Row className='g-3 mb-4'>
             {[
-              { label: 'Average Assign Time', value: stats.assignAvg || '-', variant: 'outline-primary' },
-              { label: 'Average Close Time', value: stats.closeAvg || '-', variant: 'outline-success' },
-              { label: 'Unassigned', value: stats.unassigned || '-', variant: 'outline-danger' },
+              { label: 'Rata-rata Penugasan', value: stats.assignAvg || '-', variant: 'outline-primary' },
+              { label: 'Rata-rata Penyelesaian', value: stats.closeAvg || '-', variant: 'outline-success' },
+              { label: 'Belum Ditugaskan', value: stats.unassigned || '-', variant: 'outline-danger' },
             ].map((card) => (
               <Col md={4} key={card.label}>
                 <div className={`border rounded-3 p-3 bg-white shadow-sm ${card.variant}`}>

@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Card, Row, Col, Button, Tag, Space, message } from 'antd';
+import { Form, Card, Row, Col, Button, Tag, Space, message, Input, Select } from 'antd';
 import { UserOutlined, EditOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-
-// Shared Components
-import PageLayout from '../../components/shared/PageLayout';
 import DataTable from '../../components/shared/DataTable';
 import ActionModal from '../../components/shared/ActionModal';
 
 // Custom Hooks
-import useTableData from '../../hooks/useTableData';
-import useModal from '../../hooks/useModal';
+import useTableData from './hooks/useTableData';
+import useModal from './hooks/useModal';
 
 // Constants
-import { STATUSES, PRIORITIES, getStatusColor, getPriorityColor } from '../../constants/statuses';
+import { STATUSES, PRIORITIES, getStatusColor, getPriorityColor } from './constants/statuses';
 
 import './DataPengguna.css';
 
@@ -132,153 +129,161 @@ export default function DataPengguna() {
   ];
 
   return (
-    <PageLayout
-      title='Data Pengguna'
-      subtitle='Management data pengguna sistem'
-      extra={
-        <Button type='primary' icon={<UserOutlined />} onClick={() => showModal()}>
-          Add User
-        </Button>
-      }
-    >
-      <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
-        <Col span={6}>
-          <Card>
-            <div className='statistic-card'>
-              <div className='statistic-icon'>👥</div>
-              <div className='statistic-content'>
-                <div className='statistic-title'>Total Users</div>
-                <div className='statistic-value'>{data.length}</div>
-              </div>
-            </div>
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <div className='statistic-card pending'>
-              <div className='statistic-icon'>⏳</div>
-              <div className='statistic-content'>
-                <div className='statistic-title'>Pending</div>
-                <div className='statistic-value'>
-                  {data.filter((u) => u.status === 'pending').length}
+    <div className='page-layout'>
+      <div className='page-header'>
+        <div className='header-content'>
+          <div className='header-left'>
+            <h2 className='mb-1'>Data Pengguna</h2>
+            <p className='page-subtitle mb-0'>Management data pengguna sistem</p>
+          </div>
+          <div className='header-right'>
+            <Button type='primary' icon={<UserOutlined />} onClick={() => showModal()}>
+              Add User
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className='page-content'>
+        <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
+          <Col span={6}>
+            <Card>
+              <div className='statistic-card'>
+                <div className='statistic-icon'>👥</div>
+                <div className='statistic-content'>
+                  <div className='statistic-title'>Total Users</div>
+                  <div className='statistic-value'>{data.length}</div>
                 </div>
               </div>
-            </div>
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <div className='statistic-card in-progress'>
-              <div className='statistic-icon'>🔄</div>
-              <div className='statistic-content'>
-                <div className='statistic-title'>Active</div>
-                <div className='statistic-value'>
-                  {data.filter((u) => u.status === 'active').length}
+            </Card>
+          </Col>
+          <Col span={6}>
+            <Card>
+              <div className='statistic-card pending'>
+                <div className='statistic-icon'>⏳</div>
+                <div className='statistic-content'>
+                  <div className='statistic-title'>Pending</div>
+                  <div className='statistic-value'>
+                    {data.filter((u) => u.status === 'pending').length}
+                  </div>
                 </div>
               </div>
-            </div>
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <div className='statistic-card completed'>
-              <div className='statistic-icon'>✅</div>
-              <div className='statistic-content'>
-                <div className='statistic-title'>Completed</div>
-                <div className='statistic-value'>
-                  {data.filter((u) => u.status === 'completed').length}
+            </Card>
+          </Col>
+          <Col span={6}>
+            <Card>
+              <div className='statistic-card in-progress'>
+                <div className='statistic-icon'>🔄</div>
+                <div className='statistic-content'>
+                  <div className='statistic-title'>Active</div>
+                  <div className='statistic-value'>
+                    {data.filter((u) => u.status === 'active').length}
+                  </div>
                 </div>
               </div>
-            </div>
-          </Card>
-        </Col>
-      </Row>
+            </Card>
+          </Col>
+          <Col span={6}>
+            <Card>
+              <div className='statistic-card completed'>
+                <div className='statistic-icon'>✅</div>
+                <div className='statistic-content'>
+                  <div className='statistic-title'>Completed</div>
+                  <div className='statistic-value'>
+                    {data.filter((u) => u.status === 'completed').length}
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </Col>
+        </Row>
 
-      <DataTable
-        columns={columns}
-        dataSource={data}
-        loading={loading}
-        pagination={{
-          total: data.length,
-          pageSize: 10,
-          showSizeChanger: true,
-          showQuickJumper: true,
-          showTotal: (total, range) => `${range[0]}-${range[1]} dari ${total} users`,
-        }}
-        searchPlaceholder='Cari user...'
-        filters={filters}
-        onRefresh={refreshData}
-        rowClassName={(record) => {
-          if (record.status === 'pending') return 'row-pending';
-          if (record.status === 'in_progress') return 'row-in-progress';
-          if (record.status === 'completed') return 'row-completed';
-          return '';
-        }}
-      />
+        <DataTable
+          columns={columns}
+          dataSource={data}
+          loading={loading}
+          pagination={{
+            total: data.length,
+            pageSize: 10,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: (total, range) => `${range[0]}-${range[1]} dari ${total} users`,
+          }}
+          searchPlaceholder='Cari user...'
+          filters={filters}
+          onRefresh={refreshData}
+          rowClassName={(record) => {
+            if (record.status === 'pending') return 'row-pending';
+            if (record.status === 'in_progress') return 'row-in-progress';
+            if (record.status === 'completed') return 'row-completed';
+            return '';
+          }}
+        />
 
-      <ActionModal
-        title={selectedUser ? 'Edit User' : 'Add User'}
-        visible={visible}
-        onCancel={hideModal}
-        onSubmit={() => form.submit()}
-        loading={loading}
-      >
-        <Form form={form} layout='vertical' onFinish={handleSubmit}>
-          <Form.Item
-            name='name'
-            label='Full Name'
-            rules={[{ required: true, message: 'Name harus diisi!' }]}
-          >
-            <Input placeholder='Masukkan nama lengkap' />
-          </Form.Item>
+        <ActionModal
+          title={selectedUser ? 'Edit User' : 'Add User'}
+          visible={visible}
+          onCancel={hideModal}
+          onSubmit={() => form.submit()}
+          loading={loading}
+        >
+          <Form form={form} layout='vertical' onFinish={handleSubmit}>
+            <Form.Item
+              name='name'
+              label='Full Name'
+              rules={[{ required: true, message: 'Name harus diisi!' }]}
+            >
+              <Input placeholder='Masukkan nama lengkap' />
+            </Form.Item>
 
-          <Form.Item
-            name='email'
-            label='Email'
-            rules={[
-              { required: true, message: 'Email harus diisi!' },
-              { type: 'email', message: 'Format email tidak valid!' },
-            ]}
-          >
-            <Input placeholder='email@company.com' />
-          </Form.Item>
+            <Form.Item
+              name='email'
+              label='Email'
+              rules={[
+                { required: true, message: 'Email harus diisi!' },
+                { type: 'email', message: 'Format email tidak valid!' },
+              ]}
+            >
+              <Input placeholder='email@company.com' />
+            </Form.Item>
 
-          <Form.Item
-            name='department'
-            label='Department'
-            rules={[{ required: true, message: 'Department harus diisi!' }]}
-          >
-            <Select placeholder='Pilih department'>
-              <Option value='IT'>IT</Option>
-              <Option value='Finance'>Finance</Option>
-              <Option value='HR'>HR</Option>
-              <Option value='Operations'>Operations</Option>
-            </Select>
-          </Form.Item>
+            <Form.Item
+              name='department'
+              label='Department'
+              rules={[{ required: true, message: 'Department harus diisi!' }]}
+            >
+              <Select placeholder='Pilih department'>
+                <Select.Option value='IT'>IT</Select.Option>
+                <Select.Option value='Finance'>Finance</Select.Option>
+                <Select.Option value='HR'>HR</Select.Option>
+                <Select.Option value='Operations'>Operations</Select.Option>
+              </Select>
+            </Form.Item>
 
-          <Form.Item
-            name='position'
-            label='Position'
-            rules={[{ required: true, message: 'Position harus diisi!' }]}
-          >
-            <Input placeholder='Masukkan posisi/jabatan' />
-          </Form.Item>
+            <Form.Item
+              name='position'
+              label='Position'
+              rules={[{ required: true, message: 'Position harus diisi!' }]}
+            >
+              <Input placeholder='Masukkan posisi/jabatan' />
+            </Form.Item>
 
-          <Form.Item
-            name='status'
-            label='Status'
-            rules={[{ required: true, message: 'Status harus diisi!' }]}
-          >
-            <Select placeholder='Pilih status'>
-              {Object.values(STATUSES).map((status) => (
-                <Option key={status.value} value={status.value}>
-                  {status.label}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-        </Form>
-      </ActionModal>
-    </PageLayout>
+            <Form.Item
+              name='status'
+              label='Status'
+              rules={[{ required: true, message: 'Status harus diisi!' }]}
+            >
+              <Select placeholder='Pilih status'>
+                {Object.values(STATUSES).map((status) => (
+                  <Select.Option key={status.value} value={status.value}>
+                    {status.label}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Form>
+        </ActionModal>
+      </div>
+    </div>
   );
 }

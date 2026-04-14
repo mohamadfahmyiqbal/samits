@@ -1,12 +1,12 @@
-
+// fe\src\layout\components\Sidebar.jsx
 import React, { useReducer, useCallback, useMemo } from 'react';
 import { Navbar, Nav, NavDropdown, Container, Spinner } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import { menuGroups } from '../../config/menuConfig';
-import { useEncryptedPaths } from '../../hooks/useEncryptedPaths';
-import { useUserRole } from '../../hooks/useUserRole';
+import { menuGroups } from '../config/menuConfig';
+import { useEncryptedPaths } from '../hooks/useEncryptedPaths';
+import { useUserRole } from '../hooks/useUserRole';
 import { sidebarReducer, initialSidebarState } from '../reducers/sidebarReducer';
 import MenuLink from './MenuLink';
 import NestedMenuItem from './NestedMenuItem';
@@ -62,7 +62,7 @@ export default function Sidebar({ onNavigate }) {
   }, []);
 
   const isPathActive = useCallback(
-    (path) => location.pathname === encryptedPathMap.get(path),
+    (path) => location.pathname === encryptedPathMap[path],
     [location.pathname, encryptedPathMap]
   );
 
@@ -83,7 +83,7 @@ export default function Sidebar({ onNavigate }) {
 
 const goTo = useCallback(
     (path) => {
-      const targetPath = encryptedPathMap.get(path);
+      const targetPath = encryptedPathMap[path];
       
       if (targetPath) {
         navigate(targetPath, { replace: true });

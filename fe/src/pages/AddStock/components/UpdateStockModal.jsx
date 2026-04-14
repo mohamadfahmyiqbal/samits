@@ -5,7 +5,7 @@ const { Option } = Select;
 
 const UpdateStockModal = ({ visible, loading, form, record, onSubmit, onCancel }) => (
   <Modal
-    title={record ? `Update Stock · ${record.part_name}` : 'Update Stock'}
+    title={record ? `Perbarui Stok · ${record.part_name}` : 'Perbarui Stok'}
     open={visible}
     footer={null}
     width={700}
@@ -18,12 +18,12 @@ const UpdateStockModal = ({ visible, loading, form, record, onSubmit, onCancel }
 
       <Row gutter={[16, 16]}>
         <Col span={12}>
-          <Form.Item label='Part Code'>
+          <Form.Item label='Kode Part'>
             <Input value={record?.part_code || ''} disabled />
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item label='Part Name'>
+          <Form.Item label='Nama Part'>
             <Input value={record?.part_name || ''} disabled />
           </Form.Item>
         </Col>
@@ -31,12 +31,12 @@ const UpdateStockModal = ({ visible, loading, form, record, onSubmit, onCancel }
 
       <Row gutter={[16, 16]}>
         <Col span={12}>
-          <Form.Item label='Current Stock'>
+          <Form.Item label='Stok Saat Ini'>
             <InputNumber value={record?.current_stock ?? 0} style={{ width: '100%' }} disabled />
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item label='Unit'>
+          <Form.Item label='Satuan'>
             <Input value={record?.unit || '-'} disabled />
           </Form.Item>
         </Col>
@@ -58,10 +58,10 @@ const UpdateStockModal = ({ visible, loading, form, record, onSubmit, onCancel }
         <Col span={12}>
           <Form.Item
             name='quantity'
-            label='Quantity'
+            label='Jumlah'
             rules={[
               { required: true, message: 'Masukkan jumlah' },
-              { type: 'number', min: 1, message: 'Quantity minimal 1' },
+              { type: 'number', min: 1, message: 'Jumlah minimal 1' },
             ]}
           >
             <InputNumber style={{ width: '100%' }} min={1} />
@@ -70,13 +70,13 @@ const UpdateStockModal = ({ visible, loading, form, record, onSubmit, onCancel }
       </Row>
 
       <Form.Item name='notes' label='Catatan (opsional)'>
-        <Input.TextArea rows={3} placeholder='Catatan tambahan untuk mutasi stok...' />
+        <Input.TextArea rows={3} placeholder='Catatan tambahan untuk perubahan stok...' />
       </Form.Item>
 
       <Form.Item>
         <Space>
           <Button type='primary' htmlType='submit' loading={loading}>
-            Simpan Update
+            Simpan Perubahan
           </Button>
           <Button onClick={onCancel}>Batal</Button>
         </Space>

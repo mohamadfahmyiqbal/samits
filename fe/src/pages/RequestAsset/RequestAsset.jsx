@@ -38,8 +38,8 @@ export default function RequestAsset() {
     {
       id: 1,
       request_code: 'REQ-2024-001',
-      title: 'New Laptop Request for Development Team',
-      requester: 'Development Manager',
+      title: 'Permintaan Laptop Baru untuk Tim Development',
+      requester: 'Manajer Development',
       requester_email: 'dev.manager@company.com',
       department: 'IT',
       priority: 'high',
@@ -83,8 +83,8 @@ export default function RequestAsset() {
     {
       id: 2,
       request_code: 'REQ-2024-002',
-      title: 'Server Upgrade for Infrastructure',
-      requester: 'IT Infrastructure Manager',
+      title: 'Upgrade Server untuk Infrastruktur',
+      requester: 'Manajer Infrastruktur IT',
       requester_email: 'infra.manager@company.com',
       department: 'IT',
       priority: 'critical',
@@ -133,8 +133,8 @@ export default function RequestAsset() {
     {
       id: 3,
       request_code: 'REQ-2024-003',
-      title: 'Office Furniture Replacement',
-      requester: 'HR Manager',
+      title: 'Penggantian Furnitur Kantor',
+      requester: 'Manajer HR',
       requester_email: 'hr.manager@company.com',
       department: 'HR',
       priority: 'medium',
@@ -188,11 +188,11 @@ export default function RequestAsset() {
   ];
 
   const statuses = [
-    { value: 'all', label: 'All Status' },
-    { value: 'pending', label: 'Pending' },
-    { value: 'in_progress', label: 'In Progress' },
-    { value: 'completed', label: 'Completed' },
-    { value: 'rejected', label: 'Rejected' },
+    { value: 'all', label: 'Semua Status' },
+    { value: 'pending', label: 'Menunggu' },
+    { value: 'in_progress', label: 'Berjalan' },
+    { value: 'completed', label: 'Selesai' },
+    { value: 'rejected', label: 'Ditolak' },
   ];
 
   const priorities = [
@@ -258,11 +258,11 @@ export default function RequestAsset() {
       };
 
       setRequestAssetData((prev) => [newRequest, ...prev]);
-      message.success('Asset request berhasil dibuat');
+      message.success('Permintaan aset berhasil dibuat');
       setCreateModalVisible(false);
       form.resetFields();
     } catch (error) {
-      message.error('Gagal membuat request');
+      message.error('Gagal membuat permintaan');
     } finally {
       setLoading(false);
     }
@@ -278,7 +278,7 @@ export default function RequestAsset() {
     setTimeout(() => {
       setRequestAssetData(mockRequestAssetData);
       setLoading(false);
-      message.success('Data berhasil di-refresh');
+      message.success('Data berhasil dimuat ulang');
     }, 1000);
   };
 
@@ -316,19 +316,19 @@ export default function RequestAsset() {
 
   const columns = [
     {
-      title: 'Request Code',
+      title: 'Kode Permintaan',
       dataIndex: 'request_code',
       key: 'request_code',
       render: (text) => <strong>{text}</strong>,
     },
     {
-      title: 'Title',
+      title: 'Judul',
       dataIndex: 'title',
       key: 'title',
       ellipsis: true,
     },
     {
-      title: 'Requester',
+      title: 'Pemohon',
       key: 'requester',
       render: (_, record) => (
         <div>
@@ -340,30 +340,30 @@ export default function RequestAsset() {
       ),
     },
     {
-      title: 'Priority',
+      title: 'Prioritas',
       dataIndex: 'priority',
       key: 'priority',
       render: (priority) => <Tag color={getPriorityColor(priority)}>{priority.toUpperCase()}</Tag>,
     },
     {
-      title: 'Total Amount',
+      title: 'Total Nilai',
       dataIndex: 'total_estimated_amount',
       key: 'total_estimated_amount',
       render: (amount) => `Rp ${amount.toLocaleString('id-ID')}`,
       sorter: (a, b) => a.total_estimated_amount - b.total_estimated_amount,
     },
     {
-      title: 'Required Date',
+      title: 'Tanggal Dibutuhkan',
       dataIndex: 'required_date',
       key: 'required_date',
     },
     {
-      title: 'Current Step',
+      title: 'Tahap Saat Ini',
       key: 'current_step',
       render: (_, record) => {
         const step = getCurrentStep(record.workflow);
         return step === 'completed' ? (
-          <Tag color='green'>COMPLETED</Tag>
+          <Tag color='green'>SELESAI</Tag>
         ) : (
           <Tag color='blue'>{step.replace('_', ' ').toUpperCase()}</Tag>
         );
@@ -376,7 +376,7 @@ export default function RequestAsset() {
       render: (status) => <Tag color={getStatusColor(status)}>{status.toUpperCase()}</Tag>,
     },
     {
-      title: 'Action',
+      title: 'Aksi',
       key: 'action',
       render: (_, record) => (
         <Space>
@@ -395,7 +395,7 @@ export default function RequestAsset() {
               icon={<ShoppingCartOutlined />}
               onClick={() => navigate('/pv', { state: { request: record } })}
             >
-              Process to PV
+              Proses ke PV
             </Button>
           )}
         </Space>
@@ -406,8 +406,8 @@ export default function RequestAsset() {
   return (
     <div className='request-asset'>
       <div className='page-header'>
-        <h1>Request Asset</h1>
-        <p>Management permintaan pembelian aset baru</p>
+        <h1>Permintaan Aset</h1>
+        <p>Kelola permintaan pembelian aset baru.</p>
       </div>
 
       <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
@@ -416,7 +416,7 @@ export default function RequestAsset() {
             <div className='statistic-card pending'>
               <div className='statistic-icon'>⏳</div>
               <div className='statistic-content'>
-                <div className='statistic-title'>Pending Requests</div>
+                <div className='statistic-title'>Permintaan Menunggu</div>
                 <div className='statistic-value'>{pendingRequests}</div>
               </div>
             </div>
@@ -427,7 +427,7 @@ export default function RequestAsset() {
             <div className='statistic-card in-progress'>
               <div className='statistic-icon'>🔄</div>
               <div className='statistic-content'>
-                <div className='statistic-title'>In Progress</div>
+                <div className='statistic-title'>Sedang Berjalan</div>
                 <div className='statistic-value'>{inProgressRequests}</div>
               </div>
             </div>
@@ -438,7 +438,7 @@ export default function RequestAsset() {
             <div className='statistic-card completed'>
               <div className='statistic-icon'>✅</div>
               <div className='statistic-content'>
-                <div className='statistic-title'>Completed</div>
+                <div className='statistic-title'>Selesai</div>
                 <div className='statistic-value'>{completedRequests}</div>
               </div>
             </div>
@@ -449,7 +449,7 @@ export default function RequestAsset() {
             <div className='statistic-card total'>
               <div className='statistic-icon'>💰</div>
               <div className='statistic-content'>
-                <div className='statistic-title'>Total Value</div>
+                <div className='statistic-title'>Total Nilai</div>
                 <div className='statistic-value'>Rp {totalValue.toLocaleString('id-ID')}</div>
               </div>
             </div>
@@ -460,17 +460,17 @@ export default function RequestAsset() {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Card
-            title='Daftar Request Asset'
+            title='Daftar Permintaan Aset'
             extra={
-              <Button type='primary' icon={<PlusOutlined />} onClick={handleCreate}>
-                Create Request
-              </Button>
+                <Button type='primary' icon={<PlusOutlined />} onClick={handleCreate}>
+                Buat Permintaan
+                </Button>
             }
           >
             <div className='table-controls'>
               <Space>
                 <Search
-                  placeholder='Cari asset request...'
+                  placeholder='Cari permintaan aset...'
                   allowClear
                   style={{ width: 300 }}
                   onChange={(e) => setSearchText(e.target.value)}
@@ -482,9 +482,9 @@ export default function RequestAsset() {
                     </Option>
                   ))}
                 </Select>
-                <Button icon={<ReloadOutlined />} onClick={handleRefresh} loading={loading}>
-                  Refresh
-                </Button>
+                  <Button icon={<ReloadOutlined />} onClick={handleRefresh} loading={loading}>
+                  Muat Ulang
+                  </Button>
               </Space>
             </div>
 
@@ -513,7 +513,7 @@ export default function RequestAsset() {
       </Row>
 
       <Modal
-        title='Create Asset Request'
+        title='Buat Permintaan Aset'
         open={createModalVisible}
         onCancel={() => {
           setCreateModalVisible(false);
@@ -527,19 +527,19 @@ export default function RequestAsset() {
             <Col span={12}>
               <Form.Item
                 name='title'
-                label='Request Title'
-                rules={[{ required: true, message: 'Title harus diisi!' }]}
+                label='Judul Permintaan'
+                rules={[{ required: true, message: 'Judul harus diisi!' }]}
               >
-                <Input placeholder='Masukkan title request' />
+                <Input placeholder='Masukkan judul permintaan' />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
                 name='priority'
-                label='Priority'
-                rules={[{ required: true, message: 'Priority harus diisi!' }]}
+                label='Prioritas'
+                rules={[{ required: true, message: 'Prioritas harus diisi!' }]}
               >
-                <Select placeholder='Pilih priority'>
+                <Select placeholder='Pilih prioritas'>
                   {priorities.map((priority) => (
                     <Option key={priority.value} value={priority.value}>
                       {priority.label}
@@ -552,8 +552,8 @@ export default function RequestAsset() {
 
           <Form.Item
             name='justification'
-            label='Justification'
-            rules={[{ required: true, message: 'Justification harus diisi!' }]}
+            label='Alasan'
+            rules={[{ required: true, message: 'Alasan harus diisi!' }]}
           >
             <Input.TextArea rows={4} placeholder='Jelaskan alasan permintaan aset...' />
           </Form.Item>
@@ -562,16 +562,16 @@ export default function RequestAsset() {
             <Col span={12}>
               <Form.Item
                 name='requester'
-                label='Requester Name'
-                rules={[{ required: true, message: 'Requester name harus diisi!' }]}
+                label='Nama Pemohon'
+                rules={[{ required: true, message: 'Nama pemohon harus diisi!' }]}
               >
-                <Input placeholder='Nama requester' />
+                <Input placeholder='Nama pemohon' />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
                 name='requester_email'
-                label='Requester Email'
+                label='Email Pemohon'
                 rules={[
                   { required: true, message: 'Email harus diisi!' },
                   { type: 'email', message: 'Format email tidak valid!' },
@@ -586,10 +586,10 @@ export default function RequestAsset() {
             <Col span={8}>
               <Form.Item
                 name='department'
-                label='Department'
-                rules={[{ required: true, message: 'Department harus diisi!' }]}
+                label='Departemen'
+                rules={[{ required: true, message: 'Departemen harus diisi!' }]}
               >
-                <Select placeholder='Pilih department'>
+                <Select placeholder='Pilih departemen'>
                   <Option value='IT'>IT</Option>
                   <Option value='Operations'>Operations</Option>
                   <Option value='Finance'>Finance</Option>
@@ -601,17 +601,17 @@ export default function RequestAsset() {
             <Col span={8}>
               <Form.Item
                 name='budget_code'
-                label='Budget Code'
-                rules={[{ required: true, message: 'Budget code harus diisi!' }]}
+                label='Kode Anggaran'
+                rules={[{ required: true, message: 'Kode anggaran harus diisi!' }]}
               >
-                <Input placeholder='Budget code' />
+                <Input placeholder='Kode anggaran' />
               </Form.Item>
             </Col>
             <Col span={8}>
               <Form.Item
                 name='required_date'
-                label='Required Date'
-                rules={[{ required: true, message: 'Required date harus diisi!' }]}
+                label='Tanggal Dibutuhkan'
+                rules={[{ required: true, message: 'Tanggal dibutuhkan harus diisi!' }]}
               >
                 <Input placeholder='YYYY-MM-DD' />
               </Form.Item>
@@ -620,8 +620,8 @@ export default function RequestAsset() {
 
           <Form.Item
             name='items'
-            label='Items Requested'
-            rules={[{ required: true, message: 'Items harus diisi!' }]}
+            label='Item yang Diminta'
+            rules={[{ required: true, message: 'Item harus diisi!' }]}
           >
             <Form.List name='items'>
               {(fields, { add, remove }) => (
@@ -641,8 +641,8 @@ export default function RequestAsset() {
                           <Form.Item
                             {...restField}
                             name={[name, 'item_name']}
-                            label='Item Name'
-                            rules={[{ required: true, message: 'Item name harus diisi!' }]}
+                            label='Nama Item'
+                            rules={[{ required: true, message: 'Nama item harus diisi!' }]}
                           >
                             <Input placeholder='Nama item' />
                           </Form.Item>
@@ -651,8 +651,8 @@ export default function RequestAsset() {
                           <Form.Item
                             {...restField}
                             name={[name, 'quantity']}
-                            label='Quantity'
-                            rules={[{ required: true, message: 'Quantity harus diisi!' }]}
+                            label='Jumlah'
+                            rules={[{ required: true, message: 'Jumlah harus diisi!' }]}
                           >
                             <Input type='number' placeholder='Qty' />
                           </Form.Item>
@@ -661,8 +661,8 @@ export default function RequestAsset() {
                           <Form.Item
                             {...restField}
                             name={[name, 'estimated_unit_price']}
-                            label='Unit Price'
-                            rules={[{ required: true, message: 'Unit price harus diisi!' }]}
+                            label='Harga Satuan'
+                            rules={[{ required: true, message: 'Harga satuan harus diisi!' }]}
                           >
                             <Input type='number' placeholder='Rp 0' />
                           </Form.Item>
@@ -674,7 +674,7 @@ export default function RequestAsset() {
                               onClick={() => remove(name)}
                               disabled={fields.length === 1}
                             >
-                              Remove
+                              Hapus
                             </Button>
                           </Form.Item>
                         </Col>
@@ -684,7 +684,7 @@ export default function RequestAsset() {
                           <Form.Item
                             {...restField}
                             name={[name, 'specifications']}
-                            label='Specifications'
+                            label='Spesifikasi'
                           >
                             <Input placeholder='Spesifikasi item' />
                           </Form.Item>
@@ -693,7 +693,7 @@ export default function RequestAsset() {
                           <Form.Item
                             {...restField}
                             name={[name, 'preferred_brand']}
-                            label='Preferred Brand'
+                            label='Merek Pilihan'
                           >
                             <Input placeholder='Brand yang diinginkan' />
                           </Form.Item>
@@ -703,7 +703,7 @@ export default function RequestAsset() {
                   ))}
                   <Form.Item>
                     <Button type='dashed' onClick={() => add()} icon={<PlusOutlined />}>
-                      Add Item
+                      Tambah Item
                     </Button>
                   </Form.Item>
                 </>
@@ -713,17 +713,17 @@ export default function RequestAsset() {
 
           <Form.Item>
             <Space>
-              <Button type='primary' htmlType='submit' loading={loading}>
-                Create Request
+                <Button type='primary' htmlType='submit' loading={loading}>
+                Buat Permintaan
               </Button>
-              <Button onClick={() => setCreateModalVisible(false)}>Cancel</Button>
+              <Button onClick={() => setCreateModalVisible(false)}>Batal</Button>
             </Space>
           </Form.Item>
         </Form>
       </Modal>
 
       <Modal
-        title='Asset Request Detail'
+        title='Detail Permintaan Aset'
         open={detailModalVisible}
         onCancel={() => {
           setDetailModalVisible(false);
@@ -731,7 +731,7 @@ export default function RequestAsset() {
         }}
         footer={[
           <Button key='close' onClick={() => setDetailModalVisible(false)}>
-            Close
+            Tutup
           </Button>,
           selectedRequest?.status === 'pending' && (
             <Button
@@ -743,7 +743,7 @@ export default function RequestAsset() {
                 navigate('/pv', { state: { request: selectedRequest } });
               }}
             >
-              Process to PV
+              Proses ke PV
             </Button>
           ),
         ]}
@@ -754,15 +754,15 @@ export default function RequestAsset() {
             <Row gutter={[16, 16]}>
               <Col span={12}>
                 <div className='detail-section'>
-                  <h4>Request Information</h4>
+                  <h4>Informasi Permintaan</h4>
                   <p>
-                    <strong>Request Code:</strong> {selectedRequest.request_code}
+                    <strong>Kode Permintaan:</strong> {selectedRequest.request_code}
                   </p>
                   <p>
-                    <strong>Title:</strong> {selectedRequest.title}
+                    <strong>Judul:</strong> {selectedRequest.title}
                   </p>
                   <p>
-                    <strong>Priority:</strong>{' '}
+                    <strong>Prioritas:</strong>{' '}
                     <Tag color={getPriorityColor(selectedRequest.priority)}>
                       {selectedRequest.priority.toUpperCase()}
                     </Tag>
@@ -774,30 +774,30 @@ export default function RequestAsset() {
                     </Tag>
                   </p>
                   <p>
-                    <strong>Request Date:</strong> {selectedRequest.request_date}
+                    <strong>Tanggal Permintaan:</strong> {selectedRequest.request_date}
                   </p>
                   <p>
-                    <strong>Required Date:</strong> {selectedRequest.required_date}
+                    <strong>Tanggal Dibutuhkan:</strong> {selectedRequest.required_date}
                   </p>
                 </div>
               </Col>
               <Col span={12}>
                 <div className='detail-section'>
-                  <h4>Requester Information</h4>
+                  <h4>Informasi Pemohon</h4>
                   <p>
-                    <strong>Name:</strong> {selectedRequest.requester}
+                    <strong>Nama:</strong> {selectedRequest.requester}
                   </p>
                   <p>
                     <strong>Email:</strong> {selectedRequest.requester_email}
                   </p>
                   <p>
-                    <strong>Department:</strong> {selectedRequest.department}
+                    <strong>Departemen:</strong> {selectedRequest.department}
                   </p>
                   <p>
-                    <strong>Budget Code:</strong> {selectedRequest.budget_code}
+                    <strong>Kode Anggaran:</strong> {selectedRequest.budget_code}
                   </p>
                   <p>
-                    <strong>Budget Available:</strong> Rp{' '}
+                    <strong>Anggaran Tersedia:</strong> Rp{' '}
                     {selectedRequest.budget_available.toLocaleString('id-ID')}
                   </p>
                 </div>
@@ -807,7 +807,7 @@ export default function RequestAsset() {
             <Row gutter={[16, 16]}>
               <Col span={24}>
                 <div className='detail-section'>
-                  <h4>Justification</h4>
+                  <h4>Alasan</h4>
                   <p>{selectedRequest.justification}</p>
                 </div>
               </Col>
@@ -816,7 +816,7 @@ export default function RequestAsset() {
             <Row gutter={[16, 16]}>
               <Col span={24}>
                 <div className='detail-section'>
-                  <h4>Items Requested</h4>
+                  <h4>Item yang Diminta</h4>
                   <div className='items-table'>
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                       <thead>
@@ -828,7 +828,7 @@ export default function RequestAsset() {
                               textAlign: 'left',
                             }}
                           >
-                            Item Name
+                            Nama Item
                           </th>
                           <th
                             style={{
@@ -837,7 +837,7 @@ export default function RequestAsset() {
                               textAlign: 'left',
                             }}
                           >
-                            Quantity
+                            Jumlah
                           </th>
                           <th
                             style={{
@@ -846,7 +846,7 @@ export default function RequestAsset() {
                               textAlign: 'left',
                             }}
                           >
-                            Unit Price
+                            Harga Satuan
                           </th>
                           <th
                             style={{
@@ -855,7 +855,7 @@ export default function RequestAsset() {
                               textAlign: 'left',
                             }}
                           >
-                            Total Price
+                            Total Harga
                           </th>
                           <th
                             style={{
@@ -864,7 +864,7 @@ export default function RequestAsset() {
                               textAlign: 'left',
                             }}
                           >
-                            Specifications
+                            Spesifikasi
                           </th>
                         </tr>
                       </thead>
@@ -924,7 +924,7 @@ export default function RequestAsset() {
             <Row gutter={[16, 16]}>
               <Col span={24}>
                 <div className='detail-section'>
-                  <h4>Workflow Progress</h4>
+                  <h4>Progress Alur</h4>
                   <Steps
                     current={selectedRequest.workflow.findIndex(
                       (step) => step.status === 'pending'
@@ -940,7 +940,7 @@ export default function RequestAsset() {
                             <div>{step.assignee}</div>
                             {step.completed_date && (
                               <div style={{ fontSize: '12px', color: '#8c8c8c' }}>
-                                Completed: {step.completed_date}
+                              Selesai: {step.completed_date}
                               </div>
                             )}
                           </div>
@@ -962,7 +962,7 @@ export default function RequestAsset() {
             <Row gutter={[16, 16]}>
               <Col span={24}>
                 <div className='detail-section'>
-                  <h4>Attachments</h4>
+                  <h4>Lampiran</h4>
                   <div className='attachments'>
                     {selectedRequest.attachments.map((file, index) => (
                       <Tag key={index} icon={<FileTextOutlined />}>

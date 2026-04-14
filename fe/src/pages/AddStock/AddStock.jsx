@@ -121,12 +121,12 @@ const AddStock = () => {
         purchase_period: values.purchase_period,
         minimum_stock: Number(values.minimum_stock ?? 0),
       });
-      message.success('Part baru berhasil ditambahkan');
+      message.success('Stok baru berhasil ditambahkan');
       handleAddCancel();
       loadStockData();
     } catch (error) {
-      console.error('Gagal menambah stock:', error);
-      message.error('Gagal menyimpan part baru');
+      console.error('Gagal menambah stok:', error);
+      message.error('Gagal menyimpan stok baru');
     } finally {
       setLoading(false);
     }
@@ -171,8 +171,8 @@ const AddStock = () => {
       handleUpdateCancel();
       loadStockData();
     } catch (error) {
-      console.error('Gagal update stock:', error);
-      message.error('Gagal update stok');
+      console.error('Gagal memperbarui stok:', error);
+      message.error('Gagal memperbarui stok');
     } finally {
       setLoading(false);
     }
@@ -184,25 +184,25 @@ const AddStock = () => {
 
   const columns = [
     {
-      title: 'Part Code',
+      title: 'Kode Part',
       dataIndex: 'part_code',
       key: 'part_code',
       render: (_, record) => <strong>{record.part_code || `#${record.part_id}`}</strong>,
     },
     {
-      title: 'Part Name',
+      title: 'Nama Part',
       dataIndex: 'part_name',
       key: 'part_name',
       ellipsis: true,
     },
     {
-      title: 'Category',
+      title: 'Kategori',
       dataIndex: 'category',
       key: 'category',
       render: (category) => <Tag color='blue'>{category || 'Uncategorized'}</Tag>,
     },
     {
-      title: 'Current Stock',
+      title: 'Stok Saat Ini',
       dataIndex: 'current_stock',
       key: 'current_stock',
       render: (stock, record) => (
@@ -229,18 +229,18 @@ const AddStock = () => {
       },
     },
     {
-      title: 'Unit Price',
+      title: 'Harga Satuan',
       dataIndex: 'price',
       key: 'price',
       render: (price) => `Rp ${Number(price || 0).toLocaleString('id-ID')}`,
     },
     {
-      title: 'Location',
+      title: 'Lokasi',
       key: 'location',
       render: (_, record) => `Gudang ${record.warehouse_id ?? '-'}`,
     },
     {
-      title: 'Action',
+      title: 'Aksi',
       key: 'action',
       render: (_, record) => (
         <Space>
@@ -249,7 +249,7 @@ const AddStock = () => {
             size='small'
             onClick={() => openUpdateModal(record, 'in')}
           >
-            Update Stock
+            Perbarui Stok
           </Button>
         </Space>
       ),
@@ -259,8 +259,8 @@ const AddStock = () => {
   return (
     <div className='add-stock'>
       <div className='page-header'>
-        <h1>Add Stock</h1>
-        <p>Tambah stock parts dan management inventory</p>
+        <h1>Tambah Stok</h1>
+        <p>Kelola stok part dan inventaris dengan lebih cepat.</p>
       </div>
 
       <StockStats stats={stats} />

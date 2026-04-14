@@ -14,7 +14,8 @@ import {
   updateAsset,
   getAssetDetails,
 } from '../../../services/AssetService';
-import { showError, showSuccess, alertConfirm } from '../../../comp/Notification';
+import { showError, showSuccess } from '../../../components/shared/notification/toast';
+import { alertConfirm } from '../../../components/shared/notification/alerts';
 import { useDebounce } from '../../../hooks/useDebounce';
 import socketService from '../../../services/SocketService';
 

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Input, Select, Button, Space, message } from 'antd';
-import { SearchOutlined, ReloadOutlined } from '@ant-design/icons';
+import React, { useMemo, useState } from 'react';
+import { Table, Input, Select, Button, Space, Empty, Typography, Badge } from 'antd';
+import { ReloadOutlined, FilterOutlined, SearchOutlined } from '@ant-design/icons';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -13,66 +13,120 @@ const DataTable = ({
   searchPlaceholder = "Search...",
   filters = [],
   onRefresh,
-  rowClassName 
+  rowClassName,
+  searchFields = [],
 }) => {
   const [searchText, setSearchText] = useState('');
-  const [filteredData, setFilteredData] = useState(dataSource);
+  const normalizedSearch = searchText.trim().toLowerCase();
 
-  useEffect(() => {
-    let filtered = dataSource.filter(item => {
-      const matchesSearch = searchText === '' || 
-        Object.values(item).some(value => 
-          String(value).toLowerCase().includes(searchText.toLowerCase())
-        );
-      return matchesSearch;
+  const filteredData = useMemo(() => {
+    if (!normalizedSearch) return dataSource;
+
+    const fieldsToSearch =
+      Array.isArray(searchFields) && searchFields.length > 0
+        ? searchFields
+        : null;
+
+    return dataSource.filter((item) => {
+      const values = fieldsToSearch
+        ? fieldsToSearch.map((field) => item?.[field])
+        : Object.values(item);
+
+      return values.some((value) => {
+        if (value === null || value === undefined) return false;
+        if (typeof value === 'object') return false;
+        return String(value).toLowerCase().includes(normalizedSearch);
+      });
     });
-    setFilteredData(filtered);
-  }, [searchText, dataSource]);
+  }, [dataSource, normalizedSearch, searchFields]);
+
+  const hasActiveFilters =
+    Boolean(normalizedSearch) || filters.some((filter) => filter.value !== undefined && filter.value !== null && filter.value !== '' && filter.value !== 'all');
+
+  const resetFilters = () => {
+    setSearchText('');
+    filters.forEach((filter) => {
+      if (typeof filter.onReset === 'function') {
+        filter.onReset();
+      }
+    });
+  };
 
   const tableControls = (
-    <div className="table-controls">
-      <Space>
+    <div className="data-table__toolbar">
+      <div className="data-table__search">
         <Search
           placeholder={searchPlaceholder}
           allowClear
-          style={{ width: 300 }}
+          prefix={<SearchOutlined />}
+          size="large"
           onChange={(e) => setSearchText(e.target.value)}
+          onSearch={(value) => setSearchText(value)}
         />
-        {filters.map(filter => (
-          <Select
-            key={filter.key}
-            value={filter.value}
-            onChange={filter.onChange}
-            style={{ width: 200 }}
-            placeholder={filter.placeholder}
-          >
-            {filter.options.map(option => (
-              <Option key={option.value} value={option.value}>
-                {option.label}
-              </Option>
-            ))}
-          </Select>
-        ))}
-        <Button
-          icon={<ReloadOutlined />}
-          onClick={onRefresh}
-          loading={loading}
-        >
-          Refresh
-        </Button>
-      </Space>
+      </div>
+
+      <div className="data-table__actions">
+        <div className="data-table__filters">
+          {filters.map((filter) => (
+            <Select
+              key={filter.key}
+              value={filter.value}
+              onChange={filter.onChange}
+              className="data-table__filter"
+              placeholder={filter.placeholder}
+              allowClear={filter.allowClear ?? false}
+              suffixIcon={<FilterOutlined />}
+            >
+              {(filter.options || []).map((option) => (
+                <Option key={option.value} value={option.value}>
+                  {option.label}
+                </Option>
+              ))}
+            </Select>
+          ))}
+        </div>
+
+        <Space wrap>
+          <Button icon={<ReloadOutlined />} onClick={onRefresh} loading={loading}>
+            Refresh
+          </Button>
+          <Button onClick={resetFilters} disabled={!hasActiveFilters}>
+            Reset
+          </Button>
+        </Space>
+      </div>
     </div>
   );
 
   return (
     <div className="data-table">
       {tableControls}
+      <div className="data-table__summary">
+        <Typography.Text type="secondary">
+          Menampilkan <strong>{filteredData.length}</strong> dari <strong>{dataSource.length}</strong>{' '}
+          data
+        </Typography.Text>
+        {hasActiveFilters && (
+          <Badge status="processing" text="Filter aktif" />
+        )}
+      </div>
       <Table
         columns={columns}
         dataSource={filteredData}
         loading={loading}
         pagination={pagination}
         rowClassName={rowClassName}
+        locale={{
+          emptyText: (
+            <Empty
+              description={
+                normalizedSearch || filters.length > 0
+                  ? 'Tidak ada data yang cocok dengan pencarian atau filter.'
+                  : 'Belum ada data untuk ditampilkan.'
+              }
+            />
+          ),
+        }}
       />
     </div>
   );

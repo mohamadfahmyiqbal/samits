@@ -1377,3 +1377,15 @@
 {"level":"debug","message":"[DEBUG] Transaction rolled back (importAssetsFromExcel-SCANNER-42).","timestamp":"2026-04-10T10:07:18.844Z"}
 {"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"SCANNER","timestamp":"2026-04-10T10:08:20.393Z"}
 {"0":"SCANNER","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-04-10T10:08:20.393Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"ACCESSDOOR","timestamp":"2026-04-10T10:10:08.307Z"}
+{"0":"ACCESSDOOR","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-04-10T10:10:08.307Z"}
+{"level":"error","message":"[DEBUG] Sheet \"ACCESSDOOR\" Row 7 - ERROR:","timestamp":"2026-04-10T10:10:08.368Z"}
+{"level":"debug","message":"[DEBUG] Transaction rolled back (importAssetsFromExcel-ACCESSDOOR-7).","timestamp":"2026-04-10T10:10:08.370Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"ACCESSDOOR","timestamp":"2026-04-10T10:11:26.742Z"}
+{"0":"ACCESSDOOR","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-04-10T10:11:26.742Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"ACCESSDOOR","timestamp":"2026-04-13T02:21:17.974Z"}
+{"0":"ACCESSDOOR","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-04-13T02:21:17.974Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"PC","timestamp":"2026-04-13T02:21:30.765Z"}
+{"0":"PC","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-04-13T02:21:30.765Z"}
+{"debug":"1","level":"debug","message":"[DEBUG] Body:","sheetNames":"CCTV","timestamp":"2026-04-13T02:21:39.967Z"}
+{"0":"CCTV","level":"debug","message":"[DEBUG] Selected sheets:","timestamp":"2026-04-13T02:21:39.967Z"}

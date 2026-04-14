@@ -48,7 +48,7 @@ const StockOpname = () => {
       });
     } catch (error) {
       console.error('Gagal load opname data:', error);
-      message.error('Gagal memuat data stock (gunakan listParts sementara)');
+      message.error('Gagal memuat data stok');
     } finally {
       setLoading(false);
     }
@@ -86,9 +86,9 @@ const StockOpname = () => {
       physical_count: record.physical_count,
       notes: 'Stock opname adjustment',
     }).then(() => {
-      message.success('Adjustment saved');
+      message.success('Penyesuaian tersimpan');
       loadOpnameData();
-    }).catch(() => message.error('Gagal save adjustment'));
+    }).catch(() => message.error('Gagal menyimpan penyesuaian'));
   }, [loadOpnameData]);
 
   const handleStartOpname = useCallback(() => {
@@ -100,7 +100,7 @@ const StockOpname = () => {
     inventoryService.completeOpname().then(() => {
       setOpnameStatus('completed');
       message.success('Stock Opname selesai dan disimpan');
-    }).catch(() => message.error('Gagal complete opname'));
+    }).catch(() => message.error('Gagal menyelesaikan stok opname'));
   }, []);
 
   const handleExportReport = useCallback(() => {
@@ -113,7 +113,7 @@ const StockOpname = () => {
       link.click();
       link.remove();
       message.success('Report diunduh');
-    }).catch(() => message.error('Gagal export'));
+    }).catch(() => message.error('Gagal mengekspor data'));
   }, [filters]);
 
   const filteredData = useMemo(() => {
@@ -143,7 +143,7 @@ const StockOpname = () => {
         <Title level={2}>
           <BarcodeOutlined /> Stock Opname
         </Title>
-        <p>Physical inventory counting dengan barcode scanner & discrepancy management</p>
+        <p>Hitung stok fisik dengan pemindai barcode dan kelola selisih dengan lebih mudah.</p>
       </div>
 
       <Row gutter={16} style={{ marginBottom: 24 }}>
@@ -201,6 +201,7 @@ const StockOpname = () => {
         onSaveAdjustment={handleSaveAdjustment}
         onStartOpname={handleStartOpname}
         onCompleteOpname={handleCompleteOpname}
+        onRefresh={loadOpnameData}
         filters={filters}
         onFiltersChange={setFilters}
         opnameStatus={opnameStatus}
@@ -219,8 +220,8 @@ const StockOpname = () => {
 
       <div style={{ textAlign: 'right', marginTop: 24 }}>
         <Space>
-          <Button icon={<FileExcelOutlined />} onClick={handleExportReport}>
-            Export Report
+            <Button icon={<FileExcelOutlined />} onClick={handleExportReport}>
+            Ekspor Laporan
           </Button>
           {opnameStatus === 'draft' && (
             <Button type="primary" icon={<PlayCircleOutlined />} onClick={handleStartOpname}>

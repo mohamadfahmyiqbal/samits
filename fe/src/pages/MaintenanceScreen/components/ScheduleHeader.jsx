@@ -10,12 +10,12 @@ const ScheduleHeader = () => {
     <div className="d-flex justify-content-between align-items-center mb-3">
       <h2 className="mb-0 fw-bold text-primary">
         <i className="bi bi-calendar-check-fill me-2"></i>
-        Preventive Maintenance Schedule
+        Jadwal Preventive Maintenance
       </h2>
       <div className="d-flex gap-2">
         <Badge bg="info" className="py-2 px-3 shadow-sm">
           <i className="bi bi-clock-history me-1"></i>
-          Overdue: {filteredLogs.filter(l => l.status === 'overdue').length}
+          Terlambat: {filteredLogs.filter(l => l.status === 'overdue').length}
         </Badge>
         <Badge bg="secondary" className="py-2 px-3 shadow-sm">
           <i className="bi bi-list-task me-1"></i>

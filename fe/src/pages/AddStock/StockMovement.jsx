@@ -35,7 +35,7 @@ const StockMovement = () => {
         total: response.data?.total || response.total || 0,
       });
 
-      // Update stats dari response atau calculate
+      // Update statistik dari response atau fallback hitung lokal
       if (response.data?.stats || response.stats) {
         setStats(response.data?.stats || response.stats);
       }
@@ -83,9 +83,9 @@ const StockMovement = () => {
       document.body.appendChild(link);
       link.click();
       link.remove();
-      message.success('Export berhasil diunduh');
+      message.success('Ekspor berhasil diunduh');
     } catch (error) {
-      message.error('Gagal export data');
+      message.error('Gagal mengekspor data');
     }
   }, [filters]);
 
@@ -104,13 +104,13 @@ const StockMovement = () => {
       render: (id) => <strong>#{id}</strong>,
     },
     {
-      title: 'Part Code',
+      title: 'Kode Part',
       dataIndex: 'part_code',
       key: 'part_code',
       ellipsis: true,
     },
     {
-      title: 'Part Name',
+      title: 'Nama Part',
       dataIndex: 'part_name',
       key: 'part_name',
       ellipsis: true,
@@ -126,7 +126,7 @@ const StockMovement = () => {
       },
     },
     {
-      title: 'Quantity',
+      title: 'Jumlah',
       key: 'quantity',
       width: 120,
       render: (_, record) => (
@@ -203,8 +203,8 @@ const StockMovement = () => {
   return (
     <div className="stock-movement">
       <div className="page-header">
-        <Title level={2}>Stock Movement</Title>
-        <p>Monitor semua pergerakan stok parts (IN/OUT/Adjustment/Transfer)</p>
+        <Title level={2}>Pergerakan Stok</Title>
+        <p>Pantau semua pergerakan stok part (masuk, keluar, penyesuaian, dan transfer).</p>
       </div>
 
       {/* Stats Cards */}
@@ -212,7 +212,7 @@ const StockMovement = () => {
         <Col span={8}>
           <Card>
             <Statistic
-              title="Total Stock In"
+              title="Total Stok Masuk"
               value={stats.totalIn || 0}
               styles={{ content: { color: '#52c41a' } }}
               prefix={<ReloadOutlined />}
@@ -223,7 +223,7 @@ const StockMovement = () => {
         <Col span={8}>
           <Card>
             <Statistic
-              title="Total Stock Out"
+              title="Total Stok Keluar"
               value={stats.totalOut || 0}
               styles={{ content: { color: '#ff4d4f' } }}
               prefix={<ReloadOutlined />}

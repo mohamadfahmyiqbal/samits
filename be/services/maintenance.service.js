@@ -1,24 +1,14 @@
-import { db } from "../models/index.js";
+// be\services\maintenance.service.js
+import {
+  db,
+  getMaintenancePlanModel,
+  getITItemModel,
+  getMaintenancePlanAssetModel,
+} from "./maintenance/shared.js";
 import workorderService from "./workorder.service.js";
 // ✅ FIXED: Hapus unused UserService import (no default export + dead code)
 
-const getMaintenancePlanModel = () => {
-  if (!db.MaintenancePlan) {
-    throw new Error(
-      "Model MaintenancePlan belum tersedia (belum diinisialisasi).",
-    );
-  }
-  return db.MaintenancePlan;
-};
 
-const getITItemModel = () => {
-  if (!db.ITItem) {
-    throw new Error(
-      "Model ITItem belum tersedia. Pastikan initializeDB sudah dijalankan.",
-    );
-  }
-  return db.ITItem;
-};
 
 const lookupITItemByTag = async (tag, transaction) => {
   const normalizedTag = (tag ?? "").toString().trim();
@@ -46,15 +36,6 @@ const lookupITItemById = async (id, transaction) => {
   if (!id) return null;
   const ITItem = getITItemModel();
   return ITItem.findByPk(id, { transaction });
-};
-
-const getMaintenancePlanAssetModel = () => {
-  if (!db.MaintenancePlanAsset) {
-    throw new Error(
-      "Model MaintenancePlanAsset belum tersedia (belum diinisialisasi).",
-    );
-  }
-  return db.MaintenancePlanAsset;
 };
 
 const normalizeAssetRow = (raw) => {

@@ -2,8 +2,9 @@ import React from 'react';
 import { Result, Button, Typography, Space } from 'antd';
 import {
  ReloadOutlined,
- HomeOutlined
+ HomeOutlined,
 } from '@ant-design/icons';
+import { Navigate } from 'react-router-dom';
 
 const { Text } = Typography;
 
@@ -13,7 +14,8 @@ class ErrorBoundary extends React.Component {
 
   this.state = {
    hasError: false,
-   error: null
+   error: null,
+   redirectHome: false,
   };
  }
 
@@ -37,11 +39,23 @@ class ErrorBoundary extends React.Component {
  };
 
  handleGoHome = () => {
-  window.location.href = '/';
+  const { homePath = '/' } = this.props;
+  this.setState({ redirectHome: true, homePath });
  };
 
  render() {
-  const { hasError, error } = this.state;
+  const { hasError, error, redirectHome, homePath } = this.state;
+ const {
+   title = 'Terjadi kesalahan',
+   description = 'Coba muat ulang halaman atau kembali ke beranda.',
+   homeLabel = 'Ke beranda',
+   refreshLabel = 'Muat ulang',
+   resultStatus = '500',
+  } = this.props;
+
+  if (redirectHome) {
+   return <Navigate to={homePath || '/'} replace />;
+  }
 
   if (hasError) {
    return (
@@ -56,9 +70,9 @@ class ErrorBoundary extends React.Component {
      }}
     >
      <Result
-      status="500"
-      title="500"
-      subTitle="Something went wrong. Please try again or return to the dashboard."
+      status={resultStatus}
+      title={resultStatus}
+      subTitle={description}
       extra={
        <Space wrap>
         <Button
@@ -67,7 +81,7 @@ class ErrorBoundary extends React.Component {
          onClick={this.handleRefresh}
          size="large"
         >
-         Refresh Page
+         {refreshLabel}
         </Button>
 
         <Button
@@ -75,11 +89,14 @@ class ErrorBoundary extends React.Component {
          onClick={this.handleGoHome}
          size="large"
         >
-         Go Home
+         {homeLabel}
         </Button>
        </Space>
       }
      >
+      <Typography.Title level={4} style={{ marginTop: 0 }}>
+       {title}
+      </Typography.Title>
       {process.env.NODE_ENV === 'development' &&
        error && (
         <Text
@@ -92,7 +109,7 @@ class ErrorBoundary extends React.Component {
           whiteSpace: 'pre-wrap'
          }}
         >
-         {error.stack}
+         {error.stack || error.message}
         </Text>
        )}
      </Result>

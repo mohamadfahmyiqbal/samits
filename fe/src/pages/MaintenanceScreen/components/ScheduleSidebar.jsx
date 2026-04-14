@@ -2,7 +2,8 @@ import React from "react";
 import ScheduleList from "./ScheduleList";
 import ScheduleSummary from "./ScheduleSummary";
 import { useSchedule } from "../context/ScheduleContext";
-import { showError, showSuccess, alertConfirm } from "../../../comp/Notification";
+import { showError, showSuccess } from "../../../components/shared/notification/toast";
+import { alertConfirm } from "../../../components/shared/notification/alerts";
 
 const ScheduleSidebar = () => {
   const {

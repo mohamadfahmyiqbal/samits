@@ -138,7 +138,7 @@ const ScanModal = ({ visible, onScanSuccess, onCancel, currentPart }) => {
                   min={1}
                   value={quantity}
                   onChange={setQuantity}
-                  placeholder="Quantity"
+                  placeholder="Jumlah"
                   style={{ width: 120 }}
                 />
               </Space>

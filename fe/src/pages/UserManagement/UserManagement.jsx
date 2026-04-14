@@ -3,7 +3,7 @@ import { Button, Card, Spinner, Table, Form, InputGroup, Badge, Stack } from 're
 import { toast } from 'react-toastify';
 import { Plus, Search, RefreshCw, Pencil, Trash2 } from 'lucide-react';
 import userService from '../../services/UserService';
-import TambahUserModal from '../../components/modals/TambahUserModal';
+import TambahUserModal from './components/TambahUserModal';
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);

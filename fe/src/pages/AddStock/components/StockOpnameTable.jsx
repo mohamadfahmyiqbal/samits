@@ -12,6 +12,7 @@ const StockOpnameTable = ({
   onSaveAdjustment,
   onStartOpname,
   onCompleteOpname,
+  onRefresh,
   filters,
   onFiltersChange,
   opnameStatus,
@@ -19,14 +20,14 @@ const StockOpnameTable = ({
 }) => {
   const columns = [
     {
-      title: 'Part Code',
+      title: 'Kode Part',
       dataIndex: 'part_code',
       key: 'part_code',
       width: 120,
       render: (code) => <strong><Badge dot>{code || '#'}</Badge></strong>,
     },
     {
-      title: 'Part Name',
+      title: 'Nama Part',
       dataIndex: 'part_name',
       key: 'part_name',
       ellipsis: true,
@@ -95,12 +96,12 @@ const StockOpnameTable = ({
       render: (_, record) => {
         const physical = record.physical_count || 0;
         const system = record.system_stock || 0;
-        if (physical === 0) return <Tag color="default">Pending</Tag>;
+        if (physical === 0) return <Tag color="default">Menunggu</Tag>;
         return <Tag color={physical === system ? 'green' : 'yellow'}>Counted</Tag>;
       },
     },
     {
-      title: 'Action',
+      title: 'Aksi',
       key: 'action',
       width: 140,
       render: (_, record) => (
@@ -149,10 +150,10 @@ const StockOpnameTable = ({
             onClick={onCompleteOpname}
             disabled={opnameStatus !== 'active'}
           >
-            Selesai & Approve
+            Selesai & Setujui
           </Button>
-          <Button icon={<ReloadOutlined />} onClick={() => window.location.reload()}>
-            Refresh
+          <Button icon={<ReloadOutlined />} onClick={onRefresh}>
+            Muat Ulang
           </Button>
         </Space>
       }
@@ -162,6 +163,7 @@ const StockOpnameTable = ({
           <Input.Search
             placeholder="Cari part code/nama"
             onSearch={(value) => onFiltersChange({ search: value })}
+            allowClear
             style={{ width: 300 }}
           />
           <Select 

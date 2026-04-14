@@ -33,10 +33,10 @@ const StockMovementTable = ({
       extra={
         <Space>
           <Button icon={<DownloadOutlined />} onClick={onExport}>
-            Export CSV
+            Ekspor CSV
           </Button>
           <Button icon={<ReloadOutlined />} onClick={onRefresh} loading={loading}>
-            Refresh
+            Muat Ulang
           </Button>
         </Space>
       }
@@ -50,9 +50,9 @@ const StockMovementTable = ({
             style={{ width: 180 }}
             allowClear
           >
-            <Option value="in">Stock In</Option>
-            <Option value="out">Stock Out</Option>
-            <Option value="adjustment">Adjustment</Option>
+            <Option value="in">Stok Masuk</Option>
+            <Option value="out">Stok Keluar</Option>
+            <Option value="adjustment">Penyesuaian</Option>
           </Select>
           <RangePicker
             value={filters.dateRange || []}
@@ -62,13 +62,13 @@ const StockMovementTable = ({
             placeholder={['Tanggal Mulai', 'Tanggal Selesai']}
           />
           <Input.Search
-            placeholder="Cari part code/nama"
+            placeholder="Cari kode part / nama part"
             value={filters.search || ''}
             onSearch={(value) => handleFilterChange('search', value)}
             style={{ width: 280 }}
             allowClear
           />
-          <Button icon={<FilterOutlined />}>Filter</Button>
+          <Button icon={<FilterOutlined />}>Terapkan</Button>
         </Space>
       </div>
 

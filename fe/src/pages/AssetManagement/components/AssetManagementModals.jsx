@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import { useAssetManagement } from '../context/AssetManagementContext';
-import AssetFormModal from '../../../comp/asset/modal/AddAssetModal/page/AssetFormModal';
-import ModalDetail from '../../../comp/ModalDetail';
+import AssetFormModal from './modals/AssetFormModal';
+import ModalDetail from '../ModalDetail';
 
 const AssetManagementModals = () => {
   const {

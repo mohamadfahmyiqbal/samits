@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Modal, Button, Form, Row, Col, Alert } from 'react-bootstrap';
 import { useChecksheetManagement } from '../context/ChecksheetManagementContext';
-import maintenanceChecklistService from '../../../services/maintenanceChecklist.service.js';
+import maintenanceChecklistService from '../../../services/MaintenanceChecklistService';
 
 const initialItem = () => ({
   description: '',

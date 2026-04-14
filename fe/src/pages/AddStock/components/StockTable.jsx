@@ -16,14 +16,14 @@ const StockTable = ({
   onAdd,
 }) => (
   <Card
-    title='Daftar Stock Parts'
+    title='Daftar Stok Part'
     extra={
       <Space>
-        <Button type='primary' icon={<PlusOutlined />} onClick={onAdd}>
-          Tambah Parts
+          <Button type='primary' icon={<PlusOutlined />} onClick={onAdd}>
+          Tambah Stok
         </Button>
         <Button icon={<ReloadOutlined />} onClick={onRefresh} loading={loading}>
-          Refresh
+          Muat Ulang
         </Button>
       </Space>
     }
@@ -32,13 +32,13 @@ const StockTable = ({
       <Space>
         <Select value={selectedCategory} onChange={onCategoryChange} style={{ width: 220 }}>
           {categoryOptions.map((cat) => (
-            <Option key={cat.value} value={cat.value}>
+          <Option key={cat.value} value={cat.value}>
               {cat.label}
             </Option>
           ))}
         </Select>
         <Input.Search
-          placeholder='Cari parts...'
+          placeholder='Cari part...'
           allowClear
           style={{ width: 300 }}
           onChange={(event) => onSearchChange(event.target.value)}
@@ -56,7 +56,7 @@ const StockTable = ({
         pageSize: 10,
         showSizeChanger: true,
         showQuickJumper: true,
-        showTotal: (total, range) => `${range[0]}-${range[1]} dari ${total} items`,
+        showTotal: (total, range) => `${range[0]}-${range[1]} dari ${total} data`,
       }}
     />
   </Card>

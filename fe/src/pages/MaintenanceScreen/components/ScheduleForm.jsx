@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useEffect, useRef } from 'react';
 import { Modal, Button, Row, Col, Spinner, Table, Form } from 'react-bootstrap';
 import Select from 'react-select';
 import { format } from 'date-fns';
-import { alertWarning, alertConfirm } from '../../../comp/Notification';
+import { alertWarning, alertConfirm } from '../../../components/shared/notification/alerts';
 
 const hasFormData = (data) => {
   return (

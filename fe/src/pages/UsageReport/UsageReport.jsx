@@ -13,7 +13,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import inventoryService from '../../services/inventory.service';
+import inventoryService from '../../services/InventoryService';
 import api from '../../services/api';
 
 ChartJS.register(

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userService from '../../../services/UserService';
-import { encryptPath } from '../../../router/encryptPath';
+import { encryptPath } from '../../../routes/pathEncoding';
 import { useSocket } from '../../../context/SocketContext';
 
 export const useLoginScreen = () => {
@@ -10,7 +10,8 @@ export const useLoginScreen = () => {
   const [loading, setLoading] = useState(false);
   const [notif, setNotif] = useState({ status: 0, message: '' });
   const navigate = useNavigate();
-  const { connectSocket } = useSocket();
+  const socketContext = useSocket();
+  const connectSocket = socketContext?.connectSocket;
 
   const handleChange = (field, value) => {
     setFields((prev) => ({ ...prev, [field]: value }));
@@ -40,7 +41,7 @@ export const useLoginScreen = () => {
       if (res && res.status === 200) {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userData', JSON.stringify(res.data.user));
-        connectSocket(res.data.token);
+        connectSocket?.(res.data.token);
         navigate(`/${encryptPath('dashboard')}`);
       } else {
         const errorMessage =

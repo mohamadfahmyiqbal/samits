@@ -16,18 +16,6 @@ export const assetRoutes = [
     component: lazy(() => import('../pages/AssetManagement/AssetManagementPage')),
   },
   {
-    path: 'hardware',
-    component: lazy(() => import('../pages/AssetHardware/AssetHardware')),
-  },
-  {
-    path: 'software',
-    component: lazy(() => import('../pages/AssetSoftware/AssetSoftware')),
-  },
-  {
-    path: 'infrastruktur',
-    component: lazy(() => import('../pages/Infrastructure/Infrastructure')),
-  },
-  {
     path: 'summary',
     component: lazy(() => import('../pages/Summary')),
   },
